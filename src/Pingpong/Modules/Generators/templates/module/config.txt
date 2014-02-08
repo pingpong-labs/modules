@@ -1,0 +1,17 @@
+<?php
+
+return array(
+	
+	/**
+	 *-----------------------------------------------------------
+	 * Aliases controllers and models
+	 *-----------------------------------------------------------
+	 *
+	 * If true, controllers and models on this modules will be
+	 * aliased to filename/classname, this is help when you using 
+	 * namespace
+	 *
+	 **/
+
+	'alias'	=>	false
+);

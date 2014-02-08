@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Module {{module}}</title>
+</head>
+<body>
+
+	<h2>
+		Hello from module {{module}}
+	</h2>
+	<p>
+		You module has been succesfully created. Enjoy!
+	</p>
+
+</body>
+</html>

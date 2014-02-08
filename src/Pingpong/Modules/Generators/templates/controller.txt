@@ -1,0 +1,17 @@
+<?php
+
+// uncomment this to use namespaced controller
+//namespace Modules\{{module}}\Controllers;
+
+class {{controller}}Controller extends \BaseController
+{
+	public function __construct()
+	{
+
+	}
+	
+	public function index()
+	{
+
+	}
+}

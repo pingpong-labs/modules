@@ -1,0 +1,12 @@
+<?php
+
+// uncomment this to use namespaced controller
+//namespace Modules\{{module}}\Controllers;
+
+class {{moduleCaps}}Controller extends \BaseController
+{
+	public function index()
+	{
+		return \View::make("{{module}}::hello");
+	}
+}

@@ -1,0 +1,7 @@
+<?php
+
+Route::group(array('prefix'	=>	'{{lower-module}}'), function(){
+	
+	Route::get('/', '{{moduleCaps}}Controller@index');
+	
+});

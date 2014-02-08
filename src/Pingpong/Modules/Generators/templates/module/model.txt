@@ -1,0 +1,9 @@
+<?php
+
+// uncomment this to use namespaced model
+//namespace Modules\{{module}}\Models;
+
+class {{module}} extends \Eloquent
+{
+	
+}

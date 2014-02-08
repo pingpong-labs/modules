@@ -1,0 +1,36 @@
+<?php 
+
+// uncomment this to use namespaced migration
+//namespace Modules\{{module}}\Database\Migrations;
+
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class {{classname}} extends Migration {
+
+	/**
+	 * Run the migrations.
+	 *
+	 * @return void
+	 */
+	public function up()
+	{
+		\Schema::create('{{table}}', function(Blueprint $table)
+		{
+			$table->increments('id');
+{{fields}}
+			$table->timestamps();
+		});
+	}
+
+	/**
+	 * Reverse the migrations.
+	 *
+	 * @return void
+	 */
+	public function down()
+	{
+		\Schema::drop('{{table}}');
+	}
+
+}
