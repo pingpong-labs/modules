@@ -45,6 +45,7 @@ laravel/
 |-- public
     |-- modules
         |-- blog
+            |-- assets
             |-- config
             |-- controllers
             |-- database
