@@ -73,6 +73,7 @@ class ModuleMake extends Command {
 		);
 
 		/* Template */
+		$phpunitScript  = $this->app['files']->get(__DIR__.'/templates/module/phpunit.txt');
 		$configScript	= $this->app['files']->get(__DIR__.'/templates/module/config.txt');
 		$filterScript	= $this->app['files']->get(__DIR__.'/templates/module/filters.txt');
 		$routeTpl 		= $this->app['files']->get(__DIR__.'/templates/module/routes.txt');
@@ -140,7 +141,8 @@ class ModuleMake extends Command {
 			'config/app.php' 								=> 	$configScript,
 			'filters.php' 									=> 	$filterScript,
 			'routes.php'									=>	$routeScript,
-			'views/hello.blade.php'							=>	$viewScript
+			'views/hello.blade.php'							=>	$viewScript,
+			'phpunit.xml'									=>	$phpunitScript
 		);
 
 		// creating new folder 

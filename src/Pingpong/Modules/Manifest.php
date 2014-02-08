@@ -14,7 +14,7 @@ class Manifest
 	/**
 	 * Filesystem object
 	 * 
-	 * @var Illuminate\Foundation\Filesystem
+	 * @var Illuminate\Filesystem\Filesystem
 	 */
 	protected $file;
 

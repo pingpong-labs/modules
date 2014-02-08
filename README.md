@@ -3,6 +3,17 @@
 This package makes laravel can implement HMVC or modular. 
 With this package, you can create a web application that is structured and easier to manage a large web application. 
 
+### New Feature and Changes
+1. Asset for each module.
+2. Update artisan command name `module:db-seed` to `module:seed`.
+3. Now, all modules require module.json file. This is details for each module.
+4. Move this repository from `gravitano/modules` to `pingpong-labs/modules`.
+5. Adding new facade `Module`. It's very cool for get all modules, get details from each module and others.
+6. Adding new classes for more flexible scripts.
+7. Update some generator class.
+8. Remove config file.
+9. Adding new `phpunit.xml` file when creating a new module.
+
 ### Installation 
 Open your composer.json file, and add the new required package. 
 
@@ -25,34 +36,31 @@ After the composer updated. Add new service provider in `app/config/app.php`.
 Finish. 
 
 ### Folder Structure
+After this package move to `pingpong/admin` repository, `modules` path is in public path. 
 
 ```
 laravel/
 |-- app
 |-- bootstrap
-|-- modules
-    |-- blog
-        |-- config
-        |-- controllers
-        |-- database
-            |-- migrations
-            |-- seeds
-        |-- models
-        |-- tests
-        |-- views
-        |-- filters.php
-        |-- routes.php
+|-- public
+    |-- modules
+        |-- blog
+            |-- config
+            |-- controllers
+            |-- database
+                |-- migrations
+                |-- seeds
+            |-- models
+            |-- tests
+            |-- views
+            |-- filters.php
+            |-- routes.php
+            |-- module.json
+            |-- phpunit.xml
 |-- vendor
 ```
 
-### Introduction 
-After the installation is finished you will get a new artisan features for: 
-
-1. Creating new module.
-2. Run migration from specified module.
-3. Run database seeder from specified module.
-4. Creating Controller
-5. Creating migration
+### Setup for first use
 
 Note: Before creating a new module, run 
 
@@ -62,7 +70,7 @@ Note: Before creating a new module, run
 it will set the path and folder configuration module. 
 
 ### Artisan CLI 
-1. Create a new module. 
+1. Creating a new module. 
 
   Format: 
   `php artisan module:make <module-name>`
@@ -85,28 +93,41 @@ it will set the path and folder configuration module.
   ```
   php artisan module:controller-make blog Site 
   ```
-  It will be created `SiteController` on blog module.
+  It's will be created `SiteController` on blog module.
   
 4. Running migration
+  
+  Running migration from all modules
+  ```
+  php artisan module:migrate 
+  ```
 
+  Running migration from specified module
   Format: 
   `php artisan module:migrate <module-name>`
   ```
   php artisan module:migrate blog 
   ```
+
   
 5. Seeding database
+
+  Seeding from all modules
+   ```
+  php artisan module:seed 
+  ```
   
+  Seeding from specified module
   Format: 
   `php artisan module:migrate-make <module-name>`
 
   ```
-  php artisan module:db-seed blog 
+  php artisan module:seed blog 
   ```
   
 ### Module Namespaces
 
-When you creating a new module, it also creating a new namespace view, lang and config for that module. For example if you create a new module something like 'Blog' you can calling a lang, view and config like below:
+When you creating a new module, it's also creating a new namespace view, lang and config for that module. For example if you create a new module something like 'Blog' you can calling a lang, view and config like below:
 
 Calling view:
 
@@ -132,6 +153,83 @@ Calling lang
 ```php
   Lang::get('blog::title')
 ```
+### Module Facades
+
+1. Get all modules.
+
+  ```php
+  Module::all()
+  ```
+
+2. Get all modules with details
+
+  ```php
+  Module::allWithDetails()
+  ```
+
+3. Reterving module exists
+
+  ```php
+  Module::has('blog')
+  ```
+
+4. Get details from specified module
+
+  ```php
+  Module::getDetails('blog')
+  ```
+
+5. Get JSON file from specified module
+
+  ```php
+  Module::getJsonFile('blog')
+  ```
+
+6. Get JSON content from specified module
+
+  ```php
+  Module::getJsonContent('blog')
+  ```
+
+7. Get JSON content and Convert JSON module detail to object
+
+  ```php
+  Module::parseJson('blog')
+  ```
+
+8. Get module path
+
+  ```php
+  Module::getPath()
+  ```
+  The result is `public_path() . 'modules'`
+
+9. Get module directory name
+
+  ```php
+  Module::getDirName()
+  ```
+  The result is `modules`
+
+10. HTML script and style tag for each module
+
+  ```php
+
+  Module::style('blog', 'css/style.css')
+
+  Module::script('blog', 'css/app.js')
+
+  ```
+
+11. Get asset from specified module
+  
+  Format:
+  `
+  Module::asset($moduleName, $assetUrl, $secure = FALSE)
+  `
+  ```php
+  Module::asset('blog' , 'images/avatar.png', TRUE)
+  ```
 
 ### License
 
