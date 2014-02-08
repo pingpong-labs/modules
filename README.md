@@ -13,6 +13,7 @@ With this package, you can create a web application that is structured and easie
 7. Update some generator class.
 8. Remove config file.
 9. Adding new `phpunit.xml` file when creating a new module.
+10. Adding new `module.json` file when creating a new module.
 
 ### Installation 
 Open your composer.json file, and add the new required package. 
