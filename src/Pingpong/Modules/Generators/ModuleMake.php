@@ -77,6 +77,7 @@ class ModuleMake extends Command {
 
 		/* Template */
 		$phpunitScript  = $this->app['files']->get(__DIR__.'/templates/module/phpunit.txt');
+		$jsonTpl		= $this->app['files']->get(__DIR__.'/templates/module/json.txt');
 		$cssScript  	= $this->app['files']->get(__DIR__.'/templates/module/css.txt');
 		$jsScript  		= $this->app['files']->get(__DIR__.'/templates/module/js.txt');
 		$configScript	= $this->app['files']->get(__DIR__.'/templates/module/config.txt');
@@ -138,6 +139,15 @@ class ModuleMake extends Command {
 		);
 		$dbseederScript = str_replace($search, $replace, $dbseederTpl);
 
+		/* replacing db-seeder */
+		$search = array(
+			'{{module}}'
+		);
+		$replace = array(
+			$newModuleCaps
+		);
+		$jsonScript = str_replace($search, $replace, $jsonTpl);
+
 		//files will be created
 		$files = array(
 			'assets/css/app.css' 								=> 	$cssScript,
@@ -149,7 +159,8 @@ class ModuleMake extends Command {
 			'filters.php' 									=> 	$filterScript,
 			'routes.php'									=>	$routeScript,
 			'views/hello.blade.php'							=>	$viewScript,
-			'phpunit.xml'									=>	$phpunitScript
+			'phpunit.xml'									=>	$phpunitScript,
+			'module.json'									=>	$jsonScript
 		);
 
 		// creating new folder 
