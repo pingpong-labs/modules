@@ -61,6 +61,9 @@ class ModuleMake extends Command {
 		}
 
 		$folders = array(
+			'assets',
+			'assets/css',
+			'assets/js',
 			'controllers',
 			'models',
 			'database',
@@ -74,6 +77,8 @@ class ModuleMake extends Command {
 
 		/* Template */
 		$phpunitScript  = $this->app['files']->get(__DIR__.'/templates/module/phpunit.txt');
+		$cssScript  	= $this->app['files']->get(__DIR__.'/templates/module/css.txt');
+		$jsScript  		= $this->app['files']->get(__DIR__.'/templates/module/js.txt');
 		$configScript	= $this->app['files']->get(__DIR__.'/templates/module/config.txt');
 		$filterScript	= $this->app['files']->get(__DIR__.'/templates/module/filters.txt');
 		$routeTpl 		= $this->app['files']->get(__DIR__.'/templates/module/routes.txt');
@@ -135,6 +140,8 @@ class ModuleMake extends Command {
 
 		//files will be created
 		$files = array(
+			'assets/css/app.css' 								=> 	$cssScript,
+			'assets/js/app.js' 								=> 	$jsScript,
 			'controllers/'.$newModuleCaps.'Controller.php' 	=> 	$controllerScript,
 			'models/'.$newModuleCaps.'.php' 				=> 	$modelScript,
 			'database/seeds/'.$newModuleCaps.'DatabaseSeeder.php'	=> 	$dbseederScript,
@@ -160,7 +167,7 @@ class ModuleMake extends Command {
 		//creating new file
 		foreach ($files as $filename => $content) {
 			$filename =  $path.$newModule.'/'.$filename;
-			if( ! file_put_contents($filename, $content))
+			if( ! $this->app['files']->put($filename, $content))
 			{
 				$this->error("Can not create : $filename");
 			}else
