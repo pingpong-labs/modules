@@ -36,7 +36,7 @@ After the composer updated. Add new service provider in `app/config/app.php`.
 Finish. 
 
 ### Folder Structure
-After this package move to `pingpong/admin` repository, `modules` path is in public path. 
+After this repository move to `pingpong/modules`, `modules` path is in public path. 
 
 ```
 laravel/
@@ -102,7 +102,8 @@ it will set the path and folder configuration module.
   php artisan module:migrate 
   ```
 
-  Running migration from specified module
+  Running migration from specified module.
+  
   Format: 
   `php artisan module:migrate <module-name>`
   ```
@@ -117,7 +118,8 @@ it will set the path and folder configuration module.
   php artisan module:seed 
   ```
   
-  Seeding from specified module
+  Seeding from specified module.
+  
   Format: 
   `php artisan module:migrate-make <module-name>`
 
@@ -218,7 +220,6 @@ Calling lang
   Module::style('blog', 'css/style.css')
 
   Module::script('blog', 'css/app.js')
-
   ```
 
 11. Get asset from specified module
