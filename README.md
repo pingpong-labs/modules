@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ###Laravel 4.* Modules Package
 
 This package makes laravel can implement HMVC or modular. 
@@ -136,3 +137,9 @@ Calling lang
 ### License
 
 This package is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+=======
+modules
+=======
+
+Laravel 4 Package - Modules Package
+>>>>>>> 6ab77fa91f1f3ee3d29ab0a340ea85210f3cf5f8
