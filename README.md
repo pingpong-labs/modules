@@ -129,6 +129,14 @@ it will set the path and folder configuration module.
   php artisan module:seed blog 
   ```
   
+6. Reset database and re-run all migrations from all modules.
+
+   ```
+  php artisan module:migrate-refresh 
+
+  php artisan module:migrate-refresh --database="connection-name"
+  ```
+  
 ### Module Namespaces
 
 When you creating a new module, it's also creating a new namespace view, lang and config for that module. For example if you create a new module something like 'Blog' you can calling a lang, view and config like below:
@@ -171,7 +179,7 @@ Calling lang
   Module::allWithDetails()
   ```
 
-3. Reterving module exists
+3. Is there a module?
 
   ```php
   Module::has('blog')

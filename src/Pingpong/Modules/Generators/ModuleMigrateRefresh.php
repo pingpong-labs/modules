@@ -28,7 +28,7 @@ class ModuleMigrateRefresh extends Command {
 	 *
 	 * @var string
 	 */
-	protected $description = 'Reset database and run migration from specified module.';
+	protected $description = 'Reset database and run migration from all modules.';
 
 	/**
 	 * Create a new command instance.
@@ -50,18 +50,6 @@ class ModuleMigrateRefresh extends Command {
 	public function fire()
 	{
 		$database = $this->option('database');
-		$module = strtolower($this->argument('module'));
-
-		$path = $this->app['module']->getDirName();
-		$path.= '/'.$module.'/database/migrations';
-
-		if(!is_dir($path))
-		{
-			$this->error("Module $module not exists.");
-			return;
-		}
-
-		$this->info("Migrating from module $module.");
 
 		$parameters = array();
 		if(! empty($database))
@@ -70,10 +58,7 @@ class ModuleMigrateRefresh extends Command {
 		}
 		$this->call('migrate:reset', $parameters);
 
-		$this->call('migrate', array(
-				'--path'	=>	$path
-			)
-		);
+		$this->call('module:migrate', array());
 	}
 
 	/**
@@ -83,9 +68,7 @@ class ModuleMigrateRefresh extends Command {
 	 */
 	protected function getArguments()
 	{
-		return array(
-			array('module', InputArgument::REQUIRED, 'Module name.'),
-		);
+		return array();
 	}
 
 	/**
