@@ -14,6 +14,7 @@ With this package, you can create a web application that is structured and easie
 8. Remove config file.
 9. Adding new `phpunit.xml` file when creating a new module.
 10. Adding new `module.json` file when creating a new module.
+11. And other fix.
 
 ### Installation 
 Open your composer.json file, and add the new required package. 
@@ -146,7 +147,7 @@ Calling view:
 `View::make('<module-name>::<view-name>')`
 
 ```php
-  View::make('blog::index');
+  View::make('blog::index', array());
   View::make('blog::content.index')
 ```
 
@@ -179,7 +180,7 @@ Calling lang
   Module::allWithDetails()
   ```
 
-3. Is there a module?
+3. Is module exists?
 
   ```php
   Module::has('blog')
