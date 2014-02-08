@@ -224,16 +224,22 @@ Calling lang:
   The result is `modules`
 
 10. HTML script and style tag for each module
+  
+  Format :
+  `
+  Module::style($moduleName, $assetURL, $attributes = array(), $secure = FALSE);
+  Module::script($moduleName, $assetURL, $attributes = array(), $secure = FALSE);
+  `
 
   ```php
 
   Module::style('blog', 'css/style.css')
 
-  Module::script('blog', 'css/style-responsive.css', TRUE) // for secure asset url
+  Module::script('blog', 'css/style-responsive.css', array(),  TRUE) // for secure asset url
 
   Module::script('blog', 'js/app.js')
 
-  Module::script('blog', 'js/jquery.js', TRUE) // for secure asset url
+  Module::script('blog', 'js/jquery.js', array(),  TRUE) // for secure asset url
   ```
 
 11. Get asset from specified module
