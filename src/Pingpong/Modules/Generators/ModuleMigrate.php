@@ -2,10 +2,7 @@
 
 namespace Pingpong\Modules\Generators;
 
-<<<<<<< HEAD
 use Illuminate\Foundation\Application;
-=======
->>>>>>> 64bfadd8092e97785a144a4b1db7f18e77dc9199
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
@@ -15,7 +12,6 @@ use Symfony\Component\Console\Input\InputArgument;
 class ModuleMigrate extends Command {
 
 	/**
-<<<<<<< HEAD
 	 * Application object
 	 * 
 	 * @var Illuminate\Foundation\Application
@@ -23,8 +19,6 @@ class ModuleMigrate extends Command {
 	protected $app;
 	
 	/**
-=======
->>>>>>> 64bfadd8092e97785a144a4b1db7f18e77dc9199
 	 * The console command name.
 	 *
 	 * @var string
@@ -40,7 +34,6 @@ class ModuleMigrate extends Command {
 
 	/**
 	 * Create a new command instance.
-<<<<<<< HEAD
 	 * 
 	 * @param 	$app 	Illuminate\Foundation\Application
 	 * @return 	void
@@ -49,14 +42,6 @@ class ModuleMigrate extends Command {
 	{
 		parent::__construct();
 		$this->app = $app;
-=======
-	 *
-	 * @return void
-	 */
-	public function __construct()
-	{
-		parent::__construct();
->>>>>>> 64bfadd8092e97785a144a4b1db7f18e77dc9199
 	}
 
 	/**
@@ -66,7 +51,6 @@ class ModuleMigrate extends Command {
 	 */
 	public function fire()
 	{
-<<<<<<< HEAD
 		$module = strtolower($this->option('module'));
 
 		if(empty($module))
@@ -96,19 +80,6 @@ class ModuleMigrate extends Command {
 				'--path'	=>	$path
 			)
 		);		
-=======
-		$name = strtolower($this->argument('name'));
-
-		$path = \Config::get('modules::module.directory');
-		$path.= '/'.$name.'/database/migrations';
-
-		$this->info("Migrating from module $name.");
-
-		$this->call('migrate', array(
-				'--path'	=>	$path
-			)
-		);
->>>>>>> 64bfadd8092e97785a144a4b1db7f18e77dc9199
 	}
 
 	/**
@@ -118,12 +89,7 @@ class ModuleMigrate extends Command {
 	 */
 	protected function getArguments()
 	{
-		return array(
-<<<<<<< HEAD
-=======
-			array('name', InputArgument::REQUIRED, 'Module name.'),
->>>>>>> 64bfadd8092e97785a144a4b1db7f18e77dc9199
-		);
+		return array();
 	}
 
 	/**
@@ -134,10 +100,7 @@ class ModuleMigrate extends Command {
 	protected function getOptions()
 	{
 		return array(
-<<<<<<< HEAD
 			array('--module', null, InputOption::VALUE_OPTIONAL, 'Module name or type all for migrate from all modules.', null),
-=======
->>>>>>> 64bfadd8092e97785a144a4b1db7f18e77dc9199
 		);
 	}
 

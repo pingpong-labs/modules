@@ -2,10 +2,7 @@
 
 namespace Pingpong\Modules\Generators;
 
-<<<<<<< HEAD
 use Illuminate\Foundation\Application;
-=======
->>>>>>> 64bfadd8092e97785a144a4b1db7f18e77dc9199
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
@@ -13,7 +10,6 @@ use Symfony\Component\Console\Input\InputArgument;
 class ModuleMigrateRefresh extends Command {
 
 	/**
-<<<<<<< HEAD
 	 * Application object
 	 * 
 	 * @var Illuminate\Foundation\Application
@@ -21,8 +17,6 @@ class ModuleMigrateRefresh extends Command {
 	protected $app;
 	
 	/**
-=======
->>>>>>> 64bfadd8092e97785a144a4b1db7f18e77dc9199
 	 * The console command name.
 	 *
 	 * @var string
@@ -38,7 +32,6 @@ class ModuleMigrateRefresh extends Command {
 
 	/**
 	 * Create a new command instance.
-<<<<<<< HEAD
 	 * 
 	 * @param 	$app 	Illuminate\Foundation\Application
 	 * @return 	void
@@ -47,14 +40,6 @@ class ModuleMigrateRefresh extends Command {
 	{
 		parent::__construct();
 		$this->app = $app;
-=======
-	 *
-	 * @return void
-	 */
-	public function __construct()
-	{
-		parent::__construct();
->>>>>>> 64bfadd8092e97785a144a4b1db7f18e77dc9199
 	}
 
 	/**
@@ -65,7 +50,6 @@ class ModuleMigrateRefresh extends Command {
 	public function fire()
 	{
 		$database = $this->option('database');
-<<<<<<< HEAD
 		$module = strtolower($this->argument('module'));
 
 		$path = $this->app['module']->getDirName();
@@ -78,22 +62,6 @@ class ModuleMigrateRefresh extends Command {
 		}
 
 		$this->info("Migrating from module $module.");
-=======
-
-		$name = strtolower($this->argument('name'));
-		// $name = ucwords($name);
-
-		$path = \Config::get('modules::module.directory');
-		$path.= '/'.$name.'/database/migrations';
-
-		if(!is_dir($path))
-		{
-			$this->error("Module $name not exists.");
-			return;
-		}
-
-		$this->info("Migrating from module $name.");
->>>>>>> 64bfadd8092e97785a144a4b1db7f18e77dc9199
 
 		$parameters = array();
 		if(! empty($database))
@@ -116,11 +84,7 @@ class ModuleMigrateRefresh extends Command {
 	protected function getArguments()
 	{
 		return array(
-<<<<<<< HEAD
 			array('module', InputArgument::REQUIRED, 'Module name.'),
-=======
-			array('name', InputArgument::REQUIRED, 'Module name.'),
->>>>>>> 64bfadd8092e97785a144a4b1db7f18e77dc9199
 		);
 	}
 

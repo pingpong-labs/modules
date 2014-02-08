@@ -2,10 +2,7 @@
 
 namespace Pingpong\Modules\Generators;
 
-<<<<<<< HEAD
 use Illuminate\Foundation\Application;
-=======
->>>>>>> 64bfadd8092e97785a144a4b1db7f18e77dc9199
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
@@ -13,7 +10,6 @@ use Symfony\Component\Console\Input\InputArgument;
 class ModuleMigrateMake extends Command {
 
 	/**
-<<<<<<< HEAD
 	 * Application object
 	 * 
 	 * @var Illuminate\Foundation\Application
@@ -21,8 +17,6 @@ class ModuleMigrateMake extends Command {
 	protected $app;
 
 	/**
-=======
->>>>>>> 64bfadd8092e97785a144a4b1db7f18e77dc9199
 	 * The console command name.
 	 *
 	 * @var string
@@ -38,7 +32,6 @@ class ModuleMigrateMake extends Command {
 
 	/**
 	 * Create a new command instance.
-<<<<<<< HEAD
 	 * 
 	 * @param 	$app 	Illuminate\Foundation\Application
 	 * @return 	void
@@ -47,14 +40,6 @@ class ModuleMigrateMake extends Command {
 	{
 		parent::__construct();
 		$this->app = $app;
-=======
-	 *
-	 * @return void
-	 */
-	public function __construct()
-	{
-		parent::__construct();
->>>>>>> 64bfadd8092e97785a144a4b1db7f18e77dc9199
 	}
 
 	/**
@@ -66,27 +51,16 @@ class ModuleMigrateMake extends Command {
 	{
 		$fields = $this->option('fields');
 
-<<<<<<< HEAD
 		$module = strtolower($this->argument('module'));
 		// $module = ucwords($module);
 
 		$table = $this->argument('name');
-=======
-		$module = strtolower($this->argument('name'));
-		// $module = ucwords($module);
-
-		$table = $this->argument('migration');
->>>>>>> 64bfadd8092e97785a144a4b1db7f18e77dc9199
 		$table = strtolower($table);
 
 		$classname = "Create".ucwords($table)."Table";
 		$filename = date("Y_m_d_His")."_create_".$table."_table.php";
 
-<<<<<<< HEAD
-		$path = $this->app['module']->getDirName();
-=======
-		$path = \Config::get('modules::module.directory');
->>>>>>> 64bfadd8092e97785a144a4b1db7f18e77dc9199
+		$path = $this->app['module']->getPath();
 		$path.= '/'.$module.'/database/migrations/';
 
 		if(!is_dir($path))
@@ -96,11 +70,8 @@ class ModuleMigrateMake extends Command {
 		}
 
 		$template = __DIR__.'/templates/migration.txt';
-<<<<<<< HEAD
+
 		if(!$this->app['files']->exists($template))
-=======
-		if(!file_exists($template))
->>>>>>> 64bfadd8092e97785a144a4b1db7f18e77dc9199
 		{
 			throw new \Exception("Migration template does not exists!");
 		}
@@ -119,20 +90,12 @@ class ModuleMigrateMake extends Command {
 			$this->fetchFields($fields)
 		);
 
-<<<<<<< HEAD
 		$script = $this->app['files']->get($template); 
-=======
-		$script = file_get_contents($template); 
->>>>>>> 64bfadd8092e97785a144a4b1db7f18e77dc9199
 		$script = str_replace($search, $replace, $script);
 		
 		$this->info("Creating migration for module $module.");
 
-<<<<<<< HEAD
 		if( ! $this->app['files']->put($path.$filename, $script))
-=======
-		if( ! file_put_contents($path.$filename, $script))
->>>>>>> 64bfadd8092e97785a144a4b1db7f18e77dc9199
 		{
 			$this->error("Can not create migration : ".$filename);;
 		}else{
@@ -193,13 +156,8 @@ class ModuleMigrateMake extends Command {
 	protected function getArguments()
 	{
 		return array(
-<<<<<<< HEAD
 			array('module', InputArgument::REQUIRED, 'Module name.'),
 			array('name', InputArgument::REQUIRED, 'Migration name.'),
-=======
-			array('name', InputArgument::REQUIRED, 'Module name.'),
-			array('migration', InputArgument::REQUIRED, 'Migration name.'),
->>>>>>> 64bfadd8092e97785a144a4b1db7f18e77dc9199
 		);
 	}
 	

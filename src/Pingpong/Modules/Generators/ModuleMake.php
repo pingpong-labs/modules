@@ -2,10 +2,7 @@
 
 namespace Pingpong\Modules\Generators;
 
-<<<<<<< HEAD
 use Illuminate\Foundation\Application;
-=======
->>>>>>> 64bfadd8092e97785a144a4b1db7f18e77dc9199
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
@@ -13,7 +10,6 @@ use Symfony\Component\Console\Input\InputArgument;
 class ModuleMake extends Command {
 
 	/**
-<<<<<<< HEAD
 	 * Application object
 	 * 
 	 * @var Illuminate\Foundation\Application
@@ -21,8 +17,6 @@ class ModuleMake extends Command {
 	protected $app;
 
 	/**
-=======
->>>>>>> 64bfadd8092e97785a144a4b1db7f18e77dc9199
 	 * The console command name.
 	 *
 	 * @var string
@@ -38,7 +32,6 @@ class ModuleMake extends Command {
 
 	/**
 	 * Create a new command instance.
-<<<<<<< HEAD
 	 * 
 	 * @param 	$app 	Illuminate\Foundation\Application
 	 * @return 	void
@@ -47,14 +40,6 @@ class ModuleMake extends Command {
 	{
 		parent::__construct();
 		$this->app = $app;
-=======
-	 *
-	 * @return void
-	 */
-	public function __construct()
-	{
-		parent::__construct();
->>>>>>> 64bfadd8092e97785a144a4b1db7f18e77dc9199
 	}
 
 	/**
@@ -64,11 +49,7 @@ class ModuleMake extends Command {
 	 */
 	public function fire()
 	{
-<<<<<<< HEAD
 		$path = $this->app['module']->getPath();
-=======
-		$path = \Config::get('modules::module.path');
->>>>>>> 64bfadd8092e97785a144a4b1db7f18e77dc9199
 		
 		$newModule = strtolower($this->argument('name'));
 		$newModuleCaps = ucwords($newModule);
@@ -92,7 +73,6 @@ class ModuleMake extends Command {
 		);
 
 		/* Template */
-<<<<<<< HEAD
 		$configScript	= $this->app['files']->get(__DIR__.'/templates/module/config.txt');
 		$filterScript	= $this->app['files']->get(__DIR__.'/templates/module/filters.txt');
 		$routeTpl 		= $this->app['files']->get(__DIR__.'/templates/module/routes.txt');
@@ -100,15 +80,6 @@ class ModuleMake extends Command {
 		$modelTpl 		= $this->app['files']->get(__DIR__.'/templates/module/model.txt');
 		$viewTpl 		= $this->app['files']->get(__DIR__.'/templates/module/view.txt');
 		$dbseederTpl	= $this->app['files']->get(__DIR__.'/templates/module/db-seeder.txt');
-=======
-		$configScript	= file_get_contents(__DIR__.'/templates/module/config.txt');
-		$filterScript	= file_get_contents(__DIR__.'/templates/module/filters.txt');
-		$routeTpl 		= file_get_contents(__DIR__.'/templates/module/routes.txt');
-		$controllerTpl 	= file_get_contents(__DIR__.'/templates/module/controller.txt');
-		$modelTpl 		= file_get_contents(__DIR__.'/templates/module/model.txt');
-		$viewTpl 		= file_get_contents(__DIR__.'/templates/module/view.txt');
-		$dbseederTpl	= file_get_contents(__DIR__.'/templates/module/db-seeder.txt');
->>>>>>> 64bfadd8092e97785a144a4b1db7f18e77dc9199
 
 		/* replacing routes */
 		$search = array(
@@ -174,11 +145,7 @@ class ModuleMake extends Command {
 
 		// creating new folder 
 		foreach ($folders as $folder) {
-<<<<<<< HEAD
 			$newFolder = $path.$newModule.'/'.$folder.'/';
-=======
-			$newFolder = $path.'/'.$newModule.'/'.$folder.'/';
->>>>>>> 64bfadd8092e97785a144a4b1db7f18e77dc9199
 			if( ! mkdir($newFolder, 0755, true))
 			{
 				$this->error("Can not create folder : $newFolder");
@@ -190,11 +157,7 @@ class ModuleMake extends Command {
 
 		//creating new file
 		foreach ($files as $filename => $content) {
-<<<<<<< HEAD
 			$filename =  $path.$newModule.'/'.$filename;
-=======
-			$filename =  $path.'/'.$newModule.'/'.$filename;
->>>>>>> 64bfadd8092e97785a144a4b1db7f18e77dc9199
 			if( ! file_put_contents($filename, $content))
 			{
 				$this->error("Can not create : $filename");
@@ -227,9 +190,7 @@ class ModuleMake extends Command {
 	 */
 	protected function getOptions()
 	{
-		return array(
-			// array('example', null, InputOption::VALUE_OPTIONAL, 'An example option.', null),
-		);
+		return array();
 	}
 
 }

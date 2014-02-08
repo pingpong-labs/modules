@@ -2,10 +2,7 @@
 
 namespace Pingpong\Modules\Generators;
 
-<<<<<<< HEAD
 use Illuminate\Foundation\Application;
-=======
->>>>>>> 64bfadd8092e97785a144a4b1db7f18e77dc9199
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
@@ -13,7 +10,6 @@ use Symfony\Component\Console\Input\InputArgument;
 class ModuleControllerMake extends Command {
 
 	/**
-<<<<<<< HEAD
 	 * Application object
 	 * 
 	 * @var Illuminate\Foundation\Application
@@ -21,8 +17,6 @@ class ModuleControllerMake extends Command {
 	protected $app;
 	
 	/**
-=======
->>>>>>> 64bfadd8092e97785a144a4b1db7f18e77dc9199
 	 * The console command name.
 	 *
 	 * @var string
@@ -38,7 +32,6 @@ class ModuleControllerMake extends Command {
 
 	/**
 	 * Create a new command instance.
-<<<<<<< HEAD
 	 * 
 	 * @param 	$app 	Illuminate\Foundation\Application
 	 * @return 	void
@@ -47,14 +40,6 @@ class ModuleControllerMake extends Command {
 	{
 		parent::__construct();
 		$this->app = $app;
-=======
-	 *
-	 * @return void
-	 */
-	public function __construct()
-	{
-		parent::__construct();
->>>>>>> 64bfadd8092e97785a144a4b1db7f18e77dc9199
 	}
 
 	/**
@@ -67,7 +52,6 @@ class ModuleControllerMake extends Command {
 		$module 	= strtolower($this->argument('module'));
 		$controller = $this->argument('controller');
 
-<<<<<<< HEAD
 		$path = $this->app['module']->getPath() . $module . '/controllers/';
 		if(!is_dir($path))
 		{
@@ -75,15 +59,6 @@ class ModuleControllerMake extends Command {
 			return;
 		}
 		$template = $this->app['files']->get(__DIR__.'/templates/controller.txt');
-=======
-		$path = \Config::get('modules::module.path').'/'.$module.'/controllers/';
-		if(!is_dir($path))
-		{
-			$this->error("Module $module not exists.");
-			return;
-		}
-		$template = file_get_contents(__DIR__.'/templates/controller.txt');
->>>>>>> 64bfadd8092e97785a144a4b1db7f18e77dc9199
 		$search = array(
 			'{{controller}}',
 			'{{module}}'	
@@ -98,11 +73,7 @@ class ModuleControllerMake extends Command {
 		// script
 		$script = str_replace($search, $replace, $template);
 
-<<<<<<< HEAD
 		if( ! $this->app['files']->put($controllerName, $script))
-=======
-		if( ! file_put_contents($controllerName, $script))
->>>>>>> 64bfadd8092e97785a144a4b1db7f18e77dc9199
 		{
 			$this->error('Can not create controller!');
 		}
