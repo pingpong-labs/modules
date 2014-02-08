@@ -51,7 +51,7 @@ class ModuleMigrate extends Command {
 	 */
 	public function fire()
 	{
-		$module = strtolower($this->option('module'));
+		$module = strtolower($this->argument('module'));
 
 		if(empty($module))
 		{
@@ -89,7 +89,9 @@ class ModuleMigrate extends Command {
 	 */
 	protected function getArguments()
 	{
-		return array();
+		return array(
+			array('module', InputArgument::OPTIONAL, 'Module name.'),
+		);
 	}
 
 	/**
@@ -99,9 +101,7 @@ class ModuleMigrate extends Command {
 	 */
 	protected function getOptions()
 	{
-		return array(
-			array('--module', null, InputOption::VALUE_OPTIONAL, 'Module name or type all for migrate from all modules.', null),
-		);
+		return array();
 	}
 
 }

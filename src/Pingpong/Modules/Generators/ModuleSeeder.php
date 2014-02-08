@@ -49,7 +49,7 @@ class ModuleSeeder extends Command {
 	 */
 	public function fire()
 	{
-		$module = $module = $this->option('module');
+		$module = $module = $this->argument('module');
 		
 		if(empty($module))
 		{
@@ -103,7 +103,9 @@ class ModuleSeeder extends Command {
 	 */
 	protected function getArguments()
 	{
-		return array();
+		return array(			
+			array('module', InputArgument::OPTIONAL, 'Module name.'),
+		);
 	}
 
 	/**
@@ -113,9 +115,7 @@ class ModuleSeeder extends Command {
 	 */
 	protected function getOptions()
 	{
-		return array(
-			array('--module', null, InputOption::VALUE_OPTIONAL, 'Module name or type all for migrate from all modules.', null),
-		);
+		return array();
 	}
 
 }
