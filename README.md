@@ -14,7 +14,6 @@ With this package, you can create a web application that is structured and easie
 8. Remove config file.
 9. Adding new `phpunit.xml` file when creating a new module.
 10. Adding new `module.json` file when creating a new module.
-11. And other fix.
 
 ### Installation 
 Open your composer.json file, and add the new required package. 
@@ -159,7 +158,7 @@ Calling config:
   Config::get('blog::site.author')
 ```
 
-Calling lang
+Calling lang:
 
 `Lang::get('<module-name>::<lang>')`
 
@@ -230,7 +229,11 @@ Calling lang
 
   Module::style('blog', 'css/style.css')
 
-  Module::script('blog', 'css/app.js')
+  Module::script('blog', 'css/style-responsive.css', TRUE) // for secure asset url
+
+  Module::script('blog', 'js/app.js')
+
+  Module::script('blog', 'js/jquery.js', TRUE) // for secure asset url
   ```
 
 11. Get asset from specified module
