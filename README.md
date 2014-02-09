@@ -152,6 +152,7 @@ it will set the path and folder configuration module.
   ```
 
 8. Cleaning up assets.
+
    When you publish the assets of a particular module or on all modules, the assets simply copied to public / modules and not removed. 
    Here's a useful function. That is to remove all of the assets of a particular module after publishing.
 
@@ -160,7 +161,7 @@ it will set the path and folder configuration module.
    php artisan module:cleanup
    ```
 
-   For each module
+   For specified module
    ```terminal
    php artisan module:cleanup blog
    ```
