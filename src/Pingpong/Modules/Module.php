@@ -171,6 +171,60 @@ class Module
 	}
 
 	/**
+	 * Generate many styles tag from specified module. 
+	 *
+	 * @param  string $module
+	 * @param  array  $styles
+	 * @return string
+	 */
+	public function styles($module, $styles = array())
+	{
+		$result = '';
+		foreach ($styles as $style) {
+			$result .= $this->style(
+				$module,
+				$this->value($style[0]),
+				$this->value($style[1], array()),
+				$this->value($style[2], FALSE)
+			);
+		}
+		return $result;
+	}
+
+	/**
+	 * Generate many scripts tag from specified module. 
+	 *
+	 * @param  string $module
+	 * @param  array  $scripts
+	 * @return string
+	 */
+	public function scripts($module, $scripts = array())
+	{
+		$result = '';
+		foreach ($scripts as $script) {
+			$result .= $this->script(
+				$module,
+				$this->value($script[0]),
+				$this->value($script[1], array()),
+				$this->value($script[2], FALSE)
+			);
+		}
+		return $result;
+	}
+
+	/**
+	 * If $value is defined return $value, else return $default.
+	 *
+	 * @param  mixed  $value
+	 * @param  string  $default
+	 * @return string
+	 */
+	public function value($value, $default = null)
+	{
+		return isset($value) ? $value : $default;
+	}
+
+	/**
 	 * Generate asset URL from current theme.
 	 *
 	 * @param  string  $url
