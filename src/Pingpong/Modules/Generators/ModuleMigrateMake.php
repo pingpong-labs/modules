@@ -101,6 +101,7 @@ class ModuleMigrateMake extends Command {
 		}else{
 			$this->info("Created migration for module $module : ". $filename);
 		}
+		$this->call('dump-autoload', array());
 	}
 
 	/**
