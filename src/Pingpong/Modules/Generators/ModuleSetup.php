@@ -51,7 +51,9 @@ class ModuleSetup extends Command {
 	{				
 		$modulePath = $this->app['module']->getPath();
 		$assetPath  = $this->app['module']->getAssetPath();
-		if( is_dir($folder))
+
+		// creating modules folder
+		if( is_dir($modulePath))
 		{
 			$this->error("Module already setup!");
 		}else
@@ -62,6 +64,14 @@ class ModuleSetup extends Command {
 			}else{
 				$this->info('Module directory setup successfully.');
 			}	
+		}
+		
+		// creating assets module folder on public path.
+		if( is_dir($assetPath))
+		{
+			$this->error("Module already setup!");
+		}else
+		{
 
 			if( ! mkdir($assetPath, 0775, true))
 			{
@@ -69,8 +79,8 @@ class ModuleSetup extends Command {
 			}else{
 				$this->info('Module assets directory setup successfully.');
 			}
-			$this->call('config:publish', array('package' => 'pingpong/modules'));
 		}
+		$this->call('config:publish', array('package' => 'pingpong/modules'));
 	}
 
 	/**
