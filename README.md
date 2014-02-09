@@ -39,28 +39,28 @@ After the composer updated. Add new service provider in `app/config/app.php`.
 Finish. 
 
 ### Folder Structure
-After this repository move to `pingpong/modules`, `modules` path is in public path. 
+Modules path is in root laravel directory.
 
 ```
 laravel/
 |-- app
 |-- bootstrap
+|-- modules
+    |-- blog
+        |-- assets
+        |-- config
+        |-- controllers
+        |-- database
+            |-- migrations
+            |-- seeds
+        |-- models
+        |-- tests
+        |-- views
+        |-- filters.php
+        |-- routes.php
+        |-- module.json
+        |-- phpunit.xml
 |-- public
-    |-- modules
-        |-- blog
-            |-- assets
-            |-- config
-            |-- controllers
-            |-- database
-                |-- migrations
-                |-- seeds
-            |-- models
-            |-- tests
-            |-- views
-            |-- filters.php
-            |-- routes.php
-            |-- module.json
-            |-- phpunit.xml
 |-- vendor
 ```
 
