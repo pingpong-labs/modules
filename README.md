@@ -231,7 +231,7 @@ Calling lang:
 
   Module::script($moduleName, $assetURL, $attributes = array(), $secure = FALSE);
   ````
-
+  Example:
   ```php
 
   Module::style('blog', 'css/style.css');
