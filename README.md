@@ -226,11 +226,11 @@ Calling lang:
 10. HTML script and style tag for each module
   
   Format :
-  `
+  ```
   Module::style($moduleName, $assetURL, $attributes = array(), $secure = FALSE);
 
   Module::script($moduleName, $assetURL, $attributes = array(), $secure = FALSE);
-  `
+  ````
 
   ```php
 
