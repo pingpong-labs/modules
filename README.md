@@ -14,6 +14,8 @@ With this package, you can create a web application that is structured and easie
 8. Remove config file.
 9. Adding new `phpunit.xml` file when creating a new module.
 10. Adding new `module.json` file when creating a new module.
+11. Moving `modules` folder to root laravel directory again.
+12. Adding new commands `module:cleanup` and `module:asset-publish`.
 
 ### Installation 
 Open your composer.json file, and add the new required package. 
@@ -136,6 +138,32 @@ it will set the path and folder configuration module.
 
   php artisan module:migrate-refresh --database="connection-name"
   ```
+
+7. Publishing assets.
+
+  For all modules:
+   ```
+  php artisan module:asset-publish 
+  ```
+
+  For specified module:
+   ```
+  php artisan module:asset-publish blog
+  ```
+
+8. Cleaning up assets.
+   When you publish the assets of a particular module or on all modules, the assets simply copied to public / modules and not removed. 
+   Here's a useful function. That is to remove all of the assets of a particular module after publishing.
+
+   For all modules
+   ```terminal
+   php artisan module:cleanup
+   ```
+
+   For each module
+   ```terminal
+   php artisan module:cleanup blog
+   ```
   
 ### Module Namespaces
 

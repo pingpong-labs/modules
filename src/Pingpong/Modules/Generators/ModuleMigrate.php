@@ -30,7 +30,7 @@ class ModuleMigrate extends Command {
 	 *
 	 * @var string
 	 */
-	protected $description = 'Migrate from specified module.';
+	protected $description = 'Migrate from specified module or all modules.';
 
 	/**
 	 * Create a new command instance.

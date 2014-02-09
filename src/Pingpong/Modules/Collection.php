@@ -26,6 +26,13 @@ class Collection
 	protected $path;
 
 	/**
+	 * String asset path for each module
+	 * 
+	 * @var string
+	 */
+	protected $assetPath;
+
+	/**
 	 * Ignores up and base directories
 	 * 
 	 * @var array
@@ -42,7 +49,8 @@ class Collection
 	public function __construct(Application $app) {
 		$this->app = $app;
 		$this->file = $this->app['files'];
-		$this->path = public_path() . '/modules/';
+		$this->path = $this->app['config']->get('modules.paths.modules', base_path() . '/modules/');
+		$this->assetPath = $this->app['config']->get('modules.paths.assets', public_path() . '/modules/');
 	}
 	
 	/**
@@ -102,9 +110,19 @@ class Collection
 	 *
 	 * @return string
 	 */
-	public function getPath()
+	public function getPath($module = null)
 	{
-		return $this->path;
+		return is_null($module) ? $this->path : $this->path . $module . '/';
+	}
+
+	/**
+	 * Get asset path.
+	 *
+	 * @return string
+	 */
+	public function getAssetPath($module = null)
+	{
+		return is_null($module) ? $this->assetPath : $this->assetPath . $module . '/';
 	}
 
 	/**

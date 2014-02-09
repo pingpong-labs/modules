@@ -28,7 +28,7 @@ class ModuleSeeder extends Command {
 	 *
 	 * @var string
 	 */
-	protected $description = 'Seed from specified module.';
+	protected $description = 'Seed from specified module or all modules.';
 
 	/**
 	 * Create a new command instance.

@@ -1,6 +1,4 @@
-<?php
-
-namespace Pingpong\Modules\Generators;
+<?php namespace Pingpong\Modules\Generators;
 
 use Illuminate\Foundation\Application;
 use Illuminate\Console\Command;

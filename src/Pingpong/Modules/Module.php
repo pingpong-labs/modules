@@ -120,9 +120,19 @@ class Module
 	 *
 	 * @return String
 	 **/
-	public function getPath()
+	public function getPath($module = null)
 	{
-		return $this->collection->getPath();
+		return $this->collection->getPath($module);
+	}
+
+	/**
+	 * Get module asset path
+	 *
+	 * @return String
+	 **/
+	public function getAssetPath($module = null)
+	{
+		return $this->collection->getAssetPath($module);
 	}
 
 	/**
@@ -234,7 +244,7 @@ class Module
 	 */
 	public function asset($module, $url, $secure = FALSE)
 	{
-		$url = $this->getDirName().'/'.$module.'/assets/'.$url;
+		$url = $this->getDirName().'/'.$module.'/'.$url;
 		return $this->app['url']->asset($url, $secure);
 	}
 }

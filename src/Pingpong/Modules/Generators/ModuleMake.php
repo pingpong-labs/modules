@@ -188,6 +188,7 @@ class ModuleMake extends Command {
 		}
 
 		$this->info("Module $newModule has been created. Enjoy!");
+		$this->call('module:asset-publish', array('module' => strtolower($newModule)));
 		$this->call('dump-autoload', array());
 	}
 

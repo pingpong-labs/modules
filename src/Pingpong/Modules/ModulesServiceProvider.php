@@ -110,6 +110,18 @@ class ModulesServiceProvider extends ServiceProvider {
 			return new Generators\ModuleControllerMake($app);
 		});
 
+		// register module:asset-publish command
+		$this->app['module.asset-publish'] = $this->app->share(function($app)
+		{
+			return new Generators\ModuleAssetPublish($app);
+		});
+
+		// register module:asset-publish command
+		$this->app['module.cleanup'] = $this->app->share(function($app)
+		{
+			return new Generators\ModuleCleanup($app);
+		});
+
 		// register all commands to application
 		$this->commands(
 			'module.make',
@@ -118,7 +130,9 @@ class ModulesServiceProvider extends ServiceProvider {
 			'module.migrate-make',
 			'module.migrate-refresh',
 			'module.seeder',
-			'module.setup'
+			'module.setup',
+			'module.asset-publish',
+			'module.cleanup'
 		);
 	}
 	/**

@@ -49,18 +49,27 @@ class ModuleSetup extends Command {
 	 */
 	public function fire()
 	{				
-		$folder = $this->app['module']->getPath();
+		$modulePath = $this->app['module']->getPath();
+		$assetPath  = $this->app['module']->getAssetPath();
 		if( is_dir($folder))
 		{
 			$this->error("Module already setup!");
 		}else
 		{
-			if( ! mkdir($folder, 0775, true))
+			if( ! mkdir($modulePath, 0775, true))
 			{
 				$this->error('Can not setup module. Is your root directory writable?');
 			}else{
-				$this->info('Module setup successfully.');
+				$this->info('Module directory setup successfully.');
 			}	
+
+			if( ! mkdir($assetPath, 0775, true))
+			{
+				$this->error('Can not setup module. Is your root directory writable?');
+			}else{
+				$this->info('Module assets directory setup successfully.');
+			}
+			$this->call('config:publish', array('package' => 'pingpong/modules'));
 		}
 	}
 
