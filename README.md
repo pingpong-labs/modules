@@ -153,7 +153,7 @@ it will set the path and folder configuration module.
 
 8. Cleaning up assets.
 
-   When you publish the assets of a particular module or on all modules, the assets simply copied to public / modules and not removed. 
+   When you publish the assets of a particular module or from all modules, the assets simply copied to public/modules directory and not removed. 
    Here's a useful function. That is to remove all of the assets of a particular module after publishing.
 
    For all modules
