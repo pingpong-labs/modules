@@ -228,19 +228,41 @@ Calling lang:
   Format :
   `
   Module::style($moduleName, $assetURL, $attributes = array(), $secure = FALSE);
+
   Module::script($moduleName, $assetURL, $attributes = array(), $secure = FALSE);
   `
 
   ```php
 
-  Module::style('blog', 'css/style.css')
+  Module::style('blog', 'css/style.css');
 
-  Module::script('blog', 'css/style-responsive.css', array(),  TRUE) // for secure asset url
-
-  Module::script('blog', 'js/app.js')
-
-  Module::script('blog', 'js/jquery.js', array(),  TRUE) // for secure asset url
+  Module::script('blog', 'js/app.js');
   ```
+
+  For secure url:
+
+  ```php
+  Module::script('blog', 'css/style-responsive.css', array(),  TRUE);
+
+  Module::script('blog', 'js/jquery.js', array(),  TRUE);
+  ```
+
+  For many scripts or styles:
+
+  ```php
+
+  Module::styles('blog', [
+    array('css/bootstrap.css', array('id'=>'myCSS')),
+    array('css/app.css', array(), true),
+  ]);
+
+  Module::scripts('blog', [
+    array('js/jquery.js', array('id'=>'myJS')),
+    array('js/app.js', array(), true),
+  ]);
+
+  ```
+
 
 11. Get asset from specified module
   
