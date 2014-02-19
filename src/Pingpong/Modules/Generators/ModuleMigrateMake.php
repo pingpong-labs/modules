@@ -57,7 +57,7 @@ class ModuleMigrateMake extends Command {
 		$table = $this->argument('name');
 		$table = strtolower($table);
 
-		$classname = "Create".ucwords($table)."Table";
+		$classname = "Create".studly_case($table)."Table";
 		$filename = date("Y_m_d_His")."_create_".$table."_table.php";
 
 		$path = $this->app['module']->getPath();
