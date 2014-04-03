@@ -142,9 +142,75 @@ By default modules folder is in your laravel route directory. For first use, ple
   ```php
   Module::getAssetsPath();
   ```
+
 ### Costum Service Provider
 
-When your create new module. It's will be created new costum service provider. For example, if you create new module named `blog`.
+  When your create new module. It's will be created new costum service provider. For example, if you create new module named `blog`. It's also create new Service Provider named `BlogServiceProvider` with namespace `Modules\Blog`. I think is useful for registering costum command for each module.
+  That file maybe look like this:
+
+  ```php
+  <?php namespace Modules\Blog;
+
+  use Illuminate\Support\ServiceProvider;
+
+  class BlogServiceProvider extends ServiceProvider {
+
+    /**
+     * Indicates if loading of the provider is deferred.
+     *
+     * @var bool
+     */
+    protected $defer = false;
+
+    /**
+     * Register the service provider.
+     *
+     * @return void
+     */
+    public function register()
+    {
+      //
+    }
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides()
+    {
+      return array();
+    }
+
+  }
+
+  ```
+
+### Costum Namespaces
+
+  When you create new module it's also registering new costum namespace for `Lang`, `View` and `Config`. For example, if you create new module named `blog`, it's will registering new namespace/hint `blog` for that module. That, you can use that namespace for calling Lang, View or Config.
+  This is an example of its use.
+
+  Calling Lang:
+  ```php
+  Lang::get('blog::title')
+
+  Lang::get('blog::group.name')
+  ```
+
+  Calling View:
+  ```php
+  View::make('blog::index')
+
+  View::make('blog::partials.sidebar')
+  ```
+
+  Calling Config:
+  ```php
+  Config::get('blog::title')
+
+  Config::get('blog::group.name')
+  ```
 
 ### License
 
