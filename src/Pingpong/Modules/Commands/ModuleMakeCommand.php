@@ -106,8 +106,8 @@ class ModuleMakeCommand extends Command {
 	{
 		$this->generateFolders();
 		$this->generateFiles();
-		$this->call('modules:seed:make', ['module' => $this->name, 'seeder' => $this->Name, '--master']);
-		$this->call('modules:controller', ['module' => $this->name, 'controller' => $this->Name . 'Controller']);
+		$this->call('module:seed:make', ['module' => $this->name, 'seeder' => $this->Name, '--master']);
+		$this->call('module:controller', ['module' => $this->name, 'controller' => $this->Name . 'Controller']);
 		$this->info("Module [$this->name] has been created successfully.");
 	}
 

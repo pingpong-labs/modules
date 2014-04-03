@@ -109,7 +109,7 @@ class ModuleSeedMakeCommand extends Command {
 	 */
 	protected function formatContent($content)
 	{
-		return str_replace(['{{Name}}', '{{name}}', '{{master}}'], [$this->Name, $this->name, $master], $content);
+		return str_replace(['{{Name}}', '{{name}}'], [$this->Name, $this->name], $content);
 	}
 
 	/**

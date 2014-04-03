@@ -142,7 +142,10 @@ By default modules folder is in your laravel route directory. For first use, ple
   ```php
   Module::getAssetsPath();
   ```
-  
+### Costum Service Provider
+
+When your create new module. It's will be created new costum service provider. For example, if you create new module named `blog`.
+
 ### License
 
   This package is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
