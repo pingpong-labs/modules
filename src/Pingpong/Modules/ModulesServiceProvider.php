@@ -12,6 +12,11 @@ class ModulesServiceProvider extends ServiceProvider {
 	 */
 	protected $defer = false;
 
+	/**
+	 * Booting the package.
+	 *
+	 * @return 	void
+	 */
 	public function boot()
 	{
 		$this->package('pingpong/modules');

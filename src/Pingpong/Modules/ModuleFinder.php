@@ -5,14 +5,27 @@ use Illuminate\Support\Str;
 
 class ModuleFinder
 {
+	/**
+	 * @var \Illuminate\Foundation\Application
+	 */
 	protected $app;
 
+	/**
+	 * Constructor.
+	 *
+	 * @param \Illuminate\Foundation\Application $app
+	 */
 	public function __construct(Application $app)
 	{
 		$this->app = $app;
 		$this->files = $app['files'];
 	}
 
+	/**
+	 * Get all modules.
+	 *
+	 * @return 	array
+	 */
 	public function all()
 	{
 		$modules = array();
@@ -26,16 +39,21 @@ class ModuleFinder
 		return $modules;
 	}
 
-	public function exists($name)
-	{
-		return in_array($name, $this->all());
-	}
-
+	/**
+	 * Get all directories from modules path.
+	 *
+	 * @return 	string
+	 */
 	protected function getDirectories()
 	{
 		return $this->files->directories($this->getModulesPath());
 	}
 
+	/**
+	 * Get modules path.
+	 *
+	 * @return 	string
+	 */
 	protected function getModulesPath()
 	{
 		return $this->app['modules']->getPath();

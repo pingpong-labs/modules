@@ -41,7 +41,7 @@ class ModulePublisherCommand extends Command {
 	 */
 	public function fire()
 	{
-		$moduleName = strtolower($this->argument('module'));
+		$moduleName = ucwords($this->argument('module'));
 		if( ! $moduleName )
 		{
 			foreach ($this->module->all() as $module) {
@@ -49,8 +49,12 @@ class ModulePublisherCommand extends Command {
 			}
 			return $this->info("All assets from all modules has been published successfully.");
 		}
-		$this->publish($moduleName);
-		return $this->info("Assets from module [$moduleName] has been published successfully.");
+		if($this->module->exists($moduleName))
+		{
+			$this->publish($moduleName);
+			return $this->info("Assets from module [$moduleName] has been published successfully.");
+		}
+		return $this->info("Module [$moduleName] does not exists.");
 	}
 
 	/**
