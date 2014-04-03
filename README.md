@@ -31,6 +31,30 @@ By default modules folder is in your laravel route directory. For first use, ple
   ```
   php artisan module:setup
   ```
+
+### Folder Structure
+
+  ```
+  app/
+  public/
+  vendor/
+  Modules
+  |-- Blog
+      |-- commands/
+      |-- controllers/
+      |-- database/
+          |-- migrations/
+          |-- seeds/
+      |-- models/
+      |-- start/
+          |-- global.php
+      |-- tests/
+      |-- views/
+      |-- BlogServiceProvider.php
+      |-- filters.php
+      |-- routes.php
+  ```
+
 ### Artisan CLI
   
 1. Create new module.
@@ -105,6 +129,12 @@ By default modules folder is in your laravel route directory. For first use, ple
   php artisan module:publish
   ```
 
+12. Create new model for the specified module.
+
+  ```
+  php artisan module:model blog User
+  ```
+
 ### Facades API
 
 1. Get asset url from specified module.
@@ -145,8 +175,7 @@ By default modules folder is in your laravel route directory. For first use, ple
 
 ### Costum Service Provider
 
-  When your create new module. It's will be created new costum service provider. For example, if you create new module named `blog`. It's also create new Service Provider named `BlogServiceProvider` with namespace `Modules\Blog`. I think is useful for registering costum command for each module.
-  That file maybe look like this:
+  When your create new module. It's also create new costum service provider. For example, if you create new module named `blog`. It's also create new Service Provider named `BlogServiceProvider` with namespace `Modules\Blog`. I think is useful for registering costum command for each module. This file is not autoload, you can autoload this file using `psr-0` or `psr-4`. That file maybe look like this:
 
   ```php
   <?php namespace Modules\Blog;
@@ -215,4 +244,3 @@ By default modules folder is in your laravel route directory. For first use, ple
 ### License
 
   This package is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
-  
