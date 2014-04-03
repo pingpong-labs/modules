@@ -1,0 +1,6 @@
+<?php
+
+class {{name}} extends Eloquent
+{
+	protected $fillable = [];
+}
