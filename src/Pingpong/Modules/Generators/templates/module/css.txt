@@ -1,8 +1,0 @@
-body{
-	background: #FFF;
-	width: 50%;
-	margin: 50px auto;
-	padding: 30px 50px;
-	font-family: helvetica, arial;
-	text-align: center;
-}
