@@ -125,10 +125,22 @@ By default modules folder is in your laravel route directory. For first use, ple
   Module::script('blog', 'js/all.js');
   ```
 
-4. Get All modules.
+4. Get all modules.
 
   ```php
   Module::all();
+  ```
+
+5. Get modules path.
+
+  ```php
+  Module::getPath();
+  ```
+
+6. Get assets modules path.
+
+  ```php
+  Module::getAssetsPath();
   ```
   
 ### License

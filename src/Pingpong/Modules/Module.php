@@ -80,6 +80,12 @@ class Module
 		return $this->getPath() . "/$name/start/global.php";
 	}
 
+	/**
+	 * Get modules path.
+	 *
+	 * @param  	string   $name
+	 * @return 	string
+	 */
 	public function getPath()
 	{
 		return $this->app['config']->get('modules::paths.modules');
