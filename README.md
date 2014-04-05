@@ -230,8 +230,6 @@ By default modules folder is in your laravel route directory. For first use, ple
 
   Calling Lang:
   ```php
-  Lang::get('blog::title')
-
   Lang::get('blog::group.name')
   ```
 
@@ -244,8 +242,6 @@ By default modules folder is in your laravel route directory. For first use, ple
 
   Calling Config:
   ```php
-  Config::get('blog::title')
-
   Config::get('blog::group.name')
   ```
 

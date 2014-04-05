@@ -30,6 +30,7 @@ class ModuleMakeCommand extends Command {
 	protected $folders = [
 		'assets/',
 		'commands/',
+		'config/',
 		'controllers/',
 		'database/',
 		'database/migrations/',
@@ -53,6 +54,7 @@ class ModuleMakeCommand extends Command {
 		'filters.php',
 		'routes.php',
 		'lang/en/{{name}}.php',
+		'config/{{name}}.php',
 	];
 
 	/**
@@ -66,6 +68,7 @@ class ModuleMakeCommand extends Command {
 		'filters.stub',
 		'routes.stub',
 		'lang.stub',
+		'config.stub',
 	];
 
 	/**
