@@ -49,6 +49,7 @@ By default modules folder is in your laravel route directory. For first use, ple
   Modules
   |-- Blog
       |-- commands/
+      |-- config/
       |-- controllers/
       |-- database/
           |-- migrations/
