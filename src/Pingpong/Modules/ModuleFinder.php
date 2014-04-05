@@ -29,11 +29,14 @@ class ModuleFinder
 	public function all()
 	{
 		$modules = array();
-		foreach ($this->getDirectories() as $module) {
-			$name = basename($module);
-			if( ! Str::startsWith($name, '.'))
-			{
-				$modules[] = $name; 
+		if($this->getDirectories())
+		{
+			foreach ($this->getDirectories() as $module) {
+				$name = basename($module);
+				if( ! Str::startsWith($name, '.'))
+				{
+					$modules[] = $name; 
+				}
 			}
 		}
 		return $modules;
@@ -46,7 +49,11 @@ class ModuleFinder
 	 */
 	protected function getDirectories()
 	{
-		return $this->files->directories($this->getModulesPath());
+		if(is_dir($dir = $this->getModulesPath()))
+		{
+			return $this->files->directories($dir);
+		}
+		return null;
 	}
 
 	/**
