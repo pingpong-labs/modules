@@ -3,9 +3,13 @@ Laravel 4 - Simple Modules
 
 [![Build Status](https://travis-ci.org/pingpong-labs/modules.svg?branch=1.0.2)](https://travis-ci.org/pingpong-labs/modules)
 
+### Server Requirements
+
+- PHP 5.4 or higher
+
 ### Installation
 
-Open your composer.json file, and add the new required package.
+Open your composer.json file and add a new required package.
   ```
   "pingpong/modules": "1.0.*" 
   ```
@@ -36,7 +40,7 @@ By default modules folder is in your laravel route directory. For first use, ple
 
 ### Folder Structure
   
-  Note: now, the naming of module using capitalize mode. For example, Blog, News, Shop, etc.
+  Now, naming modules must use a capital letter on the first letter. For example: Blog, News, Shop, etc.
 
   ```
   app/
