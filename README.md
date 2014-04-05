@@ -77,7 +77,7 @@ By default modules folder is in your laravel route directory. For first use, ple
   php artisan module:command blog CostumCommand --namespace=Modules\Blog\Commands
   ```
   
-3. Create new migration for new the specified module.
+3. Create new migration for the specified module.
 
   ```
   php artisan module:migrate:make blog users
