@@ -1,6 +1,8 @@
 Laravel 4 - Simple Modules
 =========================
 
+[![Build Status](https://travis-ci.org/pingpong-labs/modules.svg?branch=1.0.2)](https://travis-ci.org/pingpong-labs/modules)
+
 ### Installation
 
 Open your composer.json file, and add the new required package.
@@ -33,6 +35,8 @@ By default modules folder is in your laravel route directory. For first use, ple
   ```
 
 ### Folder Structure
+  
+  Note: now, the naming of module using capitalize mode. For example, Blog, News, Shop, etc.
 
   ```
   app/
