@@ -51,13 +51,13 @@ class ModulesServiceProvider extends ServiceProvider {
 	 */
 	protected function registerServices()
 	{		
-		$this->app['modules'] = $this->app->share(function($app)
-		{
-			return new Module($app);
-		});
 		$this->app['modules.finder'] = $this->app->share(function($app)
 		{
 			return new ModuleFinder($app);
+		});
+		$this->app['modules'] = $this->app->share(function($app)
+		{
+			return new Module($app, $app['modules.finder']);
 		});
 	}
 

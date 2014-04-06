@@ -19,10 +19,10 @@ class Module
 	 *
 	 * @param \Illuminate\Foundation\Application $app
 	 */
-	public function __construct(Application $app)
+	public function __construct(Application $app, ModuleFinder $finder)
 	{
 		$this->app = $app;
-		$this->finder = $app['modules.finder'];
+		$this->finder = $finder;
 	}
 
 	/**
