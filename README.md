@@ -1,8 +1,6 @@
 Laravel 4 - Simple Modules
 =========================
 
-[![Build Status](https://travis-ci.org/pingpong-labs/modules.svg?branch=1.0.2)](https://travis-ci.org/pingpong-labs/modules)
-
 ### Server Requirements
 
 - PHP 5.4 or higher
@@ -63,6 +61,8 @@ By default modules folder is in your laravel route directory. For first use, ple
       |-- filters.php
       |-- routes.php
   ```
+
+  **Note:** File `start/global.php` is required for registering a view, lang and config namespaces. If that file does not exists, it's will throw an exception `FileMissingException'.
 
 ### Artisan CLI
   

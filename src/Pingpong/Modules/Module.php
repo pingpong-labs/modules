@@ -2,6 +2,8 @@
 
 use Illuminate\Foundation\Application;
 
+class FileMissingException extends \Exception {}
+
 class Module
 {
 	/**
@@ -43,7 +45,7 @@ class Module
 	 */
 	public function has($name)
 	{
-		return in_array($name, $this->all());
+		return $this->exists($name);
 	}
 
 	/**
@@ -65,7 +67,7 @@ class Module
 	public function register()
 	{
 		foreach ($this->all() as $module) {
-			require $this->getGlobalFile($module);
+			$this->includeGlobalFile($module);
 		}
 	}	
 	
@@ -75,9 +77,14 @@ class Module
 	 * @param  	string   $name
 	 * @return 	string
 	 */
-	protected function getGlobalFile($name)
+	protected function includeGlobalFile($name)
 	{
-		return $this->getPath() . "/$name/start/global.php";
+		$file =  $this->getPath() . "/$name/start/global.php";
+		if($this->app['files']->exists($file))
+		{
+			require $file;
+		}
+		throw new FileMissingException("Module [$name] must be have start/global.php file for registering namespaces.");
 	}
 
 	/**
