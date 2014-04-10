@@ -62,7 +62,7 @@ By default modules folder is in your laravel route directory. For first use, ple
       |-- routes.php
   ```
 
-  **Note:** File `start/global.php` is required for registering a view, lang and config namespaces. If that file does not exists, it's will throw an exception `FileMissingException'.
+  **Note:** File `start/global.php` is required for registering a view, lang and config namespaces. If that file does not exists, it's will throw an exception `FileMissingException`.
 
 ### Artisan CLI
   
