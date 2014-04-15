@@ -69,8 +69,8 @@ class Module
 		foreach ($this->all() as $module) {
 			$this->includeGlobalFile($module);
 		}
-	}	
-	
+	}
+
 	/**
 	 * Get global.php file for the specified module.
 	 *
@@ -80,11 +80,10 @@ class Module
 	protected function includeGlobalFile($name)
 	{
 		$file =  $this->getPath() . "/$name/start/global.php";
-		if($this->app['files']->exists($file))
-		{
-			require $file;
-		}
-		throw new FileMissingException("Module [$name] must be have start/global.php file for registering namespaces.");
+		if (!$this->app['files']->exists($file)) {
+            throw new FileMissingException("Module [$name] must be have start/global.php file for registering namespaces.");
+        }
+        require $file;
 	}
 
 	/**
