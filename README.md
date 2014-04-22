@@ -5,6 +5,12 @@ Laravel 4 - Simple Modules
 
 - PHP 5.4 or higher
 
+## Donation
+
+If you find this source is useful, you can share some milk to me if you want ^_^
+
+[![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](http://gravitano.com/donation)
+
 ### Installation
 
 Open your composer.json file and add a new required package.
