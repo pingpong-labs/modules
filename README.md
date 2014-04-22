@@ -9,7 +9,7 @@ Laravel 4 - Simple Modules
 
 If you find this source is useful, you can share some milk to me if you want ^_^
 
-[![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](http://gravitano.com/donation)
+[![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=95ZPLBB8U3T9N)
 
 ### Installation
 
