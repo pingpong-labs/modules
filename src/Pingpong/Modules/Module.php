@@ -80,7 +80,7 @@ class Module
 	protected function includeGlobalFile($name)
 	{
 		$file =  $this->getPath() . "/$name/start/global.php";
-        if ( ! $this->app['files']->exists($file)
+        if ( ! $this->app['files']->exists($file))
         {
             throw new FileMissingException("Module [$name] must be have start/global.php file for registering namespaces.");
         }
