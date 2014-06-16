@@ -7,7 +7,7 @@ Laravel 4 - Simple Modules
 
 ## Donation
 
-If you find this source is useful, you can share some milk to me if you want ^_^
+If you find this source useful, you can share some milk to me if you want ^_^
 
 [![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=95ZPLBB8U3T9N)
 
@@ -29,15 +29,15 @@ Next, Add new class alias in `app/config/php`.
   ```php
   'Module'        => 'Pingpong\Modules\Facades\Module',
   ```
-Next, publish package configration. Open your terminal and run:
+Next, publish package configuration. Open your terminal and run:
   ```
   php artisan config:publish pingpong/modules
   ```
 Done.
 
-### Setup modules folder for first use.
+### Setup modules folder for first use
 
-By default modules folder is in your laravel route directory. For first use, please run this command on your terminal.
+By default modules folder is in your Laravel route directory. For first use, please run this command on your terminal.
   ```
   php artisan module:setup
   ```
@@ -68,7 +68,7 @@ By default modules folder is in your laravel route directory. For first use, ple
       |-- routes.php
   ```
 
-  **Note:** File `start/global.php` is required for registering a view, lang and config namespaces. If that file does not exists, it's will throw an exception `FileMissingException`.
+  **Note:** File `start/global.php` is required for registering `View`, `Lang` and `Config` namespaces. If that file does not exist, an exception `FileMissingException` is thrown.
 
 ### Artisan CLI
   
@@ -78,7 +78,7 @@ By default modules folder is in your laravel route directory. For first use, ple
   php artisan module:make blog
   ```
   
-2. Create new command the specified module.
+2. Create new command for the specified module.
   
   ```
   php artisan module:command blog CostumCommand
@@ -190,7 +190,7 @@ By default modules folder is in your laravel route directory. For first use, ple
 
 ### Costum Service Provider
 
-  When your create new module. It's also create new costum service provider. For example, if you create new module named `blog`. It's also create new Service Provider named `BlogServiceProvider` with namespace `Modules\Blog`. I think is useful for registering costum command for each module. This file is not autoload, you can autoload this file using `psr-0` or `psr-4`. That file maybe look like this:
+  When you create your create new module, it also creates a new costum service provider. For example, if you create a new module named `blog`, it also creates a new Service Provider named `BlogServiceProvider` with namespace `Modules\Blog`. I think it is useful for registering costum command for each module. This file is not autoloaded; you can autoload this file using `psr-0` or `psr-4`. That file maybe look like this:
 
   ```php
   <?php namespace Modules\Blog;
@@ -232,8 +232,8 @@ By default modules folder is in your laravel route directory. For first use, ple
 
 ### Costum Namespaces
 
-  When you create new module it's also registering new costum namespace for `Lang`, `View` and `Config`. For example, if you create new module named `blog`, it's will registering new namespace/hint `blog` for that module. That, you can use that namespace for calling Lang, View or Config.
-  This is an example of its use.
+  When you create a new module it also registers new costum namespace for `Lang`, `View` and `Config`. For example, if you create a new module named `blog`, it will also register new namespace/hint `blog` for that module. Then, you can use that namespace for calling `Lang`, `View` or `Config`.
+  Following are some examples of its usage:
 
   Calling Lang:
   ```php
