@@ -81,11 +81,11 @@ By default modules folder is in your Laravel route directory. For first use, ple
 2. Create new command for the specified module.
   
   ```
-  php artisan module:command blog CostumCommand
+  php artisan module:command blog CustomCommand
 
-  php artisan module:command blog CostumCommand --command=costum:command
+  php artisan module:command blog CustomCommand --command=custom:command
 
-  php artisan module:command blog CostumCommand --namespace=Modules\Blog\Commands
+  php artisan module:command blog CustomCommand --namespace=Modules\Blog\Commands
   ```
   
 3. Create new migration for the specified module.
@@ -188,9 +188,9 @@ By default modules folder is in your Laravel route directory. For first use, ple
   Module::getAssetsPath();
   ```
 
-### Costum Service Provider
+### Custom Service Provider
 
-  When you create your create new module, it also creates a new costum service provider. For example, if you create a new module named `blog`, it also creates a new Service Provider named `BlogServiceProvider` with namespace `Modules\Blog`. I think it is useful for registering costum command for each module. This file is not autoloaded; you can autoload this file using `psr-0` or `psr-4`. That file maybe look like this:
+  When you create your create new module, it also creates a new custom service provider. For example, if you create a new module named `blog`, it also creates a new Service Provider named `BlogServiceProvider` with namespace `Modules\Blog`. I think it is useful for registering custom command for each module. This file is not autoloaded; you can autoload this file using `psr-0` or `psr-4`. That file maybe look like this:
 
   ```php
   <?php namespace Modules\Blog;
@@ -230,9 +230,9 @@ By default modules folder is in your Laravel route directory. For first use, ple
 
   ```
 
-### Costum Namespaces
+### Custom Namespaces
 
-  When you create a new module it also registers new costum namespace for `Lang`, `View` and `Config`. For example, if you create a new module named `blog`, it will also register new namespace/hint `blog` for that module. Then, you can use that namespace for calling `Lang`, `View` or `Config`.
+  When you create a new module it also registers new custom namespace for `Lang`, `View` and `Config`. For example, if you create a new module named `blog`, it will also register new namespace/hint `blog` for that module. Then, you can use that namespace for calling `Lang`, `View` or `Config`.
   Following are some examples of its usage:
 
   Calling Lang:
