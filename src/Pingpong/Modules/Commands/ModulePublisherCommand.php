@@ -88,7 +88,7 @@ class ModulePublisherCommand extends Command {
 	protected function publish($name)
 	{
 		$folder = $this->getAssetsPath($name);
-		$dest 	= $this->getDestinationPath($name);
+		$dest 	= strtolower($this->getDestinationPath($name));
 		$this->files->copyDirectory($folder, $dest);
 	}
 
