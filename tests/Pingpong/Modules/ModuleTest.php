@@ -19,7 +19,7 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
 
     function getTmpPath()
     {
-        return __DIR__ . '/Modules/';
+        return __DIR__ . '/../Modules/';
     }
 
     function testItInitialize()
