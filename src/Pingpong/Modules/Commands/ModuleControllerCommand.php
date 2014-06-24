@@ -21,12 +21,12 @@ class ModuleControllerCommand extends Command {
 	 */
 	protected $description = 'Generate new restful controller for the specified module.';
 
-	/**
-	 * Create a new command instance.
-	 *
-	 * @return void
-	 */
-	public function __construct(Module $module)
+    /**
+     * Create a new command instance.
+     *
+     * @param \Pingpong\Modules\Module $module
+     */
+    public function __construct(Module $module)
 	{
 		$this->module = $module;
 		parent::__construct();
@@ -71,7 +71,9 @@ class ModuleControllerCommand extends Command {
 	 */
 	protected function getControllerPath()
 	{
-		return basename($this->module->getPath()) . "/$this->moduleName/controllers";
+        $path = ltrim(str_replace(base_path(), '', $this->module->getPath()), '/');
+
+        return $path . "/$this->moduleName/controllers";
 	}
 
 	/**

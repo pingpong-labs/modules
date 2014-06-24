@@ -18,5 +18,8 @@
             "Pingpong\\Modules\\": "src/Pingpong/Modules"
         }
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "stable",
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    }
 }
