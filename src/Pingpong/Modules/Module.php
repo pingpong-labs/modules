@@ -7,11 +7,15 @@ class FileMissingException extends \Exception {}
 class Module
 {
 	/**
+     * The Laravel Foundation Instance.
+     *
 	 * @var \Illuminate\Foundation\Application
 	 */
 	protected $app;
 
 	/**
+     * Module Finder Instance.
+     *
 	 * @var \Pingpong\Modules\ModuleFinder
 	 */
 	protected $finder;
@@ -20,6 +24,7 @@ class Module
 	 * Constructor.
 	 *
 	 * @param \Illuminate\Foundation\Application $app
+     * @param \Pingpong\Modules\ModuleFinder $finder
 	 */
 	public function __construct(Application $app, ModuleFinder $finder)
 	{
@@ -66,7 +71,8 @@ class Module
 	 */
 	public function register()
 	{
-		foreach ($this->all() as $module) {
+		foreach ($this->all() as $module)
+        {
 			$this->includeGlobalFile($module);
 		}
 	}
@@ -76,6 +82,7 @@ class Module
 	 *
 	 * @param  	string   $name
 	 * @return 	string
+     * @throws  \Pingpong\Modules\FileMissingException
 	 */
 	protected function includeGlobalFile($name)
 	{
@@ -90,7 +97,6 @@ class Module
 	/**
 	 * Get modules path.
 	 *
-	 * @param  	string   $name
 	 * @return 	string
 	 */
 	public function getPath()
@@ -155,4 +161,13 @@ class Module
 		return '<script'.$this->app['html']->attributes($attributes).'></script>'.PHP_EOL;
 	}
 
+    /**
+     * Set modules path in "RunTime" mode.
+     *
+     * @param $path
+     */
+    public function setPath($path)
+    {
+        $this->app['config']->set('modules::paths.modules', $path);
+    }
 }

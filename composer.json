@@ -13,13 +13,14 @@
         "php": ">=5.4.0",
         "illuminate/support": "~4"
     },
+    "require-dev": {
+        "phpunit/phpunit": "*",
+        "mockery/mockery": "*"
+    },
     "autoload": {
         "psr-4": {
             "Pingpong\\Modules\\": "src/Pingpong/Modules"
         }
     },
-    "minimum-stability": "stable",
-    "require-dev": {
-        "phpunit/phpunit": "*"
-    }
+    "minimum-stability": "stable"
 }
