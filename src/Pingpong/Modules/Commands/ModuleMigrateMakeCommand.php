@@ -43,7 +43,8 @@ class ModuleMigrateMakeCommand extends Command {
 	{
 		$this->moduleName  		=  ucwords($this->argument('module'));
 		$this->table 		 	=  str_plural(strtolower($this->argument('table')));
-		$this->migrationName 	=  "Create".studly_case($this->table)."Table";
+		$this->migrationName 	=  "create_".snake_case($this->table)."_table";
+        $this->className        =  studly_case($this->migrationName);
 
 		if($this->module->has($this->moduleName))
 		{
@@ -77,7 +78,8 @@ class ModuleMigrateMakeCommand extends Command {
 			$fields = str_replace(" ", "", $option);
 			$fields = explode(',', $fields);
 
-			foreach ($fields as $field) {
+			foreach ($fields as $field)
+            {
 				$result.= $this->setField($field);
 			}
 		}
@@ -99,7 +101,8 @@ class ModuleMigrateMakeCommand extends Command {
 			$result.= '			$table->'.$option[1]."('$option[0]')";
 			if(count($option) > 0)
 			{
-				foreach ($option as $key => $o) {
+				foreach ($option as $key => $o)
+                {
 					if($key == 0 || $key == 1) continue;
 					$result.= "->$o()";		
 				}
@@ -159,7 +162,7 @@ class ModuleMigrateMakeCommand extends Command {
 	{
 		return str_replace(
 			['{{migrationName}}', '{{table}}', '{{fields}}'],
-			[$this->migrationName, $this->table, $this->getFields()],
+			[$this->className, $this->table, $this->getFields()],
 			$content
 		);
 	}

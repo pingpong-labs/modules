@@ -104,10 +104,14 @@ class ModulesServiceProvider extends ServiceProvider {
 		{
 			return new Commands\ModuleMigrateMakeCommand($app['modules'], $app['files']);
 		});
-		$this->app['modules.command-maker'] = $this->app->share(function($app)
-		{
-			return new Commands\ModuleCommandCommand($app['modules']);
-		});
+        $this->app['modules.command-maker'] = $this->app->share(function($app)
+        {
+            return new Commands\ModuleCommandCommand($app['modules']);
+        });
+        $this->app['modules.migration-publisher'] = $this->app->share(function($app)
+        {
+            return new Commands\ModuleMigratePublishCommand;
+        });
 		$this->commands(
 			'modules.controller',
 			'modules.model',
@@ -118,7 +122,8 @@ class ModulesServiceProvider extends ServiceProvider {
 			'modules.seeder',
 			'modules.migrator',
 			'modules.migration-maker',
-			'modules.command-maker'
+			'modules.command-maker',
+            'modules.migration-publisher'
 		);
 	}
 

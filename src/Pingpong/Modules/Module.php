@@ -170,4 +170,15 @@ class Module
     {
         $this->app['config']->set('modules::paths.modules', $path);
     }
+
+    /**
+     * Get module path for the specified module.
+     *
+     * @param $module
+     * @return string
+     */
+    public function getModulePath($module)
+    {
+        return $this->getPath()  . '/' . $module;
+    }
 }
