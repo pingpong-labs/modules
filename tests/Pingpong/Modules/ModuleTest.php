@@ -17,19 +17,8 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
         return new Module($app, $finder);
     }
 
-    function getTmpPath()
-    {
-        return __DIR__ . '/../Modules/';
-    }
-
     function testItInitialize()
     {
         $this->assertInstanceOf('Pingpong\Modules\Module', $this->getModuleInstance());
     }
-
-    function testTmpFolderExists()
-    {
-        $this->assertTrue(is_dir($this->getTmpPath()));
-    }
-
 }
