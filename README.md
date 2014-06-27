@@ -154,7 +154,7 @@ By default modules folder is in your Laravel route directory. For first use, ple
   ```
 
 13. Publish migration for the specified module or for all modules.
-    This helpful when you want to rollback the migrations. You can also run `artisan:migrate` instead `module:migrate` command for migrate the migrations.
+    This helpful when you want to rollback the migrations. You can also run `php artisan migrate` instead of `php artisan module:migrate` command for migrate the migrations.
 
     For the specified module.
     ```

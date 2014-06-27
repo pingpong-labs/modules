@@ -19,6 +19,6 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
 
     function testItInitialize()
     {
-        $this->assertInstanceOf('Pingpong\Modules\Module', $this->getModuleInstance());
+        $this->assertInstanceOf('Pingpong\Modules\Module', $this->getModuleInstance()); 
     }
 }
