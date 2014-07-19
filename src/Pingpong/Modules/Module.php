@@ -1,36 +1,66 @@
 <?php namespace Pingpong\Modules;
 
-use Illuminate\Foundation\Application;
+use Countable;
+use Illuminate\View\Factory;
+use Illuminate\Config\Repository;
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\Translation\Translator;
 
 class FileMissingException extends \Exception {}
 
-class Module
+class Module implements Countable
 {
 	/**
-     * The Laravel Foundation Instance.
+     * The Pingpong Themes Finder Object.
      *
-	 * @var \Illuminate\Foundation\Application
-	 */
-	protected $app;
+     * @var Finder
+     */
+    protected $finder;
 
-	/**
-     * Module Finder Instance.
+    /**
+     * The Laravel Config Repository.
      *
-	 * @var \Pingpong\Modules\ModuleFinder
-	 */
-	protected $finder;
+     * @var Repository
+     */
+    protected $config;
 
-	/**
-	 * Constructor.
-	 *
-	 * @param \Illuminate\Foundation\Application $app
-     * @param \Pingpong\Modules\ModuleFinder $finder
-	 */
-	public function __construct(Application $app, ModuleFinder $finder)
-	{
-		$this->app = $app;
-		$this->finder = $finder;
-	}
+    /**
+     * The Laravel Translator.
+     *
+     * @var Translator
+     */
+    protected $lang;
+
+    /**
+     * The Laravel View.
+     *
+     * @var Factory
+     */
+    protected $views;
+
+    /**
+     * The constructor.
+     *
+     * @param Finder $finder
+     * @param Repository $config
+     * @param Factory $views
+     * @param Translator $lang
+     * @internal param Factory $view
+     */
+    public function __construct(
+    	Finder $finder,
+    	Repository $config,
+    	Factory $views,
+    	Translator $lang,
+    	Filesystem $files
+    )
+    {
+        $this->finder = $finder;
+        $this->config = $config;
+        $this->lang = $lang;
+        $this->views = $views;
+        $this->files = $files;
+    }
 
 	/**
 	 * Get all modules.
@@ -51,6 +81,16 @@ class Module
 	public function has($name)
 	{
 		return $this->exists($name);
+	}
+
+	/**
+	 * Get count of all modules.
+	 * 
+	 * @return int 
+	 */
+	public function count()
+	{
+		return count($this->all());
 	}
 
 	/**
@@ -87,7 +127,7 @@ class Module
 	protected function includeGlobalFile($name)
 	{
 		$file =  $this->getPath() . "/$name/start/global.php";
-        if ( ! $this->app['files']->exists($file))
+        if ( ! $this->files->exists($file))
         {
             throw new FileMissingException("Module [$name] must be have start/global.php file for registering namespaces.");
         }
@@ -101,7 +141,7 @@ class Module
 	 */
 	public function getPath()
 	{
-		return $this->app['config']->get('modules::paths.modules');
+		return $this->config->get('modules::paths.modules');
 	}
 
 	/**
@@ -111,7 +151,7 @@ class Module
 	 */
 	public function getAssetsPath()
 	{
-		return $this->app['config']->get('modules::paths.assets');
+		return $this->config->get('modules::paths.assets');
 	}
 
 	/**
@@ -168,7 +208,7 @@ class Module
      */
     public function setPath($path)
     {
-        $this->app['config']->set('modules::paths.modules', $path);
+        $this->finder->setPath($path);
     }
 
     /**
@@ -179,6 +219,6 @@ class Module
      */
     public function getModulePath($module)
     {
-        return $this->getPath()  . '/' . $module;
+    	return $this->finder->getModulePath($module);
     }
 }

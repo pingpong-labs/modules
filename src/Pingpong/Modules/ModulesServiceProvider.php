@@ -20,7 +20,6 @@ class ModulesServiceProvider extends ServiceProvider {
 	public function boot()
 	{
 		$this->package('pingpong/modules');
-		$this->registerAutoloader();
 	}
 
 	/**
@@ -35,16 +34,6 @@ class ModulesServiceProvider extends ServiceProvider {
 	}
 
 	/**
-	 * Register the autoloader.
-	 *
-	 * @return void
-	 */
-	public function registerAutoloader()
-	{
-		$this->app['modules']->register();
-	}
-
-	/**
 	 * Register the service provider.
 	 *
 	 * @return void
@@ -53,11 +42,19 @@ class ModulesServiceProvider extends ServiceProvider {
 	{		
 		$this->app['modules.finder'] = $this->app->share(function($app)
 		{
-			return new ModuleFinder($app);
+			return new Finder($app['files'], $app['config']);
 		});
-		$this->app['modules'] = $this->app->share(function($app)
+
+		$finder = $this->app['modules.finder'];
+
+		$this->app['modules'] = $this->app->share(function($app) use($finder)
 		{
-			return new Module($app, $app['modules.finder']);
+			return new Module($finder, $app['config'], $app['view'], $app['translator'], $app['files']);
+		});
+
+		$this->app->booting(function($app)
+		{
+			$app['modules']->register();
 		});
 	}
 
