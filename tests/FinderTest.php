@@ -21,9 +21,9 @@ class FinderTest extends PHPUnit_Framework_TestCase
         $files  = m::mock('Illuminate\Filesystem\Filesystem');
 
         $finder = new Finder($files, $config);
+        $finder->setPath($this->getPath());
 
-        $config->shouldReceive('get')->once()->andReturn($this->getPath());
-        $files->shouldReceive('directories')->once()->andReturn(['modules']);
+        $files->shouldReceive('directories')->once()->andReturn(array('Blog'));
 
         $all = $finder->all();
 
