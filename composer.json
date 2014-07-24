@@ -15,7 +15,9 @@
         "illuminate/filesystem": "4.*",
         "illuminate/translation": "4.*",
         "illuminate/view": "4.*",
-        "illuminate/config": "4.*"
+        "illuminate/config": "4.*",
+        "illuminate/html": "4.*",
+        "illuminate/routing": "4.*"
     },
     "require-dev": {
         "phpunit/phpunit": "*",

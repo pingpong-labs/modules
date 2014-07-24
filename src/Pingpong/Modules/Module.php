@@ -5,6 +5,8 @@ use Illuminate\View\Factory;
 use Illuminate\Config\Repository;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Translation\Translator;
+use Illuminate\Html\HtmlBuilder;
+use Illuminate\Routing\UrlGenerator;
 
 class FileMissingException extends \Exception {}
 
@@ -37,6 +39,16 @@ class Module implements Countable
      * @var Factory
      */
     protected $views;
+    
+    /**
+     * @var HtmlBuilder
+     */
+    protected $html;
+    
+    /**
+     * @var UrlGenerator 
+     */
+    protected $url;
 
     /**
      * The constructor.
@@ -45,14 +57,15 @@ class Module implements Countable
      * @param Repository $config
      * @param Factory $views
      * @param Translator $lang
-     * @internal param Factory $view
      */
     public function __construct(
     	Finder $finder,
     	Repository $config,
     	Factory $views,
     	Translator $lang,
-    	Filesystem $files
+        Filesystem $files,
+        HtmlBuilder $html,
+        UrlGenerator $url
     )
     {
         $this->finder = $finder;
@@ -60,6 +73,8 @@ class Module implements Countable
         $this->lang = $lang;
         $this->views = $views;
         $this->files = $files;
+        $this->html = $html;
+        $this->url = $url;
     }
 
 	/**
@@ -164,7 +179,7 @@ class Module implements Countable
 	 */
 	public function asset($name, $url, $secure = false)
 	{
-		return $this->app['url']->asset( basename($this->getAssetsPath()) . "/$name/" . $url, $secure);
+		return $this->url->asset( basename($this->getAssetsPath()) . "/$name/" . $url, $secure);
 	}
 
 	/**
@@ -183,7 +198,7 @@ class Module implements Countable
 
 		$attributes['href'] = $this->asset($name, $url, $secure);
 
-		return '<link'.$this->app['html']->attributes($attributes).'>'.PHP_EOL;
+		return '<link'.$this->html->attributes($attributes).'>'.PHP_EOL;
 	}
 
 	/**
@@ -198,17 +213,20 @@ class Module implements Countable
 	{
 		$attributes['src'] = $this->asset($name, $url, $secure);
 
-		return '<script'.$this->app['html']->attributes($attributes).'></script>'.PHP_EOL;
+		return '<script'.$this->html->attributes($attributes).'></script>'.PHP_EOL;
 	}
 
     /**
      * Set modules path in "RunTime" mode.
      *
      * @param $path
+     * @return $this
      */
     public function setPath($path)
     {
         $this->finder->setPath($path);
+
+        return $this;
     }
 
     /**
