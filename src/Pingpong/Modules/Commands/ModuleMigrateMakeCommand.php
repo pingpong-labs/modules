@@ -13,7 +13,7 @@ class ModuleMigrateMakeCommand extends Command {
 	 *
 	 * @var string
 	 */
-	protected $name = 'module:migrate:make';
+	protected $name = 'module:migration';
 
 	/**
 	 * The console command description.

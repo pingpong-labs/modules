@@ -13,7 +13,7 @@ class ModuleSeedMakeCommand extends Command {
 	 *
 	 * @var string
 	 */
-	protected $name = 'module:seed:make';
+	protected $name = 'module:seed-make';
 
 	/**
 	 * The console command description.
