@@ -49,7 +49,7 @@ class ModulesServiceProvider extends ServiceProvider {
 
 		$this->app['modules'] = $this->app->share(function($app) use($finder)
 		{
-			return new Module($finder, $app['config'], $app['view'], $app['translator'], $app['files']);
+			return new Module($finder, $app['config'], $app['view'], $app['translator'], $app['files'], $app['html'], $app['url']);
 		});
 
 		$this->app->booting(function($app)
@@ -120,7 +120,7 @@ class ModulesServiceProvider extends ServiceProvider {
 			'modules.migrator',
 			'modules.migration-maker',
 			'modules.command-maker',
-            'modules.migration-publisher'
+            		'modules.migration-publisher'
 		);
 	}
 
