@@ -42,11 +42,11 @@ Done.
 
 **1.0.7 to 1.0.8**
 
-- there is command name changed :
+- There is command name changed :
   -  `php artisan module:migrate:make` to `php artisan module:migration`
   -  `php artisan module:seed:make` to `php artisan module:seed-make`
-- merged [#8](https://github.com/pingpong-labs/modules/pull/18) : fixed constructor error
-- package improvement
+- Merged [#8](https://github.com/pingpong-labs/modules/pull/18) : Fix constructor error.
+- Package improvement.
 
 ### Setup modules folder for first use
 
