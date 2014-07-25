@@ -141,10 +141,12 @@ class Module implements Countable
 	 */
 	protected function includeGlobalFile($name)
 	{
-		$file =  $this->getPath() . "/$name/start/global.php";
+		$file =  $this->getPath() . "/{$name}/start/global.php";
         if ( ! $this->files->exists($file))
         {
-            throw new FileMissingException("Module [$name] must be have start/global.php file for registering namespaces.");
+            $message = "Module [{$name}] must have start/global.php file for registering namespaces.";
+            
+            throw new FileMissingException($message);
         }
         require $file;
 	}
