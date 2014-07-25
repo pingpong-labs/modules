@@ -2,17 +2,30 @@ Laravel 4 - Simple Modules
 =========================
 
 [![Build Status](https://travis-ci.org/pingpong-labs/modules.svg?branch=master)](https://travis-ci.org/pingpong-labs/modules)
-[![Latest Stable Version](https://poser.pugx.org/pingpong/modules/v/stable.svg)](https://packagist.org/packages/pingpong/modules) [![Total Downloads](https://poser.pugx.org/pingpong/modules/downloads.svg)](https://packagist.org/packages/pingpong/modules) [![Latest Unstable Version](https://poser.pugx.org/pingpong/modules/v/unstable.svg)](https://packagist.org/packages/pingpong/modules) [![License](https://poser.pugx.org/pingpong/modules/license.svg)](https://packagist.org/packages/pingpong/modules)
+[![Latest Stable Version](https://poser.pugx.org/pingpong/modules/v/stable.svg)](https://packagist.org/packages/pingpong/modules)
+[![Total Downloads](https://poser.pugx.org/pingpong/modules/downloads.svg)](https://packagist.org/packages/pingpong/modules)
+[![Latest Unstable Version](https://poser.pugx.org/pingpong/modules/v/unstable.svg)](https://packagist.org/packages/pingpong/modules)
+[![License](https://poser.pugx.org/pingpong/modules/license.svg)](https://packagist.org/packages/pingpong/modules)
 
 ### Server Requirements
 
 - PHP 5.4 or higher
 
-## Donation
+### Donation
 
 If you find this source useful, you can share some milk to me if you want ^_^
 
 [![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=95ZPLBB8U3T9N)
+
+### Changes Log
+
+**1.0.7 to 1.0.8**
+
+- There is command name changed :
+  -  `php artisan module:migrate:make` to `php artisan module:migration`
+  -  `php artisan module:seed:make` to `php artisan module:seed-make`
+- Merged [#8](https://github.com/pingpong-labs/modules/pull/18) : Fix constructor error.
+- Package improvement.
 
 ### Installation
 
@@ -37,16 +50,6 @@ Next, publish package configuration. Open your terminal and run:
   php artisan config:publish pingpong/modules
   ```
 Done.
-
-### Changes Log
-
-**1.0.7 to 1.0.8**
-
-- There is command name changed :
-  -  `php artisan module:migrate:make` to `php artisan module:migration`
-  -  `php artisan module:seed:make` to `php artisan module:seed-make`
-- Merged [#8](https://github.com/pingpong-labs/modules/pull/18) : Fix constructor error.
-- Package improvement.
 
 ### Setup modules folder for first use
 
