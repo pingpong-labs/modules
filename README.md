@@ -38,6 +38,16 @@ Next, publish package configuration. Open your terminal and run:
   ```
 Done.
 
+### Changes Log
+
+**1.0.7 to 1.0.8**
+
+- there is command name changed :
+    `php artisan module:migrate:make` to `php artisan module:migration`
+    `php artisan module:seed:make` to `php artisan module:seed-make`
+- merged #8 : fixed constructor error
+- package improvement
+
 ### Setup modules folder for first use
 
 By default modules folder is in your Laravel route directory. For first use, please run this command on your terminal.
@@ -94,15 +104,15 @@ By default modules folder is in your Laravel route directory. For first use, ple
 3. Create new migration for the specified module.
 
   ```
-  php artisan module:migrate:make blog users
+  php artisan module:migration blog users
 
-  php artisan module:migrate:make blog users --fields="username:string, password:string"
+  php artisan module:migration blog users --fields="username:string, password:string"
   ```
   
 4. Create new seed for the specified module.
 
   ```
-  php artisan module:seed:make blog users
+  php artisan module:seed-make blog users
   ```
   
 5. Migrate from the specified module.
