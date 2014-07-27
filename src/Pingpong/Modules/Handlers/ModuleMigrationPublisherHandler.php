@@ -59,9 +59,7 @@ class ModuleMigrationPublisherHandler
     protected function publishMigration($module)
     {
         $path = $this->getMigrationPath($module);
-
-        var_dump(realpath($path));
-
+        
         $this->files->copyDirectory($path, app_path('database/migrations/'));
 
         $this->console->info("Published from : " . $path);
