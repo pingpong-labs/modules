@@ -1,11 +1,10 @@
 <?php namespace Pingpong\Modules\Commands;
 
-use Pingpong\Modules\Handlers\ModulePublisherHandler;
-use Pingpong\Modules\Module;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem as File;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use Pingpong\Modules\Handlers\ModulePublisherHandler;
 
 class ModulePublisherCommand extends Command {
 

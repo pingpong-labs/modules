@@ -1,8 +1,8 @@
 <?php namespace Pingpong\Modules\Handlers;
 
-use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 use Pingpong\Modules\Module;
+use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 
 /**

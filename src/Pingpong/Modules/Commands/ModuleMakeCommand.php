@@ -1,9 +1,9 @@
 <?php namespace Pingpong\Modules\Commands;
 
 use Illuminate\Console\Command;
-use Pingpong\Modules\Handlers\ModuleGeneratorHandler;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use Pingpong\Modules\Handlers\ModuleGeneratorHandler;
 
 /**
  * Class ModuleMakeCommand

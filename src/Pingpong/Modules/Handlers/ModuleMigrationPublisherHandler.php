@@ -1,8 +1,8 @@
 <?php namespace Pingpong\Modules\Handlers;
 
-use Illuminate\Filesystem\Filesystem;
 use Pingpong\Modules\Module;
 use Illuminate\Console\Command;
+use Illuminate\Filesystem\Filesystem;
 
 /**
  * Class ModuleMigrationPublisherHandler
@@ -59,7 +59,7 @@ class ModuleMigrationPublisherHandler
     protected function publishMigration($module)
     {
         $path = $this->getMigrationPath($module);
-        
+
         $this->files->copyDirectory($path, app_path('database/migrations/'));
 
         $this->console->info("Published from : " . $path);
