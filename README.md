@@ -21,7 +21,7 @@ If you find this source useful, you can share some milk to me if you want ^_^
 
 **1.0.8 to 1.0.9**
 
-- Fix `module:seed-make` command when run `module:make` command.
+- Fix `module:seed-make` command when running `module:make` command.
 - Command Improvement.
 
 **1.0.7 to 1.0.8**
