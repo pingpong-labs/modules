@@ -1,6 +1,5 @@
 <?php namespace Pingpong\Modules\Commands;
 
-use Pingpong\Modules\Module;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
@@ -22,32 +21,27 @@ class ModuleSeedCommand extends Command {
 	protected $description = 'Run database seeder from the specified module or from all modules.';
 
 	/**
-	 * Create a new command instance.
-	 *
-	 * @return void
-	 */
-	public function __construct(Module $module)
-	{
-		$this->module = $module; 
-		parent::__construct();
-	}
-
-	/**
 	 * Execute the console command.
 	 *
 	 * @return mixed
 	 */
 	public function fire()
 	{
-		$name 	= strtolower($this->argument('module'));
-		if($this->module->has($name))
+        $this->module = $this->laravel['modules'];
+
+		$name = strtolower($this->argument('module'));
+
+        if($this->module->has($name))
 		{
 			$this->dbseed($name);
 			return $this->info("Module [$name] seeded.");
-		}		
-		foreach ($this->module->all() as $name) {
+		}
+
+		foreach ($this->module->all() as $name)
+        {
 			$this->dbseed($name);
 		}
+
 		return $this->info("All modules seeded.");
 	}
 

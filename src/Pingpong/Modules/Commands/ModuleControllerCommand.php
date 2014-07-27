@@ -1,6 +1,5 @@
 <?php namespace Pingpong\Modules\Commands;
 
-use Pingpong\Modules\Module;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
@@ -21,17 +20,6 @@ class ModuleControllerCommand extends Command {
 	 */
 	protected $description = 'Generate new restful controller for the specified module.';
 
-    /**
-     * Create a new command instance.
-     *
-     * @param \Pingpong\Modules\Module $module
-     */
-    public function __construct(Module $module)
-	{
-		$this->module = $module;
-		parent::__construct();
-	}
-
 	/**
 	 * Execute the console command.
 	 *
@@ -39,6 +27,7 @@ class ModuleControllerCommand extends Command {
 	 */
 	public function fire()
 	{
+        $this->module = $this->laravel['modules'];
 		$this->moduleName 		= ucwords($this->argument('module'));
 		$this->controllerName	= studly_case($this->argument('controller'));
 		

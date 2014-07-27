@@ -33,45 +33,8 @@ class ModuleMigratePublishCommand extends Command {
 	 * @return mixed
 	 */
 	public function fire()
-	{
-        $module = $this->argument('module');
-
-        if(empty($module))
-        {
-            foreach($this->laravel['modules']->all() as $module)
-            {
-                $this->publishMigration($module);
-            }
-        }
-        else
-        {
-            $this->publishMigration($module);
-        }
-	}
-
-    /**
-     * Publish migration to the application for the specified module.
-     *
-     * @param $module
-     */
-    protected function publishMigration($module)
     {
-        $path = $this->getMigrationPath($module);
 
-        $this->laravel['files']->copyDirectory($path, app_path('database/migrations/'));
-
-        $this->info("Published from : ". $path);
-    }
-
-    /**
-     * Get migration path for the specified module.
-     *
-     * @param $module
-     * @return string
-     */
-    protected function getMigrationPath($module)
-    {
-        return $this->laravel['modules']->getModulePath($module) .'/database/migrations/';
     }
 
 	/**

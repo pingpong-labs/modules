@@ -1,5 +1,6 @@
 <?php namespace Pingpong\Modules\Commands;
 
+use Pingpong\Modules\Handlers\ModulePublisherHandler;
 use Pingpong\Modules\Module;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem as File;
@@ -27,11 +28,11 @@ class ModulePublisherCommand extends Command {
 	 *
 	 * @return void
 	 */
-	public function __construct(Module $module, File $files)
+	public function __construct(ModulePublisherHandler $handler)
 	{
-		$this->module 	= $module;
-		$this->files 	= $files;
 		parent::__construct();
+
+        $this->handler = $handler;
 	}
 
 	/**
@@ -41,55 +42,7 @@ class ModulePublisherCommand extends Command {
 	 */
 	public function fire()
 	{
-		$moduleName = ucwords($this->argument('module'));
-		if( ! $moduleName )
-		{
-			foreach ($this->module->all() as $module) {
-				$this->publish($module);
-			}
-			return $this->info("All assets from all modules has been published successfully.");
-		}
-		if($this->module->exists($moduleName))
-		{
-			$this->publish($moduleName);
-			return $this->info("Assets from module [$moduleName] has been published successfully.");
-		}
-		return $this->info("Module [$moduleName] does not exists.");
-	}
-
-	/**
-	 * Get assets path for the specified module.
-	 *
-	 * @param  string  $name
-	 * @return string
-	 */
-	protected function getAssetsPath($name)
-	{
-		return realpath($this->module->getPath() . "/$name/assets/");
-	}
-
-	/**
-	 * Get destination assets path for the specified module.
-	 *
-	 * @param  string  $name
-	 * @return string
-	 */
-	public function getDestinationPath($name)
-	{
-		return realpath($this->module->getAssetsPath()) . "/$name/";
-	}
-
-	/**
-	 * Publish assets from the specified module.
-	 *
-	 * @param  string  $name
-	 * @return void
-	 */
-	protected function publish($name)
-	{
-		$folder = $this->getAssetsPath($name);
-		$dest 	= $this->getDestinationPath($name);
-		$this->files->copyDirectory($folder, $dest);
+        return $this->handler->fire($this, $this->argument('module'));
 	}
 
 	/**

@@ -2,6 +2,12 @@
 
 use Pingpong\Modules\Commands;
 use Illuminate\Support\ServiceProvider;
+use Pingpong\Modules\Handlers\ModuleGeneratorHandler;
+use Pingpong\Modules\Handlers\ModuleMigrationPublisherHandler;
+use Pingpong\Modules\Handlers\ModuleModelHandler;
+use Pingpong\Modules\Handlers\ModulePublisherHandler;
+use Pingpong\Modules\Handlers\ModuleSeedMakerHandler;
+use Pingpong\Modules\Handlers\ModuleSetupHandler;
 
 class ModulesServiceProvider extends ServiceProvider {
 
@@ -71,23 +77,33 @@ class ModulesServiceProvider extends ServiceProvider {
 		});
 		$this->app['modules.model'] = $this->app->share(function($app)
 		{
-			return new Commands\ModuleModelCommand($app['modules'], $app['files']);
+            $handler = new ModuleModelHandler($app['modules'], $app['files']);
+
+			return new Commands\ModuleModelCommand($handler);
 		});
 		$this->app['modules.publisher'] = $this->app->share(function($app)
 		{
-			return new Commands\ModulePublisherCommand($app['modules'], $app['files']);
+            $handler = new ModulePublisherHandler($app['modules'], $app['files']);
+
+			return new Commands\ModulePublisherCommand($handler);
 		});
 		$this->app['modules.setup'] = $this->app->share(function($app)
 		{
-			return new Commands\ModuleSetupCommand($app['modules'], $app['files']);
+            $handler = new ModuleSetupHandler($app['modules'], $app['files']);
+
+			return new Commands\ModuleSetupCommand($handler);
 		});
 		$this->app['modules.maker'] = $this->app->share(function($app)
 		{
-			return new Commands\ModuleMakeCommand($app['modules'], $app['files']);
+            $hander = new ModuleGeneratorHandler($app['modules'], $app['files']);
+
+			return new Commands\ModuleMakeCommand($hander);
 		});
 		$this->app['modules.seed-maker'] = $this->app->share(function($app)
 		{
-			return new Commands\ModuleSeedMakeCommand($app['modules'], $app['files']);
+            $handler = new ModuleSeedMakerHandler($app['modules'], $app['files']);
+
+			return new Commands\ModuleSeedMakeCommand($handler);
 		});
 		$this->app['modules.seeder'] = $this->app->share(function($app)
 		{
@@ -107,8 +123,11 @@ class ModulesServiceProvider extends ServiceProvider {
         });
         $this->app['modules.migration-publisher'] = $this->app->share(function($app)
         {
-            return new Commands\ModuleMigratePublishCommand;
+            $handler = new ModuleMigrationPublisherHandler($app['modules'], $app['files']);
+
+            return new Commands\ModuleMigratePublishCommand($handler);
         });
+
 		$this->commands(
 			'modules.controller',
 			'modules.model',
@@ -120,7 +139,7 @@ class ModulesServiceProvider extends ServiceProvider {
 			'modules.migrator',
 			'modules.migration-maker',
 			'modules.command-maker',
-            		'modules.migration-publisher'
+            'modules.migration-publisher'
 		);
 	}
 

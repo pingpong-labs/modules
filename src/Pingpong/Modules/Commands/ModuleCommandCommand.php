@@ -1,6 +1,5 @@
 <?php namespace Pingpong\Modules\Commands;
 
-use Pingpong\Modules\Module;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
@@ -22,25 +21,17 @@ class ModuleCommandCommand extends Command {
 	protected $description = 'Generate new Artisan command for the specified module.';
 
 	/**
-	 * Create a new command instance.
-	 *
-	 * @return void
-	 */
-	public function __construct(Module $module)
-	{
-		$this->module = $module;
-		parent::__construct();
-	}
-
-	/**
 	 * Execute the console command.
 	 *
 	 * @return mixed
 	 */
 	public function fire()
-	{
+    {
+        $this->module = $this->laravel['modules'];
+
 		$this->moduleName = ucwords($this->argument('module'));
-		if($this->module->has($this->moduleName))
+        
+        if($this->module->has($this->moduleName))
 		{
 			$params = [
 				'name'	 		=>  $this->argument('name'),
@@ -48,9 +39,12 @@ class ModuleCommandCommand extends Command {
 				'--namespace'	=>	$this->option('namespace'),
 				'--command'		=>	$this->option('command'),
 			];
-			return $this->call('command:make', $params);
-		}
-		return $this->error("Module [$this->moduleName] does not exists.");
+        
+            return $this->call('command:make', $params);
+        
+        }
+        
+        return $this->error("Module [{$this->moduleName}] does not exists.");
 	}
 
 	/**

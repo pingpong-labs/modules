@@ -1,10 +1,13 @@
 <?php namespace Pingpong\Modules\Commands;
 
-use Pingpong\Modules\Module;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
+/**
+ * Class ModuleMigrateCommand
+ * @package Pingpong\Modules\Commands
+ */
 class ModuleMigrateCommand extends Command {
 
 	/**
@@ -22,29 +25,20 @@ class ModuleMigrateCommand extends Command {
 	protected $description = 'Migrate the migrations from the specified module or from all modules.';
 
 	/**
-	 * Create a new command instance.
-	 *
-	 * @return void
-	 */
-	public function __construct(Module $module)
-	{
-		$this->module = $module; 
-		parent::__construct();
-	}
-
-	/**
 	 * Execute the console command.
 	 *
 	 * @return mixed
 	 */
 	public function fire()
 	{
+        $this->module = $this->laravel['modules'];
+
 		$name = ucwords($this->argument('module'));
-		if($name)
-		{
-			return $this->migrate($name);
-		}
-		foreach ($this->module->all() as $name) {
+
+        if($name) return $this->migrate($name);
+
+		foreach ($this->module->all() as $name)
+        {
 			$this->migrate($name);
 		}
 	}
@@ -60,6 +54,7 @@ class ModuleMigrateCommand extends Command {
 		if($this->module->has($name))
 		{
 			$params = $this->getParameter($name);
+
 			return $this->call('migrate', $params);
 		}
 		return $this->error("Module [$name] does not exists.");
@@ -74,7 +69,9 @@ class ModuleMigrateCommand extends Command {
 	protected function getParameter($name)
 	{
 		$params = array();
-		$params['--path'] = $this->getMigrationPath($name);
+
+        $params['--path'] = $this->getMigrationPath($name);
+
 		if($option = $this->option('database'))
 		{
 			$params['--database'] = $option;
@@ -97,7 +94,7 @@ class ModuleMigrateCommand extends Command {
 	 */
 	protected function getMigrationPath($name)
 	{
-		return basename($this->module->getPath()) . "/$name/database/migrations/";
+		return basename($this->module->getPath()) . "/{$name}/database/migrations/";
 	}
 
 	/**

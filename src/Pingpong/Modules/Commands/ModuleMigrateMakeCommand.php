@@ -22,16 +22,20 @@ class ModuleMigrateMakeCommand extends Command {
 	 */
 	protected $description = 'Generate a new migration for the specified module.';
 
-	/**
-	 * Create a new command instance.
-	 *
-	 * @return void
-	 */
-	public function __construct(Module $module, File $file)
+    /**
+     * Create a new command instance.
+     *
+     * @param Module $module
+     * @param File $files
+     * @return \Pingpong\Modules\Commands\ModuleMigrateMakeCommand
+     */
+	public function __construct(Module $module, File $files)
 	{
-		$this->module  = $module;
-		$this->file  = $file;
-		parent::__construct();
+        parent::__construct();
+
+        $this->module  = $module;
+
+        $this->file  = $files;
 	}
 
 	/**
