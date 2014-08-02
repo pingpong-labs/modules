@@ -1,7 +1,7 @@
 {
     "name": "pingpong/modules",
     "description": "Laravel 4 - Simple Modules",
-    "keywords":["modules", "laravel", "pingpong", "simple", "hmvc"],
+    "keywords":["modules", "laravel", "pingpong", "hmvc"],
     "license":"MIT",
     "authors": [
         {
