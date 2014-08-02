@@ -4,7 +4,16 @@ use Mockery as m;
 use Pingpong\Modules\Module;
 
 class ModulesTest extends PHPUnit_Framework_TestCase {
-	
+
+    protected $finder;
+    protected $config;
+    protected $view;
+    protected $lang;
+    protected $files;
+    protected $html;
+    protected $url;
+    protected $module;
+
 	public function tearDown()
 	{
 		m::close();
@@ -104,5 +113,52 @@ class ModulesTest extends PHPUnit_Framework_TestCase {
         $tag = $this->module->style('blog', 'css/all.css');
         
         $this->assertEquals('<link>' . PHP_EOL, $tag);  
+    }
+
+    public function testGetAllEnabledModules()
+    {
+        $this->finder->shouldReceive('all')->once()->andReturn(array('Blog'));
+        $this->finder->shouldReceive('property')->once()->with('Blog::active', '')->andReturn(1);
+        $count = count($this->module->enabled());
+        $this->assertEquals(1, $count);
+    }
+
+    public function testGetAllDisabledModules()
+    {
+        $this->finder->shouldReceive('all')->once()->andReturn(array('Blog'));
+        $this->finder->shouldReceive('property')->once()->with('Blog::active', '')->andReturn(1);
+        $count = count($this->module->disabled());
+        $this->assertEquals(0, $count);
+    }
+
+    public function testGetProperty()
+    {
+        $this->finder->shouldReceive('property')->once()->with('Blog::name', '')->andReturn('Blog');
+        $this->finder->shouldReceive('property')->once()->with('blog::active', '')->andReturn(1);
+        $this->assertEquals('Blog', $this->module->prop('Blog::name'));
+        $this->assertEquals(1, $this->module->prop('blog::active'));
+    }
+
+    public function testGetProperties()
+    {
+        $properties = array(
+            'name'      =>  'Blog',
+            'alias'     =>  'blog',
+            'active'    =>  1
+        );
+        $this->finder->shouldReceive('getJsonContents')->once()->with('blog')->andReturn($properties);
+        $data = $this->module->getProperties('blog');
+        $this->assertArrayHasKey('name', $data);
+        $this->assertArrayNotHasKey('description', $data);
+    }
+
+    public function testActiveStateModule()
+    {
+        $this->finder->shouldReceive('property')->times(2)->with('blog::active', '')->andReturn(1);
+        $this->finder->shouldReceive('property')->times(2)->with('news::active', '')->andReturn(0);
+        $this->assertTrue($this->module->active('blog'));
+        $this->assertFalse($this->module->notActive('blog'));
+        $this->assertFalse($this->module->active('news'));
+        $this->assertTrue($this->module->notActive('news'));
     }
 } 
