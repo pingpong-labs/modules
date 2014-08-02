@@ -1,9 +1,14 @@
 <?php namespace Pingpong\Modules\Commands;
 
+use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
+/**
+ * Class ModuleControllerCommand
+ * @package Pingpong\Modules\Commands
+ */
 class ModuleControllerCommand extends Command {
 
 	/**
@@ -28,7 +33,7 @@ class ModuleControllerCommand extends Command {
 	public function fire()
 	{
         $this->module = $this->laravel['modules'];
-		$this->moduleName 		= ucwords($this->argument('module'));
+		$this->moduleName 		= Str::studly($this->argument('module'));
 		$this->controllerName	= studly_case($this->argument('controller'));
 		
 		if($this->module->has($this->moduleName))
@@ -62,7 +67,7 @@ class ModuleControllerCommand extends Command {
 	{
         $path = ltrim(str_replace(base_path(), '', $this->module->getPath()), '/');
 
-        return $path . "/$this->moduleName/controllers";
+        return $path . "/{$this->moduleName}/controllers";
 	}
 
 	/**

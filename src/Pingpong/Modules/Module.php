@@ -2,14 +2,22 @@
 
 use Countable;
 use Illuminate\View\Factory;
+use Illuminate\Html\HtmlBuilder;
 use Illuminate\Config\Repository;
+use Illuminate\Routing\UrlGenerator;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Translation\Translator;
-use Illuminate\Html\HtmlBuilder;
-use Illuminate\Routing\UrlGenerator;
 
+/**
+ * Class FileMissingException
+ * @package Pingpong\Modules
+ */
 class FileMissingException extends \Exception {}
 
+/**
+ * Class Module
+ * @package Pingpong\Modules
+ */
 class Module implements Countable
 {
 	/**
@@ -87,6 +95,47 @@ class Module implements Countable
 		return $this->finder->all();
 	}
 
+    /**
+     * @param int $status
+     * @return array
+     */
+    public function getByStatus($status = 1)
+    {
+        $data = array();
+
+        foreach($this->all() as $module)
+        {
+            if($status == 1)
+            {
+                if($this->active($module))
+                    $data[] = $module;
+            }
+            else
+            {
+                if($this->notActive($module))
+                    $data[] = $module;
+            }
+        }
+
+        return $data;
+    }
+
+    /**
+     * @return array
+     */
+    public function enabled()
+    {
+        return $this->getByStatus(1);
+    }
+
+    /**
+     * @return array
+     */
+    public function disabled()
+    {
+        return $this->getByStatus(0);
+    }
+
 	/**
 	 * Determine if the module exists.
 	 *
@@ -126,7 +175,7 @@ class Module implements Countable
 	 */
 	public function register()
 	{
-		foreach ($this->all() as $module)
+		foreach ($this->enabled() as $module)
         {
 			$this->includeGlobalFile($module);
 		}
@@ -142,12 +191,14 @@ class Module implements Countable
 	protected function includeGlobalFile($name)
 	{
 		$file =  $this->getPath() . "/{$name}/start/global.php";
+
         if ( ! $this->files->exists($file))
         {
             $message = "Module [{$name}] must have start/global.php file for registering namespaces.";
             
             throw new FileMissingException($message);
         }
+
         require $file;
 	}
 
@@ -240,5 +291,80 @@ class Module implements Countable
     public function getModulePath($module)
     {
     	return $this->finder->getModulePath($module);
+    }
+
+    /**
+     * Get module json data by a given module name.
+     *
+     * @param $module
+     * @return array|mixed
+     */
+    public function getProperties($module)
+    {
+        return $this->finder->getJsonContents($module);
+    }
+
+    /**
+     * Get property.
+     *
+     * @param $key
+     * @param null $default
+     * @return mixed
+     */
+    public function property($key, $default = null)
+    {
+        return $this->finder->property($key, $default);
+    }
+
+    /**
+     * Alias for "property" method.
+     *
+     * @param $key
+     * @param null $default
+     * @return mixed
+     */
+    public function prop($key, $default = null)
+    {
+        return $this->property($key, $default);
+    }
+
+    /**
+     * Check if a given module active.
+     *
+     * @param $module
+     * @return bool
+     */
+    public function active($module)
+    {
+        return $this->prop("{$module}::active") == 1;
+    }
+
+    /**
+     * Check if a given module not active.
+     *
+     * @param $module
+     * @return bool
+     */
+    public function notActive($module)
+    {
+        return ! $this->active($module);
+    }
+
+    /**
+     * @param $module
+     * @return mixed
+     */
+    public function enable($module)
+    {
+        return $this->finder->enable($module);
+    }
+
+    /**
+     * @param $module
+     * @return mixed
+     */
+    public function disable($module)
+    {
+        return $this->finder->disable($module);
     }
 }

@@ -44,6 +44,7 @@ class ModuleGeneratorHandler
         'routes.php',
         'lang/en/{{name}}.php',
         'config/{{name}}.php',
+        'module.json'
     );
 
     /**
@@ -58,6 +59,7 @@ class ModuleGeneratorHandler
         'routes.stub',
         'lang.stub',
         'config.stub',
+        'json.stub'
     );
 
     /**

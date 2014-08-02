@@ -1,0 +1,9 @@
+{
+    "name": "{{Name}}",
+    "alias": "{{name}}",
+    "description": "",
+    "keywords": [
+
+    ],
+    "active": 1
+}

@@ -1,9 +1,9 @@
 <?php namespace Pingpong\Modules;
 
 use Countable;
+use Illuminate\Support\Str;
 use Illuminate\Config\Repository;
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Str;
 
 /**
  * Class Finder
@@ -118,9 +118,91 @@ class Finder implements Countable
      */
     public function getModulePath($module)
     {
+        $module = Str::studly($module);
+
         if( ! $this->has($module)) return null;
 
         return $this->getPath() . "/{$module}";
+    }
+
+    /**
+     * Get module json content as an array.
+     *
+     * @param $module
+     * @return array|mixed
+     */
+    public function getJsonContents($module)
+    {
+        $module = Str::studly($module);
+
+        $default = array();
+
+        if( ! $this->has($module)) return $default;
+
+        $path = $this->getJsonPath($module);
+
+        if($this->files->exists($path))
+        {
+            $contents = $this->files->get($path);
+
+            return json_decode($contents, true);
+        }
+
+        return $default;
+    }
+
+    /**
+     * Get the specified property for the specified module.
+     *
+     * @param $data
+     * @param null $default
+     * @return mixed
+     */
+    public function property($data, $default = null)
+    {
+        list($module, $key) = explode('::', $data);
+
+        return array_get($this->getJsonContents($module), $key, $default);
+    }
+
+    /**
+     * @param $module
+     * @param $status
+     * @return bool
+     */
+    public function setActive($module, $status)
+    {
+        $data = $this->getJsonContents($module);
+
+        if(count($data))
+        {
+            unset($data['active']);
+
+            $data['active'] = 1;
+
+            $this->updateJsonContents($module, $data);
+
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @param $module
+     * @return bool
+     */
+    public function enable($module)
+    {
+        return $this->setActive($module, 1);
+    }
+
+    /**
+     * @param $module
+     * @return bool
+     */
+    public function disable($module)
+    {
+        return $this->setActive($module, 0);
     }
 
     /**
@@ -141,5 +223,26 @@ class Finder implements Countable
     public function getConfig()
     {
         return $this->config;
+    }
+
+    /**
+     * @param $module
+     * @param array $data
+     * @return int
+     */
+    public function updateJsonContents($module, array $data)
+    {
+        $contents = json_encode($data, JSON_PRETTY_PRINT);
+
+        return $this->files->put($this->getJsonPath($module), $contents);
+    }
+
+    /**
+     * @param $module
+     * @return string
+     */
+    public function getJsonPath($module)
+    {
+        return $this->getModulePath($module) . '/module.json';
     }
 }

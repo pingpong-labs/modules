@@ -19,6 +19,11 @@ If you find this source useful, you can share some milk to me if you want ^_^
 
 ### Changes Log
 
+**1.0.9 to 1.1.0**
+
+- Added support for enable and disabled module.
+- There is new artisan command `module:enable` and `module:disable`.
+
 **1.0.8 to 1.0.9**
 
 - Fix `module:seed-make` command when running `module:make` command.
@@ -87,6 +92,7 @@ By default modules folder is in your Laravel route directory. For first use, ple
       |-- BlogServiceProvider.php
       |-- filters.php
       |-- routes.php
+      |-- module.json
   ```
 
   **Note:** File `start/global.php` is required for registering `View`, `Lang` and `Config` namespaces. If that file does not exist, an exception `FileMissingException` is thrown.
@@ -186,47 +192,72 @@ By default modules folder is in your Laravel route directory. For first use, ple
 
 ### Facades API
 
-1. Get asset url from specified module.
+Get asset url from specified module.
 
   ```php
   Module::asset('blog', 'image/news.png');
   ```
 
-2. Generate new stylesheet tag.
+Generate new stylesheet tag.
 
   ```php
   Module::style('blog', 'image/all.css');
   ```
 
-3. Generate new stylesheet tag.
+Generate new stylesheet tag.
 
   ```php
   Module::script('blog', 'js/all.js');
   ```
 
-4. Get all modules.
+Get all modules.
 
   ```php
   Module::all();
   ```
 
-5. Get modules path.
+Get all enabled module.
+```php
+Module::enabled();
+```
+
+Get all disabled module.
+```php
+Module::disabled();
+```
+
+Get modules path.
 
   ```php
   Module::getPath();
   ```
 
-6. Get assets modules path.
+Get assets modules path.
 
   ```php
   Module::getAssetsPath();
   ```
 
-7. Get module path for the specified module.
+Get module path for the specified module.
 
   ```php
   Module::getModulePath('blog');
   ```
+
+Enable a specified module.
+```php
+Module::enable('blog')
+```
+
+Disable a specified module.
+```php
+Module::disable('blog')
+```
+
+Get module json property as array from a specified module.
+```php
+Module::getProperties('blog')
+``` 
 
 ### Custom Service Provider
 
