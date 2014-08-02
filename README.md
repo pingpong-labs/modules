@@ -218,12 +218,12 @@ Get all modules.
 
 Get all enabled module.
 ```php
-Module::enabled();
+    Module::enabled();
 ```
 
 Get all disabled module.
 ```php
-Module::disabled();
+    Module::disabled();
 ```
 
 Get modules path.
@@ -246,17 +246,18 @@ Get module path for the specified module.
 
 Enable a specified module.
 ```php
-Module::enable('blog')
+    Module::enable('blog')
 ```
+gs
 
 Disable a specified module.
 ```php
-Module::disable('blog')
+    Module::disable('blog')
 ```
 
 Get module json property as array from a specified module.
 ```php
-Module::getProperties('blog')
+    Module::getProperties('blog')
 ``` 
 
 ### Custom Service Provider
