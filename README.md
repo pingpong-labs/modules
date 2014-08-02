@@ -21,7 +21,7 @@ If you find this source useful, you can share some milk to me if you want ^_^
 
 **1.0.9 to 1.1.0**
 
-- Added support for enable and disabled module.
+- Added support for [#13](https://github.com/pingpong-labs/modules/pull/13) : enable and disable module.
 - There is new artisan command `module:enable` and `module:disable`.
 
 **1.0.8 to 1.0.9**
@@ -99,13 +99,13 @@ By default modules folder is in your Laravel route directory. For first use, ple
 
 ### Artisan CLI
   
-1. Create new module.
+Create new module.
 
   ```
   php artisan module:make blog
   ```
   
-2. Create new command for the specified module.
+Create new command for the specified module.
   
   ```
   php artisan module:command blog CustomCommand
@@ -115,7 +115,7 @@ By default modules folder is in your Laravel route directory. For first use, ple
   php artisan module:command blog CustomCommand --namespace=Modules\Blog\Commands
   ```
   
-3. Create new migration for the specified module.
+Create new migration for the specified module.
 
   ```
   php artisan module:migration blog users
@@ -123,61 +123,61 @@ By default modules folder is in your Laravel route directory. For first use, ple
   php artisan module:migration blog users --fields="username:string, password:string"
   ```
   
-4. Create new seed for the specified module.
+Create new seed for the specified module.
 
   ```
   php artisan module:seed-make blog users
   ```
   
-5. Migrate from the specified module.
+Migrate from the specified module.
 
   ```
   php artisan module:migrate blog
   ```
   
-6. Migrate from all modules.
+Migrate from all modules.
 
   ```
   php artisan module:migrate
   ```
   
-7. Seed from the specified module.
+Seed from the specified module.
 
   ```
   php artisan module:seed blog
   ```
   
-8. Seed from all modules.
+Seed from all modules.
  
   ```
   php artisan module:seed
   ```
 
-9. Create new controller for the specified module.
+Create new controller for the specified module.
 
   ```
   php artisan module:controller blog SiteController
   ```
 
-10. Publish assets from the specified module to public directory.
+Publish assets from the specified module to public directory.
 
   ```
   php artisan module:publish blog
   ```
 
-11. Publish assets from all modules to public directory.
+Publish assets from all modules to public directory.
 
   ```
   php artisan module:publish
   ```
 
-12. Create new model for the specified module.
+Create new model for the specified module.
 
   ```
   php artisan module:model blog User
   ```
 
-13. Publish migration for the specified module or for all modules.
+Publish migration for the specified module or for all modules.
     This helpful when you want to rollback the migrations. You can also run `php artisan migrate` instead of `php artisan module:migrate` command for migrate the migrations.
 
     For the specified module.
@@ -189,6 +189,18 @@ By default modules folder is in your Laravel route directory. For first use, ple
     ```
     php artisan module:publish-migration
     ```
+
+Enable the specified module.
+
+```
+    php artisan module:enable blog
+```
+
+Disable the specified module.
+
+```
+    php artisan module:disable blog
+```
 
 ### Facades API
 
