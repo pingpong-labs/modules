@@ -232,7 +232,7 @@ class Module implements Countable
 	 */
 	public function asset($name, $url, $secure = false)
 	{
-		return $this->url->asset( basename($this->getAssetsPath()) . "/$name/" . $url, $secure);
+		return $this->url->asset(basename($this->getAssetsPath()) . "/{$name}/" . $url, $secure);
 	}
 
 	/**
@@ -351,6 +351,8 @@ class Module implements Countable
     }
 
     /**
+     * Enable the specified module.
+     *
      * @param $module
      * @return mixed
      */
@@ -360,6 +362,8 @@ class Module implements Countable
     }
 
     /**
+     * Disable the specified module.
+     *
      * @param $module
      * @return mixed
      */
