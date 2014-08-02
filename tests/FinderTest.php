@@ -57,13 +57,9 @@ class FinderTest extends PHPUnit_Framework_TestCase
 
     function testGetModulePath ()
     {
-        $this->config->shouldReceive('get')->times(3)->andReturn($this->getPath());
-        $this->files->shouldReceive('directories')->times(2)->andReturn(array('default'));
-
-        $modulePath1 = $this->finder->getModulePath('default');
-        $modulePath2 = $this->finder->getModulePath('white');
-
-        $this->assertEquals($modulePath1, $this->getPath() . "/default");
-        $this->assertNull($modulePath2);
+        $modules = array('default');
+        $this->files->shouldReceive('directories')->once()->with($this->getPath())->andReturn($modules);
+        $path = $this->finder->getModulePath('default');
+        $this->assertEquals(null, $path);
     }
 }

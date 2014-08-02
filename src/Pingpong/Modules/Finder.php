@@ -166,6 +166,8 @@ class Finder implements Countable
     }
 
     /**
+     * Set active state for the specified module by given status data.
+     *
      * @param $module
      * @param $status
      * @return bool
@@ -178,7 +180,7 @@ class Finder implements Countable
         {
             unset($data['active']);
 
-            $data['active'] = 1;
+            $data['active'] = $status;
 
             $this->updateJsonContents($module, $data);
 
@@ -226,6 +228,8 @@ class Finder implements Countable
     }
 
     /**
+     * Update JSON content for the specified module by given array data.
+     *
      * @param $module
      * @param array $data
      * @return int
@@ -238,6 +242,8 @@ class Finder implements Countable
     }
 
     /**
+     * Get JSON path for the specified module.
+     *
      * @param $module
      * @return string
      */
