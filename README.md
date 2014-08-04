@@ -260,7 +260,6 @@ Enable a specified module.
 ```php
     Module::enable('blog')
 ```
-gs
 
 Disable a specified module.
 ```php
