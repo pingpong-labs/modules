@@ -180,15 +180,15 @@ Create new model for the specified module.
 Publish migration for the specified module or for all modules.
     This helpful when you want to rollback the migrations. You can also run `php artisan migrate` instead of `php artisan module:migrate` command for migrate the migrations.
 
-    For the specified module.
-    ```
-    php artisan module:publish-migration blog
-    ```
+For the specified module.
+```
+php artisan module:publish-migration blog
+```
 
-    For all modules.
-    ```
-    php artisan module:publish-migration
-    ```
+For all modules.
+```
+php artisan module:publish-migration
+```
 
 Enable the specified module.
 
