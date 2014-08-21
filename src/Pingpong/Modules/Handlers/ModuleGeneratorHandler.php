@@ -170,11 +170,9 @@ class ModuleGeneratorHandler
      */
     protected function getModulePath($name = null)
     {
-        $path = $this->module->getPath();
+        if ($name) return $this->module->getModulePath($name);
 
-        if ($name) return $path . "/{$name}/";
-
-        return $path;
+        return $this->module->getPath();
     }
 
     /**
