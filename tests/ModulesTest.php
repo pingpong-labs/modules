@@ -21,7 +21,7 @@ class ModulesTest extends PHPUnit_Framework_TestCase {
 
 	protected function getPath()
 	{
-		return __DIR__ . '/../../public';
+		return realpath(__DIR__ . '/../../public');
 	}
 
 	public function setUp()
