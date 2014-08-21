@@ -94,7 +94,7 @@ class ModuleMigrateCommand extends Command {
 	 */
 	protected function getMigrationPath($name)
 	{
-		return basename($this->module->getPath()) . "/{$name}/database/migrations/";
+		return basename($this->module->getModulePath($name)) . "/database/migrations/";
 	}
 
 	/**

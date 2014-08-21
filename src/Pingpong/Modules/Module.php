@@ -371,4 +371,5 @@ class Module implements Countable
     {
         return $this->finder->disable($module);
     }
+    
 }
