@@ -1,5 +1,6 @@
 <?php namespace Pingpong\Modules\Commands;
 
+use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
@@ -29,7 +30,7 @@ class ModuleSeedCommand extends Command {
 	{
         $this->module = $this->laravel['modules'];
 
-		$name = strtolower($this->argument('module'));
+		$name = Str::studly($this->argument('module'));
 
         if($this->module->has($name))
 		{
