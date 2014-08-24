@@ -84,6 +84,7 @@ class ModuleGeneratorHandler
 
     /**
      * @param Module $module
+     * @param Filesystem $finder
      */
     public function __construct(Module $module, Filesystem $finder)
     {
