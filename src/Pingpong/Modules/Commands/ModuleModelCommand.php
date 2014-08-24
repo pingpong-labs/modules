@@ -1,11 +1,14 @@
 <?php namespace Pingpong\Modules\Commands;
 
 use Illuminate\Console\Command;
+use Pingpong\Modules\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputOption;
 use Pingpong\Modules\Handlers\ModuleModelHandler;
 use Symfony\Component\Console\Input\InputArgument;
 
 class ModuleModelCommand extends Command {
+
+	use ModuleCommandTrait;
 
 	/**
 	 * The console command name.
@@ -46,7 +49,7 @@ class ModuleModelCommand extends Command {
 	 */
 	public function fire()
 	{
-        return $this->handler->fire($this, $this->argument('module'), $this->argument('model'));
+        return $this->handler->fire($this, $this->getModuleName(), $this->argument('model'));
 	}
 
 	/**
@@ -57,8 +60,20 @@ class ModuleModelCommand extends Command {
 	protected function getArguments()
 	{
 		return array(
-			array('module', InputArgument::REQUIRED, 'The name of module will be used.'),
 			array('model', InputArgument::REQUIRED, 'The name of model will be created.'),
+			array('module', InputArgument::OPTIONAL, 'The name of module will be used.'),
+		);
+	}
+
+	/**
+	 * Get the console command options.
+	 *
+	 * @return array
+	 */
+	protected function getOptions()
+	{
+		return array(
+			array('fillable', null, InputOption::VALUE_OPTIONAL, 'The fillable attributes.', null),
 		);
 	}
 
