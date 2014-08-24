@@ -17,8 +17,7 @@
         "illuminate/view": "4.*",
         "illuminate/config": "4.*",
         "illuminate/html": "4.*",
-        "illuminate/routing": "4.*",
-        "illuminate/session": "4.*"
+        "illuminate/routing": "4.*"
     },
     "require-dev": {
         "phpunit/phpunit": "4.1.*",
