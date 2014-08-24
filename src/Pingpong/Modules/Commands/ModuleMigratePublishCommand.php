@@ -1,6 +1,7 @@
 <?php namespace Pingpong\Modules\Commands;
 
 use Illuminate\Console\Command;
+use Pingpong\Modules\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputArgument;
 use Pingpong\Modules\Handlers\ModuleMigrationPublisherHandler;
 
@@ -10,6 +11,8 @@ use Pingpong\Modules\Handlers\ModuleMigrationPublisherHandler;
  */
 class ModuleMigratePublishCommand extends Command {
 
+	use ModuleCommandTrait;
+	
 	/**
 	 * The console command name.
 	 *
@@ -46,7 +49,7 @@ class ModuleMigratePublishCommand extends Command {
 	 */
 	public function fire()
     {
-        return $this->handler->fire($this, $this->argument('module'));
+        return $this->handler->fire($this, $this->getModuleName());
     }
 
 	/**
