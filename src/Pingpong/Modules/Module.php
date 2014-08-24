@@ -2,7 +2,6 @@
 
 use Countable;
 use Illuminate\View\Factory;
-use Illuminate\Session\Store;
 use Illuminate\Html\HtmlBuilder;
 use Illuminate\Config\Repository;
 use Illuminate\Routing\UrlGenerator;
@@ -60,18 +59,6 @@ class Module implements Countable
     protected $url;
 
     /**
-     * @var Store
-     */
-    protected $session;
-
-    /**
-     * Get the name of module used now.
-     * 
-     * @var string
-     */
-    protected $modulesUsedNow = 'modules_used_now';
-
-    /**
      * The constructor.
      *
      * @param Finder $finder
@@ -86,8 +73,7 @@ class Module implements Countable
     	Translator $lang,
         Filesystem $files,
         HtmlBuilder $html,
-        UrlGenerator $url,
-        Store $session
+        UrlGenerator $url
     )
     {
         $this->finder = $finder;
@@ -97,7 +83,6 @@ class Module implements Countable
         $this->files = $files;
         $this->html = $html;
         $this->url = $url;
-        $this->session = $session;
     }
 
 	/**
