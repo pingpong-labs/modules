@@ -17,11 +17,12 @@
         "illuminate/view": "4.*",
         "illuminate/config": "4.*",
         "illuminate/html": "4.*",
-        "illuminate/routing": "4.*"
+        "illuminate/routing": "4.*",
+        "illuminate/session": "4.*"
     },
     "require-dev": {
-        "phpunit/phpunit": "*",
-        "mockery/mockery": "*"
+        "phpunit/phpunit": "4.1.*",
+        "mockery/mockery": "0.9.*"
     },
     "autoload": {
         "psr-4": {
