@@ -2,12 +2,15 @@
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem as File;
+use Pingpong\Modules\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 use Pingpong\Modules\Handlers\ModulePublisherHandler;
 
 class ModulePublisherCommand extends Command {
 
+	use ModuleCommandTrait;
+	
 	/**
 	 * The console command name.
 	 *
@@ -41,7 +44,7 @@ class ModulePublisherCommand extends Command {
 	 */
 	public function fire()
 	{
-        return $this->handler->fire($this, $this->argument('module'));
+        return $this->handler->fire($this, $this->getModuleName());
 	}
 
 	/**
