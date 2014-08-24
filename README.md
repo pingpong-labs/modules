@@ -19,6 +19,10 @@ If you find this source useful, you can share some milk to me if you want ^_^
 
 ### Changes Log
 
+**1.0.10 to 1.0.11**
+
+- See [#26](https://github.com/pingpong-labs/modules/pull/26)
+
 **1.0.9 to 1.0.10**
 
 - Added support for [#13](https://github.com/pingpong-labs/modules/pull/13) : enable and disable module.
