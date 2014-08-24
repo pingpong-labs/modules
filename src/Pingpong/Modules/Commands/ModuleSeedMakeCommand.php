@@ -1,6 +1,7 @@
 <?php namespace Pingpong\Modules\Commands;
 
 use Illuminate\Console\Command;
+use Pingpong\Modules\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 use Pingpong\Modules\Handlers\ModuleSeedMakerHandler;
@@ -10,6 +11,8 @@ use Pingpong\Modules\Handlers\ModuleSeedMakerHandler;
  * @package Pingpong\Modules\Commands
  */
 class ModuleSeedMakeCommand extends Command {
+
+	use ModuleCommandTrait;
 
 	/**
 	 * The console command name.
@@ -47,7 +50,7 @@ class ModuleSeedMakeCommand extends Command {
 	 */
 	public function fire()
 	{
-        return $this->handler->fire($this, $this->argument('module'), $this->argument('name'));
+        return $this->handler->fire($this, $this->getModuleName(), $this->argument('name'));
 	}
 
 	/**
@@ -58,8 +61,8 @@ class ModuleSeedMakeCommand extends Command {
 	protected function getArguments()
 	{
 		return array(
-			array('module', InputArgument::REQUIRED, 'The name of module will be used.'),
 			array('name', InputArgument::REQUIRED, 'The name of seeder will be created.'),
+			array('module', InputArgument::OPTIONAL, 'The name of module will be used.'),
 		);
 	}
 
