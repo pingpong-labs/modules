@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Str;
 use Illuminate\Console\Command;
+use Pingpong\Modules\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
@@ -10,6 +11,8 @@ use Symfony\Component\Console\Input\InputArgument;
  * @package Pingpong\Modules\Commands
  */
 class ModuleControllerCommand extends Command {
+
+	use ModuleCommandTrait;
 
 	/**
 	 * The console command name.
@@ -32,15 +35,34 @@ class ModuleControllerCommand extends Command {
 	 */
 	public function fire()
 	{
-        $this->module = $this->laravel['modules'];
-		$this->moduleName 		= Str::studly($this->argument('module'));
-		$this->controllerName	= studly_case($this->argument('controller'));
+        $this->module 		= $this->laravel['modules'];
+		$this->moduleName 	= $this->getModuleName();
+
+		$this->controllerName	= $this->getControllerName();
 		
 		if($this->module->has($this->moduleName))
 		{
 			return $this->call('controller:make', $this->getParameters());
 		}
+		
 		return $this->error("Module [$this->moduleName] doest not exists.");
+	}
+
+	/**
+	 * Get controller name.
+	 * 
+	 * @return string 
+	 */
+	public function getControllerName()
+	{
+		$controller = studly_case($this->argument('controller'));
+		
+		if( ! str_contains(strtolower($controller), 'controller'))
+		{
+			$controller = $controller . 'Controller';
+		}
+
+		return $controller;
 	}
 
 	/**
@@ -78,8 +100,8 @@ class ModuleControllerCommand extends Command {
 	protected function getArguments()
 	{
 		return array(
-			array('module', InputArgument::REQUIRED, 'The name of module will be used.'),
 			array('controller', InputArgument::REQUIRED, 'The name of the controller class.'),
+			array('module', InputArgument::OPTIONAL, 'The name of module will be used.'),
 		);
 	}
 

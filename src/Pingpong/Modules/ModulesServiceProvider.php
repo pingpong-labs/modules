@@ -46,12 +46,12 @@ class ModulesServiceProvider extends ServiceProvider {
      */
     protected function registerServices()
     {
-        $this->app['modules.finder'] = $this->app->share(function ($app)
+        $this->app->bindShared('modules.finder', function ($app)
         {
             return new Finder($app['files'], $app['config']);
         });
 
-        $this->app['modules'] = $this->app->share(function ($app)
+        $this->app->bindShared('modules', function ($app)
         {
             return new Module(
                 $app['modules.finder'],
@@ -214,11 +214,25 @@ class ModulesServiceProvider extends ServiceProvider {
         });
     }
 
+    /**
+     * Register "module:disable" command.
+     */
     protected function registerDisableCommand()
     {
         $this->app->bindShared('modules.disable', function ($app)
         {
             return new Commands\ModuleDisableCommand;
+        });
+    }
+
+    /**
+     * Register "module:use" command.
+     */
+    protected function registerUseCommand()
+    {
+        $this->app->bindShared('modules.use', function ($app)
+        {
+            return new Commands\ModuleUseCommand;
         });
     }
 
@@ -242,6 +256,7 @@ class ModulesServiceProvider extends ServiceProvider {
         $this->registerMigrationMakerCommand();
         $this->registerMigrationPublisherCommand();
         $this->registerCommandCommand();
+        $this->registerUseCommand();
 
         $this->commands([
             'modules.controller',
@@ -257,6 +272,7 @@ class ModulesServiceProvider extends ServiceProvider {
             'modules.migration-publisher',
             'modules.enable',
             'modules.disable',
+            'modules.use',
         ]);
     }
 

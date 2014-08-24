@@ -38,16 +38,16 @@ class ModuleMigrationPublisherHandler
     {
         $this->console = $console;
 
-        if (empty($module))
+        if ( ! empty($module))
+        {    
+            $this->publishMigration($module);
+        }
+        else
         {
             foreach ($this->module->all() as $module)
             {
                 $this->publishMigration($module);
             }
-        }
-        else
-        {
-            $this->publishMigration($module);
         }
     }
 
@@ -58,11 +58,16 @@ class ModuleMigrationPublisherHandler
      */
     protected function publishMigration($module)
     {
-        $path = $this->getMigrationPath($module);
+        if($this->module->has($module))
+        {
+            $path = $this->getMigrationPath($module);
 
-        $this->files->copyDirectory($path, app_path('database/migrations/'));
+            $this->files->copyDirectory($path, app_path('database/migrations/'));
 
-        $this->console->info("Published from : " . $path);
+            return $this->console->info("Published from : " . $path);
+        }
+        
+        return $this->console->error("Module [{$module}] does not exists!");
     }
 
     /**
@@ -73,6 +78,6 @@ class ModuleMigrationPublisherHandler
      */
     protected function getMigrationPath($module)
     {
-        return $this->module->getModulePath($module) . '/database/migrations/';
+        return $this->module->getModulePath($module) . 'database/migrations/';
     }
 } 

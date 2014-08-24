@@ -3,10 +3,13 @@
 use Pingpong\Modules\Module;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem as File;
+use Pingpong\Modules\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
 class ModuleMigrateMakeCommand extends Command {
+
+	use ModuleCommandTrait;
 
 	/**
 	 * The console command name.
@@ -45,15 +48,20 @@ class ModuleMigrateMakeCommand extends Command {
 	 */
 	public function fire()
 	{
-		$this->moduleName  		=  ucwords($this->argument('module'));
+		$this->moduleName  		=  $this->getModuleName();
+
 		$this->table 		 	=  str_plural(strtolower($this->argument('table')));
+		
 		$this->migrationName 	=  "create_".snake_case($this->table)."_table";
         $this->className        =  studly_case($this->migrationName);
+
 
 		if($this->module->has($this->moduleName))
 		{
 			$this->makeFile();
+			
 			$this->info("Created : ".$this->getDestinationFile());
+			
 			return $this->call('dump-autoload');
 		}
 		return $this->info("Module [$this->moduleName] does not exists.");
@@ -77,16 +85,19 @@ class ModuleMigrateMakeCommand extends Command {
 	protected function getFields()
 	{
 		$result = '';
+
 		if($option = $this->option('fields'))
 		{
 			$fields = str_replace(" ", "", $option);
+
 			$fields = explode(',', $fields);
 
 			foreach ($fields as $field)
             {
-				$result.= $this->setField($field);
+				$result .= $this->setField($field);
 			}
 		}
+
 		return $result;
 	}
 
@@ -99,10 +110,13 @@ class ModuleMigrateMakeCommand extends Command {
 	protected function setField($option)
 	{
 		$result = '';
+
 		if( ! empty($option) )
 		{
 			$option = explode(":", $option);
+
 			$result.= '			$table->'.$option[1]."('$option[0]')";
+			
 			if(count($option) > 0)
 			{
 				foreach ($option as $key => $o)
@@ -111,8 +125,10 @@ class ModuleMigrateMakeCommand extends Command {
 					$result.= "->$o()";		
 				}
 			}
+
 			$result.= ';'.PHP_EOL;
 		}
+
 		return $result;
 	}
 
@@ -133,8 +149,9 @@ class ModuleMigrateMakeCommand extends Command {
 	 */
 	protected function getPath()
 	{
-		$path = $this->module->getPath();
-		return $path . "/$this->moduleName/database/migrations/";
+		$path = $this->module->getModulePath($this->moduleName);
+
+		return $path . "database/migrations/";
 	}
 
 	/**
@@ -179,8 +196,8 @@ class ModuleMigrateMakeCommand extends Command {
 	protected function getArguments()
 	{
 		return array(
-			array('module', InputArgument::REQUIRED, 'The name of module will be created.'),
 			array('table', InputArgument::REQUIRED, 'The name of table will be created.'),
+			array('module', InputArgument::OPTIONAL, 'The name of module will be created.'),
 		);
 	}
 

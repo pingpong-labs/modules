@@ -1,10 +1,13 @@
 <?php namespace Pingpong\Modules\Commands;
 
 use Illuminate\Console\Command;
+use Pingpong\Modules\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
 class ModuleCommandCommand extends Command {
+
+	use ModuleCommandTrait;
 
 	/**
 	 * The console command name.
@@ -29,7 +32,7 @@ class ModuleCommandCommand extends Command {
     {
         $this->module = $this->laravel['modules'];
 
-		$this->moduleName = ucwords($this->argument('module'));
+		$this->moduleName = $this->getModuleName();
         
         if($this->module->has($this->moduleName))
 		{
@@ -54,7 +57,7 @@ class ModuleCommandCommand extends Command {
 	 */
 	protected function getPath()
 	{
-		return basename($this->module->getPath()) . "/$this->moduleName/commands";
+		return str_replace(base_path(), '', $this->module->getModulePath($this->moduleName)) . "commands";
 	}
 
 	/**
@@ -65,8 +68,8 @@ class ModuleCommandCommand extends Command {
 	protected function getArguments()
 	{
 		return array(
-			array('module', InputArgument::REQUIRED, 'The name of module will be used.'),
 			array('name', InputArgument::REQUIRED, 'The name of the command.'),
+			array('module', InputArgument::OPTIONAL, 'The name of module will be used.'),
 		);
 	}
 

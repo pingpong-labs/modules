@@ -58,11 +58,14 @@ class ModuleSeedMakerHandler {
      */
     protected function makeSeeder()
     {
-        $filename		 = '{{Name}}DatabaseSeeder.php';
+        $filename		 = '{{Name}}TableSeeder.php';
+
         $destinationFile = $this->getDestinationFile($filename);
 
         if($this->files->exists($destinationFile))
+        {
             return $this->console->comment("That file is already exists.");
+        } 
 
         $this->makeFile($filename);
 
@@ -119,6 +122,6 @@ class ModuleSeedMakerHandler {
      */
     protected function getPath()
     {
-        return $this->module->getPath() . "/{$this->moduleName}/database/seeds/";
+        return $this->module->getModulePath($this->moduleName) . "database/seeds/";
     }
 } 

@@ -290,7 +290,7 @@ class Module implements Countable
      */
     public function getModulePath($module)
     {
-    	return $this->finder->getModulePath($module);
+    	return $this->finder->getModulePath($module, true);
     }
 
     /**
@@ -371,5 +371,15 @@ class Module implements Countable
     {
         return $this->finder->disable($module);
     }
-    
+
+    /**
+     * Get modules used now.
+     * 
+     * @return string 
+     */
+    public function getUsedNow()
+    {
+        return $this->finder->getUsed();
+    }
+
 }

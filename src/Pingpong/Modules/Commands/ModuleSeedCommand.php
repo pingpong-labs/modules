@@ -1,10 +1,14 @@
 <?php namespace Pingpong\Modules\Commands;
 
+use Illuminate\Support\Str;
 use Illuminate\Console\Command;
+use Pingpong\Modules\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
 class ModuleSeedCommand extends Command {
+
+	use ModuleCommandTrait;
 
 	/**
 	 * The console command name.
@@ -29,12 +33,18 @@ class ModuleSeedCommand extends Command {
 	{
         $this->module = $this->laravel['modules'];
 
-		$name = strtolower($this->argument('module'));
+        $module = Str::studly($this->argument('module')) ?: $this->getModuleName();
 
-        if($this->module->has($name))
+        if($module)
 		{
-			$this->dbseed($name);
-			return $this->info("Module [$name] seeded.");
+			if($this->module->has($module))
+			{
+				$this->dbseed($module);
+
+				return $this->info("Module [$module] seeded.");
+			}
+			
+			return $this->error("Module [$module] does not exists.");
 		}
 
 		foreach ($this->module->all() as $name)
@@ -54,7 +64,7 @@ class ModuleSeedCommand extends Command {
 	protected function dbseed($name)
 	{
 		$params 	= [
-			'--class' => $this->option('class') ? $this->option('class') : ucwords($name) . 'DatabaseSeeder'
+			'--class' => $this->option('class')? $this->option('class') : Str::studly($name) . 'DatabaseSeeder'
 		];
 		if($option = $this->option('database'))
 		{

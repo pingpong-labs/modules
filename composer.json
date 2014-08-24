@@ -20,8 +20,8 @@
         "illuminate/routing": "4.*"
     },
     "require-dev": {
-        "phpunit/phpunit": "*",
-        "mockery/mockery": "*"
+        "phpunit/phpunit": "4.1.*",
+        "mockery/mockery": "0.9.*"
     },
     "autoload": {
         "psr-4": {

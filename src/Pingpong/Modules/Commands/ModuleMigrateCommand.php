@@ -1,6 +1,7 @@
 <?php namespace Pingpong\Modules\Commands;
 
 use Illuminate\Console\Command;
+use Pingpong\Modules\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
@@ -9,6 +10,8 @@ use Symfony\Component\Console\Input\InputArgument;
  * @package Pingpong\Modules\Commands
  */
 class ModuleMigrateCommand extends Command {
+
+	use ModuleCommandTrait;
 
 	/**
 	 * The console command name.
@@ -33,7 +36,7 @@ class ModuleMigrateCommand extends Command {
 	{
         $this->module = $this->laravel['modules'];
 
-		$name = ucwords($this->argument('module'));
+		$name = $this->getModuleName();
 
         if($name) return $this->migrate($name);
 
@@ -94,7 +97,9 @@ class ModuleMigrateCommand extends Command {
 	 */
 	protected function getMigrationPath($name)
 	{
-		return basename($this->module->getModulePath($name)) . "/database/migrations/";
+		$path = str_replace(base_path(), '', $this->module->getModulePath($name));
+
+		return $path . "/database/migrations/";
 	}
 
 	/**

@@ -113,16 +113,18 @@ class Finder implements Countable
     /**
      * Get module path by given module name.
      *
-     * @param $module
+     * @param  string  $module
+     * @param  boolean $allowNotExists
      * @return null|string
      */
-    public function getModulePath($module)
+    public function getModulePath($module, $allowNotExists = false)
     {
         $module = Str::studly($module);
 
-        if( ! $this->has($module)) return null;
+        if( ! $this->has($module) && $allowNotExists === false)
+            return null;
 
-        return $this->getPath() . "/{$module}";
+        return $this->getPath() . "/{$module}/";
     }
 
     /**
@@ -250,5 +252,39 @@ class Finder implements Countable
     public function getJsonPath($module)
     {
         return $this->getModulePath($module) . '/module.json';
+    }
+
+    /**
+     * Get module used storage path.
+     * 
+     * @return string
+     */
+    public function getUsedPath()
+    {
+        return __DIR__ . '/../../modules.used';    
+    }
+
+    /**
+     * Set modules used.
+     * 
+     * @param string $module 
+     */
+    public function setUsed($module)
+    {
+        $this->files->put($this->getUsedPath(), $module);
+    }
+
+    /**
+     * Get modules used for cli.
+     * 
+     * @return mixed 
+     */
+    public function getUsed()
+    {
+        $path = $this->getUsedPath();
+
+        if( ! $this->files->exists($path)) return null;
+
+        return $this->files->get($path);
     }
 }

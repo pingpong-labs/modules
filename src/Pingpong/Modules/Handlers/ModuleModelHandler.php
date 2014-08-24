@@ -54,7 +54,7 @@ class ModuleModelHandler {
         {
             $message = "Model [$this->modelName] is already exists on '{$this->moduleName}' module.";
 
-            return $this->error($message);
+            return $console->error($message);
         }
 
         return $this->generate();
@@ -69,7 +69,16 @@ class ModuleModelHandler {
     {
         $content = $this->files->get(__DIR__.'/../Commands/stubs/model.stub');
 
-        return str_replace('{{name}}', $this->modelName, $content);
+        $fillable = $this->console->option('fillable');
+
+        if($fillable)
+        {
+            $fillableArray = explode(',', $fillable);
+
+            $fillable = "'" . implode("', '", $fillableArray) . "'";
+        }
+
+        return str_replace(['{{name}}', '{{fillable}}'], [$this->modelName, $fillable], $content);
     }
 
     /**
@@ -94,7 +103,7 @@ class ModuleModelHandler {
      */
     protected function getModelPath()
     {
-        return basename($this->module->getPath()) . "/{$this->moduleName}/models/";
+        return $this->module->getModulePath($this->moduleName) . "/models/";
     }
 
     /**
