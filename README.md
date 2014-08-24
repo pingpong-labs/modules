@@ -112,25 +112,25 @@ Create new module.
 Create new command for the specified module.
   
   ```
-  php artisan module:command blog CustomCommand
+  php artisan module:command CustomCommand blog
 
-  php artisan module:command blog CustomCommand --command=custom:command
+  php artisan module:command CustomCommand blog --command=custom:command
 
-  php artisan module:command blog CustomCommand --namespace=Modules\Blog\Commands
+  php artisan module:command CustomCommand blog --namespace=Modules\Blog\Commands
   ```
   
 Create new migration for the specified module.
 
   ```
-  php artisan module:migration blog users
+  php artisan module:migration users blog
 
-  php artisan module:migration blog users --fields="username:string, password:string"
+  php artisan module:migration users blog --fields="username:string, password:string"
   ```
   
 Create new seed for the specified module.
 
   ```
-  php artisan module:seed-make blog users
+  php artisan module:seed-make users blog
   ```
   
 Migrate from the specified module.
@@ -160,7 +160,7 @@ Seed from all modules.
 Create new controller for the specified module.
 
   ```
-  php artisan module:controller blog SiteController
+  php artisan module:controller SiteController blog
   ```
 
 Publish assets from the specified module to public directory.
@@ -178,7 +178,7 @@ Publish assets from all modules to public directory.
 Create new model for the specified module.
 
   ```
-  php artisan module:model blog User
+  php artisan module:model User blog
   ```
 
 Publish migration for the specified module or for all modules.
@@ -273,6 +273,14 @@ Disable a specified module.
 Get module json property as array from a specified module.
 ```php
     Module::getProperties('blog')
+```
+
+**NEW!**
+
+Use the specified module.
+
+```php
+php artisan module:use blog
 ``` 
 
 ### Custom Service Provider
