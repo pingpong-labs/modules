@@ -35,16 +35,34 @@ class ModuleControllerCommand extends Command {
 	 */
 	public function fire()
 	{
-        $this->module = $this->laravel['modules'];
-		$this->moduleName 		= $this->getModuleName();
+        $this->module 		= $this->laravel['modules'];
+		$this->moduleName 	= $this->getModuleName();
 
-		$this->controllerName	= studly_case($this->argument('controller'));
+		$this->controllerName	= $this->getControllerName();
 		
 		if($this->module->has($this->moduleName))
 		{
 			return $this->call('controller:make', $this->getParameters());
 		}
+		
 		return $this->error("Module [$this->moduleName] doest not exists.");
+	}
+
+	/**
+	 * Get controller name.
+	 * 
+	 * @return string 
+	 */
+	public function getControllerName()
+	{
+		$controller = studly_case($this->argument('controller'));
+		
+		if( ! str_contains(strtolower($controller), 'controller'))
+		{
+			$controller = $controller . 'Controller';
+		}
+
+		return $controller;
 	}
 
 	/**
