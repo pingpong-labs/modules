@@ -28,9 +28,7 @@ class ModuleUseCommand extends Command {
 	 */
 	public function fire()
     {
-    	$key     = $this->laravel['modules']->getModulesUsedNow();
-
-        $session = $this->laravel['session.store'];
+    	$moduleFinder = $this->laravel['modules.finder'];
         
         $module  = Str::studly($this->argument('module'));
 
@@ -39,12 +37,7 @@ class ModuleUseCommand extends Command {
         	return $this->error("Module [{$module}] does not exists.");
         }
 
-        if($session->has($key))
-        {
-        	$session->forget($key);
-        }
-    
-    	$session->put($key, $module);
+        $moduleFinder->setUsed($module);
 
     	$this->info("Module [{$module}] has been used for current session.");
 	}
