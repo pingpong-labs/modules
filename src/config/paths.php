@@ -1,6 +1,6 @@
 <?php
 
 return [
-	'modules'	=>	base_path('Modules'),
+	'modules'	=>	app_path('Modules'),
 	'assets'	=>	public_path('modules'),
 ];
