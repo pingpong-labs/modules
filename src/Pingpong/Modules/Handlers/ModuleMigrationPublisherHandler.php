@@ -64,6 +64,8 @@ class ModuleMigrationPublisherHandler
 
             $this->files->copyDirectory($path, app_path('database/migrations/'));
 
+            $this->console->call('dump-autoload');
+
             return $this->console->info("Published from : " . $path);
         }
         
