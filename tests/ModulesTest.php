@@ -161,4 +161,11 @@ class ModulesTest extends PHPUnit_Framework_TestCase {
         $this->assertFalse($this->module->active('news'));
         $this->assertTrue($this->module->notActive('news'));
     }
+
+    public function test_throw_file_missing_exception()
+    {
+        $this->setExpectedException('Pingpong\Modules\Exceptions\FileMissingException');
+        throw new Pingpong\Modules\Exceptions\FileMissingException;
+    }
+    
 } 
