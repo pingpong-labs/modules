@@ -1,4 +1,6 @@
-<?php
+<?php namespace Modules\Database\Seeders;
+
+use Illuminate\Database\Seeder;
 
 class BlogDatabaseSeeder extends Seeder {
 
@@ -9,8 +11,7 @@ class BlogDatabaseSeeder extends Seeder {
 	 */
 	public function run()
 	{
-		Eloquent::unguard();
-		// $this->call("OthersDatabaseSeeder");
+        //
 	}
 
 }
