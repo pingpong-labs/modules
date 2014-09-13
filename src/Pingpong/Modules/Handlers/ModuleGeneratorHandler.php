@@ -17,19 +17,20 @@ class ModuleGeneratorHandler
      * @var array
      */
     protected $folders = array(
-        'assets/',
-        'commands/',
-        'config/',
-        'controllers/',
-        'database/',
-        'database/migrations/',
-        'database/seeds/',
-        'lang/',
-        'lang/en/',
-        'models/',
-        'start/',
-        'tests/',
-        'views/',
+        'Assets/',
+        'Console/',
+        'Config/',
+        'Http/Controllers/',
+        'Http/Filters/',
+        'Http/Requests/',
+        'Database/Migrations/',
+        'Database/Seeders/',
+        'Database/Models/',
+        'Providers/',
+        'Repositories/',
+        'Resources/lang/en',
+        'Resources/views/',
+        'Tests/',
     );
 
     /**
@@ -38,12 +39,11 @@ class ModuleGeneratorHandler
      * @var array
      */
     protected $files = array(
-        'start/global.php',
-        '{{Name}}ServiceProvider.php',
-        'filters.php',
-        'routes.php',
-        'lang/en/{{name}}.php',
-        'config/{{name}}.php',
+        'start.php',
+        'Providers/{{Name}}ServiceProvider.php',
+        'Http/routes.php',
+        'Resources/lang/en/{{name}}.php',
+        'Config/{{name}}.php',
         'module.json'
     );
 
@@ -125,8 +125,6 @@ class ModuleGeneratorHandler
 
         $console->call('module:seed-make', array('module' => $this->name, 'name' => $this->Name, '--master'));
 
-        $console->call('module:controller', array('module' => $this->name, 'controller' => $this->Name . 'Controller'));
-
         $console->info("Module [{$this->Name}] has been created successfully.");
 
         return true;
@@ -143,7 +141,9 @@ class ModuleGeneratorHandler
 
         foreach ($this->folders as $folder)
         {
-            $this->finder->makeDirectory($this->getModulePath($this->Name) . $folder);
+            $folderPath = $this->getModulePath($this->Name) . $folder;
+
+            $this->finder->makeDirectory($folderPath, 0755, true);
         }
     }
 

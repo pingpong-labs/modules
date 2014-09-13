@@ -122,6 +122,6 @@ class ModuleSeedMakerHandler {
      */
     protected function getPath()
     {
-        return $this->module->getModulePath($this->moduleName) . "database/seeds/";
+        return $this->module->getModulePath($this->moduleName) . "Database/Seeders/";
     }
 } 
