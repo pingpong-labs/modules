@@ -80,6 +80,76 @@ class Module implements Countable
         $this->url = $url;
     }
 
+    /**
+     * Get Modules Finder instance.
+     *
+     * @return Finder
+     */
+    public function getFinder()
+    {
+        return $this->finder;
+    }
+
+    /**
+     * Get Laravel Config Instance.
+     *
+     * @return Repository
+     */
+    public function getConfigRepository()
+    {
+        return $this->config;
+    }
+
+    /**
+     * Get Laravel View Factory Instance.
+     *
+     * @return Factory
+     */
+    public function getViewsFactory()
+    {
+        return $this->views;
+    }
+
+    /**
+     * Get Laravel Translator Instance.
+     *
+     * @return Translator
+     */
+    public function getTranslator()
+    {
+        return $this->lang;
+    }
+
+    /**
+     * Get Laravel Filesystem Instance.
+     *
+     * @return Filesystem
+     */
+    public function getFilesystem()
+    {
+        return $this->files;
+    }
+
+    /**
+     * Get Laravel Html Builder Instance.
+     *
+     * @return HtmlBuilder
+     */
+    public function getHtmlBuilder()
+    {
+        return $this->html;
+    }
+
+    /**
+     * Get Laravel URL Generator Instance.
+     *
+     * @return UrlGenerator
+     */
+    public function getUrlGenerator()
+    {
+        return $this->url;
+    }
+
 	/**
 	 * Get all modules.
 	 *
