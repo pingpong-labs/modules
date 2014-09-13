@@ -7,12 +7,7 @@ use Illuminate\Config\Repository;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Translation\Translator;
-
-/**
- * Class FileMissingException
- * @package Pingpong\Modules
- */
-class FileMissingException extends \Exception {}
+use Pingpong\Modules\Exceptions\FileMissingException;
 
 /**
  * Class Module
@@ -190,7 +185,7 @@ class Module implements Countable
 	 */
 	protected function includeGlobalFile($name)
 	{
-		$file =  $this->getPath() . "/{$name}/start/global.php";
+		$file =  $this->getModulePath($name) ."/start/global.php";
 
         if ( ! $this->files->exists($file))
         {
