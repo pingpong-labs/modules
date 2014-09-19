@@ -1,4 +1,4 @@
-<?php namespace Pingpong\Modules\Contacts;
+<?php namespace Pingpong\Modules\Contracts;
 
 interface GeneratorInterface {
 
