@@ -1,6 +1,6 @@
 <?php namespace Pingpong\Modules\Generators;
 
-use Pingpong\Modules\Contacts\GeneratorInterface;
+use Pingpong\Modules\Contracts\GeneratorInterface;
 
 abstract class Generator implements GeneratorInterface {
 
