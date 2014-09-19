@@ -26,8 +26,8 @@ class ModuleGeneratorHandler
         'Database/Migrations/',
         'Database/Seeders/',
         'Database/Models/',
+        'Database/Repositories/',
         'Providers/',
-        'Repositories/',
         'Resources/lang/en',
         'Resources/views/',
         'Tests/',
@@ -100,7 +100,7 @@ class ModuleGeneratorHandler
     public function fire(Command $console, $name)
     {
         $this->console = $console;
-        $this->name = $name;
+        $this->name = strtolower($name);
         $this->Name = Str::studly($name);
 
         if($this->module->has($this->Name))
