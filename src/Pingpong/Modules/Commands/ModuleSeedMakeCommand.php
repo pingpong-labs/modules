@@ -1,6 +1,8 @@
 <?php namespace Pingpong\Modules\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Str;
+use Pingpong\Modules\Stub;
 use Pingpong\Modules\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
@@ -10,7 +12,7 @@ use Pingpong\Modules\Handlers\ModuleSeedMakerHandler;
  * Class ModuleSeedMakeCommand
  * @package Pingpong\Modules\Commands
  */
-class ModuleSeedMakeCommand extends Command {
+class ModuleSeedMakeCommand extends GeneratorCommand {
 
 	use ModuleCommandTrait;
 
@@ -28,31 +30,6 @@ class ModuleSeedMakeCommand extends Command {
 	 */
 	protected $description = 'Generate new seeder for the specified module.';
 
-    /**
-     * @var ModuleSeedMakerHandler
-     */
-    protected $handler;
-
-    /**
-     * @param ModuleSeedMakerHandler $handler
-     */
-    public function __construct(ModuleSeedMakerHandler $handler)
-    {
-        parent::__construct();
-
-        $this->handler = $handler;
-    }
-
-    /**
-	 * Execute the console command.
-	 *
-	 * @return mixed
-	 */
-	public function fire()
-	{
-        return $this->handler->fire($this, $this->getModuleName(), $this->argument('name'));
-	}
-
 	/**
 	 * Get the console command arguments.
 	 *
@@ -66,4 +43,31 @@ class ModuleSeedMakeCommand extends Command {
 		);
 	}
 
+    /**
+     * @return mixed
+     */
+    protected function getTemplateContents()
+    {
+        return new Stub('seeder', [
+            'NAME'      =>  $this->getSeederName(),
+            'MODULE'    =>  $this->getModuleName()
+        ]);
+    }
+
+    /**
+     * @return mixed
+     */
+    protected function getDestinationFilePath()
+    {
+        $path = $this->laravel['modules']->getModulePath($this->getModuleName());
+
+        $seederPath = $this->laravel['config']->get('modules::paths.generator.seeder');
+
+        return $path . $seederPath . '/' . $this->getSeederName() . '.php';
+    }
+
+    private function getSeederName()
+    {
+        return Str::studly($this->argument('name')) . 'TableSeeder';
+    }
 }
