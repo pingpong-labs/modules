@@ -182,7 +182,7 @@ class ModulesServiceProvider extends ServiceProvider {
     {
         $this->app['modules.command-maker'] = $this->app->share(function ($app)
         {
-            return new Commands\ModuleCommandCommand($app['modules']);
+            return new Commands\ModuleCommandCommand;
         });
     }
 

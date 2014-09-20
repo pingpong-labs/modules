@@ -1,11 +1,16 @@
 <?php namespace Pingpong\Modules\Commands;
 
-use Illuminate\Console\Command;
+use Pingpong\Modules\Stub;
+use Illuminate\Support\Str;
 use Pingpong\Modules\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-class ModuleCommandCommand extends Command {
+/**
+ * Class ModuleCommandCommand
+ * @package Pingpong\Modules\Commands
+ */
+class ModuleCommandCommand extends GeneratorCommand {
 
 	use ModuleCommandTrait;
 
@@ -22,43 +27,6 @@ class ModuleCommandCommand extends Command {
 	 * @var string
 	 */
 	protected $description = 'Generate new Artisan command for the specified module.';
-
-	/**
-	 * Execute the console command.
-	 *
-	 * @return mixed
-	 */
-	public function fire()
-    {
-        $this->module = $this->laravel['modules'];
-
-		$this->moduleName = $this->getModuleName();
-        
-        if($this->module->has($this->moduleName))
-		{
-			$params = [
-				'name'	 		=>  $this->argument('name'),
-				'--path' 		=>  $this->getPath(),
-				'--namespace'	=>	$this->option('namespace'),
-				'--command'		=>	$this->option('command'),
-			];
-        
-            return $this->call('command:make', $params);
-        
-        }
-        
-        return $this->error("Module [{$this->moduleName}] does not exists.");
-	}
-
-	/**
-	 * Get commands path.
-	 *
-	 * @return mixed
-	 */
-	protected function getPath()
-	{
-		return str_replace(base_path(), '', $this->module->getModulePath($this->moduleName)) . "commands";
-	}
 
 	/**
 	 * Get the console command arguments.
@@ -82,8 +50,46 @@ class ModuleCommandCommand extends Command {
 	{
 		return array(
 			array('command', null, InputOption::VALUE_OPTIONAL, 'The terminal command that should be assigned.', null),
-			array('namespace', null, InputOption::VALUE_OPTIONAL, 'The command namespace.', null),
 		);
 	}
 
+    /**
+     * @return mixed
+     */
+    protected function getTemplateContents()
+    {
+        return new Stub('command', [
+            'MODULE'        =>  $this->getModuleName(),
+            'NAME'          =>  $this->getFileName(),
+            'COMMAND_NAME'  =>  $this->getCommandName()
+        ]);
+    }
+
+    /**
+     * @return mixed
+     */
+    protected function getDestinationFilePath()
+    {
+        $path = $this->laravel['modules']->getModulePath($this->getModuleName());
+
+        $seederPath = $this->laravel['config']->get('modules::paths.generator.command');
+
+        return $path . $seederPath . '/' . $this->getFileName() . '.php';
+    }
+
+    /**
+     * @return string
+     */
+    private function getFileName()
+    {
+        return Str::studly($this->argument('name'));
+    }
+
+    /**
+     * @return string
+     */
+    private function getCommandName()
+    {
+        return $this->option('command') ?: 'command:name';
+    }
 }
