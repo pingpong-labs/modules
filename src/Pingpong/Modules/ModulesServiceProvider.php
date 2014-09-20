@@ -249,9 +249,31 @@ class ModulesServiceProvider extends ServiceProvider {
      */
     protected function registerMigrateRollbackCommand()
     {
-        $this->app->bindShared('modules.rollback', function ($app)
+        $this->app->bindShared('modules.migrate.rollback', function ($app)
         {
             return new Commands\ModuleMigrateRollbackCommand;
+        });
+    }
+
+    /**
+     * Register "module:migrate-reset" command.
+     */
+    protected function registerMigrateResetCommand()
+    {
+        $this->app->bindShared('modules.migrate.reset', function ($app)
+        {
+            return new Commands\ModuleMigrateResetCommand;
+        });
+    }
+
+    /**
+     * Register "module:migrate-reset" command.
+     */
+    protected function registerMigrateRefreshCommand()
+    {
+        $this->app->bindShared('modules.migrate.refresh', function ($app)
+        {
+            return new Commands\ModuleMigrateRefreshCommand;
         });
     }
 
@@ -278,6 +300,8 @@ class ModulesServiceProvider extends ServiceProvider {
         $this->registerUseCommand();
         $this->registerProviderCommand();
         $this->registerMigrateRollbackCommand();
+        $this->registerMigrateResetCommand();
+        $this->registerMigrateRefreshCommand();
 
         $this->commands([
             'modules.controller',
@@ -295,7 +319,9 @@ class ModulesServiceProvider extends ServiceProvider {
             'modules.disable',
             'modules.use',
             'modules.provider',
-            'modules.rollback',
+            'modules.migrate.rollback',
+            'modules.migrate.reset',
+            'modules.migrate.refresh',
         ]);
     }
 
