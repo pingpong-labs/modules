@@ -277,6 +277,17 @@ class ModulesServiceProvider extends ServiceProvider {
     }
 
     /**
+     * Register "module:migrate-reset" command.
+     */
+    protected function registerInstallCommand()
+    {
+        $this->app->bindShared('modules.install', function ($app)
+        {
+            return new Commands\ModuleInstallCommand;
+        });
+    }
+
+    /**
      * Register the commands.
      *
      * @return void
@@ -301,6 +312,7 @@ class ModulesServiceProvider extends ServiceProvider {
         $this->registerMigrateRollbackCommand();
         $this->registerMigrateResetCommand();
         $this->registerMigrateRefreshCommand();
+        $this->registerInstallCommand();
 
         $this->commands([
             'modules.controller',
@@ -321,6 +333,7 @@ class ModulesServiceProvider extends ServiceProvider {
             'modules.migrate.rollback',
             'modules.migrate.reset',
             'modules.migrate.refresh',
+            'modules.install',
         ]);
     }
 
