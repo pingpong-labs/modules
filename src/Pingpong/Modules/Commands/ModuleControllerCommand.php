@@ -47,7 +47,7 @@ class ModuleControllerCommand extends GeneratorCommand {
     protected function getTemplateContents()
     {
         $replaces = [
-            'APPNAME'       =>  trim($this->laravel['config']['namespaces.root'], '\\'),
+//            'APPNAME'       =>  trim($this->laravel['config']['namespaces.root'], '\\'),
             'MODULENAME'    =>  $this->getModuleName(),
             'CONTROLLERNAME'=>  $this->getControllerName()
 
