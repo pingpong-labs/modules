@@ -1,12 +1,17 @@
 <?php namespace Pingpong\Modules\Commands;
 
+use Pingpong\Modules\Stub;
+use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 use Pingpong\Modules\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputOption;
-use Pingpong\Modules\Handlers\ModuleModelHandler;
 use Symfony\Component\Console\Input\InputArgument;
 
-class ModuleModelCommand extends Command {
+/**
+ * Class ModuleModelCommand
+ * @package Pingpong\Modules\Commands
+ */
+class ModuleModelCommand extends GeneratorCommand {
 
 	use ModuleCommandTrait;
 
@@ -23,34 +28,6 @@ class ModuleModelCommand extends Command {
 	 * @var string
 	 */
 	protected $description = 'Generate new model for the specified module.';
-
-    /**
-     * @property \Pingpong\Modules\Handlers\ModuleModelHandler handler
-     */
-    protected $handler;
-
-    /**
-     * Create a new command instance.
-     *
-     * @param ModuleModelHandler $handler
-     * @return \Pingpong\Modules\Commands\ModuleModelCommand
-     */
-	public function __construct(ModuleModelHandler $handler)
-	{
- 		parent::__construct();
-
-        $this->handler = $handler;
-	}
-
-	/**
-	 * Execute the console command.
-	 *
-	 * @return mixed
-	 */
-	public function fire()
-	{
-        return $this->handler->fire($this, $this->getModuleName(), $this->argument('model'));
-	}
 
 	/**
 	 * Get the console command arguments.
@@ -77,4 +54,52 @@ class ModuleModelCommand extends Command {
 		);
 	}
 
+    /**
+     * @return mixed
+     */
+    protected function getTemplateContents()
+    {
+        return new Stub('model', [
+            'MODULE'    =>  $this->getModuleName(),
+            'NAME'      =>  $this->getModelName(),
+            'FILLABLE'  =>  $this->getFillable()
+        ]);
+    }
+
+    /**
+     * @return mixed
+     */
+    protected function getDestinationFilePath()
+    {
+        $path = $this->laravel['modules']->getModulePath($this->getModuleName());
+
+        $seederPath = $this->laravel['config']->get('modules::paths.generator.model');
+
+        return $path . $seederPath . '/' . $this->getModelName() . '.php';
+    }
+
+    /**
+     * @return mixed|string
+     */
+    private function getModelName()
+    {
+        return Str::studly($this->argument('model'));
+    }
+
+    /**
+     * @return string
+     */
+    private function getFillable()
+    {
+        $fillable = $this->option('fillable');
+
+        if( ! is_null($fillable))
+        {
+            $arrays = explode(',', $fillable);
+
+            return json_encode($arrays);
+        }
+
+        return '[]';
+    }
 }

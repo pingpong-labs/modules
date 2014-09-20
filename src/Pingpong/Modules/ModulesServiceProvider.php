@@ -88,9 +88,7 @@ class ModulesServiceProvider extends ServiceProvider {
     {
         $this->app['modules.model'] = $this->app->share(function ($app)
         {
-            $handler = new Handlers\ModuleModelHandler($app['modules'], $app['files']);
-
-            return new Commands\ModuleModelCommand($handler);
+            return new Commands\ModuleModelCommand;
         });
     }
 

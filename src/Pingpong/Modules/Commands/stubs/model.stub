@@ -1,9 +1,9 @@
-<?php {{appName}}\Modules\{moduleName}\Database\Eloquent;
+<?php namespace Modules\$MODULE$\Database\Models;
    
 use Illuminate\Database\Eloquent\Model;
 
-class {{name}} extends Model {
+class $NAME$ extends Model {
 
-    protected $fillable = [];
+    protected $fillable = $FILLABLE$;
 
 }
