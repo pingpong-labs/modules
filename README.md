@@ -237,6 +237,12 @@ Create new model for the specified module.
   php artisan module:model blog User --fillable="username,email,password"
   ```
 
+Create new service provider for the specified module.
+
+  ```
+  php artisan module:provider MyServiceProvider
+  ```
+
 Publish migration for the specified module or for all modules.
     This helpful when you want to rollback the migrations. You can also run `php artisan migrate` instead of `php artisan module:migrate` command for migrate the migrations.
 
