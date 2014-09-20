@@ -172,7 +172,7 @@ Rollback, Reset and Refresh The Modules Migrations.
   php artisan module:migrate-refresh
 ```
 
-Rollback, Reset and Refresh Only The Migrations for the specified module.
+Rollback, Reset and Refresh The Migrations for the specified module.
 ```
   php artisan module:migrate-rollback blog
 
@@ -232,15 +232,15 @@ Publish assets from all modules to public directory.
 Create new model for the specified module.
 
   ```
-  php artisan module:model blog User
+  php artisan module:model User blog
 
-  php artisan module:model blog User --fillable="username,email,password"
+  php artisan module:model User blog --fillable="username,email,password"
   ```
 
 Create new service provider for the specified module.
 
   ```
-  php artisan module:provider MyServiceProvider
+  php artisan module:provider MyServiceProvider blog
   ```
 
 Publish migration for the specified module or for all modules.
