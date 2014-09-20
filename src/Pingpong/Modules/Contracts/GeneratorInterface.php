@@ -2,6 +2,11 @@
 
 interface GeneratorInterface {
 
-	public function generate();
+    /**
+     * Run the generator.
+     *
+     * @return mixed
+     */
+    public function generate();
 	
 }
