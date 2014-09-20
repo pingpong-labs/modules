@@ -19,6 +19,7 @@ If you find this source useful, you can share some milk to me if you want ^_^
 
 ### Changes Log
 
+<<<<<<< HEAD
 **1.0.* to 1.1.0**
 
 See [#32](https://github.com/pingpong-labs/modules/pull/32)
@@ -26,6 +27,11 @@ See [#32](https://github.com/pingpong-labs/modules/pull/32)
 **1.0.10 to 1.0.11**
 
 See [#26](https://github.com/pingpong-labs/modules/pull/26)
+=======
+**1.0.10 to 1.0.11**
+
+- See [#26](https://github.com/pingpong-labs/modules/pull/26)
+>>>>>>> master
 
 **1.0.9 to 1.0.10**
 
@@ -142,16 +148,17 @@ Create new module.
 Create new command for the specified module.
   
   ```
-  php artisan module:command blog CustomCommand
+  php artisan module:command CustomCommand blog
 
-  php artisan module:command blog CustomCommand --command=custom:command
+  php artisan module:command CustomCommand blog --command=custom:command
 
-  php artisan module:command blog CustomCommand --namespace=Modules\Blog\Commands
+  php artisan module:command CustomCommand blog --namespace=Modules\Blog\Commands
   ```
   
 Create new migration for the specified module.
 
   ```
+<<<<<<< HEAD
   php artisan module:migration blog create_users_table
 
   php artisan module:migration blog create_users_table --fields="username:string, password:string"
@@ -161,6 +168,11 @@ Create new migration for the specified module.
   php artisan module:migration blog remove_email_from_users_table --fields="email:string:unique"
 
   php artisan module:migration blog drop_users_table
+=======
+  php artisan module:migration users blog
+
+  php artisan module:migration users blog --fields="username:string, password:string"
+>>>>>>> master
   ```
 
 Rollback, Reset and Refresh The Modules Migrations.
@@ -184,7 +196,7 @@ Rollback, Reset and Refresh Only The Migrations for the specified module.
 Create new seed for the specified module.
 
   ```
-  php artisan module:seed-make blog users
+  php artisan module:seed-make users blog
   ```
   
 Migrate from the specified module.
@@ -214,7 +226,7 @@ Seed from all modules.
 Create new controller for the specified module.
 
   ```
-  php artisan module:controller blog SiteController
+  php artisan module:controller SiteController blog
   ```
 
 Publish assets from the specified module to public directory.
@@ -232,6 +244,7 @@ Publish assets from all modules to public directory.
 Create new model for the specified module.
 
   ```
+<<<<<<< HEAD
   php artisan module:model blog User
 
   php artisan module:model blog User --fillable="username,email,password"
@@ -241,6 +254,9 @@ Create new service provider for the specified module.
 
   ```
   php artisan module:provider MyServiceProvider
+=======
+  php artisan module:model User blog
+>>>>>>> master
   ```
 
 Publish migration for the specified module or for all modules.
@@ -336,6 +352,59 @@ Get module json property as array from a specified module.
 ```php
     Module::getProperties('blog')
 ```
+<<<<<<< HEAD
+=======
+
+**NEW!**
+
+Use the specified module.
+
+```php
+php artisan module:use blog
+``` 
+
+### Custom Service Provider
+
+  When you create your create new module, it also creates a new custom service provider. For example, if you create a new module named `blog`, it also creates a new Service Provider named `BlogServiceProvider` with namespace `Modules\Blog`. I think it is useful for registering custom command for each module. This file is not autoloaded; you can autoload this file using `psr-0` or `psr-4`. That file maybe look like this:
+
+  ```php
+  <?php namespace Modules\Blog;
+
+  use Illuminate\Support\ServiceProvider;
+
+  class BlogServiceProvider extends ServiceProvider {
+
+    /**
+     * Indicates if loading of the provider is deferred.
+     *
+     * @var bool
+     */
+    protected $defer = false;
+
+    /**
+     * Register the service provider.
+     *
+     * @return void
+     */
+    public function register()
+    {
+      //
+    }
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides()
+    {
+      return array();
+    }
+
+  }
+
+  ```
+>>>>>>> master
 
 ### Custom Namespaces
 

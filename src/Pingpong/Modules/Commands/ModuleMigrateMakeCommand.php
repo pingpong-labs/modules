@@ -1,6 +1,5 @@
 <?php namespace Pingpong\Modules\Commands;
 
-use Pingpong\Modules\Exceptions\InvalidMigrationName;
 use Pingpong\Modules\Stub;
 use Illuminate\Support\Str;
 use Pingpong\Modules\Schema\Field;
@@ -8,6 +7,7 @@ use Pingpong\Modules\Schema\Parser;
 use Pingpong\Modules\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use Pingpong\Modules\Exceptions\InvalidMigrationName;
 
 class ModuleMigrateMakeCommand extends GeneratorCommand {
 

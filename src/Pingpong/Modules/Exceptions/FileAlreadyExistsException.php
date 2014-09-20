@@ -1,3 +1,3 @@
-<?php  namespace Pingpong\Modules\Exceptions;
+<?php namespace Pingpong\Modules\Exceptions;
 
 class FileAlreadyExistsException extends \Exception {}

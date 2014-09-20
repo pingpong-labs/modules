@@ -4,7 +4,6 @@ use Illuminate\Support\Str;
 use Pingpong\Modules\Handlers;
 use Pingpong\Modules\Commands;
 use Illuminate\Support\ServiceProvider;
-use Pingpong\Modules\Database\Migrations\Migrator;
 
 /**
  * Class ModulesServiceProvider
