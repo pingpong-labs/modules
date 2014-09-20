@@ -247,19 +247,18 @@ class Module implements Countable
 	}
 
 	/**
-	 * Get global.php file for the specified module.
+	 * Register start file.
 	 *
 	 * @param  	string   $name
-	 * @return 	string
-     * @throws  \Pingpong\Modules\FileMissingException
+     * @throws  \Pingpong\Modules\Exceptions\FileMissingException
 	 */
 	protected function includeGlobalFile($name)
 	{
-		$file =  $this->getModulePath($name) ."/start/global.php";
+		$file =  $this->getModulePath($name) ."/start.php";
 
         if ( ! $this->files->exists($file))
         {
-            $message = "Module [{$name}] must have start/global.php file for registering namespaces.";
+            $message = "Module [{$name}] must have start.php file for registering namespaces.";
             
             throw new FileMissingException($message);
         }
