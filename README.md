@@ -28,7 +28,7 @@ For example i have `Admin` modules [here](https://github.com/pingpong-modules/Ad
 php artisan module:install pingpong-modules/Admin
 ```
 
-By default, that module will stored in current modules directory. If you want to store that in other directory or other path, simply specify the --path option. For example :
+By default, that module will stored in current modules directory. If you want to store that in other directory or other path, simply specify the `--path` option. For example :
 ```
 php artisan module:install pingpong-modules/Admin --path=App/Modules
 ```
