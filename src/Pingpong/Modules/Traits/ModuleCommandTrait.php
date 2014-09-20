@@ -6,7 +6,7 @@ trait ModuleCommandTrait {
 
     /**
      * Get the module name.
-     * 
+     *
      * @return string
      */
     public function getModuleName()
