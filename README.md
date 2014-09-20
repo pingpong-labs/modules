@@ -19,7 +19,6 @@ If you find this source useful, you can share some milk to me if you want ^_^
 
 ### Changes Log
 
-<<<<<<< HEAD
 **1.0.* to 1.1.0**
 
 See [#32](https://github.com/pingpong-labs/modules/pull/32)
@@ -27,11 +26,6 @@ See [#32](https://github.com/pingpong-labs/modules/pull/32)
 **1.0.10 to 1.0.11**
 
 See [#26](https://github.com/pingpong-labs/modules/pull/26)
-=======
-**1.0.10 to 1.0.11**
-
-- See [#26](https://github.com/pingpong-labs/modules/pull/26)
->>>>>>> master
 
 **1.0.9 to 1.0.10**
 
