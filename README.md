@@ -19,7 +19,7 @@ If you find this source useful, you can share some milk to me if you want ^_^
 
 ### Changes Log
 
-**1.1.0 to 1.1.1*
+**1.1.0 to 1.1.1**
 
 - Added new artisan commands `module:install`. This command is useful for installing the modules.
 For example i have `Admin` modules [here](https://github.com/pingpong-modules/Admin). You can install it using this command.
