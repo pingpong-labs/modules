@@ -67,7 +67,7 @@ class ModulePublisherHandler
      */
     protected function getAssetsPath($name)
     {
-        return realpath($this->module->getModulePath($name) . "/assets/");
+        return realpath($this->module->getModulePath($name) . "/Assets/");
     }
 
     /**
