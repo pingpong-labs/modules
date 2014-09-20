@@ -11,9 +11,9 @@ return [
         'seeder' => 'Database/Seeders',
         'migration' => 'Database/Migrations',
         'model' => 'Database/Models',
-        'repository' => 'Repository',
+        'repository' => 'Database/Repositories',
         'command' => 'Console',
-        'provider' => 'Console',
+        'provider' => 'Providers',
         'test' => 'Tests',
     ]
 ];
