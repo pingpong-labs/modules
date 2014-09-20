@@ -1,9 +1,10 @@
 <?php namespace Pingpong\Modules;
 
 use Illuminate\Support\Str;
-use Pingpong\Modules\Commands;
 use Pingpong\Modules\Handlers;
+use Pingpong\Modules\Commands;
 use Illuminate\Support\ServiceProvider;
+use Pingpong\Modules\Database\Migrations\Migrator;
 
 /**
  * Class ModulesServiceProvider
@@ -158,7 +159,7 @@ class ModulesServiceProvider extends ServiceProvider {
      */
     protected function registerMigratorCommand()
     {
-        $this->app['modules.migrator'] = $this->app->share(function ($app)
+        $this->app['modules.migrate'] = $this->app->share(function ($app)
         {
             return new Commands\ModuleMigrateCommand($app['modules']);
         });
@@ -244,6 +245,17 @@ class ModulesServiceProvider extends ServiceProvider {
     }
 
     /**
+     * Register "module:migrate-rollback" command.
+     */
+    protected function registerMigrateRollbackCommand()
+    {
+        $this->app->bindShared('modules.rollback', function ($app)
+        {
+            return new Commands\ModuleMigrateRollbackCommand;
+        });
+    }
+
+    /**
      * Register the commands.
      *
      * @return void
@@ -265,6 +277,7 @@ class ModulesServiceProvider extends ServiceProvider {
         $this->registerCommandCommand();
         $this->registerUseCommand();
         $this->registerProviderCommand();
+        $this->registerMigrateRollbackCommand();
 
         $this->commands([
             'modules.controller',
@@ -274,7 +287,7 @@ class ModulesServiceProvider extends ServiceProvider {
             'modules.maker',
             'modules.seed-maker',
             'modules.seeder',
-            'modules.migrator',
+            'modules.migrate',
             'modules.migration-maker',
             'modules.command-maker',
             'modules.migration-publisher',
@@ -282,6 +295,7 @@ class ModulesServiceProvider extends ServiceProvider {
             'modules.disable',
             'modules.use',
             'modules.provider',
+            'modules.rollback',
         ]);
     }
 
