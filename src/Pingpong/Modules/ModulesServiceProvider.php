@@ -233,6 +233,17 @@ class ModulesServiceProvider extends ServiceProvider {
     }
 
     /**
+     * Register "module:provider" command.
+     */
+    protected function registerProviderCommand()
+    {
+        $this->app->bindShared('modules.provider', function ($app)
+        {
+            return new Commands\ModuleGenerateProviderCommand;
+        });
+    }
+
+    /**
      * Register the commands.
      *
      * @return void
@@ -253,6 +264,7 @@ class ModulesServiceProvider extends ServiceProvider {
         $this->registerMigrationPublisherCommand();
         $this->registerCommandCommand();
         $this->registerUseCommand();
+        $this->registerProviderCommand();
 
         $this->commands([
             'modules.controller',
@@ -269,6 +281,7 @@ class ModulesServiceProvider extends ServiceProvider {
             'modules.enable',
             'modules.disable',
             'modules.use',
+            'modules.provider',
         ]);
     }
 
