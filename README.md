@@ -19,6 +19,20 @@ If you find this source useful, you can share some milk to me if you want ^_^
 
 ### Changes Log
 
+**1.1.0 to 1.1.1*
+
+- Added new artisan commands `module:install`. This command is useful for installing the modules.
+For example i have `Admin` modules [here](https://github.com/pingpong-modules/Admin). You can install it using this command.
+
+```
+php artisan module:install pingpong-modules/Admin
+```
+
+By default, that module will stored in current modules directory. If you want to store that in other directory or other path, simply specify the --path option. For example :
+```
+php artisan module:install pingpong-modules/Admin --path=App/Modules
+```
+
 **1.0.* to 1.1.0**
 
 See [#32](https://github.com/pingpong-labs/modules/pull/32)
