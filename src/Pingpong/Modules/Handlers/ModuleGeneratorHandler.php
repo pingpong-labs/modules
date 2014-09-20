@@ -40,7 +40,6 @@ class ModuleGeneratorHandler
      */
     protected $files = array(
         'start.php',
-        'Providers/{{Name}}ServiceProvider.php',
         'Http/routes.php',
         'Resources/lang/en/{{name}}.php',
         'Config/{{name}}.php',
@@ -54,7 +53,6 @@ class ModuleGeneratorHandler
      */
     protected $stubs = array(
         'global.stub',
-        'provider.stub',
         'filters.stub',
         'routes.stub',
         'lang.stub',
@@ -123,7 +121,9 @@ class ModuleGeneratorHandler
 
         $this->generateFiles();
 
-        $console->call('module:seed-make', array('module' => $this->name, 'name' => $this->Name, '--master'));
+        $console->call('module:seed-make', array('module' => $this->name, 'name' => $this->Name));
+
+        $console->call('module:provider', array('module' => $this->name, 'name' => $this->Name . 'ServiceProvider'));
 
         $console->info("Module [{$this->Name}] has been created successfully.");
 
