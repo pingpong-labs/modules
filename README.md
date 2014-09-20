@@ -19,6 +19,10 @@ If you find this source useful, you can share some milk to me if you want ^_^
 
 ### Changes Log
 
+**1.0.* to 1.1.0**
+
+See [#26](https://github.com/pingpong-labs/modules/pull/26)
+
 **1.0.10 to 1.0.11**
 
 See [#26](https://github.com/pingpong-labs/modules/pull/26)
@@ -45,7 +49,7 @@ See [#26](https://github.com/pingpong-labs/modules/pull/26)
 
 Open your composer.json file and add a new required package.
   ```
-  "pingpong/modules": "1.0.*" 
+  "pingpong/modules": "1.*"
   ```
 Next, open a terminal and run.
   ```
@@ -72,34 +76,60 @@ By default modules folder is in your Laravel route directory. For first use, ple
   php artisan module:setup
   ```
 
-### Folder Structure
+### New Folder Structure
   
   Now, naming modules must use a capital letter on the first letter. For example: Blog, News, Shop, etc.
 
   ```
   app/
-  public/
-  vendor/
-  Modules
-  |-- Blog
-      |-- commands/
-      |-- config/
-      |-- controllers/
-      |-- database/
-          |-- migrations/
-          |-- seeds/
-      |-- models/
-      |-- start/
-          |-- global.php
-      |-- tests/
-      |-- views/
-      |-- BlogServiceProvider.php
-      |-- filters.php
-      |-- routes.php
-      |-- module.json
+      Modules
+      |-- Blog
+          |-- Assets/
+          |-- Config/
+          |-- Console/
+          |-- Database/
+              |-- Migrations/
+              |-- Models/
+              |-- Repositories/
+              |-- Seeders/
+          |-- Http
+              |-- Controllers
+              |-- Filters
+              |-- Requests
+              |-- routes.php
+          |-- Providers/
+              |-- BlogServiceProvider.php
+          |-- Resources/
+              |-- lang/
+              |-- views/
+          |-- Tests/
+          |-- module.json
+          |-- start.php
   ```
 
-  **Note:** File `start/global.php` is required for registering `View`, `Lang` and `Config` namespaces. If that file does not exist, an exception `FileMissingException` is thrown.
+  **Note:** File `start.php` is required for registering `View`, `Lang` and `Config` namespaces. If that file does not exist, an exception `FileMissingException` is thrown.
+
+### Autoloading
+
+Now, by default the controllers, models and others not autoloaded automatically. You can autoload all modules using psr-4 or psr-0. For example :
+
+```
+{
+    "autoload": {
+        "classmap": [
+            "app/commands",
+            "app/controllers",
+            "app/models",
+            "app/database/migrations",
+            "app/database/seeds",
+            "app/tests/TestCase.php"
+        ],
+        "psr-4": {
+            "Modules\\": "app/Modules"
+        }
+    },
+}
+```
 
 ### Artisan CLI
   
@@ -122,10 +152,34 @@ Create new command for the specified module.
 Create new migration for the specified module.
 
   ```
-  php artisan module:migration blog users
+  php artisan module:migration blog create_users_table
 
-  php artisan module:migration blog users --fields="username:string, password:string"
+  php artisan module:migration blog create_users_table --fields="username:string, password:string"
+
+  php artisan module:migration blog add_email_to_users_table --fields="email:string:unique"
+
+  php artisan module:migration blog remove_email_from_users_table --fields="email:string:unique"
+
+  php artisan module:migration blog drop_users_table
   ```
+
+Rollback, Reset and Refresh The Modules Migrations.
+```
+  php artisan module:migrate-rollback
+
+  php artisan module:migrate-reset
+
+  php artisan module:migrate-refresh
+```
+
+Rollback, Reset and Refresh Only The Migrations for the specified module.
+```
+  php artisan module:migrate-rollback blog
+
+  php artisan module:migrate-reset blog
+
+  php artisan module:migrate-refresh blog
+```
   
 Create new seed for the specified module.
 
@@ -179,6 +233,8 @@ Create new model for the specified module.
 
   ```
   php artisan module:model blog User
+
+  php artisan module:model blog User --fillable="username,email,password"
   ```
 
 Publish migration for the specified module or for all modules.
@@ -273,49 +329,7 @@ Disable a specified module.
 Get module json property as array from a specified module.
 ```php
     Module::getProperties('blog')
-``` 
-
-### Custom Service Provider
-
-  When you create your create new module, it also creates a new custom service provider. For example, if you create a new module named `blog`, it also creates a new Service Provider named `BlogServiceProvider` with namespace `Modules\Blog`. I think it is useful for registering custom command for each module. This file is not autoloaded; you can autoload this file using `psr-0` or `psr-4`. That file maybe look like this:
-
-  ```php
-  <?php namespace Modules\Blog;
-
-  use Illuminate\Support\ServiceProvider;
-
-  class BlogServiceProvider extends ServiceProvider {
-
-    /**
-     * Indicates if loading of the provider is deferred.
-     *
-     * @var bool
-     */
-    protected $defer = false;
-
-    /**
-     * Register the service provider.
-     *
-     * @return void
-     */
-    public function register()
-    {
-      //
-    }
-
-    /**
-     * Get the services provided by the provider.
-     *
-     * @return array
-     */
-    public function provides()
-    {
-      return array();
-    }
-
-  }
-
-  ```
+```
 
 ### Custom Namespaces
 
