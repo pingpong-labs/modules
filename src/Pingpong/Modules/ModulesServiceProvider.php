@@ -1,8 +1,8 @@
 <?php namespace Pingpong\Modules;
 
 use Illuminate\Support\Str;
-use Pingpong\Modules\Commands;
 use Pingpong\Modules\Handlers;
+use Pingpong\Modules\Commands;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -88,9 +88,7 @@ class ModulesServiceProvider extends ServiceProvider {
     {
         $this->app['modules.model'] = $this->app->share(function ($app)
         {
-            $handler = new Handlers\ModuleModelHandler($app['modules'], $app['files']);
-
-            return new Commands\ModuleModelCommand($handler);
+            return new Commands\ModuleModelCommand;
         });
     }
 
@@ -140,9 +138,7 @@ class ModulesServiceProvider extends ServiceProvider {
     {
         $this->app['modules.seed-maker'] = $this->app->share(function ($app)
         {
-            $handler = new Handlers\ModuleSeedMakerHandler($app['modules'], $app['files']);
-
-            return new Commands\ModuleSeedMakeCommand($handler);
+            return new Commands\ModuleSeedMakeCommand();
         });
     }
 
@@ -162,7 +158,7 @@ class ModulesServiceProvider extends ServiceProvider {
      */
     protected function registerMigratorCommand()
     {
-        $this->app['modules.migrator'] = $this->app->share(function ($app)
+        $this->app['modules.migrate'] = $this->app->share(function ($app)
         {
             return new Commands\ModuleMigrateCommand($app['modules']);
         });
@@ -186,7 +182,7 @@ class ModulesServiceProvider extends ServiceProvider {
     {
         $this->app['modules.command-maker'] = $this->app->share(function ($app)
         {
-            return new Commands\ModuleCommandCommand($app['modules']);
+            return new Commands\ModuleCommandCommand;
         });
     }
 
@@ -237,6 +233,50 @@ class ModulesServiceProvider extends ServiceProvider {
     }
 
     /**
+     * Register "module:provider" command.
+     */
+    protected function registerProviderCommand()
+    {
+        $this->app->bindShared('modules.provider', function ($app)
+        {
+            return new Commands\ModuleGenerateProviderCommand;
+        });
+    }
+
+    /**
+     * Register "module:migrate-rollback" command.
+     */
+    protected function registerMigrateRollbackCommand()
+    {
+        $this->app->bindShared('modules.migrate.rollback', function ($app)
+        {
+            return new Commands\ModuleMigrateRollbackCommand;
+        });
+    }
+
+    /**
+     * Register "module:migrate-reset" command.
+     */
+    protected function registerMigrateResetCommand()
+    {
+        $this->app->bindShared('modules.migrate.reset', function ($app)
+        {
+            return new Commands\ModuleMigrateResetCommand;
+        });
+    }
+
+    /**
+     * Register "module:migrate-reset" command.
+     */
+    protected function registerMigrateRefreshCommand()
+    {
+        $this->app->bindShared('modules.migrate.refresh', function ($app)
+        {
+            return new Commands\ModuleMigrateRefreshCommand;
+        });
+    }
+
+    /**
      * Register the commands.
      *
      * @return void
@@ -257,6 +297,10 @@ class ModulesServiceProvider extends ServiceProvider {
         $this->registerMigrationPublisherCommand();
         $this->registerCommandCommand();
         $this->registerUseCommand();
+        $this->registerProviderCommand();
+        $this->registerMigrateRollbackCommand();
+        $this->registerMigrateResetCommand();
+        $this->registerMigrateRefreshCommand();
 
         $this->commands([
             'modules.controller',
@@ -266,13 +310,17 @@ class ModulesServiceProvider extends ServiceProvider {
             'modules.maker',
             'modules.seed-maker',
             'modules.seeder',
-            'modules.migrator',
+            'modules.migrate',
             'modules.migration-maker',
             'modules.command-maker',
             'modules.migration-publisher',
             'modules.enable',
             'modules.disable',
             'modules.use',
+            'modules.provider',
+            'modules.migrate.rollback',
+            'modules.migrate.reset',
+            'modules.migrate.refresh',
         ]);
     }
 

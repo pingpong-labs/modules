@@ -3,17 +3,26 @@
 use Illuminate\Support\Str;
 
 trait ModuleCommandTrait {
-	
-	/**
-	 * Get the module name.
-	 * 
-	 * @return string
-	 */
-	public function getModuleName()
+
+    /**
+     * Get the module name.
+     *
+     * @return string
+     */
+    public function getModuleName()
 	{
 		$module = $this->argument('module') ?: $this->laravel['modules']->getUsedNow();
 
-		return Str::studly($module);
+		$module = Str::studly($module);
+
+        if( ! $this->laravel['modules']->has($module))
+        {
+            $this->error("Module [{$module}] does not exists.");
+
+            exit;
+        }
+
+        return $module;
 	}
 
 }

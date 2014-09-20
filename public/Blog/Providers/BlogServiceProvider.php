@@ -1,4 +1,4 @@
-<?php namespace Modules\Blog;
+<?php namespace Modules\Blog\Providers;
 
 use Illuminate\Support\ServiceProvider;
 

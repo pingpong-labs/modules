@@ -67,7 +67,7 @@ class ModulePublisherHandler
      */
     protected function getAssetsPath($name)
     {
-        return realpath($this->module->getPath() . "/{$name}/assets/");
+        return realpath($this->module->getModulePath($name) . "/Assets/");
     }
 
     /**
@@ -78,6 +78,8 @@ class ModulePublisherHandler
      */
     public function getDestinationPath($name)
     {
+        $name = strtolower($name);
+
         return realpath($this->module->getAssetsPath()) . "/{$name}/";
     }
 

@@ -2,26 +2,6 @@
 
 /*
 |--------------------------------------------------------------------------
-| Register The Module Class Loader
-|--------------------------------------------------------------------------
-|
-| In addition to using Composer, you may use the Laravel class loader to
-| load your controllers and models. This is useful for keeping all of
-| your classes in the "global" namespace without Composer updating.
-|
-*/
-
-ClassLoader::addDirectories(array(
-
-	__DIR__ . '/../commands',
-	__DIR__ . '/../controllers',
-	__DIR__ . '/../models',
-	__DIR__ . '/../database/seeds',
-
-));
-
-/*
-|--------------------------------------------------------------------------
 | Register The Module Namespaces
 |--------------------------------------------------------------------------
 |
@@ -30,21 +10,19 @@ ClassLoader::addDirectories(array(
 |
 */
 
-View::addNamespace('{{name}}', __DIR__ . '/../views/');
+View::addNamespace('{{name}}', __DIR__ . '/Resources/views/');
 
-Lang::addNamespace('{{name}}', __DIR__ . '/../lang/');
+Lang::addNamespace('{{name}}', __DIR__ . '/Resources/lang/');
 
-Config::addNamespace('{{name}}', __DIR__ . '/../config/');
+Config::addNamespace('{{name}}', __DIR__ . '/Config/');
 
 /*
 |--------------------------------------------------------------------------
-| Require Module Filters and Routes file.
+| Require The Routes file.
 |--------------------------------------------------------------------------
 |
 | Next, this module will load filters and routes file.
 |
 */
 
-require __DIR__ . '/../filters.php';
-
-require __DIR__ . '/../routes.php';
+require __DIR__ . '/Http/routes.php';

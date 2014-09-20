@@ -17,19 +17,20 @@ class ModuleGeneratorHandler
      * @var array
      */
     protected $folders = array(
-        'assets/',
-        'commands/',
-        'config/',
-        'controllers/',
-        'database/',
-        'database/migrations/',
-        'database/seeds/',
-        'lang/',
-        'lang/en/',
-        'models/',
-        'start/',
-        'tests/',
-        'views/',
+        'Assets/',
+        'Console/',
+        'Config/',
+        'Http/Controllers/',
+        'Http/Filters/',
+        'Http/Requests/',
+        'Database/Migrations/',
+        'Database/Seeders/',
+        'Database/Models/',
+        'Database/Repositories/',
+        'Providers/',
+        'Resources/lang/en',
+        'Resources/views/',
+        'Tests/',
     );
 
     /**
@@ -38,12 +39,10 @@ class ModuleGeneratorHandler
      * @var array
      */
     protected $files = array(
-        'start/global.php',
-        '{{Name}}ServiceProvider.php',
-        'filters.php',
-        'routes.php',
-        'lang/en/{{name}}.php',
-        'config/{{name}}.php',
+        'start.php',
+        'Http/routes.php',
+        'Resources/lang/en/{{name}}.php',
+        'Config/{{name}}.php',
         'module.json'
     );
 
@@ -54,8 +53,6 @@ class ModuleGeneratorHandler
      */
     protected $stubs = array(
         'global.stub',
-        'provider.stub',
-        'filters.stub',
         'routes.stub',
         'lang.stub',
         'config.stub',
@@ -100,7 +97,7 @@ class ModuleGeneratorHandler
     public function fire(Command $console, $name)
     {
         $this->console = $console;
-        $this->name = $name;
+        $this->name = strtolower($name);
         $this->Name = Str::studly($name);
 
         if($this->module->has($this->Name))
@@ -123,9 +120,9 @@ class ModuleGeneratorHandler
 
         $this->generateFiles();
 
-        $console->call('module:seed-make', array('module' => $this->name, 'name' => $this->Name, '--master'));
+        $console->call('module:seed-make', array('module' => $this->name, 'name' => $this->Name));
 
-        $console->call('module:controller', array('module' => $this->name, 'controller' => $this->Name . 'Controller'));
+        $console->call('module:provider', array('module' => $this->name, 'name' => $this->Name . 'ServiceProvider'));
 
         $console->info("Module [{$this->Name}] has been created successfully.");
 
@@ -143,7 +140,9 @@ class ModuleGeneratorHandler
 
         foreach ($this->folders as $folder)
         {
-            $this->finder->makeDirectory($this->getModulePath($this->Name) . $folder);
+            $folderPath = $this->getModulePath($this->Name) . $folder;
+
+            $this->finder->makeDirectory($folderPath, 0755, true);
         }
     }
 

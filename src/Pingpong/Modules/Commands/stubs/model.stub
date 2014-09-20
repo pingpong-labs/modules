@@ -1,6 +1,9 @@
-<?php
+<?php namespace Modules\$MODULE$\Database\Models;
+   
+use Illuminate\Database\Eloquent\Model;
 
-class {{name}} extends Eloquent
-{
-	protected $fillable = [{{fillable}}];
+class $NAME$ extends Model {
+
+    protected $fillable = $FILLABLE$;
+
 }

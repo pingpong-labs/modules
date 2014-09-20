@@ -27,6 +27,11 @@ class ModuleMigrateCommand extends Command {
 	 */
 	protected $description = 'Migrate the migrations from the specified module or from all modules.';
 
+    /**
+     * @var \Pingpong\Modules\Module
+     */
+    protected $module;
+
 	/**
 	 * Execute the console command.
 	 *
@@ -87,6 +92,10 @@ class ModuleMigrateCommand extends Command {
 		{
 			$params['--seed'] = $option;
 		}
+        if($option = $this->option('force'))
+        {
+            $params['--force'] = $option;
+        }
 		return $params;
 	}
 
@@ -99,7 +108,7 @@ class ModuleMigrateCommand extends Command {
 	{
 		$path = str_replace(base_path(), '', $this->module->getModulePath($name));
 
-		return $path . "/database/migrations/";
+		return $path . $this->laravel['config']->get('modules::paths.generator.migration');
 	}
 
 	/**
@@ -123,7 +132,11 @@ class ModuleMigrateCommand extends Command {
 	{
 		return array(			
 			array('database', null, InputOption::VALUE_OPTIONAL, 'The database connection to use.'),
+
 			array('pretend', null, InputOption::VALUE_NONE, 'Dump the SQL queries that would be run.'),
+
+            array('force', null, InputOption::VALUE_NONE, 'Force the operation to run when in production.'),
+
 			array('seed', null, InputOption::VALUE_NONE, 'Indicates if the seed task should be re-run.'),
 		);
 	}

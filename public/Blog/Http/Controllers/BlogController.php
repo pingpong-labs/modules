@@ -1,4 +1,4 @@
-<?php
+<?php namespace Modules\Blog\Http\Controllers;
 
 class BlogController extends \BaseController {
 

@@ -1,13 +1,15 @@
 <?php namespace Pingpong\Modules\Commands;
 
-use Pingpong\Modules\Module;
-use Illuminate\Console\Command;
-use Illuminate\Filesystem\Filesystem as File;
+use Pingpong\Modules\Stub;
+use Illuminate\Support\Str;
+use Pingpong\Modules\Schema\Field;
+use Pingpong\Modules\Schema\Parser;
 use Pingpong\Modules\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use Pingpong\Modules\Exceptions\InvalidMigrationName;
 
-class ModuleMigrateMakeCommand extends Command {
+class ModuleMigrateMakeCommand extends GeneratorCommand {
 
 	use ModuleCommandTrait;
 
@@ -25,169 +27,6 @@ class ModuleMigrateMakeCommand extends Command {
 	 */
 	protected $description = 'Generate a new migration for the specified module.';
 
-    /**
-     * Create a new command instance.
-     *
-     * @param Module $module
-     * @param File $files
-     * @return \Pingpong\Modules\Commands\ModuleMigrateMakeCommand
-     */
-	public function __construct(Module $module, File $files)
-	{
-        parent::__construct();
-
-        $this->module  = $module;
-
-        $this->file  = $files;
-	}
-
-	/**
-	 * Execute the console command.
-	 *
-	 * @return mixed
-	 */
-	public function fire()
-	{
-		$this->moduleName  		=  $this->getModuleName();
-
-		$this->table 		 	=  str_plural(strtolower($this->argument('table')));
-		
-		$this->migrationName 	=  "create_".snake_case($this->table)."_table";
-        $this->className        =  studly_case($this->migrationName);
-
-
-		if($this->module->has($this->moduleName))
-		{
-			$this->makeFile();
-			
-			$this->info("Created : ".$this->getDestinationFile());
-			
-			return $this->call('dump-autoload');
-		}
-		return $this->info("Module [$this->moduleName] does not exists.");
-	}
-
-	/**
-	 * Get filename.
-	 *
-	 * @return string
-	 */
-	protected function getFilename()
-	{
-		return date("Y_m_d_His") . '_' . $this->migrationName.'.php';
-	}
-
-	/**
-	 * Get fields.
-	 *
-	 * @return string
-	 */
-	protected function getFields()
-	{
-		$result = '';
-
-		if($option = $this->option('fields'))
-		{
-			$fields = str_replace(" ", "", $option);
-
-			$fields = explode(',', $fields);
-
-			foreach ($fields as $field)
-            {
-				$result .= $this->setField($field);
-			}
-		}
-
-		return $result;
-	}
-
-	/**
-	 * Set field to script.
-	 *
-	 * @param  string  $option
-	 * @return string
-	 */
-	protected function setField($option)
-	{
-		$result = '';
-
-		if( ! empty($option) )
-		{
-			$option = explode(":", $option);
-
-			$result.= '			$table->'.$option[1]."('$option[0]')";
-			
-			if(count($option) > 0)
-			{
-				foreach ($option as $key => $o)
-                {
-					if($key == 0 || $key == 1) continue;
-					$result.= "->$o()";		
-				}
-			}
-
-			$result.= ';'.PHP_EOL;
-		}
-
-		return $result;
-	}
-
-	/**
-	 * Get destination file.
-	 *
-	 * @return string
-	 */
-	protected function getDestinationFile()
-	{
-		return $this->getPath() . $this->formatContent($this->getFilename());
-	}
-
-	/**
-	 * Get seeder path.
-	 *
-	 * @return string
-	 */
-	protected function getPath()
-	{
-		$path = $this->module->getModulePath($this->moduleName);
-
-		return $path . "database/migrations/";
-	}
-
-	/**
-	 * Create new file.
-	 *
-	 * @return 	string
-	 */
-	public function makeFile()
-	{
-		return $this->file->put($this->getDestinationFile(), $this->getStubContent());
-	}
-
-	/**
-	 * Get stub content by given key.
-	 *
-	 * @return string
-	 */
-	protected function getStubContent()
-	{
-		return $this->formatContent($this->file->get(__DIR__ . '/stubs/migration.stub'));
-	}
-
-	/**
-	 * Replace the specified text from given content.
-	 *
-	 * @return string
-	 */
-	protected function formatContent($content)
-	{
-		return str_replace(
-			['{{migrationName}}', '{{table}}', '{{fields}}'],
-			[$this->className, $this->table, $this->getFields()],
-			$content
-		);
-	}
-
 	/**
 	 * Get the console command arguments.
 	 *
@@ -196,7 +35,7 @@ class ModuleMigrateMakeCommand extends Command {
 	protected function getArguments()
 	{
 		return array(
-			array('table', InputArgument::REQUIRED, 'The name of table will be created.'),
+			array('name', InputArgument::REQUIRED, 'The migration name will be created.'),
 			array('module', InputArgument::OPTIONAL, 'The name of module will be created.'),
 		);
 	}
@@ -210,6 +49,108 @@ class ModuleMigrateMakeCommand extends Command {
 	{
 		return array(
 			array('--fields', null, InputOption::VALUE_OPTIONAL, 'The specified fields table.', null),
+			array('--plain', null, InputOption::VALUE_OPTIONAL, 'Create plain migration.'),
 		);
 	}
+
+    /**
+     * @throws InvalidMigrationName
+     * @return mixed
+     */
+    protected function getTemplateContents()
+    {
+        $schema = new Parser($this->argument('name'));
+
+        $fields = new Field($this->option('fields'));
+
+        if($this->option('plain'))
+        {
+            return new Stub('migration/plain', [
+                'CLASS'  => $this->getClassName()
+            ]);
+        }
+        elseif($schema->isCreate())
+        {
+            return new Stub('migration/create', [
+                'CLASS'  => $this->getClassName(),
+                'FIELDS' => $fields->getSchemaCreate(),
+                'TABLE'  => $schema->getTableName()
+            ]);
+        }
+        elseif($schema->isAdd())
+        {
+            return new Stub('migration/add', [
+                'CLASS'         => $this->getClassName(),
+                'FIELDS_UP'     => $fields->getSchemaCreate(),
+                'FIELDS_DOWN'   => $fields->getSchemaDropColumn(),
+                'TABLE'         => $schema->getTableName()
+            ]);
+        }
+        elseif($schema->isDelete())
+        {
+            return new Stub('migration/delete', [
+                'CLASS'         => $this->getClassName(),
+                'FIELDS_DOWN'   => $fields->getSchemaCreate(),
+                'FIELDS_UP'     => $fields->getSchemaDropColumn(),
+                'TABLE'         => $schema->getTableName()
+            ]);
+        }
+        elseif($schema->isDrop())
+        {
+            return new Stub('migration/drop', [
+                'CLASS'         => $this->getClassName(),
+                'FIELDS'        => $fields->getSchemaCreate(),
+                'TABLE'         => $schema->getTableName()
+            ]);
+        }
+
+        throw new InvalidMigrationName;
+    }
+
+    /**
+     * @return mixed
+     */
+    protected function getDestinationFilePath()
+    {
+        $path = $this->laravel['modules']->getModulePath($this->getModuleName());
+
+        $generatorPath = $this->laravel['config']->get('modules::paths.generator.migration');
+
+        return $path . $generatorPath . '/' . $this->getFileName() . '.php';
+    }
+
+    /**
+     * @return string
+     */
+    private function getFileName()
+    {
+        return date('Y_m_d_His_') . $this->getSchemaName();
+    }
+
+    /**
+     * @return array|string
+     */
+    private function getSchemaName()
+    {
+        return $this->argument('name');
+    }
+
+    /**
+     * @return string
+     */
+    private function getClassName()
+    {
+        return Str::studly($this->argument('name'));
+    }
+
+    /**
+     * Run the command.
+     */
+    public function fire()
+    {
+        parent::fire();
+
+        $this->call('dump-autoload');
+    }
+
 }

@@ -7,12 +7,7 @@ use Illuminate\Config\Repository;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Translation\Translator;
-
-/**
- * Class FileMissingException
- * @package Pingpong\Modules
- */
-class FileMissingException extends \Exception {}
+use Pingpong\Modules\Exceptions\FileMissingException;
 
 /**
  * Class Module
@@ -83,6 +78,76 @@ class Module implements Countable
         $this->files = $files;
         $this->html = $html;
         $this->url = $url;
+    }
+
+    /**
+     * Get Modules Finder instance.
+     *
+     * @return Finder
+     */
+    public function getFinder()
+    {
+        return $this->finder;
+    }
+
+    /**
+     * Get Laravel Config Instance.
+     *
+     * @return Repository
+     */
+    public function getConfigRepository()
+    {
+        return $this->config;
+    }
+
+    /**
+     * Get Laravel View Factory Instance.
+     *
+     * @return Factory
+     */
+    public function getViewsFactory()
+    {
+        return $this->views;
+    }
+
+    /**
+     * Get Laravel Translator Instance.
+     *
+     * @return Translator
+     */
+    public function getTranslator()
+    {
+        return $this->lang;
+    }
+
+    /**
+     * Get Laravel Filesystem Instance.
+     *
+     * @return Filesystem
+     */
+    public function getFilesystem()
+    {
+        return $this->files;
+    }
+
+    /**
+     * Get Laravel Html Builder Instance.
+     *
+     * @return HtmlBuilder
+     */
+    public function getHtmlBuilder()
+    {
+        return $this->html;
+    }
+
+    /**
+     * Get Laravel URL Generator Instance.
+     *
+     * @return UrlGenerator
+     */
+    public function getUrlGenerator()
+    {
+        return $this->url;
     }
 
 	/**
@@ -182,19 +247,18 @@ class Module implements Countable
 	}
 
 	/**
-	 * Get global.php file for the specified module.
+	 * Register start file.
 	 *
 	 * @param  	string   $name
-	 * @return 	string
-     * @throws  \Pingpong\Modules\FileMissingException
+     * @throws  \Pingpong\Modules\Exceptions\FileMissingException
 	 */
 	protected function includeGlobalFile($name)
 	{
-		$file =  $this->getPath() . "/{$name}/start/global.php";
+		$file =  $this->getModulePath($name) ."/start.php";
 
         if ( ! $this->files->exists($file))
         {
-            $message = "Module [{$name}] must have start/global.php file for registering namespaces.";
+            $message = "Module [{$name}] must have start.php file for registering namespaces.";
             
             throw new FileMissingException($message);
         }

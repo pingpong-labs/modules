@@ -1,6 +1,8 @@
-<?php
+<?php namespace Modules\$MODULE$\Database\Seeders;
 
-class {{Name}}DatabaseSeeder extends Seeder {
+use Illuminate\Database\Seeder;
+
+class $NAME$ extends Seeder {
 
 	/**
 	 * Run the database seeds.

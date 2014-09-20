@@ -80,6 +80,6 @@ class ModuleMigrationPublisherHandler
      */
     protected function getMigrationPath($module)
     {
-        return $this->module->getModulePath($module) . 'database/migrations/';
+        return $this->module->getModulePath($module) . 'Database/Migrations/';
     }
 } 
