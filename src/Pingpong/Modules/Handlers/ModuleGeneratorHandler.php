@@ -53,7 +53,6 @@ class ModuleGeneratorHandler
      */
     protected $stubs = array(
         'global.stub',
-        'filters.stub',
         'routes.stub',
         'lang.stub',
         'config.stub',
