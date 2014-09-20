@@ -140,9 +140,7 @@ class ModulesServiceProvider extends ServiceProvider {
     {
         $this->app['modules.seed-maker'] = $this->app->share(function ($app)
         {
-            $handler = new Handlers\ModuleSeedMakerHandler($app['modules'], $app['files']);
-
-            return new Commands\ModuleSeedMakeCommand($handler);
+            return new Commands\ModuleSeedMakeCommand();
         });
     }
 
