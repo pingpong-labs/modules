@@ -41,6 +41,8 @@ If you find this source useful, you can share some milk to me if you want ^_^
 }
 ```
 
+If the `require` key is not empty, then we will install its packages automatically when you install that module.
+
 **1.1.0 to 1.1.1**
 
 - Added new artisan commands `module:install`. This command is useful for installing the modules.
