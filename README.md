@@ -182,6 +182,12 @@ Create new module.
   ```
   php artisan module:make blog
   ```
+
+Use the specified module. Please see [#26](https://github.com/pingpong-labs/modules/pull/26).
+
+```php
+php artisan module:use blog
+```
   
 Create new command for the specified module.
   
@@ -379,12 +385,6 @@ Disable a specified module.
 Get module json property as array from a specified module.
 ```php
     Module::getProperties('blog')
-```
-
-Use the specified module.
-
-```php
-php artisan module:use blog
 ```
 
 ### Custom Namespaces
