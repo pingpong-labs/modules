@@ -43,6 +43,18 @@ class ModuleSeedMakeCommand extends GeneratorCommand {
 		);
 	}
 
+	/**
+	 * Get the console command options.
+	 *
+	 * @return array
+	 */
+	protected function getOptions()
+	{
+		return array(
+			array('master', null, InputOption::VALUE_OPTIONAL, 'Indicates the seeder will created is a master database seeder.'),
+		);
+	}
+
     /**
      * @return mixed
      */
@@ -73,6 +85,8 @@ class ModuleSeedMakeCommand extends GeneratorCommand {
      */
     private function getSeederName()
     {
-        return Str::studly($this->argument('name')) . 'TableSeeder';
+    	$end = $this->option('master') ? 'DatabaseSeeder' : 'TableSeeder';
+
+        return Str::studly($this->argument('name')) . $end;
     }
 }
