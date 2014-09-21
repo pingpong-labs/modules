@@ -49,7 +49,7 @@ abstract class ControllerValidator extends Controller {
 
 		if($this->validation->fails())
 		{
-			throw new ValidationException("Validation failed");
+			throw new ValidationException($this->getErrors(), "Validation failed");
 		}
 
 		return true;
