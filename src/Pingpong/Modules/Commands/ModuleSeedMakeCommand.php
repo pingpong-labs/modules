@@ -66,6 +66,11 @@ class ModuleSeedMakeCommand extends GeneratorCommand {
         return $path . $seederPath . '/' . $this->getSeederName() . '.php';
     }
 
+    /**
+     * Get seeder name.
+     * 
+     * @return string 
+     */
     private function getSeederName()
     {
         return Str::studly($this->argument('name')) . 'TableSeeder';
