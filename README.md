@@ -19,6 +19,28 @@ If you find this source useful, you can share some milk to me if you want ^_^
 
 ### Changes Log
 
+**1.1.1 to 1.1.2**
+
+- Added new feature, now every module can require other composer package. you can define the required package in your module.json file. for example :
+
+```json
+{
+    "name": "Admin",
+    "alias": "admin",
+    "description": "Admin Modules",
+    "keywords": [
+      "admin",
+      "modules",
+      "pingpong"
+    ],
+    "require": {
+      "pingpong/trusty": "1.*",
+      "pingpong/shortcode": "1.*"
+    },
+    "active": 1
+}
+```
+
 **1.1.0 to 1.1.1**
 
 - Added new artisan commands `module:install`. This command is useful for installing the modules.
