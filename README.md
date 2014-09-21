@@ -19,6 +19,12 @@ If you find this source useful, you can share some milk to me if you want ^_^
 
 ### Changes Log
 
+**1.1.1 to 1.1.3**
+
+- Added new controller validator. Please see [this example](https://github.com/pingpong-modules/Admin/blob/master/Http/Controllers/Auth/RegisterController.php).
+- Added `--master` option to `module:seed-make` command.
+- Fix `module:seed` command
+
 **1.1.1 to 1.1.2**
 
 - Added new feature, now every module can require other composer package. you can define the required package in your module.json file. for example :
