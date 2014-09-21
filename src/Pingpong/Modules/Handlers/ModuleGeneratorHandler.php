@@ -120,9 +120,16 @@ class ModuleGeneratorHandler
 
         $this->generateFiles();
 
-        $console->call('module:seed-make', array('module' => $this->name, 'name' => $this->Name));
+        $console->call('module:seed-make', [
+            'module'    => $this->name,
+            'name'      => $this->Name,
+            '--master'  => true
+        ]);
 
-        $console->call('module:provider', array('module' => $this->name, 'name' => $this->Name . 'ServiceProvider'));
+        $console->call('module:provider', [
+            'module'    => $this->name,
+            'name'      => $this->Name . 'ServiceProvider'
+        ]);
 
         $console->info("Module [{$this->Name}] has been created successfully.");
 
