@@ -157,13 +157,13 @@ By default modules folder is in your `app/` directory. For first use, please run
 
 Now, by default the controllers, models and others not autoloaded automatically. You can autoload all modules using psr-4 or psr-0. For example :
 
-```
+```json
 {
     "autoload": {
         "psr-4": {
             "Modules\\": "app/Modules"
         }
-    },
+    }
 }
 ```
 
