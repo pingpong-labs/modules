@@ -160,14 +160,6 @@ Now, by default the controllers, models and others not autoloaded automatically.
 ```
 {
     "autoload": {
-        "classmap": [
-            "app/commands",
-            "app/controllers",
-            "app/models",
-            "app/database/migrations",
-            "app/database/seeds",
-            "app/tests/TestCase.php"
-        ],
         "psr-4": {
             "Modules\\": "app/Modules"
         }
