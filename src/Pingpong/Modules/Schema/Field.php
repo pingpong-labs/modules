@@ -79,7 +79,8 @@ class Field {
 
                 $content .= $tab . '$table->' . $typeData . "('{$fieldName}', {$length})";
             }
-            else{
+            else
+            {
                 $content .= $tab . '$table->' . $typeData . "('{$fieldName}')";
             }
 
@@ -112,6 +113,7 @@ class Field {
                 $content .= '->' . $other;
             }
         }
+        
         return $content;
     }
 
