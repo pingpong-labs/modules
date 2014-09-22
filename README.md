@@ -301,13 +301,13 @@ php artisan module:publish-migration
 Enable the specified module.
 
 ```
-    php artisan module:enable blog
+php artisan module:enable blog
 ```
 
 Disable the specified module.
 
 ```
-    php artisan module:disable blog
+php artisan module:disable blog
 ```
 
 ### Facades API
