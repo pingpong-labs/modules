@@ -314,6 +314,21 @@ Disable the specified module.
 php artisan module:disable blog
 ```
 
+Generate new filter class.
+```
+php artisan module:filter-make AuthFilter
+```
+
+Update dependencies for the specified module.
+```
+php artisan module:update ModuleName
+```
+
+Update dependencies for all modules.
+```
+php artisan module:update
+```
+
 ### Facades API
 
 Get asset url from specified module.
