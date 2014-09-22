@@ -284,7 +284,7 @@ class ModulesServiceProvider extends ServiceProvider {
         $this->app->bindShared('modules.generate.filter', function ($app)
         {
             return new Commands\ModuleGenerateFilterCommand;
-        }
+        });
     }
 
     /**
