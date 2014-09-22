@@ -115,7 +115,7 @@ Done.
 
 ### Setup modules folder for first use
 
-By default modules folder is in your Laravel route directory. For first use, please run this command on your terminal.
+By default modules folder is in your `app/` directory. For first use, please run this command on your terminal.
   ```
   php artisan module:setup
   ```
