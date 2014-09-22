@@ -1,6 +1,7 @@
 <?php namespace Pingpong\Modules\Commands;
 
 use Illuminate\Console\Command;
+use Pingpong\Modules\Process\Installer;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
@@ -37,52 +38,13 @@ class ModuleInstallCommand extends Command {
 	 */
 	public function fire()
 	{
-        list($vendorName, $moduleName) = explode('/', $this->argument('name'));
-
-        $this->installModule($vendorName, $moduleName);
-
-        $this->installPackage($moduleName);
-
-        $this->info("Module [{$name}] installed successfully.");
-	}
-
-	/**
-	 * Install the specified module.
-	 * 
-	 * @param  string $moduleName 
-	 * @return void
-	 */
-	public function installModule($moduleName)
-	{
 		$name = $this->argument('name');
 
-		$repoUrl = "git@github.com:{$name}.git";
+		$this->laravel['modules']->install($name, $this->option('path'));
 
-        $path = realpath($this->option('path') ?: $this->laravel['modules']->getPath());
+		$this->laravel['modules']->update(Installer::getModuleName($name));
 
-        $gitPath = realpath($this->laravel['modules']->getModulePath($moduleName) . '/.git/');
-
-        $command = "cd {$path} && git clone {$repoUrl} && rm -rf {$gitPath}";
-
-        passthru($command);
-	}
-
-	/**
-	 * Install the required package for the specified module.
-	 * 
-	 * @param  string $module 
-	 * @return void         
-	 */
-	public function installPackage($module)
-	{
-		$packages = $this->laravel['modules']->prop($module . '::require', []);
-
-        foreach ($packages as $name => $version)
-        {
-        	$package = "\"{$name}:{$version}\"";
-
-        	passthru("composer require {$package}");
-        }
+        $this->info("Module [{$name}] installed successfully.");
 	}
 
 	/**
