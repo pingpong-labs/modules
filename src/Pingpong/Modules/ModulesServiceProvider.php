@@ -277,6 +277,17 @@ class ModulesServiceProvider extends ServiceProvider {
     }
 
     /**
+     * Register "module:filter-make" command.
+     */
+    protected function registerGenerateFilterCommand()
+    {
+        $this->app->bindShared('modules.generate.filter', function ($app)
+        {
+            return new Commands\ModuleGenerateFilterCommand;
+        });
+    }
+
+    /**
      * Register the commands.
      *
      * @return void
@@ -301,6 +312,7 @@ class ModulesServiceProvider extends ServiceProvider {
         $this->registerMigrateRollbackCommand();
         $this->registerMigrateResetCommand();
         $this->registerMigrateRefreshCommand();
+        $this->registerGenerateFilterCommand();
 
         $this->commands([
             'modules.controller',
@@ -321,6 +333,7 @@ class ModulesServiceProvider extends ServiceProvider {
             'modules.migrate.rollback',
             'modules.migrate.reset',
             'modules.migrate.refresh',
+            'modules.generate.filter',
         ]);
     }
 

@@ -8,6 +8,7 @@ return [
 
     'generator' => [
         'controller' => 'Http/Controllers',
+        'filter' => 'Http/Filters',
         'seeder' => 'Database/Seeders',
         'migration' => 'Database/Migrations',
         'model' => 'Database/Models',
