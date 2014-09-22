@@ -284,6 +284,17 @@ class ModulesServiceProvider extends ServiceProvider {
         $this->app->bindShared('modules.generate.filter', function ($app)
         {
             return new Commands\ModuleGenerateFilterCommand;
+        }
+    }
+
+    /**
+     * Register "module:migrate-reset" command.
+     */
+    protected function registerInstallCommand()
+    {
+        $this->app->bindShared('modules.install', function ($app)
+        {
+            return new Commands\ModuleInstallCommand;
         });
     }
 
@@ -312,6 +323,7 @@ class ModulesServiceProvider extends ServiceProvider {
         $this->registerMigrateRollbackCommand();
         $this->registerMigrateResetCommand();
         $this->registerMigrateRefreshCommand();
+        $this->registerInstallCommand();
         $this->registerGenerateFilterCommand();
 
         $this->commands([
@@ -333,6 +345,7 @@ class ModulesServiceProvider extends ServiceProvider {
             'modules.migrate.rollback',
             'modules.migrate.reset',
             'modules.migrate.refresh',
+            'modules.install',
             'modules.generate.filter',
         ]);
     }

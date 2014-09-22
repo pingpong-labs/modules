@@ -27,6 +27,18 @@ class Stub {
     }
 
     /**
+     * Create new self instance.
+     * 
+     * @param  string $name     
+     * @param  array $replaces 
+     * @return self           
+     */
+    public static function create($name, array $replaces = [])
+    {
+        return new static($name, $replaces);
+    }
+
+    /**
      * @return string
      */
     protected function getStubPath()

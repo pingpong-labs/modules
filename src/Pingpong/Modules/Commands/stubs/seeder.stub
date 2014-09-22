@@ -1,6 +1,7 @@
 <?php namespace Modules\$MODULE$\Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Eloquent\Model;
 
 class $NAME$ extends Seeder {
 
@@ -11,8 +12,9 @@ class $NAME$ extends Seeder {
 	 */
 	public function run()
 	{
-		Eloquent::unguard();
-		// $this->call("OthersDatabaseSeeder");
+		Model::unguard();
+		
+		// $this->call("OthersTableSeeder");
 	}
 
 }

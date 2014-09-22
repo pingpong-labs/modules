@@ -19,6 +19,50 @@ If you find this source useful, you can share some milk to me if you want ^_^
 
 ### Changes Log
 
+**1.1.1 to 1.1.3**
+
+- Added new controller validator. Please see [this example](https://github.com/pingpong-modules/Admin/blob/master/Http/Controllers/Auth/RegisterController.php).
+- Added `--master` option to `module:seed-make` command.
+- Fix `module:seed` command
+
+**1.1.1 to 1.1.2**
+
+- Added new feature, now every module can require other composer package. you can define the required package in your module.json file. for example :
+
+```json
+{
+    "name": "Admin",
+    "alias": "admin",
+    "description": "Admin Modules",
+    "keywords": [
+      "admin",
+      "modules",
+      "pingpong"
+    ],
+    "require": {
+      "pingpong/trusty": "1.*",
+      "pingpong/shortcode": "1.*"
+    },
+    "active": 1
+}
+```
+
+If the `require` key is not empty, then we will install its packages automatically when you install that module.
+
+**1.1.0 to 1.1.1**
+
+- Added new artisan commands `module:install`. This command is useful for installing the modules.
+For example i have `Admin` modules [here](https://github.com/pingpong-modules/Admin). You can install it using this command.
+
+```
+php artisan module:install pingpong-modules/Admin
+```
+
+By default, that module will stored in current modules directory. If you want to store that in other directory or other path, simply specify the `--path` option. For example :
+```
+php artisan module:install pingpong-modules/Admin --path=App/Modules
+```
+
 **1.0.* to 1.1.0**
 
 See [#32](https://github.com/pingpong-labs/modules/pull/32)
@@ -71,7 +115,7 @@ Done.
 
 ### Setup modules folder for first use
 
-By default modules folder is in your Laravel route directory. For first use, please run this command on your terminal.
+By default modules folder is in your `app/` directory. For first use, please run this command on your terminal.
   ```
   php artisan module:setup
   ```
@@ -113,21 +157,13 @@ By default modules folder is in your Laravel route directory. For first use, ple
 
 Now, by default the controllers, models and others not autoloaded automatically. You can autoload all modules using psr-4 or psr-0. For example :
 
-```
+```json
 {
     "autoload": {
-        "classmap": [
-            "app/commands",
-            "app/controllers",
-            "app/models",
-            "app/database/migrations",
-            "app/database/seeds",
-            "app/tests/TestCase.php"
-        ],
         "psr-4": {
             "Modules\\": "app/Modules"
         }
-    },
+    }
 }
 ```
 
@@ -138,6 +174,12 @@ Create new module.
   ```
   php artisan module:make blog
   ```
+
+Use the specified module. Please see [#26](https://github.com/pingpong-labs/modules/pull/26).
+
+```php
+php artisan module:use blog
+```
   
 Create new command for the specified module.
   
@@ -152,7 +194,6 @@ Create new command for the specified module.
 Create new migration for the specified module.
 
   ```
-<<<<<<< HEAD
   php artisan module:migration blog create_users_table
 
   php artisan module:migration blog create_users_table --fields="username:string, password:string"
@@ -162,11 +203,6 @@ Create new migration for the specified module.
   php artisan module:migration blog remove_email_from_users_table --fields="email:string:unique"
 
   php artisan module:migration blog drop_users_table
-=======
-  php artisan module:migration users blog
-
-  php artisan module:migration users blog --fields="username:string, password:string"
->>>>>>> master
   ```
 
 Rollback, Reset and Refresh The Modules Migrations.
@@ -178,7 +214,7 @@ Rollback, Reset and Refresh The Modules Migrations.
   php artisan module:migrate-refresh
 ```
 
-Rollback, Reset and Refresh Only The Migrations for the specified module.
+Rollback, Reset and Refresh The Migrations for the specified module.
 ```
   php artisan module:migrate-rollback blog
 
@@ -238,19 +274,15 @@ Publish assets from all modules to public directory.
 Create new model for the specified module.
 
   ```
-<<<<<<< HEAD
-  php artisan module:model blog User
+  php artisan module:model User blog
 
-  php artisan module:model blog User --fillable="username,email,password"
+  php artisan module:model User blog --fillable="username,email,password"
   ```
 
 Create new service provider for the specified module.
 
   ```
-  php artisan module:provider MyServiceProvider
-=======
-  php artisan module:model User blog
->>>>>>> master
+  php artisan module:provider MyServiceProvider blog
   ```
 
 Publish migration for the specified module or for all modules.
@@ -269,13 +301,13 @@ php artisan module:publish-migration
 Enable the specified module.
 
 ```
-    php artisan module:enable blog
+php artisan module:enable blog
 ```
 
 Disable the specified module.
 
 ```
-    php artisan module:disable blog
+php artisan module:disable blog
 ```
 
 ### Facades API
@@ -346,59 +378,6 @@ Get module json property as array from a specified module.
 ```php
     Module::getProperties('blog')
 ```
-<<<<<<< HEAD
-=======
-
-**NEW!**
-
-Use the specified module.
-
-```php
-php artisan module:use blog
-``` 
-
-### Custom Service Provider
-
-  When you create your create new module, it also creates a new custom service provider. For example, if you create a new module named `blog`, it also creates a new Service Provider named `BlogServiceProvider` with namespace `Modules\Blog`. I think it is useful for registering custom command for each module. This file is not autoloaded; you can autoload this file using `psr-0` or `psr-4`. That file maybe look like this:
-
-  ```php
-  <?php namespace Modules\Blog;
-
-  use Illuminate\Support\ServiceProvider;
-
-  class BlogServiceProvider extends ServiceProvider {
-
-    /**
-     * Indicates if loading of the provider is deferred.
-     *
-     * @var bool
-     */
-    protected $defer = false;
-
-    /**
-     * Register the service provider.
-     *
-     * @return void
-     */
-    public function register()
-    {
-      //
-    }
-
-    /**
-     * Get the services provided by the provider.
-     *
-     * @return array
-     */
-    public function provides()
-    {
-      return array();
-    }
-
-  }
-
-  ```
->>>>>>> master
 
 ### Custom Namespaces
 

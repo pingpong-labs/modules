@@ -64,13 +64,26 @@ class ModuleSeedCommand extends Command {
 	protected function dbseed($name)
 	{
 		$params 	= [
-			'--class' => $this->option('class')? $this->option('class') : Str::studly($name) . 'DatabaseSeeder'
+			'--class' => $this->option('class') ?: $this->getSeederName($name)
 		];
 		if($option = $this->option('database'))
 		{
 			$params['--database'] = $option;
 		}
 		$this->call('db:seed', $params);
+	}
+
+	/**
+	 * Get master database seeder name for the specified module.
+	 * 
+	 * @param  string $name 
+	 * @return string       
+	 */
+	public function getSeederName($name)
+	{
+		$name = Str::studly($name);
+
+		return 'Modules\\' . $name . '\Database\Seeders\\' . $name . 'DatabaseSeeder';
 	}
 
 	/**
