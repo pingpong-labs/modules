@@ -9,16 +9,22 @@ use Pingpong\Modules\Exceptions\InvalidMigrationName;
 class Parser {
 
     /**
-     * @var
+     * The migration name.
+     * 
+     * @var string
      */
     protected $name;
 
     /**
+     * The array data.
+     * 
      * @var array
      */
     protected $data = [];
 
     /**
+     * The available schema actions.
+     * 
      * @var array
      */
     protected $actions = [
@@ -43,7 +49,9 @@ class Parser {
     ];
 
     /**
-     * @param $name
+     * The constructor.
+     * 
+     * @param string $name
      */
     public function __construct($name)
     {
@@ -52,7 +60,9 @@ class Parser {
     }
 
     /**
-     * @return mixed
+     * Get original migration name.
+     * 
+     * @return string
      */
     public function getOriginalName()
     {
@@ -60,7 +70,9 @@ class Parser {
     }
 
     /**
-     * @return mixed
+     * Get schema type or action.
+     * 
+     * @return string
      */
     public function getAction()
     {
@@ -68,6 +80,8 @@ class Parser {
     }
 
     /**
+     * Get the table will be used.
+     * 
      * @return mixed|null
      * @throws InvalidMigrationName
      */
@@ -97,6 +111,12 @@ class Parser {
         throw new InvalidMigrationName;
     }
 
+    /**
+     * Get the name of column will be altered.
+     * 
+     * @return string
+     * @throws InvalidArgumentException
+     */
     public function getAlterColumn()
     {
         $table = null;
@@ -117,6 +137,8 @@ class Parser {
     }
 
     /**
+     * Get the matches data when using add schema.
+     * 
      * @return array
      */
     public function getMatchesWithAddSchema()
@@ -135,6 +157,8 @@ class Parser {
     }
 
     /**
+     * Get the matches data when using delete schema.
+     * 
      * @return array
      */
     public function getMatchesWithDeleteSchema()
@@ -153,6 +177,8 @@ class Parser {
     }
 
     /**
+     * Fetch the migration name to an array data.
+     * 
      * @return array
      */
     protected function fetchData()
@@ -161,6 +187,8 @@ class Parser {
     }
 
     /**
+     * Get the array data.
+     * 
      * @return array
      */
     public function getData()
@@ -169,6 +197,8 @@ class Parser {
     }
 
     /**
+     * Determine whether the given type is same with the current schema action or type.
+     * 
      * @param $type
      * @return bool
      */
@@ -178,6 +208,8 @@ class Parser {
     }
 
     /**
+     * Determine whether the current schema action is a adding action.
+     * 
      * @return bool
      */
     public function isAdd()
@@ -186,6 +218,8 @@ class Parser {
     }
 
     /**
+     * Determine whether the current schema action is a deleting action.
+     * 
      * @return bool
      */
     public function isDelete()
@@ -194,6 +228,8 @@ class Parser {
     }
 
     /**
+     * Determine whether the current schema action is a creating action.
+     * 
      * @return bool
      */
     public function isCreate()
@@ -202,6 +238,8 @@ class Parser {
     }
 
     /**
+     * Determine whether the current schema action is a dropping action.
+     * 
      * @return bool
      */
     public function isDrop()

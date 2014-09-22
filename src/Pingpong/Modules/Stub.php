@@ -7,18 +7,24 @@
 class Stub {
 
     /**
-     * @var
+     * The short stub name.
+     * 
+     * @var string
      */
     protected $name;
 
     /**
+     * The replacements array.
+     * 
      * @var array
      */
     protected $replaces = [];
 
     /**
-     * @param $name
-     * @param array $replaces
+     * The contructor.
+     * 
+     * @param string $name
+     * @param array  $replaces
      */
     public function __construct($name, array $replaces = [])
     {
@@ -39,6 +45,8 @@ class Stub {
     }
 
     /**
+     * Get stub path.
+     * 
      * @return string
      */
     protected function getStubPath()
@@ -47,6 +55,8 @@ class Stub {
     }
 
     /**
+     * Get stub contents.
+     * 
      * @return mixed|string
      */
     public function getContents()
@@ -62,7 +72,9 @@ class Stub {
     }
 
     /**
-     * @param array $replaces
+     * Set replacements array.
+     * 
+     * @param  array $replaces
      * @return $this
      */
     public function replace(array $replaces = [])
@@ -73,6 +85,8 @@ class Stub {
     }
 
     /**
+     * Handle magic method __toString.
+     * 
      * @return mixed|string
      */
     public function __toString()
