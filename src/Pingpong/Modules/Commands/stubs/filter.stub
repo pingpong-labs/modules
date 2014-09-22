@@ -1,0 +1,10 @@
+<?php namespace Modules\$MODULE$\Http\Filters; 
+
+class $NAME$ {
+
+	public function filter()
+	{
+		//
+	}
+
+} 

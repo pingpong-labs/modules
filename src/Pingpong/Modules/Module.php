@@ -6,7 +6,9 @@ use Illuminate\Html\HtmlBuilder;
 use Illuminate\Config\Repository;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Filesystem\Filesystem;
+use Pingpong\Modules\Process\Updater;
 use Illuminate\Translation\Translator;
+use Pingpong\Modules\Process\Installer;
 use Pingpong\Modules\Exceptions\FileMissingException;
 
 /**
@@ -444,6 +446,29 @@ class Module implements Countable
     public function getUsedNow()
     {
         return $this->finder->getUsed();
+    }
+
+    /**
+     * Update dependencies for the specified module.
+     * 
+     * @param  string $module 
+     * @return void             
+     */
+    public function update($module)
+    {
+        with(new Updater($this))->update($module);
+    }
+
+    /**
+     * Install the specified module.
+     * 
+     * @param  string $name 
+     * @param  string $path 
+     * @return void       
+     */
+    public function install($name, $path = null)
+    {
+        with(new Installer($this))->install($name, $path);
     }
 
 }

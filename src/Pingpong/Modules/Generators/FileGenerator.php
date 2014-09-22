@@ -10,21 +10,29 @@ use Pingpong\Modules\Exceptions\FileAlreadyExistsException;
 class FileGenerator extends Generator {
 
     /**
-     * @var
+     * The path wil be used.
+     * 
+     * @var string
      */
     protected $path;
 
     /**
-     * @var
+     * The contens will be used.
+     * 
+     * @var string
      */
     protected $contents;
 
     /**
-     * @var null
+     * The laravel filesystem or null.
+     * 
+     * @var \Illuminate\Filesystem\Filesystem|null
      */
     protected $filesystem;
 
     /**
+     * The constructor.
+     * 
      * @param $path
      * @param $contents
      * @param null $filesystem
@@ -37,6 +45,8 @@ class FileGenerator extends Generator {
     }
 
     /**
+     * Get contents.
+     * 
      * @return mixed
      */
     public function getContents()
@@ -45,6 +55,8 @@ class FileGenerator extends Generator {
     }
 
     /**
+     * Set contents.
+     * 
      * @param mixed $contents
      * @return $this
      */
@@ -56,7 +68,9 @@ class FileGenerator extends Generator {
     }
 
     /**
-     * @return null
+     * Get filesystem.
+     * 
+     * @return mixed
      */
     public function getFilesystem()
     {
@@ -64,10 +78,12 @@ class FileGenerator extends Generator {
     }
 
     /**
-     * @param null $filesystem
+     * Set filesystem.
+     * 
+     * @param  null $filesystem
      * @return $this
      */
-    public function setFilesystem($filesystem)
+    public function setFilesystem(Filesystem $filesystem)
     {
         $this->filesystem = $filesystem;
 
@@ -75,6 +91,8 @@ class FileGenerator extends Generator {
     }
 
     /**
+     * Get path.
+     * 
      * @return mixed
      */
     public function getPath()
@@ -83,7 +101,9 @@ class FileGenerator extends Generator {
     }
 
     /**
-     * @param mixed $path
+     * Set path.
+     * 
+     * @param  mixed $path
      * @return $this
      */
     public function setPath($path)

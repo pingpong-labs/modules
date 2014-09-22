@@ -3,17 +3,23 @@
 class Field {
 
     /**
-     * @var null
+     * The string fields.
+     * 
+     * @var string|null
      */
     protected $fields;
 
     /**
+     * The array data.
+     * 
      * @var array
      */
     protected $data = [];
 
     /**
-     * @param null $fields
+     * The constructor.
+     * 
+     * @param string|null $fields
      */
     public function __construct($fields = null)
     {
@@ -22,6 +28,8 @@ class Field {
     }
 
     /**
+     * Fetch the string fields to an array data.
+     * 
      * @return array
      */
     public function fetchData()
@@ -30,6 +38,8 @@ class Field {
     }
 
     /**
+     * Get the array data.
+     * 
      * @return array
      */
     public function getData()
@@ -38,6 +48,8 @@ class Field {
     }
 
     /**
+     * Get parsed fields.
+     * 
      * @return array
      */
     public function getParsedFields()
@@ -53,6 +65,8 @@ class Field {
     }
 
     /**
+     * Get creation schema.
+     * 
      * @return string
      */
     public function getSchemaCreate()
@@ -79,7 +93,8 @@ class Field {
 
                 $content .= $tab . '$table->' . $typeData . "('{$fieldName}', {$length})";
             }
-            else{
+            else
+            {
                 $content .= $tab . '$table->' . $typeData . "('{$fieldName}')";
             }
 
@@ -95,8 +110,10 @@ class Field {
     }
 
     /**
-     * @param $others
-     * @param $content
+     * Create other fields.
+     * 
+     * @param  array  $others
+     * @param  string $content
      * @return string
      */
     protected function createOthersField($others, $content)
@@ -112,10 +129,13 @@ class Field {
                 $content .= '->' . $other;
             }
         }
+        
         return $content;
     }
 
     /**
+     * Get drop column schema.
+     * 
      * @return string
      */
     public function getSchemaDropColumn()
@@ -131,4 +151,5 @@ class Field {
 
         return $content;
     }
+    
 } 

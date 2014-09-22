@@ -277,13 +277,35 @@ class ModulesServiceProvider extends ServiceProvider {
     }
 
     /**
-     * Register "module:migrate-reset" command.
+     * Register "module:filter-make" command.
+     */
+    protected function registerGenerateFilterCommand()
+    {
+        $this->app->bindShared('modules.generate.filter', function ($app)
+        {
+            return new Commands\ModuleGenerateFilterCommand;
+        });
+    }
+
+    /**
+     * Register "module:install" command.
      */
     protected function registerInstallCommand()
     {
         $this->app->bindShared('modules.install', function ($app)
         {
             return new Commands\ModuleInstallCommand;
+        });
+    }
+
+    /**
+     * Register "module:update" command.
+     */
+    protected function registerUpdateCommand()
+    {
+        $this->app->bindShared('modules.update', function ($app)
+        {
+            return new Commands\ModuleUpdateCommand;
         });
     }
 
@@ -313,6 +335,8 @@ class ModulesServiceProvider extends ServiceProvider {
         $this->registerMigrateResetCommand();
         $this->registerMigrateRefreshCommand();
         $this->registerInstallCommand();
+        $this->registerUpdateCommand();
+        $this->registerGenerateFilterCommand();
 
         $this->commands([
             'modules.controller',
@@ -334,6 +358,8 @@ class ModulesServiceProvider extends ServiceProvider {
             'modules.migrate.reset',
             'modules.migrate.refresh',
             'modules.install',
+            'modules.update',
+            'modules.generate.filter',
         ]);
     }
 
