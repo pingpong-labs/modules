@@ -40,7 +40,7 @@ class ModuleInstallCommand extends Command {
 	{
 		$name = $this->argument('name');
 
-		$this->laravel['modules']->install($name, $this->option('path'));
+		$this->laravel['modules']->install($name, $this->option('path'), $this->option('tree'));
 
 		$this->laravel['modules']->update(Installer::getModuleName($name));
 
@@ -68,6 +68,7 @@ class ModuleInstallCommand extends Command {
 	{
 		return array(
 			array('path', null, InputOption::VALUE_OPTIONAL, 'The installation path.', null),
+			array('tree', null, InputOption::VALUE_NONE, 'Install the module as a git subtree', null),
 		);
 	}
 

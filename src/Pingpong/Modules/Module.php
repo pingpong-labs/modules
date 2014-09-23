@@ -44,14 +44,14 @@ class Module implements Countable
      * @var Factory
      */
     protected $views;
-    
+
     /**
      * @var HtmlBuilder
      */
     protected $html;
-    
+
     /**
-     * @var UrlGenerator 
+     * @var UrlGenerator
      */
     protected $url;
 
@@ -216,8 +216,8 @@ class Module implements Countable
 
 	/**
 	 * Get count of all modules.
-	 * 
-	 * @return int 
+	 *
+	 * @return int
 	 */
 	public function count()
 	{
@@ -261,7 +261,7 @@ class Module implements Countable
         if ( ! $this->files->exists($file))
         {
             $message = "Module [{$name}] must have start.php file for registering namespaces.";
-            
+
             throw new FileMissingException($message);
         }
 
@@ -440,8 +440,8 @@ class Module implements Countable
 
     /**
      * Get modules used now.
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getUsedNow()
     {
@@ -450,9 +450,9 @@ class Module implements Countable
 
     /**
      * Update dependencies for the specified module.
-     * 
-     * @param  string $module 
-     * @return void             
+     *
+     * @param  string $module
+     * @return void
      */
     public function update($module)
     {
@@ -461,14 +461,15 @@ class Module implements Countable
 
     /**
      * Install the specified module.
-     * 
-     * @param  string $name 
-     * @param  string $path 
-     * @return void       
+     *
+     * @param  string $name
+     * @param  string $path
+     * @param bool $subtree
+     * @return void
      */
-    public function install($name, $path = null)
+    public function install($name, $path = null, $subtree = false)
     {
-        with(new Installer($this))->install($name, $path);
+        with(new Installer($this))->install($name, $path, $subtree);
     }
 
 }
