@@ -2,24 +2,31 @@
 
 class Installer extends Runner {
 
-	/**
-	 * Install the specified module by given name.
-	 * 
-	 * @param  string 		$name 
-	 * @param  string|null 	$path 
-	 * @return void       
-	 */
-	public function install($name, $path = null)
+    /**
+     * Install the specified module by given name.
+     *
+     * @param  string $name
+     * @param  string|null $path
+     * @param bool $subtree
+     * @return void
+     */
+	public function install($name, $path = null, $subtree)
 	{
-        $this->run($this->getCommand($name, $path));
+        if ($subtree) {
+            $command = $this->getSubtreeCommand($name, $path);
+        } else {
+            $command = $this->getCommand($name, $path);
+        }
+
+        $this->run($command);
 	}
 
 	/**
 	 * Get command.
-	 * 
-	 * @param  string 		$name 
-	 * @param  string|null 	$path 
-	 * @return string       
+	 *
+	 * @param  string 		$name
+	 * @param  string|null 	$path
+	 * @return string
 	 */
 	protected function getCommand($name, $path = null)
 	{
@@ -32,11 +39,29 @@ class Installer extends Runner {
         return "cd {$path} && git clone {$repoUrl} && rm -rf {$gitPath}";
 	}
 
+    /**
+     * Get the git subtree command
+     *
+     * @param $name
+     * @param $path
+     * @return string
+     */
+    protected function getSubtreeCommand($name, $path)
+    {
+        $repoUrl = $this->getRepoPath($name);
+
+        $moduleName = strtolower($this->getModuleName($name));
+
+        $path = $this->getModulePath($path) . '/' . $this->getModuleName($name);
+
+        return "git remote add {$moduleName} {$repoUrl} && git subtree add --prefix={$path} --squash {$moduleName} master";
+    }
+
 	/**
 	 * Get module path.
-	 * 
-	 * @param  string|null 	$path 
-	 * @return string       
+	 *
+	 * @param  string|null 	$path
+	 * @return string
 	 */
 	protected function getModulePath($path = null)
 	{
@@ -45,9 +70,9 @@ class Installer extends Runner {
 
 	/**
 	 * Get git path.
-	 * 
-	 * @param  string $name 
-	 * @return string       
+	 *
+	 * @param  string $name
+	 * @return string
 	 */
 	protected function getGitPath($name)
 	{
@@ -56,9 +81,9 @@ class Installer extends Runner {
 
 	/**
 	 * Get repo path.
-	 * 
-	 * @param  string $name 
-	 * @return string       
+	 *
+	 * @param  string $name
+	 * @return string
 	 */
 	protected function getRepoPath($name)
 	{
@@ -67,9 +92,9 @@ class Installer extends Runner {
 
     /**
      * Get module name for the given name.
-     * 
-     * @param  string $name 
-     * @return mixed       
+     *
+     * @param  string $name
+     * @return mixed
      */
     public static function getModuleName($name)
     {
@@ -77,5 +102,4 @@ class Installer extends Runner {
 
         return $module;
     }
-
 }
