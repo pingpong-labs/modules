@@ -10,8 +10,8 @@ class Installer extends Runner {
      * @param bool $subtree
      * @return void
      */
-	public function install($name, $path = null, $subtree)
-	{
+    public function install($name, $path = null, $subtree)
+    {
         if ($subtree) {
             $command = $this->getSubtreeCommand($name, $path);
         } else {
@@ -19,17 +19,17 @@ class Installer extends Runner {
         }
 
         $this->run($command);
-	}
+    }
 
-	/**
-	 * Get command.
-	 *
-	 * @param  string 		$name
-	 * @param  string|null 	$path
-	 * @return string
-	 */
-	protected function getCommand($name, $path = null)
-	{
+    /**
+     * Get command.
+     *
+     * @param  string 		$name
+     * @param  string|null 	$path
+     * @return string
+     */
+    protected function getCommand($name, $path = null)
+    {
         $repoUrl = $this->getRepoPath($name);
 
         $path = $this->getModulePath($path);
@@ -37,7 +37,7 @@ class Installer extends Runner {
         $gitPath = $this->getGitPath($name);
 
         return "cd {$path} && git clone {$repoUrl} && rm -rf {$gitPath}";
-	}
+    }
 
     /**
      * Get the git subtree command
@@ -52,43 +52,43 @@ class Installer extends Runner {
 
         $moduleName = strtolower($this->getModuleName($name));
 
-        $path = $this->getModulePath($path) . '/' . $this->getModuleName($name);
+        $path = $this->getModulePathName($this->getModulePath($path)) . '/' . $this->getModuleName($name);
 
         return "git remote add {$moduleName} {$repoUrl} && git subtree add --prefix={$path} --squash {$moduleName} master";
     }
 
-	/**
-	 * Get module path.
-	 *
-	 * @param  string|null 	$path
-	 * @return string
-	 */
-	protected function getModulePath($path = null)
-	{
-		return realpath($path ?: $this->module->getPath());
-	}
+    /**
+     * Get module path.
+     *
+     * @param  string|null 	$path
+     * @return string
+     */
+    protected function getModulePath($path = null)
+    {
+        return realpath($path ?: $this->module->getPath());
+    }
 
-	/**
-	 * Get git path.
-	 *
-	 * @param  string $name
-	 * @return string
-	 */
-	protected function getGitPath($name)
-	{
-		return realpath($this->module->getModulePath(static::getModuleName($name)) . '/.git/');
-	}
+    /**
+     * Get git path.
+     *
+     * @param  string $name
+     * @return string
+     */
+    protected function getGitPath($name)
+    {
+        return realpath($this->module->getModulePath(static::getModuleName($name)) . '/.git/');
+    }
 
-	/**
-	 * Get repo path.
-	 *
-	 * @param  string $name
-	 * @return string
-	 */
-	protected function getRepoPath($name)
-	{
-		return "git@github.com:{$name}.git";
-	}
+    /**
+     * Get repo path.
+     *
+     * @param  string $name
+     * @return string
+     */
+    protected function getRepoPath($name)
+    {
+        return "git@github.com:{$name}.git";
+    }
 
     /**
      * Get module name for the given name.
@@ -101,5 +101,15 @@ class Installer extends Runner {
         list($vendor, $module) = explode('/', $name);
 
         return $module;
+    }
+
+    private function getModulePathName($path)
+    {
+        $parts = explode('/', $path);
+
+        return array_last($parts, function($key, $value)
+        {
+            return $value;
+        });
     }
 }
