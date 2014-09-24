@@ -104,7 +104,7 @@ class Installer extends Runner {
     }
 
     /**
-     * Get module name.
+     * Get module path name.
      * 
      * @param  string $path 
      * @return string       
