@@ -103,6 +103,12 @@ class Installer extends Runner {
         return $module;
     }
 
+    /**
+     * Get module name.
+     * 
+     * @param  string $path 
+     * @return string       
+     */
     private function getModulePathName($path)
     {
         $parts = explode('/', $path);
