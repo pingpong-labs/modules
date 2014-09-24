@@ -12,9 +12,12 @@ class Installer extends Runner {
      */
     public function install($name, $path = null, $subtree)
     {
-        if ($subtree) {
+        if ($subtree)
+        {
             $command = $this->getSubtreeCommand($name, $path);
-        } else {
+        }
+        else
+        {
             $command = $this->getCommand($name, $path);
         }
 

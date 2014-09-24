@@ -9,8 +9,8 @@ use Illuminate\Filesystem\Filesystem;
  * Class Finder
  * @package Pingpong\Modules
  */
-class Finder implements Countable
-{
+class Finder implements Countable {
+    
     /**
      * The Laravel Filesystem.
      *
