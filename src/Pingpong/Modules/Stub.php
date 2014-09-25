@@ -85,6 +85,16 @@ class Stub {
     }
 
     /**
+     * Get replacements.
+     *
+     * @return array
+     */
+    public function getReplaces()
+    {
+        return $this->replaces;
+    }
+
+    /**
      * Handle magic method __toString.
      *
      * @return mixed|string

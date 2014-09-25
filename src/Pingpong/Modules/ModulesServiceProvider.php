@@ -125,9 +125,7 @@ class ModulesServiceProvider extends ServiceProvider {
     {
         $this->app['modules.maker'] = $this->app->share(function ($app)
         {
-            $hander = new Handlers\ModuleGeneratorHandler($app['modules'], $app['files']);
-
-            return new Commands\ModuleMakeCommand($hander);
+            return new Commands\ModuleMakeCommand;
         });
     }
 
