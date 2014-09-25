@@ -1,14 +1,9 @@
 <?php namespace Pingpong\Modules;
 
 use Illuminate\Support\Str;
-use Pingpong\Modules\Handlers;
 use Pingpong\Modules\Commands;
 use Illuminate\Support\ServiceProvider;
 
-/**
- * Class ModulesServiceProvider
- * @package Pingpong\Modules
- */
 class ModulesServiceProvider extends ServiceProvider {
 
     /**
@@ -99,9 +94,7 @@ class ModulesServiceProvider extends ServiceProvider {
     {
         $this->app['modules.publisher'] = $this->app->share(function ($app)
         {
-            $handler = new Handlers\ModulePublisherHandler($app['modules'], $app['files']);
-
-            return new Commands\ModulePublisherCommand($handler);
+            return new Commands\ModulePublisherCommand;
         });
     }
 
@@ -125,9 +118,7 @@ class ModulesServiceProvider extends ServiceProvider {
     {
         $this->app['modules.maker'] = $this->app->share(function ($app)
         {
-            $hander = new Handlers\ModuleGeneratorHandler($app['modules'], $app['files']);
-
-            return new Commands\ModuleMakeCommand($hander);
+            return new Commands\ModuleMakeCommand;
         });
     }
 
@@ -193,9 +184,7 @@ class ModulesServiceProvider extends ServiceProvider {
     {
         $this->app['modules.migration-publisher'] = $this->app->share(function ($app)
         {
-            $handler = new Handlers\ModuleMigrationPublisherHandler($app['modules'], $app['files']);
-
-            return new Commands\ModuleMigratePublishCommand($handler);
+            return new Commands\ModuleMigratePublishCommand;
         });
     }
 
@@ -310,6 +299,17 @@ class ModulesServiceProvider extends ServiceProvider {
     }
 
     /**
+     * Register "module:list" command.
+     */
+    protected function registerListCommand()
+    {
+        $this->app->bindShared('modules.list', function ($app)
+        {
+            return new Commands\ModuleListCommand;
+        });
+    }
+
+    /**
      * Register the commands.
      *
      * @return void
@@ -337,6 +337,7 @@ class ModulesServiceProvider extends ServiceProvider {
         $this->registerInstallCommand();
         $this->registerUpdateCommand();
         $this->registerGenerateFilterCommand();
+        $this->registerListCommand();
 
         $this->commands([
             'modules.controller',
@@ -360,6 +361,7 @@ class ModulesServiceProvider extends ServiceProvider {
             'modules.install',
             'modules.update',
             'modules.generate.filter',
+            'modules.list',
         ]);
     }
 

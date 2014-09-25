@@ -27,8 +27,8 @@ class Installer extends Runner {
     /**
      * Get command.
      *
-     * @param  string 		$name
-     * @param  string|null 	$path
+     * @param  string $name
+     * @param  string|null $path
      * @return string
      */
     protected function getCommand($name, $path = null)
@@ -63,7 +63,7 @@ class Installer extends Runner {
     /**
      * Get module path.
      *
-     * @param  string|null 	$path
+     * @param  string|null $path
      * @return string
      */
     protected function getModulePath($path = null)
@@ -108,15 +108,15 @@ class Installer extends Runner {
 
     /**
      * Get module path name.
-     * 
-     * @param  string $path 
-     * @return string       
+     *
+     * @param  string $path
+     * @return string
      */
     private function getModulePathName($path)
     {
         $parts = explode('/', $path);
 
-        return array_last($parts, function($key, $value)
+        return array_last($parts, function ($key, $value)
         {
             return $value;
         });

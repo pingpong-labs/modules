@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['prefix' => '{{name}}', 'namespace' => 'Modules\{{Name}}\Http\Controllers'], function()
+Route::group(['prefix' => '$LOWER_NAME$', 'namespace' => 'Modules\$STUDLY_NAME$\Http\Controllers'], function()
 {
-	Route::get('/', '{{Name}}Controller@index');
+	Route::get('/', '$STUDLY_NAME$Controller@index');
 });

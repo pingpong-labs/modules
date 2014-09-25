@@ -1,6 +1,6 @@
 {
-    "name": "{{Name}}",
-    "alias": "{{name}}",
+    "name": "$STUDLY_NAME$",
+    "alias": "$LOWER_NAME$",
     "description": "",
     "keywords": [
 

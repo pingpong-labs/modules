@@ -4,19 +4,19 @@ use Illuminate\Console\Command;
 use Pingpong\Modules\Generators\FileGenerator;
 use Pingpong\Modules\Exceptions\FileAlreadyExistsException;
 
-/**
- * Class GeneratorCommand
- * @package Pingpong\Modules\Commands
- */
 abstract class GeneratorCommand extends Command {
 
     /**
-     * @return mixed
+     * Get template contents.
+     *
+     * @return string
      */
     abstract protected function getTemplateContents();
 
     /**
-     * @return mixed
+     * Get the destination file path.
+     *
+     * @return string
      */
     abstract protected function getDestinationFilePath();
 
@@ -35,7 +35,7 @@ abstract class GeneratorCommand extends Command {
 
             $this->info("Created : {$path}");
         }
-        catch(FileAlreadyExistsException $e)
+        catch (FileAlreadyExistsException $e)
         {
             $this->error("File : {$path} already exists.");
         }

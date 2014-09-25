@@ -10,7 +10,7 @@ use Illuminate\Filesystem\Filesystem;
  * @package Pingpong\Modules
  */
 class Finder implements Countable {
-    
+
     /**
      * The Laravel Filesystem.
      *
@@ -39,7 +39,7 @@ class Finder implements Countable {
      * @param Repository $config
      */
     public function __construct(Filesystem $files, Repository $config)
-	{
+    {
         $this->files = $files;
         $this->config = $config;
     }
@@ -52,15 +52,21 @@ class Finder implements Countable {
     public function all()
     {
         $modules = array();
-        $path    = $this->getPath();
-        
-        if( ! is_dir($path)) return $modules;
+        $path = $this->getPath();
+
+        if ( ! is_dir($path))
+        {
+            return $modules;
+        }
 
         $folders = $this->files->directories($path);
-        
-        foreach($folders as $module)
+
+        foreach ($folders as $module)
         {
-            if( ! Str::startsWith($module, '.')) $modules[] = basename($module);
+            if ( ! Str::startsWith($module, '.'))
+            {
+                $modules[] = basename($module);
+            }
         }
 
         return $modules;
@@ -75,7 +81,7 @@ class Finder implements Countable {
     public function setPath($path)
     {
         $this->path = $path;
-        
+
         return $this;
     }
 
@@ -102,8 +108,8 @@ class Finder implements Countable {
 
     /**
      * Get count of modules.
-     * 
-     * @return int 
+     *
+     * @return int
      */
     public function count()
     {
@@ -113,7 +119,7 @@ class Finder implements Countable {
     /**
      * Get module path by given module name.
      *
-     * @param  string  $module
+     * @param  string $module
      * @param  boolean $allowNotExists
      * @return null|string
      */
@@ -121,8 +127,10 @@ class Finder implements Countable {
     {
         $module = Str::studly($module);
 
-        if( ! $this->has($module) && $allowNotExists === false)
+        if ( ! $this->has($module) && $allowNotExists === false)
+        {
             return null;
+        }
 
         return $this->getPath() . "/{$module}/";
     }
@@ -139,11 +147,14 @@ class Finder implements Countable {
 
         $default = array();
 
-        if( ! $this->has($module)) return $default;
+        if ( ! $this->has($module))
+        {
+            return $default;
+        }
 
         $path = $this->getJsonPath($module);
 
-        if($this->files->exists($path))
+        if ($this->files->exists($path))
         {
             $contents = $this->files->get($path);
 
@@ -178,7 +189,7 @@ class Finder implements Countable {
     {
         $data = $this->getJsonContents($module);
 
-        if(count($data))
+        if (count($data))
         {
             unset($data['active']);
 
@@ -256,18 +267,18 @@ class Finder implements Countable {
 
     /**
      * Get module used storage path.
-     * 
+     *
      * @return string
      */
     public function getUsedPath()
     {
-        return __DIR__ . '/../../modules.used';    
+        return __DIR__ . '/../../modules.used';
     }
 
     /**
      * Set modules used.
-     * 
-     * @param string $module 
+     *
+     * @param string $module
      */
     public function setUsed($module)
     {
@@ -276,14 +287,17 @@ class Finder implements Countable {
 
     /**
      * Get modules used for cli.
-     * 
-     * @return mixed 
+     *
+     * @return mixed
      */
     public function getUsed()
     {
         $path = $this->getUsedPath();
 
-        if( ! $this->files->exists($path)) return null;
+        if ( ! $this->files->exists($path))
+        {
+            return null;
+        }
 
         return $this->files->get($path);
     }

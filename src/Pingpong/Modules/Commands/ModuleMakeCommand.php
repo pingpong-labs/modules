@@ -1,66 +1,52 @@
 <?php namespace Pingpong\Modules\Commands;
 
 use Illuminate\Console\Command;
+use Pingpong\Modules\Generators\ModuleGenerator;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
-use Pingpong\Modules\Handlers\ModuleGeneratorHandler;
 
-/**
- * Class ModuleMakeCommand
- * @package Pingpong\Modules\Commands
- */
 class ModuleMakeCommand extends Command {
 
-	/**
-	 * The console command name.
-	 *
-	 * @var string
-	 */
-	protected $name = 'module:make';
-
-	/**
-	 * The console command description.
-	 *
-	 * @var string
-	 */
-	protected $description = 'Generate new module.';
+    /**
+     * The console command name.
+     *
+     * @var string
+     */
+    protected $name = 'module:make';
 
     /**
-     * @var ModuleGeneratorHandler
+     * The console command description.
+     *
+     * @var string
      */
-    protected $handler;
+    protected $description = 'Generate new module.';
 
     /**
-     * @param ModuleGeneratorHandler $handler
+     * Execute the console command.
+     *
+     * @return mixed
      */
-    public function __construct(ModuleGeneratorHandler $handler)
+    public function fire()
     {
-        parent::__construct();
-
-        $this->handler = $handler;
+        with(new ModuleGenerator($this->argument('name')))
+            ->setFilesystem($this->laravel['files'])
+            ->setModule($this->laravel['modules'])
+            ->setConfig($this->laravel['config'])
+            ->setConsole($this)
+            ->generate();
     }
 
+
     /**
-	 * Execute the console command.
-	 *
-	 * @return mixed
-	 */
-	public function fire()
-	{
-        return $this->handler->fire($this, $this->argument('name'));
-	}
-
-
-	/**
-	 * Get the console command arguments.
-	 *
-	 * @return array
-	 */
-	protected function getArguments()
-	{
-		return array(
-			array('name', InputArgument::REQUIRED, 'The name of module will be created.'),
-		);
-	}
+     * Get the console command arguments.
+     *
+     * @return array
+     */
+    protected function getArguments()
+    {
+        return array(
+            array('name', InputArgument::REQUIRED, 'The name of module will be created.'),
+        );
+    }
 
 }

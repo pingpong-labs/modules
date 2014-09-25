@@ -1,12 +1,12 @@
 <?php namespace Pingpong\Modules\Contracts;
 
-interface GeneratorInterface {
+interface PublisherInterface {
 
     /**
-     * Run the generator.
+     * Publish something.
      *
      * @return mixed
      */
-    public function generate();
+    public function publish();
 
-}
+} 

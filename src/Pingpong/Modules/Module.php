@@ -11,13 +11,9 @@ use Illuminate\Translation\Translator;
 use Pingpong\Modules\Process\Installer;
 use Pingpong\Modules\Exceptions\FileMissingException;
 
-/**
- * Class Module
- * @package Pingpong\Modules
- */
-class Module implements Countable
-{
-	/**
+class Module implements Countable {
+
+    /**
      * The Pingpong Themes Finder Object.
      *
      * @var Finder
@@ -64,10 +60,10 @@ class Module implements Countable
      * @param Translator $lang
      */
     public function __construct(
-    	Finder $finder,
-    	Repository $config,
-    	Factory $views,
-    	Translator $lang,
+        Finder $finder,
+        Repository $config,
+        Factory $views,
+        Translator $lang,
         Filesystem $files,
         HtmlBuilder $html,
         UrlGenerator $url
@@ -152,15 +148,15 @@ class Module implements Countable
         return $this->url;
     }
 
-	/**
-	 * Get all modules.
-	 *
-	 * @return 	array
-	 */
-	public function all()
-	{
-		return $this->finder->all();
-	}
+    /**
+     * Get all modules.
+     *
+     * @return    array
+     */
+    public function all()
+    {
+        return $this->finder->all();
+    }
 
     /**
      * @param int $status
@@ -170,17 +166,21 @@ class Module implements Countable
     {
         $data = array();
 
-        foreach($this->all() as $module)
+        foreach ($this->all() as $module)
         {
-            if($status == 1)
+            if ($status == 1)
             {
-                if($this->active($module))
+                if ($this->active($module))
+                {
                     $data[] = $module;
+                }
             }
             else
             {
-                if($this->notActive($module))
+                if ($this->notActive($module))
+                {
                     $data[] = $module;
+                }
             }
         }
 
@@ -203,60 +203,60 @@ class Module implements Countable
         return $this->getByStatus(0);
     }
 
-	/**
-	 * Determine if the module exists.
-	 *
-	 * @param  	string   $name
-	 * @return 	string
-	 */
-	public function has($name)
-	{
-		return $this->exists($name);
-	}
+    /**
+     * Determine if the module exists.
+     *
+     * @param    string $name
+     * @return    string
+     */
+    public function has($name)
+    {
+        return $this->exists($name);
+    }
 
-	/**
-	 * Get count of all modules.
-	 *
-	 * @return int
-	 */
-	public function count()
-	{
-		return count($this->all());
-	}
+    /**
+     * Get count of all modules.
+     *
+     * @return int
+     */
+    public function count()
+    {
+        return count($this->all());
+    }
 
-	/**
-	 * Determine if the module exists.
-	 *
-	 * @param  	string   $name
-	 * @return 	string
-	 */
-	public function exists($name)
-	{
-		return in_array($name, $this->all());
-	}
+    /**
+     * Determine if the module exists.
+     *
+     * @param    string $name
+     * @return    string
+     */
+    public function exists($name)
+    {
+        return in_array($name, $this->all());
+    }
 
-	/**
-	 * Register the global.php file from all modules.
-	 *
-	 * @return 	string
-	 */
-	public function register()
-	{
-		foreach ($this->enabled() as $module)
+    /**
+     * Register the global.php file from all modules.
+     *
+     * @return    string
+     */
+    public function register()
+    {
+        foreach ($this->enabled() as $module)
         {
-			$this->includeGlobalFile($module);
-		}
-	}
+            $this->includeGlobalFile($module);
+        }
+    }
 
-	/**
-	 * Register start file.
-	 *
-	 * @param  	string   $name
+    /**
+     * Register start file.
+     *
+     * @param    string $name
      * @throws  \Pingpong\Modules\Exceptions\FileMissingException
-	 */
-	protected function includeGlobalFile($name)
-	{
-		$file =  $this->getModulePath($name) ."/start.php";
+     */
+    protected function includeGlobalFile($name)
+    {
+        $file = $this->getModulePath($name) . "/start.php";
 
         if ( ! $this->files->exists($file))
         {
@@ -266,74 +266,74 @@ class Module implements Countable
         }
 
         require $file;
-	}
+    }
 
-	/**
-	 * Get modules path.
-	 *
-	 * @return 	string
-	 */
-	public function getPath()
-	{
-		return $this->config->get('modules::paths.modules');
-	}
+    /**
+     * Get modules path.
+     *
+     * @return    string
+     */
+    public function getPath()
+    {
+        return $this->config->get('modules::paths.modules');
+    }
 
-	/**
-	 * Get module assets path.
-	 *
-	 * @return 	string
-	 */
-	public function getAssetsPath()
-	{
-		return $this->config->get('modules::paths.assets');
-	}
+    /**
+     * Get module assets path.
+     *
+     * @return    string
+     */
+    public function getAssetsPath()
+    {
+        return $this->config->get('modules::paths.assets');
+    }
 
-	/**
-	 * Generate a asset url for the specified module.
-	 *
-	 * @param  	string   $name
-	 * @param 	string   $url
-	 * @param 	boolean  $secure
-	 * @return 	string
-	 */
-	public function asset($name, $url, $secure = false)
-	{
-		return $this->url->asset(basename($this->getAssetsPath()) . "/{$name}/" . $url, $secure);
-	}
+    /**
+     * Generate a asset url for the specified module.
+     *
+     * @param    string $name
+     * @param    string $url
+     * @param    boolean $secure
+     * @return    string
+     */
+    public function asset($name, $url, $secure = false)
+    {
+        return $this->url->asset(basename($this->getAssetsPath()) . "/{$name}/" . $url, $secure);
+    }
 
-	/**
-	 * Generate a link to a CSS file.
-	 *
-	 * @param  string  $name
-	 * @param  string  $url
-	 * @param  array   $attributes
-	 * @return string
-	 */
-	public function style($name, $url, $attributes = array(), $secure = false)
-	{
-		$defaults = array('media' => 'all', 'type' => 'text/css', 'rel' => 'stylesheet');
+    /**
+     * Generate a link to a CSS file.
+     *
+     * @param  string $name
+     * @param  string $url
+     * @param  array $attributes
+     * @return string
+     */
+    public function style($name, $url, $attributes = array(), $secure = false)
+    {
+        $defaults = array('media' => 'all', 'type' => 'text/css', 'rel' => 'stylesheet');
 
-		$attributes = $attributes + $defaults;
+        $attributes = $attributes + $defaults;
 
-		$attributes['href'] = $this->asset($name, $url, $secure);
+        $attributes['href'] = $this->asset($name, $url, $secure);
 
-		return '<link'.$this->html->attributes($attributes).'>'.PHP_EOL;
-	}
+        return '<link' . $this->html->attributes($attributes) . '>' . PHP_EOL;
+    }
 
-	/**
-	 * Generate a link to a JavaScript file.
-	 *
-	 * @param  string  $name
-	 * @param  string  $url
-	 * @param  array   $attributes
-	 * @return string
-	 */
-	public function script($name, $url, $attributes = array(), $secure = false)
-	{
-		$attributes['src'] = $this->asset($name, $url, $secure);
+    /**
+     * Generate a link to a JavaScript file.
+     *
+     * @param  string $name
+     * @param  string $url
+     * @param  array $attributes
+     * @return string
+     */
+    public function script($name, $url, $attributes = array(), $secure = false)
+    {
+        $attributes['src'] = $this->asset($name, $url, $secure);
 
-		return '<script'.$this->html->attributes($attributes).'></script>'.PHP_EOL;
-	}
+        return '<script' . $this->html->attributes($attributes) . '></script>' . PHP_EOL;
+    }
 
     /**
      * Set modules path in "RunTime" mode.
@@ -356,7 +356,7 @@ class Module implements Countable
      */
     public function getModulePath($module)
     {
-    	return $this->finder->getModulePath($module, true);
+        return $this->finder->getModulePath($module, true);
     }
 
     /**

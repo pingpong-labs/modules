@@ -10,11 +10,11 @@
 |
 */
 
-View::addNamespace('{{name}}', __DIR__ . '/Resources/views/');
+View::addNamespace('$LOWER_NAME$', __DIR__ . '/Resources/views/');
 
-Lang::addNamespace('{{name}}', __DIR__ . '/Resources/lang/');
+Lang::addNamespace('$LOWER_NAME$', __DIR__ . '/Resources/lang/');
 
-Config::addNamespace('{{name}}', __DIR__ . '/Config/');
+Config::addNamespace('$LOWER_NAME$', __DIR__ . '/Config/');
 
 /*
 |--------------------------------------------------------------------------

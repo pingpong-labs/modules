@@ -184,6 +184,12 @@ Use the specified module. Please see [#26](https://github.com/pingpong-labs/modu
 ```php
 php artisan module:use blog
 ```
+
+Show all modules in command line.
+
+```
+php artisan module:list
+```
   
 Create new command for the specified module.
   

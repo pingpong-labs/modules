@@ -1,7 +1,7 @@
 <?php
 
 return [
-    
+
     /*
     |--------------------------------------------------------------------------
     | Modules path
@@ -10,7 +10,8 @@ return [
     | Here you may update the modules path.
     |
     */
-    'modules'	=>	app_path('Modules'),
+
+    'modules' => app_path('Modules'),
 
     /*
     |--------------------------------------------------------------------------
@@ -20,7 +21,20 @@ return [
     | Here you may update the modules assets path.
     |
     */
-	'assets'	=>	public_path('modules'),
+
+    'assets' => public_path('modules'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | The migrations path
+    |--------------------------------------------------------------------------
+    |
+    | Where you run 'module:publish-migration' command, where do you publish the
+    | the migration files?
+    |
+    */
+
+    'migration' => app_path('database/migrations'),
 
     /*
     |--------------------------------------------------------------------------
@@ -30,15 +44,21 @@ return [
     | Here you may update the modules generator path.
     |
     */
+
     'generator' => [
-        'controller' => 'Http/Controllers',
-        'filter' => 'Http/Filters',
-        'seeder' => 'Database/Seeders',
+        'assets' => 'Assets',
+        'config' => 'Config',
+        'command' => 'Console',
         'migration' => 'Database/Migrations',
         'model' => 'Database/Models',
         'repository' => 'Database/Repositories',
-        'command' => 'Console',
+        'seeder' => 'Database/Seeders',
+        'controller' => 'Http/Controllers',
+        'filter' => 'Http/Filters',
+        'request' => 'Http/Requests',
         'provider' => 'Providers',
+        'lang' => 'Resources/lang',
+        'views' => 'Resources/views',
         'test' => 'Tests',
     ]
 ];

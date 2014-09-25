@@ -28,7 +28,7 @@ class ModuleDisableCommand extends Command {
     {
         $module = $this->argument('module');
 
-        if($this->laravel['modules']->active($this->argument('module')))
+        if ($this->laravel['modules']->active($this->argument('module')))
         {
             $this->laravel['modules']->disable($module);
 

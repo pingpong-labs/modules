@@ -9,41 +9,41 @@ class ModuleMigrateRollbackCommand extends Command {
 
     use ModuleCommandTrait;
 
-	/**
-	 * The console command name.
-	 *
-	 * @var string
-	 */
-	protected $name = 'module:migrate-rollback';
+    /**
+     * The console command name.
+     *
+     * @var string
+     */
+    protected $name = 'module:migrate-rollback';
 
-	/**
-	 * The console command description.
-	 *
-	 * @var string
-	 */
-	protected $description = 'Rollback the modules migrations.';
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Rollback the modules migrations.';
 
-	/**
-	 * Execute the console command.
-	 *
-	 * @return mixed
-	 */
-	public function fire()
-	{
+    /**
+     * Execute the console command.
+     *
+     * @return mixed
+     */
+    public function fire()
+    {
         $module = $this->getModuleName();
 
-        if( empty($module))
+        if (empty($module))
         {
             $this->rollback($module);
 
             return;
         }
 
-        foreach($this->laravel['modules']->all() as $module)
+        foreach ($this->laravel['modules']->all() as $module)
         {
             $this->rollback($module);
         }
-	}
+    }
 
     /**
      * Rollback migration from the specified module.
@@ -56,15 +56,15 @@ class ModuleMigrateRollbackCommand extends Command {
 
         $files = $this->laravel['files']->glob($path . '/*_*.php');
 
-        foreach($files as $file)
+        foreach ($files as $file)
         {
             $this->laravel['files']->requireOnce($file);
         }
 
         $this->call('migrate:rollback', [
-            '--pretend'     =>  $this->option('pretend'),
-            '--database'    =>  $this->option('database'),
-            '--force'       =>  $this->option('force'),
+            '--pretend' => $this->option('pretend'),
+            '--database' => $this->option('database'),
+            '--force' => $this->option('force'),
         ]);
     }
 
@@ -89,9 +89,7 @@ class ModuleMigrateRollbackCommand extends Command {
     {
         return array(
             array('database', null, InputOption::VALUE_OPTIONAL, 'The database connection to use.'),
-
             array('force', null, InputOption::VALUE_NONE, 'Force the operation to run when in production.'),
-
             array('pretend', null, InputOption::VALUE_NONE, 'Dump the SQL queries that would be run.'),
         );
     }
