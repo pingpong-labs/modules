@@ -99,9 +99,7 @@ class ModulesServiceProvider extends ServiceProvider {
     {
         $this->app['modules.publisher'] = $this->app->share(function ($app)
         {
-            $handler = new Handlers\ModulePublisherHandler($app['modules'], $app['files']);
-
-            return new Commands\ModulePublisherCommand($handler);
+            return new Commands\ModulePublisherCommand;
         });
     }
 

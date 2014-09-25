@@ -2,7 +2,7 @@
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem as File;
-use Pingpong\Modules\Handlers\ModulePublisherHandler;
+use Pingpong\Modules\Publishing\AssetPublisher;
 use Pingpong\Modules\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
@@ -26,25 +26,18 @@ class ModulePublisherCommand extends Command {
     protected $description = 'Publish assets from the specified modules or from all modules.';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct(ModulePublisherHandler $handler)
-    {
-        parent::__construct();
-
-        $this->handler = $handler;
-    }
-
-    /**
      * Execute the console command.
      *
      * @return mixed
      */
     public function fire()
     {
-        return $this->handler->fire($this, $this->getModuleName());
+        with(new AssetPublisher($this->getModuleName()))
+            ->setModule($this->laravel['modules'])
+            ->setFilesystem($this->laravel['files'])
+            ->setConfig($this->laravel['config'])
+            ->setConsole($this)
+            ->publish();
     }
 
     /**
