@@ -11,11 +11,8 @@ use Illuminate\Translation\Translator;
 use Pingpong\Modules\Process\Installer;
 use Pingpong\Modules\Exceptions\FileMissingException;
 
-/**
- * Class Module
- * @package Pingpong\Modules
- */
 class Module implements Countable {
+
     /**
      * The Pingpong Themes Finder Object.
      *
