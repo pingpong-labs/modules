@@ -310,6 +310,17 @@ class ModulesServiceProvider extends ServiceProvider {
     }
 
     /**
+     * Register "module:list" command.
+     */
+    protected function registerListCommand()
+    {
+        $this->app->bindShared('modules.list', function ($app)
+        {
+            return new Commands\ModuleListCommand;
+        });
+    }
+
+    /**
      * Register the commands.
      *
      * @return void
@@ -337,6 +348,7 @@ class ModulesServiceProvider extends ServiceProvider {
         $this->registerInstallCommand();
         $this->registerUpdateCommand();
         $this->registerGenerateFilterCommand();
+        $this->registerListCommand();
 
         $this->commands([
             'modules.controller',
@@ -360,6 +372,7 @@ class ModulesServiceProvider extends ServiceProvider {
             'modules.install',
             'modules.update',
             'modules.generate.filter',
+            'modules.list',
         ]);
     }
 
