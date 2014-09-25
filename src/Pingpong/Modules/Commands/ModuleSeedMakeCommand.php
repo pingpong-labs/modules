@@ -51,7 +51,7 @@ class ModuleSeedMakeCommand extends GeneratorCommand {
 	protected function getOptions()
 	{
 		return array(
-			array('master', null, InputOption::VALUE_OPTIONAL, 'Indicates the seeder will created is a master database seeder.'),
+			array('master', null, InputOption::VALUE_NONE, 'Indicates the seeder will created is a master database seeder.'),
 		);
 	}
 
