@@ -189,9 +189,7 @@ class ModulesServiceProvider extends ServiceProvider {
     {
         $this->app['modules.migration-publisher'] = $this->app->share(function ($app)
         {
-            $handler = new Handlers\ModuleMigrationPublisherHandler($app['modules'], $app['files']);
-
-            return new Commands\ModuleMigratePublishCommand($handler);
+            return new Commands\ModuleMigratePublishCommand;
         });
     }
 

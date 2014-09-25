@@ -43,6 +43,10 @@ class AssetPublisher extends Publisher {
      */
     protected $console;
 
+    protected $success = '';
+
+    protected $error = '';
+
     /**
      * The constructor.
      *
@@ -177,7 +181,7 @@ class AssetPublisher extends Publisher {
             return;
         }
 
-        $this->publishAsset($module);
+        $this->publishFromModule($module);
     }
 
     /**
@@ -187,7 +191,7 @@ class AssetPublisher extends Publisher {
     {
         foreach ($this->module->all() as $module)
         {
-            $this->publishAsset($module);
+            $this->publishFromModule($module);
         }
     }
 
@@ -196,7 +200,7 @@ class AssetPublisher extends Publisher {
      *
      * @param $module
      */
-    protected function publishAsset($module)
+    protected function publishFromModule($module)
     {
         if ( ! $this->module->has($module))
         {
@@ -205,7 +209,7 @@ class AssetPublisher extends Publisher {
             exit;
         }
 
-        $this->filesystem->copyDirectory($this->getAssetPath($module), $this->getDestinationPath($module));
+        $this->filesystem->copyDirectory($this->getPublishingPath($module), $this->getDestinationPath($module));
 
         $this->console->info("Assets published from module : {$module}");
     }
@@ -216,7 +220,7 @@ class AssetPublisher extends Publisher {
      * @param $module
      * @return string
      */
-    protected function getAssetPath($module)
+    protected function getPublishingPath($module)
     {
         return $this->module->getModulePath($module) . $this->config->get('modules::paths.generator.assets');
     }

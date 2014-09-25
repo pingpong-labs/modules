@@ -1,7 +1,7 @@
 <?php namespace Pingpong\Modules\Commands;
 
 use Illuminate\Console\Command;
-use Pingpong\Modules\Handlers\ModuleMigrationPublisherHandler;
+use Pingpong\Modules\Publishing\MigrationPublisher;
 use Pingpong\Modules\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputArgument;
 
@@ -24,28 +24,18 @@ class ModuleMigratePublishCommand extends Command {
     protected $description = "Publish a module's migrations to the application";
 
     /**
-     * @var ModuleMigrationPublisherHandler
-     */
-    protected $handler;
-
-    /**
-     * Create a new command instance.
-     */
-    public function __construct(ModuleMigrationPublisherHandler $handler)
-    {
-        parent::__construct();
-
-        $this->handler = $handler;
-    }
-
-    /**
      * Execute the console command.
      *
      * @return mixed
      */
     public function fire()
     {
-        return $this->handler->fire($this, $this->getModuleName());
+        with(new MigrationPublisher($this->getModuleName()))
+            ->setModule($this->laravel['modules'])
+            ->setFilesystem($this->laravel['files'])
+            ->setConfig($this->laravel['config'])
+            ->setConsole($this)
+            ->publish();
     }
 
     /**
