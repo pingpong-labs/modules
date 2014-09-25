@@ -34,5 +34,10 @@
             "Pingpong\\Modules\\": "src/Pingpong/Modules"
         }
     },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.2-dev"
+        }
+    },
     "minimum-stability": "stable"
 }
