@@ -105,9 +105,7 @@ class ModulesServiceProvider extends ServiceProvider {
     {
         $this->app['modules.setup'] = $this->app->share(function ($app)
         {
-            $handler = new Handlers\ModuleSetupHandler($app['modules'], $app['files']);
-
-            return new Commands\ModuleSetupCommand($handler);
+            return new Commands\ModuleSetupCommand;
         });
     }
 
