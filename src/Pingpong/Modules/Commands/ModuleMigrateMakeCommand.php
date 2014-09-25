@@ -48,8 +48,8 @@ class ModuleMigrateMakeCommand extends GeneratorCommand {
 	protected function getOptions()
 	{
 		return array(
-			array('--fields', null, InputOption::VALUE_OPTIONAL, 'The specified fields table.', null),
-			array('--plain', null, InputOption::VALUE_OPTIONAL, 'Create plain migration.'),
+			array('fields', null, InputOption::VALUE_OPTIONAL, 'The specified fields table.', null),
+			array('plain', null, InputOption::VALUE_NONE, 'Create plain migration.'),
 		);
 	}
 
