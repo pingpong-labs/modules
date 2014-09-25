@@ -9,8 +9,8 @@ use Illuminate\Filesystem\Filesystem;
  * Class ModulePublisherHandler
  * @package Pingpong\Modules\Handlers
  */
-class ModulePublisherHandler
-{
+class ModulePublisherHandler {
+    
     /**
      * @var Module
      */

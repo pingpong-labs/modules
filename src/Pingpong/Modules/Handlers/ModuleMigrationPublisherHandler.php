@@ -8,8 +8,8 @@ use Illuminate\Filesystem\Filesystem;
  * Class ModuleMigrationPublisherHandler
  * @package Pingpong\Modules\Handlers
  */
-class ModuleMigrationPublisherHandler
-{
+class ModuleMigrationPublisherHandler {
+    
     /**
      * @var Module
      */

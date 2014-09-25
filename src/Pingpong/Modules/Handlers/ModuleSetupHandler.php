@@ -8,8 +8,8 @@ use Illuminate\Filesystem\Filesystem;
  * Class ModuleSetupHandler
  * @package Pingpong\Modules\Handlers
  */
-class ModuleSetupHandler
-{
+class ModuleSetupHandler {
+    
     /**
      * The Module Instance.
      *

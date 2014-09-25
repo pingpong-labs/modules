@@ -9,8 +9,8 @@ use Illuminate\Filesystem\Filesystem;
  * Class ModuleGeneratorHandler
  * @package Pingpong\Modules\Handlers
  */
-class ModuleGeneratorHandler
-{
+class ModuleGeneratorHandler {
+    
     /**
      * The folders will be created.
      *
