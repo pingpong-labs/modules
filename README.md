@@ -19,6 +19,10 @@ If you find this source useful, you can share some milk to me if you want ^_^
 
 ### Changes Log
 
+**1.1.4 to 1.1.5**
+
+See [#39](https://github.com/pingpong-labs/modules/pull/39)
+
 **1.1.3 to 1.1.4**
 
 See [#35](https://github.com/pingpong-labs/modules/pull/35)
