@@ -66,10 +66,12 @@ class ModuleSeedCommand extends Command {
 		$params 	= [
 			'--class' => $this->option('class') ?: $this->getSeederName($name)
 		];
+		
 		if($option = $this->option('database'))
 		{
 			$params['--database'] = $option;
 		}
+
 		$this->call('db:seed', $params);
 	}
 
