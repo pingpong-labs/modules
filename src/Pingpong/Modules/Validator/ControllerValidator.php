@@ -28,6 +28,11 @@ abstract class ControllerValidator extends Controller {
     protected $validator;
 
     /**
+     * @var \Illuminate\Validation\Validator $validation
+     */
+    protected $validation;
+
+    /**
      * The constructor.
      *
      * @param Validator $validator
