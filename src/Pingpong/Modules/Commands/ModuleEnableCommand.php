@@ -28,7 +28,7 @@ class ModuleEnableCommand extends Command {
     {
         $module = $this->argument('module');
 
-        if($this->laravel['modules']->active($this->argument('module')))
+        if ($this->laravel['modules']->active($this->argument('module')))
         {
             $this->comment("Module [{$module}] has already enabled.");
         }

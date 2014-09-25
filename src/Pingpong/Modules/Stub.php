@@ -8,23 +8,23 @@ class Stub {
 
     /**
      * The short stub name.
-     * 
+     *
      * @var string
      */
     protected $name;
 
     /**
      * The replacements array.
-     * 
+     *
      * @var array
      */
     protected $replaces = [];
 
     /**
      * The contructor.
-     * 
+     *
      * @param string $name
-     * @param array  $replaces
+     * @param array $replaces
      */
     public function __construct($name, array $replaces = [])
     {
@@ -34,10 +34,10 @@ class Stub {
 
     /**
      * Create new self instance.
-     * 
-     * @param  string $name     
-     * @param  array $replaces 
-     * @return self           
+     *
+     * @param  string $name
+     * @param  array $replaces
+     * @return self
      */
     public static function create($name, array $replaces = [])
     {
@@ -46,7 +46,7 @@ class Stub {
 
     /**
      * Get stub path.
-     * 
+     *
      * @return string
      */
     protected function getStubPath()
@@ -56,16 +56,16 @@ class Stub {
 
     /**
      * Get stub contents.
-     * 
+     *
      * @return mixed|string
      */
     public function getContents()
     {
-        $contents =  file_get_contents($this->getStubPath());
+        $contents = file_get_contents($this->getStubPath());
 
-        foreach($this->replaces as $search => $replace)
+        foreach ($this->replaces as $search => $replace)
         {
-            $contents = str_replace('$'. strtoupper($search) . '$', $replace, $contents);
+            $contents = str_replace('$' . strtoupper($search) . '$', $replace, $contents);
         }
 
         return $contents;
@@ -73,7 +73,7 @@ class Stub {
 
     /**
      * Set replacements array.
-     * 
+     *
      * @param  array $replaces
      * @return $this
      */
@@ -86,7 +86,7 @@ class Stub {
 
     /**
      * Handle magic method __toString.
-     * 
+     *
      * @return mixed|string
      */
     public function __toString()

@@ -9,7 +9,7 @@ use Illuminate\Filesystem\Filesystem;
  * @package Pingpong\Modules\Handlers
  */
 class ModuleMigrationPublisherHandler {
-    
+
     /**
      * @var Module
      */
@@ -39,7 +39,7 @@ class ModuleMigrationPublisherHandler {
         $this->console = $console;
 
         if ( ! empty($module))
-        {    
+        {
             $this->publishMigration($module);
         }
         else
@@ -58,7 +58,7 @@ class ModuleMigrationPublisherHandler {
      */
     protected function publishMigration($module)
     {
-        if($this->module->has($module))
+        if ($this->module->has($module))
         {
             $path = $this->getMigrationPath($module);
 
@@ -68,7 +68,7 @@ class ModuleMigrationPublisherHandler {
 
             return $this->console->info("Published from : " . $path);
         }
-        
+
         return $this->console->error("Module [{$module}] does not exists!");
     }
 

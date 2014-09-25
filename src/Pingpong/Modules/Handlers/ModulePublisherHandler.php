@@ -1,16 +1,16 @@
 <?php namespace Pingpong\Modules\Handlers;
 
-use Illuminate\Support\Str;
-use Pingpong\Modules\Module;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Str;
+use Pingpong\Modules\Module;
 
 /**
  * Class ModulePublisherHandler
  * @package Pingpong\Modules\Handlers
  */
 class ModulePublisherHandler {
-    
+
     /**
      * @var Module
      */
@@ -39,7 +39,7 @@ class ModulePublisherHandler {
     {
         $moduleName = Str::studly($module);
 
-        if( ! empty($moduleName))
+        if ( ! empty($moduleName))
         {
             foreach ($this->module->all() as $module)
             {
@@ -49,7 +49,7 @@ class ModulePublisherHandler {
             return $console->info("All assets from all modules has been published successfully.");
         }
 
-        if($this->module->exists($moduleName))
+        if ($this->module->exists($moduleName))
         {
             $this->publish($moduleName);
 

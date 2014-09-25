@@ -1,57 +1,53 @@
 <?php namespace Pingpong\Modules\Commands;
 
-use Pingpong\Modules\Stub;
 use Illuminate\Support\Str;
+use Pingpong\Modules\Stub;
 use Pingpong\Modules\Traits\ModuleCommandTrait;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 
-/**
- * Class ModuleCommandCommand
- * @package Pingpong\Modules\Commands
- */
 class ModuleCommandCommand extends GeneratorCommand {
 
-	use ModuleCommandTrait;
+    use ModuleCommandTrait;
 
-	/**
-	 * The console command name.
-	 *
-	 * @var string
-	 */
-	protected $name = 'module:command';
+    /**
+     * The console command name.
+     *
+     * @var string
+     */
+    protected $name = 'module:command';
 
-	/**
-	 * The console command description.
-	 *
-	 * @var string
-	 */
-	protected $description = 'Generate new Artisan command for the specified module.';
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Generate new Artisan command for the specified module.';
 
-	/**
-	 * Get the console command arguments.
-	 *
-	 * @return array
-	 */
-	protected function getArguments()
-	{
-		return array(
-			array('name', InputArgument::REQUIRED, 'The name of the command.'),
-			array('module', InputArgument::OPTIONAL, 'The name of module will be used.'),
-		);
-	}
+    /**
+     * Get the console command arguments.
+     *
+     * @return array
+     */
+    protected function getArguments()
+    {
+        return array(
+            array('name', InputArgument::REQUIRED, 'The name of the command.'),
+            array('module', InputArgument::OPTIONAL, 'The name of module will be used.'),
+        );
+    }
 
-	/**
-	 * Get the console command options.
-	 *
-	 * @return array
-	 */
-	protected function getOptions()
-	{
-		return array(
-			array('command', null, InputOption::VALUE_OPTIONAL, 'The terminal command that should be assigned.', null),
-		);
-	}
+    /**
+     * Get the console command options.
+     *
+     * @return array
+     */
+    protected function getOptions()
+    {
+        return array(
+            array('command', null, InputOption::VALUE_OPTIONAL, 'The terminal command that should be assigned.', null),
+        );
+    }
 
     /**
      * @return mixed
@@ -59,9 +55,9 @@ class ModuleCommandCommand extends GeneratorCommand {
     protected function getTemplateContents()
     {
         return new Stub('command', [
-            'MODULE'        =>  $this->getModuleName(),
-            'NAME'          =>  $this->getFileName(),
-            'COMMAND_NAME'  =>  $this->getCommandName()
+            'MODULE' => $this->getModuleName(),
+            'NAME' => $this->getFileName(),
+            'COMMAND_NAME' => $this->getCommandName()
         ]);
     }
 

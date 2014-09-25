@@ -2,58 +2,59 @@
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
+use Pingpong\Modules\Handlers\ModuleSeedMakerHandler;
 use Pingpong\Modules\Stub;
 use Pingpong\Modules\Traits\ModuleCommandTrait;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
-use Pingpong\Modules\Handlers\ModuleSeedMakerHandler;
+use Symfony\Component\Console\Input\InputOption;
 
-/**
- * Class ModuleSeedMakeCommand
- * @package Pingpong\Modules\Commands
- */
 class ModuleSeedMakeCommand extends GeneratorCommand {
 
-	use ModuleCommandTrait;
+    use ModuleCommandTrait;
 
-	/**
-	 * The console command name.
-	 *
-	 * @var string
-	 */
-	protected $name = 'module:seed-make';
+    /**
+     * The console command name.
+     *
+     * @var string
+     */
+    protected $name = 'module:seed-make';
 
-	/**
-	 * The console command description.
-	 *
-	 * @var string
-	 */
-	protected $description = 'Generate new seeder for the specified module.';
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Generate new seeder for the specified module.';
 
-	/**
-	 * Get the console command arguments.
-	 *
-	 * @return array
-	 */
-	protected function getArguments()
-	{
-		return array(
-			array('name', InputArgument::REQUIRED, 'The name of seeder will be created.'),
-			array('module', InputArgument::OPTIONAL, 'The name of module will be used.'),
-		);
-	}
+    /**
+     * Get the console command arguments.
+     *
+     * @return array
+     */
+    protected function getArguments()
+    {
+        return array(
+            array('name', InputArgument::REQUIRED, 'The name of seeder will be created.'),
+            array('module', InputArgument::OPTIONAL, 'The name of module will be used.'),
+        );
+    }
 
-	/**
-	 * Get the console command options.
-	 *
-	 * @return array
-	 */
-	protected function getOptions()
-	{
-		return array(
-			array('master', null, InputOption::VALUE_NONE, 'Indicates the seeder will created is a master database seeder.'),
-		);
-	}
+    /**
+     * Get the console command options.
+     *
+     * @return array
+     */
+    protected function getOptions()
+    {
+        return array(
+            array(
+                'master',
+                null,
+                InputOption::VALUE_NONE,
+                'Indicates the seeder will created is a master database seeder.'
+            ),
+        );
+    }
 
     /**
      * @return mixed
@@ -61,8 +62,8 @@ class ModuleSeedMakeCommand extends GeneratorCommand {
     protected function getTemplateContents()
     {
         return new Stub('seeder', [
-            'NAME'      =>  $this->getSeederName(),
-            'MODULE'    =>  $this->getModuleName()
+            'NAME' => $this->getSeederName(),
+            'MODULE' => $this->getModuleName()
         ]);
     }
 
@@ -80,12 +81,12 @@ class ModuleSeedMakeCommand extends GeneratorCommand {
 
     /**
      * Get seeder name.
-     * 
-     * @return string 
+     *
+     * @return string
      */
     private function getSeederName()
     {
-    	$end = $this->option('master') ? 'DatabaseSeeder' : 'TableSeeder';
+        $end = $this->option('master') ? 'DatabaseSeeder' : 'TableSeeder';
 
         return Str::studly($this->argument('name')) . $end;
     }

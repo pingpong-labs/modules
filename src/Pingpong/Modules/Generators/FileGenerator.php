@@ -3,36 +3,32 @@
 use Illuminate\Filesystem\Filesystem;
 use Pingpong\Modules\Exceptions\FileAlreadyExistsException;
 
-/**
- * Class FileGenerator
- * @package Pingpong\Modules\Generators
- */
 class FileGenerator extends Generator {
 
     /**
      * The path wil be used.
-     * 
+     *
      * @var string
      */
     protected $path;
 
     /**
      * The contens will be used.
-     * 
+     *
      * @var string
      */
     protected $contents;
 
     /**
      * The laravel filesystem or null.
-     * 
+     *
      * @var \Illuminate\Filesystem\Filesystem|null
      */
     protected $filesystem;
 
     /**
      * The constructor.
-     * 
+     *
      * @param $path
      * @param $contents
      * @param null $filesystem
@@ -46,7 +42,7 @@ class FileGenerator extends Generator {
 
     /**
      * Get contents.
-     * 
+     *
      * @return mixed
      */
     public function getContents()
@@ -56,7 +52,7 @@ class FileGenerator extends Generator {
 
     /**
      * Set contents.
-     * 
+     *
      * @param mixed $contents
      * @return $this
      */
@@ -69,7 +65,7 @@ class FileGenerator extends Generator {
 
     /**
      * Get filesystem.
-     * 
+     *
      * @return mixed
      */
     public function getFilesystem()
@@ -79,7 +75,7 @@ class FileGenerator extends Generator {
 
     /**
      * Set filesystem.
-     * 
+     *
      * @param  null $filesystem
      * @return $this
      */
@@ -92,7 +88,7 @@ class FileGenerator extends Generator {
 
     /**
      * Get path.
-     * 
+     *
      * @return mixed
      */
     public function getPath()
@@ -102,7 +98,7 @@ class FileGenerator extends Generator {
 
     /**
      * Set path.
-     * 
+     *
      * @param  mixed $path
      * @return $this
      */
@@ -118,7 +114,7 @@ class FileGenerator extends Generator {
      */
     public function generate()
     {
-        if( ! $this->filesystem->exists($path = $this->getPath()))
+        if ( ! $this->filesystem->exists($path = $this->getPath()))
         {
             return $this->filesystem->put($path, $this->getContents());
         }

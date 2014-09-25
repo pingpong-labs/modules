@@ -4,21 +4,21 @@ class Field {
 
     /**
      * The string fields.
-     * 
+     *
      * @var string|null
      */
     protected $fields;
 
     /**
      * The array data.
-     * 
+     *
      * @var array
      */
     protected $data = [];
 
     /**
      * The constructor.
-     * 
+     *
      * @param string|null $fields
      */
     public function __construct($fields = null)
@@ -29,7 +29,7 @@ class Field {
 
     /**
      * Fetch the string fields to an array data.
-     * 
+     *
      * @return array
      */
     public function fetchData()
@@ -39,7 +39,7 @@ class Field {
 
     /**
      * Get the array data.
-     * 
+     *
      * @return array
      */
     public function getData()
@@ -49,14 +49,14 @@ class Field {
 
     /**
      * Get parsed fields.
-     * 
+     *
      * @return array
      */
     public function getParsedFields()
     {
         $parsed = [];
 
-        foreach($this->data as $data)
+        foreach ($this->data as $data)
         {
             $parsed[] = explode(':', $data);
         }
@@ -66,7 +66,7 @@ class Field {
 
     /**
      * Get creation schema.
-     * 
+     *
      * @return string
      */
     public function getSchemaCreate()
@@ -75,7 +75,7 @@ class Field {
 
         $fields = $this->getParsedFields();
 
-        foreach($fields as $key => $field)
+        foreach ($fields as $key => $field)
         {
             $typeData = array_get($field, 1);
 
@@ -85,7 +85,7 @@ class Field {
 
             $tab = $key > 0 ? '            ' : '';
 
-            if(preg_match('/\((.*)\)/',  $typeData, $matches))
+            if (preg_match('/\((.*)\)/', $typeData, $matches))
             {
                 $length = $matches[1];
 
@@ -98,7 +98,7 @@ class Field {
                 $content .= $tab . '$table->' . $typeData . "('{$fieldName}')";
             }
 
-            if(count($field) > 2)
+            if (count($field) > 2)
             {
                 $content = $this->createOthersField($others, $content);
             }
@@ -111,8 +111,8 @@ class Field {
 
     /**
      * Create other fields.
-     * 
-     * @param  array  $others
+     *
+     * @param  array $others
      * @param  string $content
      * @return string
      */
@@ -129,20 +129,20 @@ class Field {
                 $content .= '->' . $other;
             }
         }
-        
+
         return $content;
     }
 
     /**
      * Get drop column schema.
-     * 
+     *
      * @return string
      */
     public function getSchemaDropColumn()
     {
         $content = '';
 
-        foreach($this->getParsedFields() as $field)
+        foreach ($this->getParsedFields() as $field)
         {
             $column = array_get($field, 0);
 
@@ -151,5 +151,5 @@ class Field {
 
         return $content;
     }
-    
+
 } 

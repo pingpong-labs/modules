@@ -14,62 +14,62 @@ class ModulesTest extends PHPUnit_Framework_TestCase {
     protected $url;
     protected $module;
 
-	public function tearDown()
-	{
-		m::close();
-	}
+    public function tearDown()
+    {
+        m::close();
+    }
 
-	protected function getPath()
-	{
-		return realpath(__DIR__ . '/../../public');
-	}
+    protected function getPath()
+    {
+        return realpath(__DIR__ . '/../../public');
+    }
 
-	public function setUp()
-	{
+    public function setUp()
+    {
         $this->finder = m::mock('Pingpong\Modules\Finder');
         $this->config = m::mock('Illuminate\Config\Repository');
         $this->view = m::mock('Illuminate\View\Factory');
         $this->lang = m::mock('Illuminate\Translation\Translator');
-        $this->files  = m::mock('Illuminate\Filesystem\Filesystem');
+        $this->files = m::mock('Illuminate\Filesystem\Filesystem');
         $this->html = m::mock('Illuminate\Html\HtmlBuilder');
         $this->url = m::mock('Illuminate\Routing\UrlGenerator');
 
         $this->module = new Module($this->finder, $this->config, $this->view, $this->lang, $this->files, $this->html, $this->url);
-	}
+    }
 
-	public function testInitialize()
-	{
-		$this->assertInstanceOf('Pingpong\Modules\Module', $this->module);
-	}
+    public function testInitialize()
+    {
+        $this->assertInstanceOf('Pingpong\Modules\Module', $this->module);
+    }
 
-	public function testGetAllModules()
-	{
-		$this->finder->shouldReceive('all')->once()->andReturn(['default']);
+    public function testGetAllModules()
+    {
+        $this->finder->shouldReceive('all')->once()->andReturn(['default']);
 
         $modules = $this->module->all();
 
         $this->assertTrue(is_array($modules));
         $this->assertArrayHasKey(0, $modules);
         $this->assertArrayNotHasKey(1, $modules);
-	}
+    }
 
-	public function testHasModule()
-	{
-		$this->finder->shouldReceive('all')->once()->andReturn(['users', 'posts']);
+    public function testHasModule()
+    {
+        $this->finder->shouldReceive('all')->once()->andReturn(['users', 'posts']);
 
-		$hasModule = $this->module->has('users');
+        $hasModule = $this->module->has('users');
 
-		$this->assertTrue($hasModule);
-	}
+        $this->assertTrue($hasModule);
+    }
 
-	public function testIgnoreHiddenModule()
-	{
-		$this->finder->shouldReceive('setPath')->once()->with($this->getPath());
-		$this->finder->shouldReceive('all')->once()->andReturn(['.users', 'posts']);
+    public function testIgnoreHiddenModule()
+    {
+        $this->finder->shouldReceive('setPath')->once()->with($this->getPath());
+        $this->finder->shouldReceive('all')->once()->andReturn(['.users', 'posts']);
 
-		$this->module->setPath($this->getPath());
+        $this->module->setPath($this->getPath());
 
-		$this->assertEquals(2, $this->module->count());
+        $this->assertEquals(2, $this->module->count());
     }
 
     public function testGetModulePath()
@@ -90,29 +90,29 @@ class ModulesTest extends PHPUnit_Framework_TestCase {
         $this->url->shouldReceive('asset')->once()->andReturn('baz');
 
         $url = $this->module->asset('blog', 'img/foo.png');
-        $this->assertEquals('baz', $url); 
+        $this->assertEquals('baz', $url);
     }
 
     public function testGenerateScriptTag()
     {
-        $this->config->shouldReceive('get')->once()->with('modules::paths.assets')->andReturn('foo');    
+        $this->config->shouldReceive('get')->once()->with('modules::paths.assets')->andReturn('foo');
         $this->url->shouldReceive('asset')->once();
         $this->html->shouldReceive('attributes')->once();
 
         $tag = $this->module->script('blog', 'js/all.js');
-        
+
         $this->assertEquals('<script></script>' . PHP_EOL, $tag);
     }
 
     public function testGenerateStyleTag()
     {
-        $this->config->shouldReceive('get')->once()->with('modules::paths.assets')->andReturn('foo');    
+        $this->config->shouldReceive('get')->once()->with('modules::paths.assets')->andReturn('foo');
         $this->url->shouldReceive('asset')->once();
         $this->html->shouldReceive('attributes')->once();
 
         $tag = $this->module->style('blog', 'css/all.css');
-        
-        $this->assertEquals('<link>' . PHP_EOL, $tag);  
+
+        $this->assertEquals('<link>' . PHP_EOL, $tag);
     }
 
     public function testGetAllEnabledModules()
@@ -142,9 +142,9 @@ class ModulesTest extends PHPUnit_Framework_TestCase {
     public function testGetProperties()
     {
         $properties = array(
-            'name'      =>  'Blog',
-            'alias'     =>  'blog',
-            'active'    =>  1
+            'name' => 'Blog',
+            'alias' => 'blog',
+            'active' => 1
         );
         $this->finder->shouldReceive('getJsonContents')->once()->with('blog')->andReturn($properties);
         $data = $this->module->getProperties('blog');
@@ -167,5 +167,5 @@ class ModulesTest extends PHPUnit_Framework_TestCase {
         $this->setExpectedException('Pingpong\Modules\Exceptions\FileMissingException');
         throw new Pingpong\Modules\Exceptions\FileMissingException;
     }
-    
+
 } 

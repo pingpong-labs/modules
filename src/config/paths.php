@@ -1,7 +1,7 @@
 <?php
 
 return [
-    
+
     /*
     |--------------------------------------------------------------------------
     | Modules path
@@ -10,8 +10,7 @@ return [
     | Here you may update the modules path.
     |
     */
-    'modules'	=>	app_path('Modules'),
-
+    'modules' => app_path('Modules'),
     /*
     |--------------------------------------------------------------------------
     | Modules assets path
@@ -20,8 +19,7 @@ return [
     | Here you may update the modules assets path.
     |
     */
-	'assets'	=>	public_path('modules'),
-
+    'assets' => public_path('modules'),
     /*
     |--------------------------------------------------------------------------
     | Generator path
@@ -31,6 +29,7 @@ return [
     |
     */
     'generator' => [
+        'assets' => 'Assets',
         'controller' => 'Http/Controllers',
         'filter' => 'Http/Filters',
         'seeder' => 'Database/Seeders',

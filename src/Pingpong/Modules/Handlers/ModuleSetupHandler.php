@@ -1,15 +1,15 @@
 <?php namespace Pingpong\Modules\Handlers;
 
-use Pingpong\Modules\Module;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
+use Pingpong\Modules\Module;
 
 /**
  * Class ModuleSetupHandler
  * @package Pingpong\Modules\Handlers
  */
 class ModuleSetupHandler {
-    
+
     /**
      * The Module Instance.
      *
@@ -66,7 +66,7 @@ class ModuleSetupHandler {
      */
     protected function createFolder($folder, $success, $error)
     {
-        if (!is_dir($folder))
+        if ( ! is_dir($folder))
         {
             $this->files->makeDirectory($folder);
 

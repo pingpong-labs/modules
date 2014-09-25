@@ -1,45 +1,41 @@
 <?php namespace Pingpong\Modules\Commands;
 
-use Pingpong\Modules\Stub;
 use Illuminate\Support\Str;
+use Pingpong\Modules\Stub;
 use Pingpong\Modules\Traits\ModuleCommandTrait;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 
-/**
- * Class ModuleGenerateFilterCommand
- * @package Pingpong\Modules\Commands
- */
 class ModuleGenerateFilterCommand extends GeneratorCommand {
 
-	use ModuleCommandTrait;
+    use ModuleCommandTrait;
 
-	/**
-	 * The console command name.
-	 *
-	 * @var string
-	 */
-	protected $name = 'module:filter-make';
+    /**
+     * The console command name.
+     *
+     * @var string
+     */
+    protected $name = 'module:filter-make';
 
-	/**
-	 * The console command description.
-	 *
-	 * @var string
-	 */
-	protected $description = 'Generate new filter for the specified module.';
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Generate new filter for the specified module.';
 
-	/**
-	 * Get the console command arguments.
-	 *
-	 * @return array
-	 */
-	protected function getArguments()
-	{
-		return array(
-			array('name', InputArgument::REQUIRED, 'The name of the command.'),
-			array('module', InputArgument::OPTIONAL, 'The name of module will be used.'),
-		);
-	}
+    /**
+     * Get the console command arguments.
+     *
+     * @return array
+     */
+    protected function getArguments()
+    {
+        return array(
+            array('name', InputArgument::REQUIRED, 'The name of the command.'),
+            array('module', InputArgument::OPTIONAL, 'The name of module will be used.'),
+        );
+    }
 
     /**
      * @return mixed
@@ -47,8 +43,8 @@ class ModuleGenerateFilterCommand extends GeneratorCommand {
     protected function getTemplateContents()
     {
         return new Stub('filter', [
-            'MODULE'        =>  $this->getModuleName(),
-            'NAME'          =>  $this->getFileName()
+            'MODULE' => $this->getModuleName(),
+            'NAME' => $this->getFileName()
         ]);
     }
 

@@ -1,58 +1,54 @@
 <?php namespace Pingpong\Modules\Commands;
 
-use Pingpong\Modules\Stub;
-use Illuminate\Support\Str;
 use Illuminate\Console\Command;
+use Illuminate\Support\Str;
+use Pingpong\Modules\Stub;
 use Pingpong\Modules\Traits\ModuleCommandTrait;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 
-/**
- * Class ModuleModelCommand
- * @package Pingpong\Modules\Commands
- */
 class ModuleModelCommand extends GeneratorCommand {
 
-	use ModuleCommandTrait;
+    use ModuleCommandTrait;
 
-	/**
-	 * The console command name.
-	 *
-	 * @var string
-	 */
-	protected $name = 'module:model';
+    /**
+     * The console command name.
+     *
+     * @var string
+     */
+    protected $name = 'module:model';
 
-	/**
-	 * The console command description.
-	 *
-	 * @var string
-	 */
-	protected $description = 'Generate new model for the specified module.';
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Generate new model for the specified module.';
 
-	/**
-	 * Get the console command arguments.
-	 *
-	 * @return array
-	 */
-	protected function getArguments()
-	{
-		return array(
-			array('model', InputArgument::REQUIRED, 'The name of model will be created.'),
-			array('module', InputArgument::OPTIONAL, 'The name of module will be used.'),
-		);
-	}
+    /**
+     * Get the console command arguments.
+     *
+     * @return array
+     */
+    protected function getArguments()
+    {
+        return array(
+            array('model', InputArgument::REQUIRED, 'The name of model will be created.'),
+            array('module', InputArgument::OPTIONAL, 'The name of module will be used.'),
+        );
+    }
 
-	/**
-	 * Get the console command options.
-	 *
-	 * @return array
-	 */
-	protected function getOptions()
-	{
-		return array(
-			array('fillable', null, InputOption::VALUE_OPTIONAL, 'The fillable attributes.', null),
-		);
-	}
+    /**
+     * Get the console command options.
+     *
+     * @return array
+     */
+    protected function getOptions()
+    {
+        return array(
+            array('fillable', null, InputOption::VALUE_OPTIONAL, 'The fillable attributes.', null),
+        );
+    }
 
     /**
      * @return mixed
@@ -60,9 +56,9 @@ class ModuleModelCommand extends GeneratorCommand {
     protected function getTemplateContents()
     {
         return new Stub('model', [
-            'MODULE'    =>  $this->getModuleName(),
-            'NAME'      =>  $this->getModelName(),
-            'FILLABLE'  =>  $this->getFillable()
+            'MODULE' => $this->getModuleName(),
+            'NAME' => $this->getModelName(),
+            'FILLABLE' => $this->getFillable()
         ]);
     }
 
@@ -93,7 +89,7 @@ class ModuleModelCommand extends GeneratorCommand {
     {
         $fillable = $this->option('fillable');
 
-        if( ! is_null($fillable))
+        if ( ! is_null($fillable))
         {
             $arrays = explode(',', $fillable);
 

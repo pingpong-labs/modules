@@ -2,18 +2,28 @@
 
 class ValidationException extends \Exception {
 
-	protected $errors;
+    /**
+     * @var mixed
+     */
+    protected $errors;
 
-	public function __construct($errors, $message = null)
-	{
-		parent::__construct($message);
+    /**
+     * @param mixed $errors
+     * @param null $message
+     */
+    public function __construct($errors, $message = null)
+    {
+        parent::__construct($message);
 
-		$this->errors = $errors;
-	}
+        $this->errors = $errors;
+    }
 
-	public function getErrors()
-	{
-		return $this->errors;
-	}
-	
+    /**
+     * @return mixed
+     */
+    public function getErrors()
+    {
+        return $this->errors;
+    }
+
 }

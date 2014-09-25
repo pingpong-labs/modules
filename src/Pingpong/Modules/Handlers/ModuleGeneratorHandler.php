@@ -10,7 +10,7 @@ use Illuminate\Filesystem\Filesystem;
  * @package Pingpong\Modules\Handlers
  */
 class ModuleGeneratorHandler {
-    
+
     /**
      * The folders will be created.
      *
@@ -100,7 +100,7 @@ class ModuleGeneratorHandler {
         $this->name = strtolower($name);
         $this->Name = Str::studly($name);
 
-        if($this->module->has($this->Name))
+        if ($this->module->has($this->Name))
         {
             $console->comment("Module [{$this->Name}] already exists.");
 
@@ -121,14 +121,14 @@ class ModuleGeneratorHandler {
         $this->generateFiles();
 
         $console->call('module:seed-make', [
-            'module'    => $this->name,
-            'name'      => $this->Name,
-            '--master'  => true
+            'module' => $this->name,
+            'name' => $this->Name,
+            '--master' => true
         ]);
 
         $console->call('module:provider', [
-            'module'    => $this->name,
-            'name'      => $this->Name . 'ServiceProvider'
+            'module' => $this->name,
+            'name' => $this->Name . 'ServiceProvider'
         ]);
 
         $console->info("Module [{$this->Name}] has been created successfully.");
@@ -177,7 +177,10 @@ class ModuleGeneratorHandler {
      */
     protected function getModulePath($name = null)
     {
-        if ($name) return $this->module->getModulePath($name);
+        if ($name)
+        {
+            return $this->module->getModulePath($name);
+        }
 
         return $this->module->getPath();
     }

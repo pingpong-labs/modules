@@ -1,13 +1,9 @@
 <?php  namespace Pingpong\Modules\Commands;
 
 use Illuminate\Console\Command;
-use Pingpong\Modules\Generators\FileGenerator;
 use Pingpong\Modules\Exceptions\FileAlreadyExistsException;
+use Pingpong\Modules\Generators\FileGenerator;
 
-/**
- * Class GeneratorCommand
- * @package Pingpong\Modules\Commands
- */
 abstract class GeneratorCommand extends Command {
 
     /**
@@ -35,7 +31,7 @@ abstract class GeneratorCommand extends Command {
 
             $this->info("Created : {$path}");
         }
-        catch(FileAlreadyExistsException $e)
+        catch (FileAlreadyExistsException $e)
         {
             $this->error("File : {$path} already exists.");
         }

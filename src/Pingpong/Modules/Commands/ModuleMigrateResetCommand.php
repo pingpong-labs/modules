@@ -2,48 +2,48 @@
 
 use Illuminate\Console\Command;
 use Pingpong\Modules\Traits\ModuleCommandTrait;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 
 class ModuleMigrateResetCommand extends Command {
 
     use ModuleCommandTrait;
 
-	/**
-	 * The console command name.
-	 *
-	 * @var string
-	 */
-	protected $name = 'module:migrate-reset';
+    /**
+     * The console command name.
+     *
+     * @var string
+     */
+    protected $name = 'module:migrate-reset';
 
-	/**
-	 * The console command description.
-	 *
-	 * @var string
-	 */
-	protected $description = 'Reset the modules migrations.';
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Reset the modules migrations.';
 
-	/**
-	 * Execute the console command.
-	 *
-	 * @return mixed
-	 */
-	public function fire()
-	{
+    /**
+     * Execute the console command.
+     *
+     * @return mixed
+     */
+    public function fire()
+    {
         $module = $this->getModuleName();
 
-        if( empty($module))
+        if (empty($module))
         {
             $this->reset($module);
 
             return;
         }
 
-        foreach($this->laravel['modules']->all() as $module)
+        foreach ($this->laravel['modules']->all() as $module)
         {
             $this->reset($module);
         }
-	}
+    }
 
     /**
      * Rollback migration from the specified module.
@@ -56,15 +56,15 @@ class ModuleMigrateResetCommand extends Command {
 
         $files = $this->laravel['files']->glob($path . '/*_*.php');
 
-        foreach($files as $file)
+        foreach ($files as $file)
         {
             $this->laravel['files']->requireOnce($file);
         }
 
         $this->call('migrate:reset', [
-            '--pretend'     =>  $this->option('pretend'),
-            '--database'    =>  $this->option('database'),
-            '--force'       =>  $this->option('force'),
+            '--pretend' => $this->option('pretend'),
+            '--database' => $this->option('database'),
+            '--force' => $this->option('force'),
         ]);
     }
 
@@ -89,9 +89,7 @@ class ModuleMigrateResetCommand extends Command {
     {
         return array(
             array('database', null, InputOption::VALUE_OPTIONAL, 'The database connection to use.'),
-
             array('force', null, InputOption::VALUE_NONE, 'Force the operation to run when in production.'),
-
             array('pretend', null, InputOption::VALUE_NONE, 'Dump the SQL queries that would be run.'),
         );
     }

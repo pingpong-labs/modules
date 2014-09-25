@@ -8,5 +8,5 @@ interface GeneratorInterface {
      * @return mixed
      */
     public function generate();
-	
+
 }
