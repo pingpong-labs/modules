@@ -5,7 +5,8 @@
         "modules",
         "laravel",
         "pingpong",
-        "hmvc"
+        "hmvc",
+        "module"
     ],
     "license": "MIT",
     "version": "1.2-dev",
