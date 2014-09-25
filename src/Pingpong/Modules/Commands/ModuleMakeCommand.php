@@ -2,8 +2,8 @@
 
 use Illuminate\Console\Command;
 use Pingpong\Modules\Generators\ModuleGenerator;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputArgument;
 
 class ModuleMakeCommand extends Command {
 

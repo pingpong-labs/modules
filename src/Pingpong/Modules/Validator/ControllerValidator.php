@@ -46,6 +46,7 @@ abstract class ControllerValidator extends Controller {
      * Validate the given data.
      *
      * @param  array $data
+     * @throws ValidationException
      * @return bool
      */
     public function validate(array $data)

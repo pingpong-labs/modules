@@ -1,7 +1,7 @@
 <?php namespace Pingpong\Modules\Commands;
 
-use Illuminate\Console\Command;
 use Illuminate\Support\Str;
+use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
@@ -34,7 +34,9 @@ class ModuleUseCommand extends Command {
 
         if ( ! $this->laravel['modules']->has($module))
         {
-            return $this->error("Module [{$module}] does not exists.");
+            $this->error("Module [{$module}] does not exists.");
+
+            return;
         }
 
         $moduleFinder->setUsed($module);

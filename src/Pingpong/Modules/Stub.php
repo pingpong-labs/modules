@@ -1,9 +1,5 @@
-<?php  namespace Pingpong\Modules;
+<?php namespace Pingpong\Modules;
 
-/**
- * Class Stub
- * @package Pingpong\Modules
- */
 class Stub {
 
     /**

@@ -1,9 +1,9 @@
 <?php namespace Pingpong\Modules;
 
 use Countable;
+use Illuminate\Support\Str;
 use Illuminate\Config\Repository;
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Str;
 
 /**
  * Class Finder

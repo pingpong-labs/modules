@@ -1,15 +1,15 @@
 <?php namespace Pingpong\Modules;
 
 use Countable;
-use Illuminate\Config\Repository;
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Html\HtmlBuilder;
-use Illuminate\Routing\UrlGenerator;
-use Illuminate\Translation\Translator;
 use Illuminate\View\Factory;
-use Pingpong\Modules\Exceptions\FileMissingException;
-use Pingpong\Modules\Process\Installer;
+use Illuminate\Html\HtmlBuilder;
+use Illuminate\Config\Repository;
+use Illuminate\Routing\UrlGenerator;
+use Illuminate\Filesystem\Filesystem;
 use Pingpong\Modules\Process\Updater;
+use Illuminate\Translation\Translator;
+use Pingpong\Modules\Process\Installer;
+use Pingpong\Modules\Exceptions\FileMissingException;
 
 /**
  * Class Module

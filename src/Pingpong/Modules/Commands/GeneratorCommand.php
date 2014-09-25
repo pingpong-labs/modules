@@ -1,18 +1,22 @@
 <?php  namespace Pingpong\Modules\Commands;
 
 use Illuminate\Console\Command;
-use Pingpong\Modules\Exceptions\FileAlreadyExistsException;
 use Pingpong\Modules\Generators\FileGenerator;
+use Pingpong\Modules\Exceptions\FileAlreadyExistsException;
 
 abstract class GeneratorCommand extends Command {
 
     /**
-     * @return mixed
+     * Get template contents.
+     *
+     * @return string
      */
     abstract protected function getTemplateContents();
 
     /**
-     * @return mixed
+     * Get the destination file path.
+     *
+     * @return string
      */
     abstract protected function getDestinationFilePath();
 

@@ -4,8 +4,8 @@ use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem as File;
 use Pingpong\Modules\Publishing\AssetPublisher;
 use Pingpong\Modules\Traits\ModuleCommandTrait;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputArgument;
 
 class ModulePublisherCommand extends Command {
 

@@ -2,8 +2,8 @@
 
 use Illuminate\Console\Command;
 use Pingpong\Modules\Traits\ModuleCommandTrait;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputArgument;
 
 class ModuleMigrateRefreshCommand extends Command {
 

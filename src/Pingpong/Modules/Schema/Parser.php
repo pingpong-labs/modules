@@ -2,10 +2,6 @@
 
 use Pingpong\Modules\Exceptions\InvalidMigrationName;
 
-/**
- * Class Parser
- * @package Pingpong\Modules\Schema
- */
 class Parser {
 
     /**
@@ -117,8 +113,8 @@ class Parser {
     /**
      * Get the name of column will be altered.
      *
+     * @throws InvalidMigrationName
      * @return string
-     * @throws InvalidArgumentException
      */
     public function getAlterColumn()
     {

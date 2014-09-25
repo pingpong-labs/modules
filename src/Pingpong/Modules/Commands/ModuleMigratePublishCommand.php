@@ -1,9 +1,9 @@
 <?php namespace Pingpong\Modules\Commands;
 
 use Illuminate\Console\Command;
-use Pingpong\Modules\Publishing\MigrationPublisher;
 use Pingpong\Modules\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputArgument;
+use Pingpong\Modules\Publishing\MigrationPublisher;
 
 class ModuleMigratePublishCommand extends Command {
 

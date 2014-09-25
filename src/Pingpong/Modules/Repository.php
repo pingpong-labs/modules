@@ -1,9 +1,5 @@
 <?php namespace Pingpong\Modules;
 
-/**
- * Class Repository
- * @package Pingpong\Modules
- */
 abstract class Repository {
 
     /**

@@ -1,7 +1,7 @@
 <?php namespace Pingpong\Modules\Process;
 
-use Pingpong\Modules\Contracts\RunableInterface;
 use Pingpong\Modules\Module;
+use Pingpong\Modules\Contracts\RunableInterface;
 
 class Runner implements RunableInterface {
 

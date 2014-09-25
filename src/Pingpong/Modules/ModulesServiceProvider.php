@@ -1,14 +1,9 @@
 <?php namespace Pingpong\Modules;
 
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Pingpong\Modules\Commands;
-use Pingpong\Modules\Handlers;
+use Illuminate\Support\ServiceProvider;
 
-/**
- * Class ModulesServiceProvider
- * @package Pingpong\Modules
- */
 class ModulesServiceProvider extends ServiceProvider {
 
     /**
