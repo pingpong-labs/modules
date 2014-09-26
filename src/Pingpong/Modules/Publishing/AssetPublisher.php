@@ -43,10 +43,6 @@ class AssetPublisher extends Publisher {
      */
     protected $console;
 
-    protected $success = '';
-
-    protected $error = '';
-
     /**
      * The constructor.
      *
@@ -72,7 +68,7 @@ class AssetPublisher extends Publisher {
      */
     public function getName()
     {
-        return Str::studly($this->name);
+        return ! is_null($this->name) ? Str::studly($this->name) : $this->name;
     }
 
     /**

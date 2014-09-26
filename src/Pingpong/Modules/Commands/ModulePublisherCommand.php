@@ -3,13 +3,10 @@
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem as File;
 use Pingpong\Modules\Publishing\AssetPublisher;
-use Pingpong\Modules\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
 class ModulePublisherCommand extends Command {
-
-    use ModuleCommandTrait;
 
     /**
      * The console command name.
@@ -23,7 +20,7 @@ class ModulePublisherCommand extends Command {
      *
      * @var string
      */
-    protected $description = 'Publish assets from the specified modules or from all modules.';
+    protected $description = 'Publish assets from the specified module or from all modules.';
 
     /**
      * Execute the console command.
@@ -32,7 +29,7 @@ class ModulePublisherCommand extends Command {
      */
     public function fire()
     {
-        with(new AssetPublisher($this->getModuleName()))
+        with(new AssetPublisher($this->argument('module')))
             ->setModule($this->laravel['modules'])
             ->setFilesystem($this->laravel['files'])
             ->setConfig($this->laravel['config'])
