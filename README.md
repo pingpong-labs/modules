@@ -19,6 +19,11 @@ If you find this source useful, you can share some milk to me if you want ^_^
 
 ### Changes Log
 
+**1.1.6 to 1.1.7**
+
+- Fix [#40](https://github.com/pingpong-labs/modules/pull/40)
+- Start from now this package licensed under The BSD 3-Clause License.
+
 **1.1.5 to 1.1.6**
 
 - Bug fixes
