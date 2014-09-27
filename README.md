@@ -15,6 +15,7 @@ Laravel 4 - Simple Modules
 - [Facades API](https://github.com/pingpong-labs/modules#facades-api)
 - [Custom Namespaces](https://github.com/pingpong-labs/modules##custom-namespaces)
 - [Extra](https://github.com/pingpong-labs/modules#extra)
+- [License](https://github.com/pingpong-labs/modules#license)
 
 ### Server Requirements
 
