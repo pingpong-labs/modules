@@ -7,14 +7,14 @@ Laravel 4 - Simple Modules
 [![Latest Unstable Version](https://poser.pugx.org/pingpong/modules/v/unstable.svg)](https://packagist.org/packages/pingpong/modules)
 [![License](https://poser.pugx.org/pingpong/modules/license.svg)](https://packagist.org/packages/pingpong/modules)
 
-- [Installation)(https://github.com/pingpong-labs/modules#installation)
+- [Installation](https://github.com/pingpong-labs/modules#installation)
 - [Setup Modules Folder](https://github.com/pingpong-labs/modules#setup-modules-folder-for-first-use)
-- [Folder Structure)(https://github.com/pingpong-labs/modules#installation)
-- [Autoloading)(https://github.com/pingpong-labs/modules#autoloading)
-- [Artisan CLI)(https://github.com/pingpong-labs/modules#artisan-cli)
-- [Facades API)(https://github.com/pingpong-labs/modules#facades-api)
+- [Folder Structure](https://github.com/pingpong-labs/modules#installation)
+- [Autoloading](https://github.com/pingpong-labs/modules#autoloading)
+- [Artisan CLI](https://github.com/pingpong-labs/modules#artisan-cli)
+- [Facades API](https://github.com/pingpong-labs/modules#facades-api)
 - [Custom Namespaces](https://github.com/pingpong-labs/modules##custom-namespaces)
-- [Extra)(https://github.com/pingpong-labs/modules#extra)
+- [Extra](https://github.com/pingpong-labs/modules#extra)
 
 ### Server Requirements
 
