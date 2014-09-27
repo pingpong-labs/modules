@@ -439,6 +439,13 @@ Get module json property as array from a specified module.
   Config::get('blog::group.name')
   ```
 
+### Extra
+
+If you need the modules that already created, maybe you could try and install some modules from the list below.
+
+- [pingpong-modules](https://github.com/pingpong-modules)
+- [nWidart-Modules](https://github.com/nWidart-Modules)
+
 ### License
 
   This package is open-sourced software licensed under [The BSD 3-Clause License](http://opensource.org/licenses/BSD-3-Clause)
