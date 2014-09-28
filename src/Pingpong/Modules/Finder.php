@@ -5,10 +5,6 @@ use Illuminate\Support\Str;
 use Illuminate\Config\Repository;
 use Illuminate\Filesystem\Filesystem;
 
-/**
- * Class Finder
- * @package Pingpong\Modules
- */
 class Finder implements Countable {
 
     /**
@@ -52,9 +48,8 @@ class Finder implements Countable {
     public function all()
     {
         $modules = array();
-        $path = $this->getPath();
 
-        if ( ! is_dir($path))
+        if ( ! is_dir($path = $this->getPath()))
         {
             return $modules;
         }

@@ -1,13 +1,10 @@
 <?php namespace Pingpong\Modules\Commands;
 
 use Illuminate\Console\Command;
-use Pingpong\Modules\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputArgument;
 use Pingpong\Modules\Publishing\MigrationPublisher;
 
 class ModuleMigratePublishCommand extends Command {
-
-    use ModuleCommandTrait;
 
     /**
      * The console command name.
@@ -30,7 +27,7 @@ class ModuleMigratePublishCommand extends Command {
      */
     public function fire()
     {
-        with(new MigrationPublisher($this->getModuleName()))
+        with(new MigrationPublisher($this->argument('module')))
             ->setModule($this->laravel['modules'])
             ->setFilesystem($this->laravel['files'])
             ->setConfig($this->laravel['config'])

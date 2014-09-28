@@ -21,7 +21,7 @@ class ModuleMigrateRefreshCommand extends Command {
      *
      * @var string
      */
-    protected $description = 'Refresh the modules migrations.';
+    protected $description = 'Rollback & re-migrate the modules migrations.';
 
     /**
      * Execute the console command.

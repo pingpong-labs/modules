@@ -1,13 +1,13 @@
 <?php namespace Pingpong\Modules\Commands;
 
 use Illuminate\Console\Command;
-use Pingpong\Modules\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputOption;
+use Pingpong\Modules\Traits\MigrationLoaderTrait;
 use Symfony\Component\Console\Input\InputArgument;
 
 class ModuleMigrateRollbackCommand extends Command {
 
-    use ModuleCommandTrait;
+    use MigrationLoaderTrait; 
 
     /**
      * The console command name.
@@ -30,9 +30,9 @@ class ModuleMigrateRollbackCommand extends Command {
      */
     public function fire()
     {
-        $module = $this->getModuleName();
+        $module = $this->argument('module');
 
-        if (empty($module))
+        if ( ! empty($module))
         {
             $this->rollback($module);
 
@@ -52,14 +52,7 @@ class ModuleMigrateRollbackCommand extends Command {
      */
     public function rollback($module)
     {
-        $path = $this->laravel['modules']->getModulePath($module) . '/Database/Migrations';
-
-        $files = $this->laravel['files']->glob($path . '/*_*.php');
-
-        foreach ($files as $file)
-        {
-            $this->laravel['files']->requireOnce($file);
-        }
+        $this->loadMigrationFiles($module);
 
         $this->call('migrate:rollback', [
             '--pretend' => $this->option('pretend'),
