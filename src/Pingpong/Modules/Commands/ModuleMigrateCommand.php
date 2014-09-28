@@ -1,13 +1,10 @@
 <?php namespace Pingpong\Modules\Commands;
 
 use Illuminate\Console\Command;
-use Pingpong\Modules\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
 class ModuleMigrateCommand extends Command {
-
-    use ModuleCommandTrait;
 
     /**
      * The console command name.
@@ -37,7 +34,7 @@ class ModuleMigrateCommand extends Command {
     {
         $this->module = $this->laravel['modules'];
 
-        $name = $this->getModuleName();
+        $name = $this->argument('module');
 
         if ($name)
         {
@@ -64,6 +61,7 @@ class ModuleMigrateCommand extends Command {
 
             return $this->call('migrate', $params);
         }
+        
         return $this->error("Module [$name] does not exists.");
     }
 
