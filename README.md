@@ -8,6 +8,7 @@ Laravel 4 - Simple Modules
 [![License](https://poser.pugx.org/pingpong/modules/license.svg)](https://packagist.org/packages/pingpong/modules)
 
 - [Installation](https://github.com/pingpong-labs/modules#installation)
+- [Changes Log](https://github.com/pingpong-labs/modules#changes-log)
 - [Setup Modules Folder](https://github.com/pingpong-labs/modules#setup-modules-folder-for-first-use)
 - [Folder Structure](https://github.com/pingpong-labs/modules#installation)
 - [Autoloading](https://github.com/pingpong-labs/modules#autoloading)
