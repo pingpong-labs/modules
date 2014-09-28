@@ -48,9 +48,8 @@ class Finder implements Countable {
     public function all()
     {
         $modules = array();
-        $path = $this->getPath();
 
-        if ( ! is_dir($path))
+        if ( ! is_dir($path = $this->getPath()))
         {
             return $modules;
         }
