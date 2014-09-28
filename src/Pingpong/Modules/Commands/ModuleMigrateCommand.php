@@ -57,9 +57,14 @@ class ModuleMigrateCommand extends Command {
     {
         if ($this->module->has($name))
         {
-            $params = $this->getParameter($name);
+            $this->call('migrate', $this->getParameter($name));
+            
+            if ($this->option('seed'))
+            {
+                $this->call('module:seed', ['module' => $name]);
+            }
 
-            return $this->call('migrate', $params);
+            return;
         }
         
         return $this->error("Module [$name] does not exists.");
@@ -84,10 +89,6 @@ class ModuleMigrateCommand extends Command {
         if ($option = $this->option('pretend'))
         {
             $params['--pretend'] = $option;
-        }
-        if ($option = $this->option('seed'))
-        {
-            $params['--seed'] = $option;
         }
         if ($option = $this->option('force'))
         {
