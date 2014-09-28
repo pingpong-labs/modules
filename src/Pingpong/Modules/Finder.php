@@ -5,10 +5,6 @@ use Illuminate\Support\Str;
 use Illuminate\Config\Repository;
 use Illuminate\Filesystem\Filesystem;
 
-/**
- * Class Finder
- * @package Pingpong\Modules
- */
 class Finder implements Countable {
 
     /**
