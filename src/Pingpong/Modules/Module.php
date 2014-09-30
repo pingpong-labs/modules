@@ -159,6 +159,8 @@ class Module implements Countable {
     }
 
     /**
+     * Get all enabled (status = 1) or disabled (status = 0) modules
+     *
      * @param int $status
      * @return array
      */
