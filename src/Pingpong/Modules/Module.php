@@ -190,6 +190,8 @@ class Module implements Countable {
     }
 
     /**
+     * Return all enabled modules
+     *
      * @return array
      */
     public function enabled()
@@ -198,6 +200,8 @@ class Module implements Countable {
     }
 
     /**
+     * Return all disabled modules
+     *
      * @return array
      */
     public function disabled()
