@@ -198,6 +198,8 @@ class Finder implements Countable {
     }
 
     /**
+     * Enable the given module
+     *
      * @param $module
      * @return bool
      */
@@ -207,6 +209,8 @@ class Finder implements Countable {
     }
 
     /**
+     * Disable the given module
+     *
      * @param $module
      * @return bool
      */
