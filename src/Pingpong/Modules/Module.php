@@ -236,7 +236,7 @@ class Module implements Countable {
     }
 
     /**
-     * Register the global.php file from all modules.
+     * Register the start.php file from all modules.
      *
      * @return    string
      */
