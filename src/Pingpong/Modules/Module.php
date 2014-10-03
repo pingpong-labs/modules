@@ -159,6 +159,8 @@ class Module implements Countable {
     }
 
     /**
+     * Get all enabled (status = 1) or disabled (status = 0) modules
+     *
      * @param int $status
      * @return array
      */
@@ -188,6 +190,8 @@ class Module implements Countable {
     }
 
     /**
+     * Return all enabled modules
+     *
      * @return array
      */
     public function enabled()
@@ -196,6 +200,8 @@ class Module implements Countable {
     }
 
     /**
+     * Return all disabled modules
+     *
      * @return array
      */
     public function disabled()
@@ -236,7 +242,7 @@ class Module implements Countable {
     }
 
     /**
-     * Register the global.php file from all modules.
+     * Register the start.php file from all modules.
      *
      * @return    string
      */
