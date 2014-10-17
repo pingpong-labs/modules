@@ -231,6 +231,17 @@ class ModulesServiceProvider extends ServiceProvider {
     }
 
     /**
+     * Register "module:route-provider" command.
+     */
+    private function registerRouteProviderCommand()
+    {
+        $this->app->bindShared('modules.route.provider', function ($app)
+        {
+            return new Commands\ModuleGenerateRouteProviderCommand;
+        });
+    }
+
+    /**
      * Register "module:migrate-rollback" command.
      */
     protected function registerMigrateRollbackCommand()
@@ -329,6 +340,7 @@ class ModulesServiceProvider extends ServiceProvider {
         $this->registerCommandCommand();
         $this->registerUseCommand();
         $this->registerProviderCommand();
+        $this->registerRouteProviderCommand();
         $this->registerMigrateRollbackCommand();
         $this->registerMigrateResetCommand();
         $this->registerMigrateRefreshCommand();
@@ -353,6 +365,7 @@ class ModulesServiceProvider extends ServiceProvider {
             'modules.disable',
             'modules.use',
             'modules.provider',
+            'modules.route.provider',
             'modules.migrate.rollback',
             'modules.migrate.reset',
             'modules.migrate.refresh',
