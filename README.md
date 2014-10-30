@@ -1,4 +1,4 @@
-Laravel 4 - Simple Modules
+Laravel Modules
 =========================
 
 [![Build Status](https://travis-ci.org/pingpong-labs/modules.svg?branch=master)](https://travis-ci.org/pingpong-labs/modules)
