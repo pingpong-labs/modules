@@ -250,7 +250,7 @@ class Module implements Countable {
     {
         foreach ($this->enabled() as $module)
         {
-            $this->includeGlobalFile($module);
+            $this->registerStartFile($module);
         }
     }
 
@@ -260,7 +260,7 @@ class Module implements Countable {
      * @param    string $name
      * @throws  \Pingpong\Modules\Exceptions\FileMissingException
      */
-    protected function includeGlobalFile($name)
+    protected function registerStartFile($name)
     {
         $file = $this->getModulePath($name) . "/start.php";
 
