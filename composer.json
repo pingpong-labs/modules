@@ -23,7 +23,9 @@
         "illuminate/view": "~4|~5",
         "illuminate/config": "~4|~5",
         "illuminate/html": "~4|~5",
-        "illuminate/routing": "~4|~5"
+        "illuminate/events": "~4|~5",
+        "illuminate/routing": "~4|~5",
+        "pingpong/generators": "1.*"
     },
     "require-dev": {
         "phpunit/phpunit": "4.1.*",
