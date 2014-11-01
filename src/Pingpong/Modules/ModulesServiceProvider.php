@@ -43,7 +43,9 @@ class ModulesServiceProvider extends ServiceProvider {
     {
         $this->app->bindShared('modules.finder', function ($app)
         {
-            return new Finder($app['files'], $app['config']);
+            $path = $app['config']->get('modules::paths.modules');
+
+            return new Finder($path, $app['files']);
         });
 
         $this->app->bindShared('modules', function ($app)

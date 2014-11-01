@@ -4,8 +4,9 @@ use Mockery as m;
 use Pingpong\Modules\Finder;
 
 class FinderTest extends PHPUnit_Framework_TestCase {
-    protected $config;
+
     protected $files;
+
     protected $finder;
 
     function tearDown()
@@ -15,11 +16,8 @@ class FinderTest extends PHPUnit_Framework_TestCase {
 
     function setUp()
     {
-        $this->config = m::mock('Illuminate\Config\Repository');
         $this->files = m::mock('Illuminate\Filesystem\Filesystem');
-
-        $this->finder = new Finder($this->files, $this->config);
-        $this->finder->setPath($this->getPath());
+        $this->finder = new Finder($this->getPath(), $this->files);
     }
 
     protected function getPath()

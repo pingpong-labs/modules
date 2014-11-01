@@ -2,7 +2,6 @@
 
 use Countable;
 use Illuminate\Support\Str;
-use Illuminate\Config\Repository;
 use Illuminate\Filesystem\Filesystem;
 
 class Finder implements Countable {
@@ -15,13 +14,6 @@ class Finder implements Countable {
     protected $files;
 
     /**
-     * The Laravel Config Repository.
-     *
-     * @var Repository
-     */
-    protected $config;
-
-    /**
      * The current module path.
      *
      * @var string
@@ -31,13 +23,13 @@ class Finder implements Countable {
     /**
      * The constructor.
      *
+     * @param string $path
      * @param Filesystem $files
-     * @param Repository $config
      */
-    public function __construct(Filesystem $files, Repository $config)
+    public function __construct($path, Filesystem $files= null)
     {
-        $this->files = $files;
-        $this->config = $config;
+        $this->path = $path;
+        $this->files = $files ?: new Filesystem;
     }
 
     /**
@@ -87,7 +79,7 @@ class Finder implements Countable {
      */
     public function getPath()
     {
-        return $this->path ?: $this->config->get('modules::paths.modules');
+        return $this->path;
     }
 
     /**
