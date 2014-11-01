@@ -1,6 +1,6 @@
 {
     "name": "pingpong/modules",
-    "description": "Laravel 4 - Simple Modules",
+    "description": "Laravel Modules",
     "keywords": [
         "modules",
         "laravel",
