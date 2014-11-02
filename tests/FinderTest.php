@@ -60,6 +60,6 @@ class FinderTest extends PHPUnit_Framework_TestCase {
         $path2 = $this->finder->getModulePath('default');
 
         $this->assertEquals($this->getPath() . '/Blog/', $path1);
-        $this->assertNull($path2);
+        $this->assertEquals($this->getPath() . '/Default/', $path2);
     }
 }

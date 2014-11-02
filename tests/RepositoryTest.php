@@ -9,8 +9,7 @@ class RepositoryTest extends PHPUnit_Framework_TestCase {
 
 	public function setUp()
 	{
-		$options = $this->getOptions();
-		$this->repository = new Repository($options);	
+		$this->repository = new Repository($this->getPath());	
 	}
 
 	public function tearDown()
@@ -18,11 +17,9 @@ class RepositoryTest extends PHPUnit_Framework_TestCase {
 		$this->repository->enable('blog');
 	}
 
-	protected function getOptions()
+	protected function getPath()
 	{
-		return [
-			'path' => __DIR__ . '/../public'
-		];
+		return __DIR__ . '/../public';
 	}
 
 	public function testGetAll()
