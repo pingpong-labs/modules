@@ -5,25 +5,6 @@ use Pingpong\Modules\Process\Updater;
 use Pingpong\Modules\Process\Installer;
 
 class Repository extends Finder {
-	
-	protected $options = [];
-
-	public function __construct(array $options = [])
-	{
-		$this->options = $options;
-
-        parent::__construct($this->option('path'));
-	}
-
-	public function option($key, $default = null)
-	{
-		return array_get($this->options, $key, $default);
-	}
-
-	public function getModulePath($module, $allowNotExists = true)
-	{
-        return parent::getModulePath($module, $allowNotExists);
-	}
 
     /**
      * Get all enabled (status = 1) or disabled (status = 0) modules
