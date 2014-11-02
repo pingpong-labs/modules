@@ -110,7 +110,7 @@ class Finder implements Countable {
      * @param  boolean $allowNotExists
      * @return null|string
      */
-    public function getModulePath($module, $allowNotExists = false)
+    public function getModulePath($module, $allowNotExists = true)
     {
         $module = Str::studly($module);
 
