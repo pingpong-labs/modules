@@ -222,16 +222,6 @@ class Finder implements Countable {
     }
 
     /**
-     * Get The Laravel Config Repository.
-     *
-     * @return Repository
-     */
-    public function getConfig()
-    {
-        return $this->config;
-    }
-
-    /**
      * Update JSON content for the specified module by given array data.
      *
      * @param $module
