@@ -6,5 +6,6 @@
 
     ],
     "active": 1,
-    "priority": 0
+    "priority": 0,
+    "providers": []
 }
