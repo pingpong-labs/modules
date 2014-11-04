@@ -3,6 +3,7 @@
 use Illuminate\Support\Str;
 use Pingpong\Modules\Commands;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Foundation\AliasLoader;
 
 class ModulesServiceProvider extends ServiceProvider {
 
@@ -21,6 +22,8 @@ class ModulesServiceProvider extends ServiceProvider {
     public function boot()
     {
         $this->package('pingpong/modules');
+
+        $this->app['modules']->register();
     }
 
     /**
@@ -41,36 +44,11 @@ class ModulesServiceProvider extends ServiceProvider {
      */
     protected function registerServices()
     {
-        $this->app->bindShared('modules.finder', function ($app)
-        {
-            $path = $app['config']->get('modules::paths.modules');
-
-            return new Finder($path, $app['files']);
-        });
-
-        $this->app->bindShared('modules.repository', function ($app)
+        $this->app->bindShared('modules', function ($app)
         {
             $path = $app['config']->get('modules::paths.modules');
 
             return new Repository($path, $app['files']);
-        });
-
-        $this->app->bindShared('modules', function ($app)
-        {
-            return new Module(
-                $app['modules.finder'],
-                $app['config'],
-                $app['view'],
-                $app['translator'],
-                $app['files'],
-                $app['html'],
-                $app['url']
-            );
-        });
-
-        $this->app->booting(function ($app)
-        {
-            $app['modules']->register();
         });
     }
 
