@@ -11,7 +11,7 @@ return [
     |
     */
 
-    'modules' => app_path('Modules'),
+    'modules' => base_path('Modules'),
 
     /*
     |--------------------------------------------------------------------------
@@ -50,7 +50,7 @@ return [
         'config' => 'Config',
         'command' => 'Console',
         'migration' => 'Database/Migrations',
-        'model' => 'Database/Models',
+        'model' => 'Entities',
         'repository' => 'Database/Repositories',
         'seeder' => 'Database/Seeders',
         'controller' => 'Http/Controllers',
