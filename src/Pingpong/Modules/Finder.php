@@ -52,7 +52,7 @@ class Finder implements Countable {
         {
             if ( ! Str::startsWith($module, '.'))
             {
-                $modules[] = basename($module);
+                $modules[] = new Module(basename($module));
             }
         }
 
