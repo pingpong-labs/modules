@@ -1,10 +1,57 @@
 <?php namespace Pingpong\Modules;
 
 use Countable;
+use Illuminate\Support\Str;
 use Pingpong\Modules\Process\Updater;
 use Pingpong\Modules\Process\Installer;
 
 class Repository extends Finder {
+
+    /**
+     * Get all modules.
+     *
+     * @return array
+     */
+    public function all()
+    {
+        $modules = array();
+
+        if ( ! is_dir($path = $this->getPath()))
+        {
+            return $modules;
+        }
+
+        $folders = $this->files->directories($path);
+
+        foreach ($folders as $module)
+        {
+            if ( ! Str::startsWith($module, '.'))
+            {
+                $modules[] = new Module(basename($module), $this);
+            }
+        }
+
+        return $modules;
+    }
+
+    /**
+     * Get entity from a specified module by given module name.
+     * 
+     * @param  string $search
+     * @return mixed
+     */
+    public function get($search)
+    {
+        foreach ($this->all() as $module)
+        {
+            if($module->getLowerName() == strtolower($search))
+            {
+                return $module;
+            }
+        }
+
+        return null;
+    }
 
     /**
      * Get all enabled (status = 1) or disabled (status = 0) modules
@@ -155,6 +202,19 @@ class Repository extends Finder {
     public function getUsedNow()
     {
         return $this->finder->getUsed();
+    }
+
+    /**
+     * Register all enabled modules.
+     * 
+     * @return void
+     */
+    public function register()
+    {
+        foreach ($this->enabled() as $module)
+        {
+            $module->register();
+        }
     }
 
 

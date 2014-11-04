@@ -33,33 +33,6 @@ class Finder implements Countable {
     }
 
     /**
-     * Get all modules.
-     *
-     * @return array
-     */
-    public function all()
-    {
-        $modules = array();
-
-        if ( ! is_dir($path = $this->getPath()))
-        {
-            return $modules;
-        }
-
-        $folders = $this->files->directories($path);
-
-        foreach ($folders as $module)
-        {
-            if ( ! Str::startsWith($module, '.'))
-            {
-                $modules[] = new Module(basename($module));
-            }
-        }
-
-        return $modules;
-    }
-
-    /**
      * Set module path.
      *
      * @param $path

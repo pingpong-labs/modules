@@ -6,7 +6,7 @@ class Module {
 
 	protected $repository;
 
-	public function __construct($name, $repository = null)
+	public function __construct($name, Repository $repository)
 	{
 		$this->name = $name;
 		$this->repository = $repository;
@@ -31,7 +31,7 @@ class Module {
 
 	public function getLowerName()
 	{
-		return strtolower($name);
+		return strtolower($this->name);
 	}
 
 	public function getPath()
@@ -59,9 +59,24 @@ class Module {
 		return ! $this->active();
 	}
 
+	public function present()
+	{
+		return new Presenter($this);
+	}
+
 	public function __toString()
 	{
 		return $this->name;
+	}
+
+	public function getStartFilePath()
+	{
+		return $this->getPath() . '/start.php';
+	}
+
+	public function register()
+	{
+		include_once $this->getStartFilePath();
 	}
 
 }

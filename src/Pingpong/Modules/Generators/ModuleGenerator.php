@@ -1,8 +1,8 @@
 <?php namespace Pingpong\Modules\Generators;
 
-use Pingpong\Modules\Stub;
 use Illuminate\Support\Str;
-use Pingpong\Modules\Module;
+use Pingpong\Generators\Stub;
+use Pingpong\Modules\Repository;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Console\Command as Console;
 use Illuminate\Config\Repository as Config;
@@ -70,12 +70,12 @@ class ModuleGenerator extends Generator {
      * The constructor.
      *
      * @param $name
-     * @param Module $module
+     * @param Repository $module
      * @param Config $config
      * @param Filesystem $filesystem
      * @param Console $console
      */
-    public function __construct($name, Module $module = null, Config $config = null, Filesystem $filesystem = null, Console $console = null)
+    public function __construct($name, Repository $module = null, Config $config = null, Filesystem $filesystem = null, Console $console = null)
     {
         $this->name = $name;
         $this->config = $config;
