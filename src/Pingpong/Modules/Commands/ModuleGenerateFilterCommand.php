@@ -1,6 +1,6 @@
 <?php namespace Pingpong\Modules\Commands;
 
-use Pingpong\Modules\Stub;
+use Pingpong\Generators\Stub;
 use Illuminate\Support\Str;
 use Pingpong\Modules\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputOption;
