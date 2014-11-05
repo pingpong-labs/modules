@@ -1,9 +1,9 @@
-<?php
+<?php namespace Tests;
 
 use Pingpong\Modules\Finder;
 use Pingpong\Modules\Repository;
 
-class RepositoryTest extends PHPUnit_Framework_TestCase {
+class RepositoryTest extends \PHPUnit_Framework_TestCase {
 
 	protected $repository;
 
@@ -19,7 +19,7 @@ class RepositoryTest extends PHPUnit_Framework_TestCase {
 
 	protected function getPath()
 	{
-		return __DIR__ . '/../public';
+		return __DIR__ . '/../fixture/Modules';
 	}
 
 	public function testGetAll()
