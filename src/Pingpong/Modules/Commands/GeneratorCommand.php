@@ -2,7 +2,7 @@
 
 use Illuminate\Console\Command;
 use Pingpong\Modules\Generators\FileGenerator;
-use Pingpong\Modules\Exceptions\FileAlreadyExistsException;
+use Pingpong\Generators\Exceptions\FileAlreadyExistException;
 
 abstract class GeneratorCommand extends Command {
 
@@ -35,7 +35,7 @@ abstract class GeneratorCommand extends Command {
 
             $this->info("Created : {$path}");
         }
-        catch (FileAlreadyExistsException $e)
+        catch (FileAlreadyExistException $e)
         {
             $this->error("File : {$path} already exists.");
         }

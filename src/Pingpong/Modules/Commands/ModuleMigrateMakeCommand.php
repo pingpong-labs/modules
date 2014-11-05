@@ -1,13 +1,13 @@
 <?php namespace Pingpong\Modules\Commands;
 
-use Pingpong\Generators\Stub;
 use Illuminate\Support\Str;
-use Pingpong\Modules\Schema\Field;
-use Pingpong\Modules\Schema\Parser;
+use Pingpong\Generators\Stub;
+use Pingpong\Generators\Schema\Field;
+use Pingpong\Generators\Schema\Parser;
 use Pingpong\Modules\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
-use Pingpong\Modules\Exceptions\InvalidMigrationName;
+use Pingpong\Generators\Exceptions\InvalidMigrationName;
 
 class ModuleMigrateMakeCommand extends GeneratorCommand {
 
