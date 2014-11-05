@@ -1,0 +1,13 @@
+{
+    "name": "Blog",
+    "alias": "blog",
+    "description": "",
+    "keywords": [
+
+    ],
+    "priority": 0,
+    "providers": [
+
+    ],
+    "active": 1
+}
