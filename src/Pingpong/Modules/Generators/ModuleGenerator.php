@@ -237,7 +237,20 @@ class ModuleGenerator extends Generator {
             $path = $this->module->getModulePath($this->getName()) . '/' . $folder;
 
             $this->filesystem->makeDirectory($path, 0755, true);
+
+            $this->generateGitKeep($path);
         }
+    }
+
+    /**
+     * Generate git keep to the specified path.
+     * 
+     * @param  string $path
+     * @return void
+     */
+    public function generateGitKeep($path)
+    {
+        $this->filesystem->put($path . '/.gitkeep', '');
     }
 
     /**
