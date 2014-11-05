@@ -9,7 +9,7 @@ class CliTest extends TestCase {
 		$this->artisan = $this->app['artisan'];
 	}
 
-	public function call($command, $options = [])
+	public function artisan($command, $options = [])
 	{
 		$this->artisan->call($command, $options);
 	}
@@ -33,7 +33,7 @@ class CliTest extends TestCase {
 
 		foreach ($commandOptions as $command => $options)
 		{
-			$this->call($command, $options);
+			$this->artisan($command, $options);
 		}
 
 		$this->cleanup();
