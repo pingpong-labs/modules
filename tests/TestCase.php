@@ -1,4 +1,4 @@
-<?php namespace Tests;
+<?php
 
 use Illuminate\Support\Facades\Log;
 

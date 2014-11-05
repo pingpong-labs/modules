@@ -39,6 +39,11 @@ class Module {
 		return $this->repository->getModulePath($this->name);
 	}
 
+	public function delete()
+	{
+		$this->repository->getFiles()->deleteDirectory($this->getPath(), true);
+	}
+
 	public function active()
 	{
 		return $this->repository->active($this->name);

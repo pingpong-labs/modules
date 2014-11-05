@@ -28,7 +28,7 @@ class ModuleUseCommand extends Command {
      */
     public function fire()
     {
-        $moduleFinder = $this->laravel['modules.finder'];
+        $moduleFinder = $this->laravel['modules'];
 
         $module = Str::studly($this->argument('module'));
 

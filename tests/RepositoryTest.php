@@ -1,4 +1,4 @@
-<?php namespace Tests;
+<?php
 
 use Pingpong\Modules\Finder;
 use Pingpong\Modules\Repository;

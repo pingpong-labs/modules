@@ -201,7 +201,7 @@ class Repository extends Finder {
      */
     public function getUsedNow()
     {
-        return $this->finder->getUsed();
+        return $this->getUsed();
     }
 
     /**

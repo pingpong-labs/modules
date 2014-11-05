@@ -27,7 +27,7 @@ require __DIR__.'/../vendor/autoload.php';
 |
 */
 
-$app = Tests\CliTest::getLaravel();
+$app = CliTest::getLaravel();
 /*
 |--------------------------------------------------------------------------
 | Load The Artisan Console Application

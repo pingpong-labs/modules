@@ -1,4 +1,4 @@
-<?php namespace Tests;
+<?php
 
 class CliTest extends TestCase {
 

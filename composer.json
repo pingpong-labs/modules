@@ -28,14 +28,19 @@
         "pingpong/generators": "1.*"
     },
     "require-dev": {
-        "phpunit/phpunit": "4.1.*",
-        "codeception/codeception": "*",
-        "mockery/mockery": "0.9.*"
+        "phpunit/phpunit": "~4",
+        "mockery/mockery": "~0.9",
+        "pingpong/testing": "1.*"
     },
     "autoload": {
         "psr-4": {
             "Pingpong\\Modules\\": "src/Pingpong/Modules"
         }
+    },
+    "autoload-dev": {
+        "files": [
+            "tests/TestCase.php"
+        ]
     },
     "extra": {
         "branch-alias": {
