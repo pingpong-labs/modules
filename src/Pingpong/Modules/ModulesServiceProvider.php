@@ -37,7 +37,35 @@ class ModulesServiceProvider extends ServiceProvider {
     public function register()
     {
         $this->registerServices();
+        $this->registerConsole();
+        $this->registerHtml();
+    }
+
+    /**
+     * Register the console.
+     * 
+     * @return string
+     */
+    protected function registerConsole()
+    {
         $this->app->register(__NAMESPACE__ . '\\Providers\\ConsoleServiceProvider');
+    }
+
+    /**
+     * Register laravel html package.
+     * 
+     * @return void
+     */
+    protected function registerHtml()
+    {
+        $this->app->register('Illuminate\Html\HtmlServiceProvider');
+
+        $aliases = [
+            'HTML'            => 'Illuminate\Support\Facades\HTML',
+            'Form'            => 'Illuminate\Support\Facades\Form',
+        ];
+
+        AliasLoader::getInstance($aliases)->register();
     }
 
     /**

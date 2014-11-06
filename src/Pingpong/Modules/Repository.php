@@ -217,6 +217,13 @@ class Repository extends Finder {
         }
     }
 
+    /**
+     * Get asset url from the specified module.
+     * 
+     * @param  string  $path
+     * @param  boolean $secure
+     * @return string
+     */
     public function asset($path, $secure = false)
     {
         list($module, $url) = explode(':', $path);
@@ -224,11 +231,25 @@ class Repository extends Finder {
         return app('url')->asset("modules/{$module}/{$url}");
     }
 
+    /**
+     * Get style tag from the specified module.
+     * 
+     * @param  string  $url
+     * @param  boolean $secure
+     * @return string
+     */
     public function style($url, $secure = false)
     {
         return app('html')->style($this->asset($url, $secure));
     }
 
+    /**
+     * Get script tag from the specified module.
+     * 
+     * @param  string  $url
+     * @param  boolean $secure
+     * @return string
+     */
     public function script($url, $secure = false)
     {
         return app('html')->script($this->asset($url, $secure));
