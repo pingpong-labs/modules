@@ -51,7 +51,7 @@ return [
         'command' => 'Console',
         'migration' => 'Database/Migrations',
         'model' => 'Entities',
-        'repository' => 'Database/Repositories',
+        'repository' => 'Repositories',
         'seeder' => 'Database/Seeders',
         'controller' => 'Http/Controllers',
         'filter' => 'Http/Filters',
