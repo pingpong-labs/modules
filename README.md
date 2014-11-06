@@ -384,12 +384,12 @@ Get all modules.
 
 Get all enabled module.
 ```php
-    Module::enabled();
+  Module::enabled();
 ```
 
 Get all disabled module.
 ```php
-    Module::disabled();
+  Module::disabled();
 ```
 
 Get modules path.
