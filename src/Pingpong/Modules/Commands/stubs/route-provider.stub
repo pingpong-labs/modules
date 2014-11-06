@@ -4,6 +4,7 @@ use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
 class $NAME$ extends ServiceProvider {
+    
     /**
      * The root namespace to assume when generating URLs to actions.
      *
