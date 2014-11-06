@@ -60,4 +60,22 @@ class RepositoryTest extends \PHPUnit_Framework_TestCase {
 		$this->repository->update($module);
 	}
 
+	public function testGetAsset()
+	{
+		$actual = $this->repository->asset('blog:img/post.img');
+		$this->assertEquals('http://localhost/modules/blog/img/post.img', $actual);
+	}
+
+	public function testGetStyle()
+	{
+		$actual = $this->repository->style('blog:css/main.css');
+		$this->assertEquals('<link media="all" type="text/css" rel="stylesheet" href="http://localhost/modules/blog/css/main.css">' . PHP_EOL, $actual);
+	}
+
+	public function testGetScript()
+	{
+		$actual = $this->repository->script('blog:js/all.js');
+		$this->assertEquals('<script src="http://localhost/modules/blog/js/all.js"></script>' . PHP_EOL, $actual);
+	}
+
 }

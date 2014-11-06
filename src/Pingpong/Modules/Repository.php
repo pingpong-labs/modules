@@ -217,5 +217,21 @@ class Repository extends Finder {
         }
     }
 
+    public function asset($path, $secure = false)
+    {
+        list($module, $url) = explode(':', $path);
+
+        return app('url')->asset("modules/{$module}/{$url}");
+    }
+
+    public function style($url, $secure = false)
+    {
+        return app('html')->style($this->asset($url, $secure));
+    }
+
+    public function script($url, $secure = false)
+    {
+        return app('html')->script($this->asset($url, $secure));
+    }
 
 }
