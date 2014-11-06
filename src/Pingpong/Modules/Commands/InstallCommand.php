@@ -5,7 +5,7 @@ use Pingpong\Modules\Process\Installer;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-class ModuleInstallCommand extends Command {
+class InstallCommand extends Command {
 
     /**
      * The console command name.
@@ -19,7 +19,7 @@ class ModuleInstallCommand extends Command {
      *
      * @var string
      */
-    protected $description = 'Install the specified module by github repo name (username/reponame).';
+    protected $description = 'Install the specified module by given github repo name (username/reponame).';
 
     /**
      * Create a new command instance.

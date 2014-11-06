@@ -2,7 +2,7 @@
 
 use Illuminate\Console\Command;
 
-class ModuleSetupCommand extends Command {
+class SetupCommand extends Command {
 
     /**
      * The console command name.

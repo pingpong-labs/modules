@@ -1,27 +1,27 @@
 <?php namespace Pingpong\Modules\Commands;
 
 use Illuminate\Console\Command;
+use Pingpong\Modules\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputOption;
-use Pingpong\Modules\Traits\MigrationLoaderTrait;
 use Symfony\Component\Console\Input\InputArgument;
 
-class ModuleMigrateResetCommand extends Command {
+class MigrateRefreshCommand extends Command {
 
-    use MigrationLoaderTrait;
+    use ModuleCommandTrait;
 
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'module:migrate-reset';
+    protected $name = 'module:migrate-refresh';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Reset the modules migrations.';
+    protected $description = 'Rollback & re-migrate the modules migrations.';
 
     /**
      * Execute the console command.
@@ -30,35 +30,24 @@ class ModuleMigrateResetCommand extends Command {
      */
     public function fire()
     {
-        $module = $this->argument('module');
-
-        if ( ! empty($module))
-        {
-            $this->reset($module);
-
-            return;
-        }
-
-        foreach ($this->laravel['modules']->all() as $module)
-        {
-            $this->reset($module);
-        }
-    }
-
-    /**
-     * Rollback migration from the specified module.
-     *
-     * @param $module
-     */
-    public function reset($module)
-    {
-        $this->loadMigrationFiles($module);
-
-        $this->call('migrate:reset', [
-            '--pretend' => $this->option('pretend'),
+        $this->call('module:migrate-reset', [
+            'module' => $this->getModuleName(),
             '--database' => $this->option('database'),
             '--force' => $this->option('force'),
         ]);
+
+        $this->call('module:migrate', [
+            'module' => $this->getModuleName(),
+            '--database' => $this->option('database'),
+            '--force' => $this->option('force'),
+        ]);
+
+        if ($this->option('seed'))
+        {
+            $this->call('module:seed', [
+                'module' => $this->getModuleName()
+            ]);
+        }
     }
 
     /**
@@ -83,7 +72,7 @@ class ModuleMigrateResetCommand extends Command {
         return array(
             array('database', null, InputOption::VALUE_OPTIONAL, 'The database connection to use.'),
             array('force', null, InputOption::VALUE_NONE, 'Force the operation to run when in production.'),
-            array('pretend', null, InputOption::VALUE_NONE, 'Dump the SQL queries that would be run.'),
+            array('seed', null, InputOption::VALUE_NONE, 'Indicates if the seed task should be re-run.'),
         );
     }
 

@@ -5,7 +5,7 @@ use Pingpong\Generators\Stub;
 use Pingpong\Modules\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputArgument;
 
-class ModuleControllerCommand extends GeneratorCommand {
+class ControllerCommand extends GeneratorCommand {
 
     use ModuleCommandTrait;
 

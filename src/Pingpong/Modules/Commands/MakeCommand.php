@@ -1,27 +1,25 @@
 <?php namespace Pingpong\Modules\Commands;
 
 use Illuminate\Console\Command;
-use Pingpong\Modules\Traits\ModuleCommandTrait;
+use Pingpong\Modules\Generators\ModuleGenerator;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-class ModuleUpdateCommand extends Command {
-
-    use ModuleCommandTrait;
+class MakeCommand extends Command {
 
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'module:update';
+    protected $name = 'module:make';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Update dependencies for the specified module or for all modules.';
+    protected $description = 'Generate new module.';
 
     /**
      * Execute the console command.
@@ -30,10 +28,14 @@ class ModuleUpdateCommand extends Command {
      */
     public function fire()
     {
-        $this->laravel['modules']->update($name = $this->getModuleName());
-
-        $this->info("Module [{$name}] updated successfully.");
+        with(new ModuleGenerator($this->argument('name')))
+            ->setFilesystem($this->laravel['files'])
+            ->setModule($this->laravel['modules'])
+            ->setConfig($this->laravel['config'])
+            ->setConsole($this)
+            ->generate();
     }
+
 
     /**
      * Get the console command arguments.
@@ -43,7 +45,7 @@ class ModuleUpdateCommand extends Command {
     protected function getArguments()
     {
         return array(
-            array('module', InputArgument::OPTIONAL, 'The name of module will be updated.'),
+            array('name', InputArgument::REQUIRED, 'The name of module will be created.'),
         );
     }
 

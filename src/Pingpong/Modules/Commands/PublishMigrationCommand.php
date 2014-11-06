@@ -1,26 +1,24 @@
 <?php namespace Pingpong\Modules\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Filesystem\Filesystem as File;
-use Pingpong\Modules\Publishing\AssetPublisher;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use Pingpong\Modules\Publishing\MigrationPublisher;
 
-class ModulePublisherCommand extends Command {
+class PublishMigrationCommand extends Command {
 
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'module:publish';
+    protected $name = 'module:publish-migration';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Publish assets from the specified module or from all modules.';
+    protected $description = "Publish a module's migrations to the application";
 
     /**
      * Execute the console command.
@@ -29,7 +27,7 @@ class ModulePublisherCommand extends Command {
      */
     public function fire()
     {
-        with(new AssetPublisher($this->argument('module')))
+        with(new MigrationPublisher($this->argument('module')))
             ->setModule($this->laravel['modules'])
             ->setFilesystem($this->laravel['files'])
             ->setConfig($this->laravel['config'])
@@ -45,7 +43,7 @@ class ModulePublisherCommand extends Command {
     protected function getArguments()
     {
         return array(
-            array('module', InputArgument::OPTIONAL, 'The name of module will be used.'),
+            array('module', InputArgument::OPTIONAL, 'Module name.'),
         );
     }
 

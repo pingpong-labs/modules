@@ -9,7 +9,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 use Pingpong\Generators\Exceptions\InvalidMigrationName;
 
-class ModuleMigrateMakeCommand extends GeneratorCommand {
+class MigrationCommand extends GeneratorCommand {
 
     use ModuleCommandTrait;
 

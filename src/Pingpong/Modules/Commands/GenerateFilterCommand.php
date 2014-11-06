@@ -6,7 +6,7 @@ use Pingpong\Modules\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-class ModuleCommandCommand extends GeneratorCommand {
+class GenerateFilterCommand extends GeneratorCommand {
 
     use ModuleCommandTrait;
 
@@ -15,14 +15,14 @@ class ModuleCommandCommand extends GeneratorCommand {
      *
      * @var string
      */
-    protected $name = 'module:command';
+    protected $name = 'module:filter-make';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Generate new Artisan command for the specified module.';
+    protected $description = 'Generate new filter for the specified module.';
 
     /**
      * Get the console command arguments.
@@ -38,26 +38,13 @@ class ModuleCommandCommand extends GeneratorCommand {
     }
 
     /**
-     * Get the console command options.
-     *
-     * @return array
-     */
-    protected function getOptions()
-    {
-        return array(
-            array('command', null, InputOption::VALUE_OPTIONAL, 'The terminal command that should be assigned.', null),
-        );
-    }
-
-    /**
      * @return mixed
      */
     protected function getTemplateContents()
     {
-        return new Stub('command', [
+        return new Stub('filter', [
             'MODULE' => $this->getModuleName(),
-            'NAME' => $this->getFileName(),
-            'COMMAND_NAME' => $this->getCommandName()
+            'NAME' => $this->getFileName()
         ]);
     }
 
@@ -68,7 +55,7 @@ class ModuleCommandCommand extends GeneratorCommand {
     {
         $path = $this->laravel['modules']->getModulePath($this->getModuleName());
 
-        $seederPath = $this->laravel['config']->get('modules::paths.generator.command');
+        $seederPath = $this->laravel['config']->get('modules::paths.generator.filter');
 
         return $path . $seederPath . '/' . $this->getFileName() . '.php';
     }
@@ -81,11 +68,4 @@ class ModuleCommandCommand extends GeneratorCommand {
         return Str::studly($this->argument('name'));
     }
 
-    /**
-     * @return string
-     */
-    private function getCommandName()
-    {
-        return $this->option('command') ?: 'command:name';
-    }
 }

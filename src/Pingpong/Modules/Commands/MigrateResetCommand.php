@@ -5,23 +5,23 @@ use Symfony\Component\Console\Input\InputOption;
 use Pingpong\Modules\Traits\MigrationLoaderTrait;
 use Symfony\Component\Console\Input\InputArgument;
 
-class ModuleMigrateRollbackCommand extends Command {
+class MigrateResetCommand extends Command {
 
-    use MigrationLoaderTrait; 
+    use MigrationLoaderTrait;
 
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'module:migrate-rollback';
+    protected $name = 'module:migrate-reset';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Rollback the modules migrations.';
+    protected $description = 'Reset the modules migrations.';
 
     /**
      * Execute the console command.
@@ -34,14 +34,14 @@ class ModuleMigrateRollbackCommand extends Command {
 
         if ( ! empty($module))
         {
-            $this->rollback($module);
+            $this->reset($module);
 
             return;
         }
 
         foreach ($this->laravel['modules']->all() as $module)
         {
-            $this->rollback($module);
+            $this->reset($module);
         }
     }
 
@@ -50,11 +50,11 @@ class ModuleMigrateRollbackCommand extends Command {
      *
      * @param $module
      */
-    public function rollback($module)
+    public function reset($module)
     {
         $this->loadMigrationFiles($module);
 
-        $this->call('migrate:rollback', [
+        $this->call('migrate:reset', [
             '--pretend' => $this->option('pretend'),
             '--database' => $this->option('database'),
             '--force' => $this->option('force'),

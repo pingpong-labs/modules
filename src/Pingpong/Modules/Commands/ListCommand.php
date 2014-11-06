@@ -3,7 +3,7 @@
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
 
-class ModuleListCommand extends Command {
+class ListCommand extends Command {
 
     /**
      * The console command name.

@@ -7,7 +7,7 @@ use Pingpong\Modules\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-class ModuleSeedMakeCommand extends GeneratorCommand {
+class ModelCommand extends GeneratorCommand {
 
     use ModuleCommandTrait;
 
@@ -16,14 +16,14 @@ class ModuleSeedMakeCommand extends GeneratorCommand {
      *
      * @var string
      */
-    protected $name = 'module:seed-make';
+    protected $name = 'module:model';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Generate new seeder for the specified module.';
+    protected $description = 'Generate new model for the specified module.';
 
     /**
      * Get the console command arguments.
@@ -33,7 +33,7 @@ class ModuleSeedMakeCommand extends GeneratorCommand {
     protected function getArguments()
     {
         return array(
-            array('name', InputArgument::REQUIRED, 'The name of seeder will be created.'),
+            array('model', InputArgument::REQUIRED, 'The name of model will be created.'),
             array('module', InputArgument::OPTIONAL, 'The name of module will be used.'),
         );
     }
@@ -46,12 +46,7 @@ class ModuleSeedMakeCommand extends GeneratorCommand {
     protected function getOptions()
     {
         return array(
-            array(
-                'master',
-                null,
-                InputOption::VALUE_NONE,
-                'Indicates the seeder will created is a master database seeder.'
-            ),
+            array('fillable', null, InputOption::VALUE_OPTIONAL, 'The fillable attributes.', null),
         );
     }
 
@@ -60,9 +55,10 @@ class ModuleSeedMakeCommand extends GeneratorCommand {
      */
     protected function getTemplateContents()
     {
-        return new Stub('seeder', [
-            'NAME' => $this->getSeederName(),
-            'MODULE' => $this->getModuleName()
+        return new Stub('model', [
+            'MODULE' => $this->getModuleName(),
+            'NAME' => $this->getModelName(),
+            'FILLABLE' => $this->getFillable()
         ]);
     }
 
@@ -73,20 +69,33 @@ class ModuleSeedMakeCommand extends GeneratorCommand {
     {
         $path = $this->laravel['modules']->getModulePath($this->getModuleName());
 
-        $seederPath = $this->laravel['config']->get('modules::paths.generator.seeder');
+        $seederPath = $this->laravel['config']->get('modules::paths.generator.model');
 
-        return $path . $seederPath . '/' . $this->getSeederName() . '.php';
+        return $path . $seederPath . '/' . $this->getModelName() . '.php';
     }
 
     /**
-     * Get seeder name.
-     *
+     * @return mixed|string
+     */
+    private function getModelName()
+    {
+        return Str::studly($this->argument('model'));
+    }
+
+    /**
      * @return string
      */
-    private function getSeederName()
+    private function getFillable()
     {
-        $end = $this->option('master') ? 'DatabaseSeeder' : 'TableSeeder';
+        $fillable = $this->option('fillable');
 
-        return Str::studly($this->argument('name')) . $end;
+        if ( ! is_null($fillable))
+        {
+            $arrays = explode(',', $fillable);
+
+            return json_encode($arrays);
+        }
+
+        return '[]';
     }
 }

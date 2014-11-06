@@ -4,7 +4,7 @@ use Pingpong\Generators\Stub;
 use Pingpong\Modules\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputArgument;
 
-class ModuleGenerateRouteProviderCommand extends GeneratorCommand {
+class GenerateRouteProviderCommand extends GeneratorCommand {
 
     use ModuleCommandTrait;
 

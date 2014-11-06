@@ -24,7 +24,6 @@ abstract class TestCase extends \Pingpong\Testing\TestCase {
         ];
     }
 
-
     /**
      * Get application timezone.
      *

@@ -1,12 +1,12 @@
 <?php namespace Pingpong\Modules\Commands;
 
-use Pingpong\Generators\Stub;
 use Illuminate\Support\Str;
+use Pingpong\Generators\Stub;
 use Pingpong\Modules\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-class ModuleGenerateFilterCommand extends GeneratorCommand {
+class CommandCommand extends GeneratorCommand {
 
     use ModuleCommandTrait;
 
@@ -15,14 +15,14 @@ class ModuleGenerateFilterCommand extends GeneratorCommand {
      *
      * @var string
      */
-    protected $name = 'module:filter-make';
+    protected $name = 'module:command';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Generate new filter for the specified module.';
+    protected $description = 'Generate new Artisan command for the specified module.';
 
     /**
      * Get the console command arguments.
@@ -38,13 +38,26 @@ class ModuleGenerateFilterCommand extends GeneratorCommand {
     }
 
     /**
+     * Get the console command options.
+     *
+     * @return array
+     */
+    protected function getOptions()
+    {
+        return array(
+            array('command', null, InputOption::VALUE_OPTIONAL, 'The terminal command that should be assigned.', null),
+        );
+    }
+
+    /**
      * @return mixed
      */
     protected function getTemplateContents()
     {
-        return new Stub('filter', [
+        return new Stub('command', [
             'MODULE' => $this->getModuleName(),
-            'NAME' => $this->getFileName()
+            'NAME' => $this->getFileName(),
+            'COMMAND_NAME' => $this->getCommandName()
         ]);
     }
 
@@ -55,7 +68,7 @@ class ModuleGenerateFilterCommand extends GeneratorCommand {
     {
         $path = $this->laravel['modules']->getModulePath($this->getModuleName());
 
-        $seederPath = $this->laravel['config']->get('modules::paths.generator.filter');
+        $seederPath = $this->laravel['config']->get('modules::paths.generator.command');
 
         return $path . $seederPath . '/' . $this->getFileName() . '.php';
     }
@@ -68,4 +81,11 @@ class ModuleGenerateFilterCommand extends GeneratorCommand {
         return Str::studly($this->argument('name'));
     }
 
+    /**
+     * @return string
+     */
+    private function getCommandName()
+    {
+        return $this->option('command') ?: 'command:name';
+    }
 }

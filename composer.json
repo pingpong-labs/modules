@@ -38,8 +38,8 @@
         }
     },
     "autoload-dev": {
-        "files": [
-            "tests/TestCase.php"
+        "classmap": [
+            "tests"
         ]
     },
     "extra": {

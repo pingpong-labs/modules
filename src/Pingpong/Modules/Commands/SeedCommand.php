@@ -6,7 +6,7 @@ use Pingpong\Modules\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-class ModuleSeedCommand extends Command {
+class SeedCommand extends Command {
 
     use ModuleCommandTrait;
 

@@ -3,21 +3,21 @@
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
 
-class ModuleDisableCommand extends Command {
+class EnableCommand extends Command {
 
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'module:disable';
+    protected $name = 'module:enable';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Disable the specified module.';
+    protected $description = 'Enable the specified module.';
 
     /**
      * Execute the console command.
@@ -30,13 +30,13 @@ class ModuleDisableCommand extends Command {
 
         if ($this->laravel['modules']->active($this->argument('module')))
         {
-            $this->laravel['modules']->disable($module);
-
-            $this->info("Module [{$module}] disabled successful.");
+            $this->comment("Module [{$module}] has already enabled.");
         }
         else
         {
-            $this->comment("Module [{$module}] has already disabled.");
+            $this->laravel['modules']->enable($module);
+
+            $this->info("Module [{$module}] enabled successful.");
         }
     }
 

@@ -1,27 +1,27 @@
 <?php namespace Pingpong\Modules\Commands;
 
 use Illuminate\Console\Command;
-use Pingpong\Modules\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputOption;
+use Pingpong\Modules\Traits\MigrationLoaderTrait;
 use Symfony\Component\Console\Input\InputArgument;
 
-class ModuleMigrateRefreshCommand extends Command {
+class MigrateRollbackCommand extends Command {
 
-    use ModuleCommandTrait;
+    use MigrationLoaderTrait; 
 
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'module:migrate-refresh';
+    protected $name = 'module:migrate-rollback';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Rollback & re-migrate the modules migrations.';
+    protected $description = 'Rollback the modules migrations.';
 
     /**
      * Execute the console command.
@@ -30,24 +30,35 @@ class ModuleMigrateRefreshCommand extends Command {
      */
     public function fire()
     {
-        $this->call('module:migrate-reset', [
-            'module' => $this->getModuleName(),
-            '--database' => $this->option('database'),
-            '--force' => $this->option('force'),
-        ]);
+        $module = $this->argument('module');
 
-        $this->call('module:migrate', [
-            'module' => $this->getModuleName(),
-            '--database' => $this->option('database'),
-            '--force' => $this->option('force'),
-        ]);
-
-        if ($this->option('seed'))
+        if ( ! empty($module))
         {
-            $this->call('module:seed', [
-                'module' => $this->getModuleName()
-            ]);
+            $this->rollback($module);
+
+            return;
         }
+
+        foreach ($this->laravel['modules']->all() as $module)
+        {
+            $this->rollback($module);
+        }
+    }
+
+    /**
+     * Rollback migration from the specified module.
+     *
+     * @param $module
+     */
+    public function rollback($module)
+    {
+        $this->loadMigrationFiles($module);
+
+        $this->call('migrate:rollback', [
+            '--pretend' => $this->option('pretend'),
+            '--database' => $this->option('database'),
+            '--force' => $this->option('force'),
+        ]);
     }
 
     /**
@@ -72,7 +83,7 @@ class ModuleMigrateRefreshCommand extends Command {
         return array(
             array('database', null, InputOption::VALUE_OPTIONAL, 'The database connection to use.'),
             array('force', null, InputOption::VALUE_NONE, 'Force the operation to run when in production.'),
-            array('seed', null, InputOption::VALUE_NONE, 'Indicates if the seed task should be re-run.'),
+            array('pretend', null, InputOption::VALUE_NONE, 'Dump the SQL queries that would be run.'),
         );
     }
 
