@@ -3,6 +3,7 @@
 use Countable;
 use Illuminate\Support\Str;
 use Pingpong\Modules\Process\Updater;
+use Illuminate\Foundation\Application;
 use Pingpong\Modules\Process\Installer;
 
 class Repository extends Finder {
@@ -51,6 +52,25 @@ class Repository extends Finder {
         }
 
         return null;
+    }
+
+    /**
+     * Register modules providers.
+     * 
+     * @param  Application $app
+     * @return void
+     */
+    public function registerModulesProviders(Application $app)
+    {
+        foreach ($this->all() as $module)
+        {
+            $providers = $module->present()->getProviders();
+            
+            foreach ($providers as $provider)
+            {
+                $app->register($provider);
+            }
+        }
     }
 
     /**
