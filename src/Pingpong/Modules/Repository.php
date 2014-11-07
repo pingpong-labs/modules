@@ -45,7 +45,10 @@ class Repository extends Finder {
     {
         foreach ($this->all() as $module)
         {
-            if($module->getLowerName() == strtolower($search)) return $module;
+            if($module->getLowerName() == strtolower($search))
+            {
+                return $module;
+            }
         }
 
         return null;

@@ -6,12 +6,7 @@ abstract class TestCase extends \Pingpong\Testing\TestCase {
 
     public static function getLaravel()
     {
-    	return (new static)->getApplication();
-    }
-
-    public function getApplication()
-    {
-        return $this->app;
+    	return (new static)->createApplication();
     }
 
     /**
