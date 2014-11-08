@@ -37,17 +37,6 @@ class ModulesServiceProvider extends ServiceProvider {
     public function register()
     {
         $this->registerServices();
-        $this->registerConsole();
-        $this->registerHtml();
-    }
-
-    /**
-     * Register the console.
-     * 
-     * @return string
-     */
-    protected function registerConsole()
-    {
         $this->app->register(__NAMESPACE__ . '\\Providers\\ConsoleServiceProvider');
     }
 
@@ -81,8 +70,6 @@ class ModulesServiceProvider extends ServiceProvider {
 
             return new Repository($path, $app['files']);
         });
-
-        $this->app['modules']->registerModulesProviders($this->app);
     }
 
     /**

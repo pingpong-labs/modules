@@ -11,6 +11,7 @@
         "Illuminate\\Encryption\\EncryptionServiceProvider",
         "Illuminate\\Filesystem\\FilesystemServiceProvider",
         "Illuminate\\Hashing\\HashServiceProvider",
+        "Illuminate\\Html\\HtmlServiceProvider",
         "Illuminate\\Log\\LogServiceProvider",
         "Illuminate\\Mail\\MailServiceProvider",
         "Illuminate\\Database\\MigrationServiceProvider",
@@ -72,6 +73,8 @@
         "command.queue.failed-table": "Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider",
         "command.controller.make": "Illuminate\\Routing\\ControllerServiceProvider",
         "hash": "Illuminate\\Hashing\\HashServiceProvider",
+        "html": "Illuminate\\Html\\HtmlServiceProvider",
+        "form": "Illuminate\\Html\\HtmlServiceProvider",
         "log": "Illuminate\\Log\\LogServiceProvider",
         "mailer": "Illuminate\\Mail\\MailServiceProvider",
         "swift.mailer": "Illuminate\\Mail\\MailServiceProvider",
@@ -126,6 +129,9 @@
 
         ],
         "Illuminate\\Hashing\\HashServiceProvider": [
+
+        ],
+        "Illuminate\\Html\\HtmlServiceProvider": [
 
         ],
         "Illuminate\\Log\\LogServiceProvider": [
