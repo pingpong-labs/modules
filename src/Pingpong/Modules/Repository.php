@@ -374,7 +374,7 @@ class Repository implements Countable {
     {
         return $this->exists($name);
     }
-    
+
     /**
      * Determine if the module exists.
      *
@@ -467,6 +467,13 @@ class Repository implements Countable {
         }
     }
 
+    /**
+     * Get asset url from specified module path.
+     * 
+     * @param  string  $path
+     * @param  boolean $secure
+     * @return string
+     */
     public function asset($path, $secure = false)
     {
         list($module, $url) = explode(':', $path);
@@ -474,16 +481,37 @@ class Repository implements Countable {
         return app('url')->asset("modules/{$module}/{$url}");
     }
 
+    /**
+     * Get style tag from the given url.
+     * 
+     * @param  string  $url
+     * @param  boolean $secure
+     * @return string
+     */
     public function style($url, $secure = false)
     {
         return app('html')->style($this->asset($url, $secure));
     }
 
+    /**
+     * Get script tag from the given url.
+     * 
+     * @param  string  $url
+     * @param  boolean $secure
+     * @return string
+     */
     public function script($url, $secure = false)
     {
         return app('html')->script($this->asset($url, $secure));
     }
 
+    /**
+     * Get asset path from the specfied module.
+     * 
+     * @param  string  $path
+     * @param  boolean $secure
+     * @return string
+     */
     public function assetPath($path = null, $secure = false)
     {
         $assetsPath = app('config')->get('modules::paths.assets');
@@ -500,6 +528,13 @@ class Repository implements Countable {
         return $assetsPath . '/' . $path;
     }
 
+    /**
+     * Get a specific modules configuration.
+     * 
+     * @param  string $key
+     * @param  null|mixed $default
+     * @return mixed
+     */
     public function config($key, $default = null)
     {
         return app('config')->get("modules::paths.{$key}", $default);
