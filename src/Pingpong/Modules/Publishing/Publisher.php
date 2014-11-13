@@ -8,26 +8,66 @@ use Pingpong\Modules\Contracts\PublisherInterface;
 
 abstract class Publisher implements PublisherInterface {
 
+	/**
+	 * The name of module will used.
+	 * 
+	 * @var string
+	 */
 	protected $module;
 
+	/**
+	 * The modules repository instance.
+	 * 
+	 * @var \Pingpong\Modules\Repository
+	 */
 	protected $repository;
 
+	/**
+	 * The laravel console instance.
+	 * 
+	 * @var \Illuminate\Console\Command
+	 */
 	protected $console;
 
+	/**
+	 * The success message will displayed at console.
+	 * 
+	 * @var string
+	 */
 	protected $success = '';
 
+	/**
+	 * The error message will displayed at console.
+	 * 
+	 * @var string
+	 */
 	protected $error = '';
 
+	/**
+	 * The constructor.
+	 * 
+	 * @param string $module
+	 */
 	public function __construct($module)
 	{
 		$this->module = $module;
 	}
 
+	/**
+	 * Get module instance.
+	 * 
+	 * @return \Pingpong\Modules\Module
+	 */
 	public function getModule()
 	{
 		return new Module($this->module, $this->getRepository());
 	}
 
+	/**
+	 * Set modules repository instance.
+	 * 
+	 * @param \Pingpong\Modules\Repository $repository
+	 */
 	public function setRepository(Repository $repository)
 	{
 		$this->repository = $repository;
@@ -35,11 +75,21 @@ abstract class Publisher implements PublisherInterface {
 		return $this;
 	}
 
+	/**
+	 * Get modules repository instance.
+	 * 
+	 * @return \Pingpong\Modules\Repository
+	 */
 	public function getRepository()
 	{
 		return $this->repository;
 	}
 
+	/**
+	 * Set console instance.
+	 * 
+	 * @param \Illuminate\Console\Command $console
+	 */
 	public function setConsole(Command $console)
 	{
 		$this->console = $console;
@@ -47,30 +97,45 @@ abstract class Publisher implements PublisherInterface {
 		return $this;
 	}
 
+	/**
+	 * Get console instance.
+	 * 
+	 * @return \Illuminate\Console\Command
+	 */
 	public function getConsole()
 	{
 		return $this->console;
 	}
 
+	/**
+	 * Get laravel filesystem instance.
+	 * 
+	 * @return \Illuminate\Filesystem\Filesystem
+	 */
 	public function getFilesystem()
 	{
 		return $this->repository->getFiles();
 	}
 
-	public function info($message)
-	{
-		$this->console->info($message);
-	}
-
-	public function error($message)
-	{
-		$this->console->error($message);
-	}
-
+	/**
+	 * Get destination path.
+	 * 
+	 * @return string
+	 */
 	abstract public function getDestinationPath();
 
+	/**
+	 * Get source path.
+	 * 
+	 * @return string
+	 */
 	abstract public function getSourcePath();
 
+	/**
+	 * Publish something.
+	 * 
+	 * @return void
+	 */
 	public function publish()
 	{
 		if( ! $this->console instanceof Command)
@@ -96,11 +161,11 @@ abstract class Publisher implements PublisherInterface {
 
 		if($this->getFilesystem()->copyDirectory($sourcePath, $destinationPath))
 		{
-			$this->info($this->success);
+			$this->console->info($this->success);
 		}
 		else
 		{
-			$this->error($this->error);
+			$this->console->error($this->error);
 		}
 	}
 
