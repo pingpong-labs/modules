@@ -30,9 +30,7 @@ class PublishCommand extends Command {
     public function fire()
     {
         with(new AssetPublisher($this->argument('module')))
-            ->setModule($this->laravel['modules'])
-            ->setFilesystem($this->laravel['files'])
-            ->setConfig($this->laravel['config'])
+            ->setRepository($this->laravel['modules'])
             ->setConsole($this)
             ->publish();
     }

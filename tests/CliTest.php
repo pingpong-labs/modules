@@ -28,7 +28,8 @@ class CliTest extends TestCase {
  			'module:disable' => ['module' => 'Bar'],
  			'module:enable' => ['module' => 'Bar'],
  			'module:provider' => ['name' => 'ConsoleServiceProvider'],
- 			'module:route-provider' => ['module' => 'Bar'],
+ 			'module:publish' => ['module' => 'Bar'],
+ 			'module:publish-migration' => ['module' => 'Bar'],
  			// 'module:migration' => ['name' => 'create_users_table', '--fields' => ''],
 		];
 

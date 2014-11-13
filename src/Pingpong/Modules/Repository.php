@@ -254,4 +254,25 @@ class Repository extends Finder {
         return app('html')->script($this->asset($url, $secure));
     }
 
+    public function assetPath($path = null, $secure = false)
+    {
+        $assetsPath = app('config')->get('modules::paths.assets');
+
+        if(is_null($path)) return $assetsPath;
+
+        if( str_contains($path, ':'))
+        {
+            list($module, $url) = explode(':', $path);
+
+            return $assetsPath . "/{$module}/{$url}";
+        }
+
+        return $assetsPath . '/' . $path;
+    }
+
+    public function config($key, $default = null)
+    {
+        return app('config')->get("modules::paths.{$key}", $default);
+    }
+
 }

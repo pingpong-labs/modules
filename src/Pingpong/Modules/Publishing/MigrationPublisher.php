@@ -2,45 +2,14 @@
 
 class MigrationPublisher extends AssetPublisher {
 
-    /**
-     * Publish migrations form the specified module.
-     *
-     * @param $module
-     */
-    protected function publishFromModule($module)
-    {
-        if ( ! $this->module->has($module))
-        {
-            $this->console->error("Module [{$module}] does not exist.");
+	public function getDestinationPath()
+	{
+		return $this->repository->config('migration');
+	}
 
-            exit;
-        }
-
-        $this->filesystem->copyDirectory($this->getPublishingPath($module), $this->getDestinationPath($module));
-
-        $this->console->info("Migrations published from module : {$module}");
-    }
-
-    /**
-     * Get asset path from the specified module.
-     *
-     * @param $module
-     * @return string
-     */
-    protected function getPublishingPath($module)
-    {
-        return $this->module->getModulePath($module) . $this->config->get('modules::paths.generator.migration');
-    }
-
-    /**
-     * Get the destination path for the specified module.
-     *
-     * @param $module
-     * @return string
-     */
-    protected function getDestinationPath($module)
-    {
-        return $this->config->get('modules::paths.migration');
-    }
+	public function getSourcePath()
+	{
+		return $this->getModule()->getExtraPath($this->repository->config('generator.migration'));
+	}
 
 } 

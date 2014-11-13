@@ -80,6 +80,16 @@ class Module {
 	}
 
 	/**
+	 * Get extra path for specific module.
+	 * 
+	 * @return string
+	 */
+	public function getExtraPath($extra)
+	{
+		return $this->getPath() . '/' . $extra;
+	}
+
+	/**
 	 * Delete module.
 	 * 
 	 * @return void

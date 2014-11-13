@@ -1,6 +1,5 @@
 <?php
 
-use Pingpong\Modules\Finder;
 use Pingpong\Modules\Repository;
 
 class RepositoryTest extends \PHPUnit_Framework_TestCase {
