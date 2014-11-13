@@ -150,13 +150,13 @@ class Module {
 	}
 
 	/**
-	 * Handle call to __toString method.
+	 * Get json data.
 	 * 
-	 * @return string
+	 * @return \Pingpong\Modules\Json
 	 */
-	public function __toString()
+	public function json()
 	{
-		return $this->name;
+		return Json::make($this->getJsonPath());
 	}
 
 	/**
@@ -170,6 +170,16 @@ class Module {
 	}
 
 	/**
+	 * Get start json path.
+	 * 
+	 * @return string
+	 */
+	public function getJsonPath()
+	{
+		return $this->getPath() . '/modules.json';
+	}
+
+	/**
 	 * Register the start file from current module.
 	 * 
 	 * @return string
@@ -177,6 +187,16 @@ class Module {
 	public function register()
 	{
 		include_once $this->getStartFilePath();
+	}
+
+	/**
+	 * Handle call to __toString method.
+	 * 
+	 * @return string
+	 */
+	public function __toString()
+	{
+		return $this->name;
 	}
 
 }

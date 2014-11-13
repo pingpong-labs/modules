@@ -135,9 +135,22 @@ class Json {
 	 */
 	public function update(array $data)
 	{
-		$this->attributes = new Collection($data);
+		$this->attributes = new Collection(array_merge($this->attributes->toArray(), $data));
 
 		return $this->save();
+	}
+
+	/**
+	 * Set a specific key & value.
+	 * 
+	 * @param string $key
+	 * @param mixed $value
+	 */
+	public function set($key, $value)
+	{
+		$this->attributes->offsetSet($key, $value);
+
+		return $this;
 	}
 
 	/**

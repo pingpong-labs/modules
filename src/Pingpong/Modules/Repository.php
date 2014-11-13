@@ -85,29 +85,18 @@ class Repository implements Countable {
     }
 
     /**
-     * Get module json content as an array.
+     * Get module json contents as an array.
      *
      * @param $module
      * @return array|mixed
      */
-    public function getJsonContents($module)
+    public function json($module)
     {
         $module = Str::studly($module);
 
-        $default = array();
+        if ( ! $this->has($module)) return array();
 
-        if ( ! $this->has($module)) return $default;
-
-        $path = $this->getJsonPath($module);
-
-        if ($this->files->exists($path))
-        {
-            $contents = $this->files->get($path);
-
-            return json_decode($contents, true);
-        }
-
-        return $default;
+        return Json::make($this->getJsonPath($module));
     }
 
     /**
@@ -121,7 +110,7 @@ class Repository implements Countable {
     {
         list($module, $key) = explode('::', $data);
 
-        return array_get($this->getJsonContents($module), $key, $default);
+        return array_get($this->json($module)->toArray(), $key, $default);
     }
 
     /**
@@ -133,15 +122,11 @@ class Repository implements Countable {
      */
     public function setActive($module, $status)
     {
-        $data = $this->getJsonContents($module);
+        $data = $this->json($module);
 
         if (count($data))
         {
-            unset($data['active']);
-
-            $data['active'] = $status;
-
-            $this->updateJsonContents($module, $data);
+            $data->set('active', $status)->save();
 
             return true;
         }
@@ -249,10 +234,7 @@ class Repository implements Countable {
     {
         $modules = array();
 
-        if ( ! is_dir($path = $this->getPath()))
-        {
-            return $modules;
-        }
+        if ( ! is_dir($path = $this->getPath())) return $modules;
 
         $folders = $this->files->directories($path);
 
