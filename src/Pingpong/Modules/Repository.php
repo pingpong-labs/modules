@@ -213,7 +213,7 @@ class Repository implements Countable {
      */
     public function getUsedPath()
     {
-        return __DIR__ . '/../../modules.used';
+        return storage_path('meta/modules.json');
     }
 
     /**
