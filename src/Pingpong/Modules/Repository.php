@@ -29,7 +29,7 @@ class Repository implements Countable {
      * @param string $path
      * @param Filesystem $files
      */
-    public function __construct($path, Filesystem $files= null)
+    public function __construct($path, Filesystem $files = null)
     {
         $this->path = $path;
         $this->files = $files ?: new Filesystem;
@@ -79,10 +79,7 @@ class Repository implements Countable {
     {
         $module = Str::studly($module);
 
-        if ( ! $this->has($module) && $allowNotExists === false)
-        {
-            return null;
-        }
+        if ( ! $this->has($module) && $allowNotExists === false) return null;
 
         return $this->getPath() . "/{$module}/";
     }
@@ -99,10 +96,7 @@ class Repository implements Countable {
 
         $default = array();
 
-        if ( ! $this->has($module))
-        {
-            return $default;
-        }
+        if ( ! $this->has($module)) return $default;
 
         $path = $this->getJsonPath($module);
 
@@ -151,6 +145,7 @@ class Repository implements Countable {
 
             return true;
         }
+
         return false;
     }
 
@@ -240,10 +235,7 @@ class Repository implements Countable {
     {
         $path = $this->getUsedPath();
 
-        if ( ! $this->files->exists($path))
-        {
-            return null;
-        }
+        if ( ! $this->files->exists($path)) return null;
 
         return $this->files->get($path);
     }
