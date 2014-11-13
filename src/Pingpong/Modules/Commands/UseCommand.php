@@ -28,8 +28,6 @@ class UseCommand extends Command {
      */
     public function fire()
     {
-        $moduleFinder = $this->laravel['modules'];
-
         $module = Str::studly($this->argument('module'));
 
         if ( ! $this->laravel['modules']->has($module))
@@ -39,7 +37,7 @@ class UseCommand extends Command {
             return;
         }
 
-        $moduleFinder->setUsed($module);
+        $this->laravel['modules']->setUsed($module);
 
         $this->info("Module [{$module}] has been used for current session.");
     }
