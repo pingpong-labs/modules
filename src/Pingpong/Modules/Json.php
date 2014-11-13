@@ -2,23 +2,29 @@
 
 use Illuminate\Support\Collection;
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Contracts\ArrayableInterface;
 
-class Json implements ArrayableInterface {
+class Json {
 
 	/**
 	 * The file path.
 	 * 
 	 * @var string
 	 */
-	protected $path;
-	
+	protected $path
+;	
 	/**
 	 * The laravel filesystem instance.
 	 * 
 	 * @var \Illuminate\Filesystem\Filesystem
 	 */
 	protected $filesystem;
+
+	/**
+	 * The attributes array.
+	 * 
+	 * @var array
+	 */
+	protected $attributes = [];
 
 	/**
 	 * The constructor.
@@ -30,6 +36,7 @@ class Json implements ArrayableInterface {
 	{
 		$this->path = (string) $path;
 		$this->filesystem = $filesystem ?: new Filesystem;
+		$this->attributes = Collection::make($this->getAttributes());
 	}
 
     /**
@@ -81,11 +88,12 @@ class Json implements ArrayableInterface {
 	 * Make new instance.
 	 * 
 	 * @param  string $path
+	 * @param  \Illuminate\Filesystem\Filesystem $filesystem
 	 * @return static
 	 */
-	public static function make($path)
+	public static function make($path, Filesystem $filesystem = null)
 	{
-		return new static($path);
+		return new static($path, $filesystem);
 	}
 
 	/**
@@ -103,31 +111,43 @@ class Json implements ArrayableInterface {
 	 * 
 	 * @return array
 	 */
-	public function toArray()
+	public function getAttributes()
 	{
-		return json_decode($this->getContents, 1);
+		return json_decode($this->getContents(), 1);
 	}
 
 	/**
-	 * Get file contents as laravel collection.
+	 * Convert the given array data to pretty json.
 	 * 
-	 * @return \Illuminate\Support\Collection
+	 * @param  array  $data
+	 * @return string
 	 */
-	public function toCollection()
+	public function toJsonPretty(array $data = null)
 	{
-		return Collection::make($this->toArray());
+		return json_encode($data ?: $this->attributes, JSON_PRETTY_PRINT);
 	}
 
 	/**
-	 * Get a specific key from collection.
+	 * Update json contents from array data.
 	 * 
-	 * @param  string $key
-	 * @param  null|mixed $default
-	 * @return mixed
+	 * @param  array  $data
+	 * @return boolean
 	 */
-	public function get($key, $default = null)
+	public function update(array $data)
 	{
-		return $this->toCollection()->get($key, $default);
+		$this->attributes = new Collection($data);
+
+		return $this->save();
+	}
+
+	/**
+	 * Save the current attributes array to the file storage.
+	 * 
+	 * @return bool
+	 */
+	public function save()
+	{
+        return $this->filesystem->put($this->getPath(), $this->toJsonPretty());
 	}
 
 	/**
@@ -139,6 +159,20 @@ class Json implements ArrayableInterface {
 	public function __get($key)
 	{
 		return $this->get($key);
+	}
+
+	/**
+	 * Handle call to method.
+	 * 
+	 * @param  string $method
+	 * @param  array $arguments
+	 * @return mixed
+	 */
+	public function __call($method, $arguments = [])
+	{
+		if(method_exists($this, $method)) return call_user_func_array([$this, $method], $arguments);
+
+		return call_user_func_array([$this->attributes, $method], $arguments);
 	}
 
 }
