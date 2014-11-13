@@ -154,9 +154,7 @@ abstract class Publisher implements PublisherInterface {
 
 		if( ! $this->getFilesystem()->isDirectory($destinationPath = $this->getDestinationPath()))
 		{
-			$message = "Destination path does not exist : {$destinationPath}";
-
-			throw new \InvalidArgumentException($message);
+			$this->getFilesystem()->makeDirectory($destinationPath, 0775, true);
 		} 
 
 		if($this->getFilesystem()->copyDirectory($sourcePath, $destinationPath))
