@@ -370,7 +370,7 @@ Get module json property as array from a specified module.
 If you need the modules that already created, maybe you could try and install some modules from the list below.
 
 - [pingpong-modules](https://github.com/pingpong-modules)
-- [nWidart-Modules](https://github.com/nWidart-Modules)
+- [nWidart-Modules](https://github.com/AsgardCms)
 
 ### License
 
