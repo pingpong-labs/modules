@@ -71,11 +71,14 @@ class Module {
 
 	/**
 	 * Get base path for the current module.
-	 * 
+	 *
+	 * @param  string|null $extra
 	 * @return string
 	 */
-	public function getPath()
+	public function getPath($extra = null)
 	{
+		if( ! is_null($extra)) return $this->getExtraPath($extra);
+
 		return $this->repository->getModulePath($this->name);
 	}
 
