@@ -6,6 +6,7 @@ Laravel Modules
 [![Total Downloads](https://poser.pugx.org/pingpong/modules/downloads.svg)](https://packagist.org/packages/pingpong/modules)
 [![Latest Unstable Version](https://poser.pugx.org/pingpong/modules/v/unstable.svg)](https://packagist.org/packages/pingpong/modules)
 [![License](https://poser.pugx.org/pingpong/modules/license.svg)](https://packagist.org/packages/pingpong/modules)
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/pingpong-labs/modules/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
 - [Installation](https://github.com/pingpong-labs/modules#installation)
 - [Changes Log](https://github.com/pingpong-labs/modules#changes-log)
@@ -375,6 +376,4 @@ If you need the modules that already created, maybe you could try and install so
 ### License
 
   This package is open-sourced software licensed under [The BSD 3-Clause License](http://opensource.org/licenses/BSD-3-Clause)
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/pingpong-labs/modules/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 

@@ -2,18 +2,6 @@
 
 class CliTest extends TestCase {
 
-	public function setUp()
-	{
-		parent::setUp();
-
-		$this->artisan = $this->app['artisan'];
-	}
-
-	public function artisan($command, $options = [])
-	{
-		$this->artisan->call($command, $options);
-	}
-
 	public function testGenerators()
 	{
 		$this->cleanup();
@@ -35,7 +23,7 @@ class CliTest extends TestCase {
 
 		foreach ($commandOptions as $command => $options)
 		{
-			$this->artisan($command, $options);
+			$this->app['artisan']->call($command, $options);
 		}
 
 		$this->cleanup();
