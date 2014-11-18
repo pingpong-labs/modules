@@ -2,12 +2,8 @@
     "name": "Blog",
     "alias": "blog",
     "description": "",
-    "keywords": [
-
-    ],
+    "keywords": [],
     "priority": 0,
-    "providers": [
-
-    ],
+    "providers": [],
     "active": 1
 }
