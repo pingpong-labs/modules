@@ -69,30 +69,29 @@ By default modules folder is in your `app/` directory. For first use, please run
   Now, naming modules must use a capital letter on the first letter. For example: Blog, News, Shop, etc.
 
   ```
-  app/
-      Modules
-      |-- Blog
-          |-- Assets/
-          |-- Config/
-          |-- Console/
-          |-- Database/
-              |-- Migrations/
-              |-- Models/
-              |-- Repositories/
-              |-- Seeders/
-          |-- Http
-              |-- Controllers
-              |-- Filters
-              |-- Requests
-              |-- routes.php
-          |-- Providers/
-              |-- BlogServiceProvider.php
-          |-- Resources/
-              |-- lang/
-              |-- views/
-          |-- Tests/
-          |-- module.json
-          |-- start.php
+  modules
+  |-- Blog
+      |-- Assets/
+      |-- Config/
+      |-- Console/
+      |-- Database/
+          |-- Migrations/
+          |-- Seeders/
+      |-- Entities/
+      |-- Http
+          |-- Controllers
+          |-- Filters
+          |-- Requests
+          |-- routes.php
+      |-- Providers/
+          |-- BlogServiceProvider.php
+      |-- Resources/
+          |-- lang/
+          |-- views/
+      |-- Repositories/
+      |-- Tests/
+      |-- module.json
+      |-- start.php
   ```
 
   **Note:** File `start.php` is required for registering `View`, `Lang` and `Config` namespaces. If that file does not exist, an exception `FileMissingException` is thrown.
