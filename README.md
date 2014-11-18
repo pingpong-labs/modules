@@ -59,7 +59,7 @@ Done.
 
 ### Setup modules folder for first use
 
-By default modules folder is in your `app/` directory. For first use, please run this command on your terminal.
+For first use, please run this command on your terminal.
   ```
   php artisan module:setup
   ```
@@ -69,7 +69,10 @@ By default modules folder is in your `app/` directory. For first use, please run
   Now, naming modules must use a capital letter on the first letter. For example: Blog, News, Shop, etc.
 
   ```
-  modules
+  app/
+  bootstrap/
+  vendor/
+  modules/
   |-- Blog
       |-- Assets/
       |-- Config/
@@ -330,17 +333,34 @@ Get module path for the specified module.
 
 Enable a specified module.
 ```php
-    Module::enable('blog')
+  Module::enable('blog')
 ```
 
 Disable a specified module.
 ```php
-    Module::disable('blog')
+  Module::disable('blog')
 ```
 
-Get module json property as array from a specified module.
+### Module Entity
+
+Get an entity from specific module.
+
 ```php
-    Module::getProperties('blog')
+  $module = Module::get('blog');
+
+  $module->getName();
+
+  $module->getLowerName();
+
+  $module->getPath();
+
+  $module->getPath('Assets');
+
+  $module->enable();
+
+  $module->disable();
+
+  $module->delete();
 ```
 
 ### Custom Namespaces
