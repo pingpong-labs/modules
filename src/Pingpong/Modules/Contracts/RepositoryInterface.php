@@ -37,10 +37,28 @@ interface RepositoryInterface {
      */
     public function getOrdered();
 
+    /**
+     * Get modules by the given status.
+     *
+     * @param int $status
+     * @return mixed
+     */
     public function getByStatus($status);
 
+    /**
+     * Find a specific module.
+     *
+     * @param $name
+     * @return mixed
+     */
     public function find($name);
 
+    /**
+     * Find a specific module. If there return that, otherwise throw exception.
+     *
+     * @param $name
+     * @return mixed
+     */
     public function findOrFail($name);
 
 }
