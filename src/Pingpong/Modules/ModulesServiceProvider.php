@@ -23,6 +23,8 @@ class ModulesServiceProvider extends ServiceProvider {
     {
         $this->package('pingpong/modules');
 
+        $this->app['modules']->boot();
+
         $this->app['modules']->register();
 
         Stub::setPath(__DIR__ . '/Commands/stubs');
