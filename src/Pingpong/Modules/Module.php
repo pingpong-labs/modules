@@ -31,6 +31,7 @@ class Module {
      * Set modules repository instance.
      *
      * @param Repository $repository
+     * @return $this
      */
     public function setRepository(Repository $repository)
     {
