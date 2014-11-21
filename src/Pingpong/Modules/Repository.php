@@ -9,16 +9,22 @@ use Pingpong\Modules\Exceptions\ModuleNotFoundException;
 class Repository implements RepositoryInterface, Countable {
 
     /**
+     * Application instance.
+     *
      * @var Application
      */
     protected $app;
 
     /**
-     * @var null
+     * The module path.
+     *
+     * @var string|null
      */
     protected $path;
 
     /**
+     * The constructor.
+     *
      * @param Application $app
      * @param string|null $path
      */
@@ -51,6 +57,8 @@ class Repository implements RepositoryInterface, Countable {
     }
 
     /**
+     * Get modules by status.
+     *
      * @param $status
      * @return array
      */
@@ -70,6 +78,8 @@ class Repository implements RepositoryInterface, Countable {
     }
 
     /**
+     * Determine whether the given module exist.
+     *
      * @param $name
      * @return bool
      */
@@ -81,7 +91,7 @@ class Repository implements RepositoryInterface, Countable {
     /**
      * Get list of enabled modules.
      *
-     * @return mixed
+     * @return array
      */
     public function enabled()
     {
@@ -91,7 +101,7 @@ class Repository implements RepositoryInterface, Countable {
     /**
      * Get list of disabled modules.
      *
-     * @return mixed
+     * @return array
      */
     public function disabled()
     {
@@ -111,7 +121,7 @@ class Repository implements RepositoryInterface, Countable {
     /**
      * Get all ordered modules.
      *
-     * @return mixed
+     * @return array
      */
     public function getOrdered()
     {
@@ -131,7 +141,9 @@ class Repository implements RepositoryInterface, Countable {
     }
 
     /**
-     * @return mixed
+     * Get a module path.
+     *
+     * @return string
      */
     public function getPath()
     {
@@ -139,19 +151,34 @@ class Repository implements RepositoryInterface, Countable {
     }
 
     /**
+     * Register the modules.
      *
+     * @return void
      */
     public function register()
     {
         foreach ($this->getOrdered() as $module)
         {
-//            var_dump($module);
-
-//            $module->register();
+            $module->register();
         }
     }
 
     /**
+     * Boot the modules.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        foreach ($this->getOrdered() as $module)
+        {
+            $module->boot();
+        }
+    }
+
+    /**
+     * Find a specific module.
+     *
      * @param $name
      * @return null
      */
@@ -169,6 +196,8 @@ class Repository implements RepositoryInterface, Countable {
     }
 
     /**
+     * Alternate for "find" method.
+     *
      * @param $name
      * @return null
      */
@@ -178,6 +207,8 @@ class Repository implements RepositoryInterface, Countable {
     }
 
     /**
+     * Find a specific module, if there return that, otherwise throw exception.
+     *
      * @param $name
      * @throws ModuleNotFoundException
      */
@@ -192,6 +223,8 @@ class Repository implements RepositoryInterface, Countable {
     }
 
     /**
+     * Get all modules as laravel collection instance.
+     *
      * @return Collection
      */
     public function collections()
@@ -200,6 +233,8 @@ class Repository implements RepositoryInterface, Countable {
     }
 
     /**
+     * Get module path for a specific module.
+     *
      * @param $module
      * @return string
      */
@@ -211,6 +246,8 @@ class Repository implements RepositoryInterface, Countable {
     }
 
     /**
+     * Get asset path for a specific module.
+     *
      * @param $module
      * @return string
      */
@@ -220,6 +257,8 @@ class Repository implements RepositoryInterface, Countable {
     }
 
     /**
+     * Get a specific config data from a configuration file.
+     *
      * @param $key
      * @return mixed
      */
@@ -229,6 +268,8 @@ class Repository implements RepositoryInterface, Countable {
     }
 
     /**
+     * Get storage path for module used.
+     *
      * @return string
      */
     public function getUsedStoragePath()
@@ -237,6 +278,8 @@ class Repository implements RepositoryInterface, Countable {
     }
 
     /**
+     * Set module used for cli session.
+     *
      * @param $name
      * @throws ModuleNotFoundException
      */
@@ -248,6 +291,8 @@ class Repository implements RepositoryInterface, Countable {
     }
 
     /**
+     * Get module used for cli session.
+     *
      * @return string
      */
     public function getUsedNow()
@@ -256,6 +301,8 @@ class Repository implements RepositoryInterface, Countable {
     }
 
     /**
+     * Get laravel filesystem instance.
+     *
      * @return \Illuminate\Filesystem\Filesystem
      */
     public function getFiles()
