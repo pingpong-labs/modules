@@ -26,17 +26,17 @@ class EnableCommand extends Command {
      */
     public function fire()
     {
-        $module = $this->argument('module');
+        $module = $this->laravel['modules']->findOrFail($this->argument('module'));
 
-        if ($this->laravel['modules']->active($this->argument('module')))
+        if ($module->disabled())
         {
-            $this->comment("Module [{$module}] has already enabled.");
+            $module->enable();
+
+            $this->info("Module [{$module}] enabled successful.");
         }
         else
         {
-            $this->laravel['modules']->enable($module);
-
-            $this->info("Module [{$module}] enabled successful.");
+            $this->comment("Module [{$module}] has already enabled.");
         }
     }
 

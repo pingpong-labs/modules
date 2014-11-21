@@ -27,7 +27,9 @@ class PublishMigrationCommand extends Command {
      */
     public function fire()
     {
-        with(new MigrationPublisher($this->argument('module')))
+        $module = $this->laravel['modules']->findOrFail($this->argument('module'));
+
+        with(new MigrationPublisher($module))
             ->setRepository($this->laravel['modules'])
             ->setConsole($this)
             ->publish();

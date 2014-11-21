@@ -1,10 +1,10 @@
 {
-    "name": "$STUDLY_NAME$",
-    "alias": "$LOWER_NAME$",
+    "name": "User",
+    "alias": "user",
     "description": "",
     "keywords": [],
     "active": 1,
-    "priority": 0,
+    "priority": 1,
     "providers": [],
     "files": []
 }

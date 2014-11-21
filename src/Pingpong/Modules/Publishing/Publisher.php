@@ -45,9 +45,9 @@ abstract class Publisher implements PublisherInterface {
     /**
      * The constructor.
      *
-     * @param string $module
+     * @param Module $module
      */
-    public function __construct($module)
+    public function __construct(Module $module)
     {
         $this->module = $module;
     }
@@ -59,13 +59,14 @@ abstract class Publisher implements PublisherInterface {
      */
     public function getModule()
     {
-        return new Module($this->module, $this->getRepository());
+        return $this->module;
     }
 
     /**
      * Set modules repository instance.
      *
      * @param \Pingpong\Modules\Repository $repository
+     * @return $this
      */
     public function setRepository(Repository $repository)
     {
@@ -88,6 +89,7 @@ abstract class Publisher implements PublisherInterface {
      * Set console instance.
      *
      * @param \Illuminate\Console\Command $console
+     * @return $this
      */
     public function setConsole(Command $console)
     {

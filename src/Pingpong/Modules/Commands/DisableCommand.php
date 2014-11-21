@@ -26,11 +26,11 @@ class DisableCommand extends Command {
      */
     public function fire()
     {
-        $module = $this->argument('module');
+        $module = $this->laravel['modules']->findOrFail($this->argument('module'));
 
-        if ($this->laravel['modules']->active($this->argument('module')))
+        if ($module->enabled())
         {
-            $this->laravel['modules']->disable($module);
+            $module->disable();
 
             $this->info("Module [{$module}] disabled successful.");
         }

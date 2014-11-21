@@ -36,7 +36,7 @@ class ModulesServiceProvider extends ServiceProvider {
     public function register()
     {
         $this->registerServices();
-        $this->app->register(__NAMESPACE__ . '\\Providers\\ConsoleServiceProvider');
+        $this->registerProviders();
     }
 
     /**
@@ -67,7 +67,7 @@ class ModulesServiceProvider extends ServiceProvider {
         {
             $path = $app['config']->get('modules::paths.modules');
 
-            return new Repository($path, $app['files']);
+            return new Repository($app, $path);
         });
     }
 
@@ -79,5 +79,15 @@ class ModulesServiceProvider extends ServiceProvider {
     public function provides()
     {
         return array('modules');
+    }
+
+    /**
+     * Register providers.
+     *
+     * @return void
+     */
+    protected function registerProviders()
+    {
+        $this->app->register(__NAMESPACE__ . '\\Providers\\ConsoleServiceProvider');
     }
 }

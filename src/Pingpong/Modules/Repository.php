@@ -1,229 +1,31 @@
 <?php namespace Pingpong\Modules;
 
 use Countable;
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\Application;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use Pingpong\Modules\Process\Installer;
-use Pingpong\Modules\Process\Updater;
+use Pingpong\Modules\Contracts\RepositoryInterface;
+use Pingpong\Modules\Exceptions\ModuleNotFoundException;
 
-class Repository implements Countable {
+class Repository implements RepositoryInterface, Countable {
 
     /**
-     * The Laravel Filesystem.
-     *
-     * @var Filesystem
+     * @var Application
      */
-    protected $files;
+    protected $app;
 
     /**
-     * The current module path.
-     *
-     * @var string
+     * @var null
      */
     protected $path;
 
     /**
-     * The constructor.
-     *
-     * @param string $path
-     * @param Filesystem $files
+     * @param Application $app
+     * @param string|null $path
      */
-    public function __construct($path, Filesystem $files = null)
+    public function __construct(Application $app, $path = null)
     {
+        $this->app = $app;
         $this->path = $path;
-        $this->files = $files ?: new Filesystem;
-    }
-
-    /**
-     * Set module path.
-     *
-     * @param $path
-     * @return self
-     */
-    public function setPath($path)
-    {
-        $this->path = $path;
-
-        return $this;
-    }
-
-    /**
-     * Get module path.
-     *
-     * @return string
-     */
-    public function getPath()
-    {
-        return $this->path;
-    }
-
-    /**
-     * Get count of modules.
-     *
-     * @return int
-     */
-    public function count()
-    {
-        return count($this->all());
-    }
-
-    /**
-     * Get module path by given module name.
-     *
-     * @param  string $module
-     * @param  boolean $allowNotExists
-     * @return null|string
-     */
-    public function getModulePath($module, $allowNotExists = true)
-    {
-        $module = Str::studly($module);
-
-        if ( ! $this->has($module) && $allowNotExists === false) return null;
-
-        return $this->getPath() . "/{$module}/";
-    }
-
-    /**
-     * Get module json contents as an array.
-     *
-     * @param $module
-     * @return array|mixed
-     */
-    public function json($module)
-    {
-        $module = Str::studly($module);
-
-        if ( ! $this->has($module)) return array();
-
-        return Json::make($this->getJsonPath($module));
-    }
-
-    /**
-     * Get the specified property for the specified module.
-     *
-     * @param $data
-     * @param null $default
-     * @return mixed
-     */
-    public function property($data, $default = null)
-    {
-        list($module, $key) = explode('::', $data);
-
-        return array_get($this->json($module)->toArray(), $key, $default);
-    }
-
-    /**
-     * Set active state for the specified module by given status data.
-     *
-     * @param $module
-     * @param $status
-     * @return bool
-     */
-    public function setActive($module, $status)
-    {
-        $data = $this->json($module);
-
-        if (count($data))
-        {
-            $data->set('active', $status)->save();
-
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Enable the given module
-     *
-     * @param $module
-     * @return bool
-     */
-    public function enable($module)
-    {
-        return $this->setActive($module, 1);
-    }
-
-    /**
-     * Disable the given module
-     *
-     * @param $module
-     * @return bool
-     */
-    public function disable($module)
-    {
-        return $this->setActive($module, 0);
-    }
-
-    /**
-     * Get The Laravel Filesystem.
-     *
-     * @return Filesystem
-     */
-    public function getFiles()
-    {
-        return $this->files;
-    }
-
-    /**
-     * Update JSON content for the specified module by given array data.
-     *
-     * @param $module
-     * @param array $data
-     * @return int
-     */
-    public function updateJsonContents($module, array $data)
-    {
-        $contents = json_encode($data, JSON_PRETTY_PRINT);
-
-        return $this->files->put($this->getJsonPath($module), $contents);
-    }
-
-    /**
-     * Get JSON path for the specified module.
-     *
-     * @param $module
-     * @return string
-     */
-    public function getJsonPath($module)
-    {
-        return $this->getModulePath($module) . '/module.json';
-    }
-
-    /**
-     * Get module used storage path.
-     *
-     * @return string
-     */
-    public function getUsedPath()
-    {
-        return storage_path('meta/modules.json');
-    }
-
-    /**
-     * Set modules used.
-     *
-     * @param string $module
-     */
-    public function setUsed($module)
-    {
-        $this->files->put($this->getUsedPath(), $module);
-    }
-
-    /**
-     * Get modules used for cli.
-     *
-     * @return mixed
-     */
-    public function getUsed()
-    {
-        $path = $this->getUsedPath();
-
-        if ( ! $this->files->exists($path)) return null;
-
-        return $this->files->get($path);
     }
 
     /**
@@ -233,17 +35,15 @@ class Repository implements Countable {
      */
     public function all()
     {
-        $modules = array();
+        $modules = [];
 
-        if ( ! is_dir($path = $this->getPath())) return $modules;
+        $directories = $this->app['files']->directories($this->getPath());
 
-        $folders = $this->files->directories($path);
-
-        foreach ($folders as $module)
+        foreach ($directories as $module)
         {
-            if ( ! Str::startsWith($module, '.'))
+            if ( ! Str::startsWith($name = basename($module), '.'))
             {
-                $modules[] = new Module(basename($module), $this);
+                $modules[$name] = new Module($this->app, $name, $module);
             }
         }
 
@@ -251,49 +51,115 @@ class Repository implements Countable {
     }
 
     /**
-     * Get modules as collection.
-     *
-     * @return \Illuminate\Support\Collection
+     * @param $status
+     * @return array
      */
-    public function getAsCollection()
+    public function getByStatus($status)
     {
-        return Collection::make($this->all());
+        $modules = [];
+
+        foreach ($this->all() as $name => $module)
+        {
+            if ($module->isStatus($status))
+            {
+                $modules[$name] = $modules;
+            }
+        }
+
+        return $modules;
     }
 
     /**
-     * Get ordered.
+     * @param $name
+     * @return bool
+     */
+    public function has($name)
+    {
+        return array_key_exists($name, $this->all());
+    }
+
+    /**
+     * Get list of enabled modules.
      *
-     * @return \Illuminate\Support\Collection
+     * @return mixed
+     */
+    public function enabled()
+    {
+        return $this->getByStatus(1);
+    }
+
+    /**
+     * Get list of disabled modules.
+     *
+     * @return mixed
+     */
+    public function disabled()
+    {
+        return $this->getByStatus(0);
+    }
+
+    /**
+     * Get count from all modules.
+     *
+     * @return int
+     */
+    public function count()
+    {
+        return count($this->all());
+    }
+
+    /**
+     * Get all ordered modules.
+     *
+     * @return mixed
      */
     public function getOrdered()
     {
-        return $this->getAsCollection()->sort(function ($a, $b)
+        $modules = $this->all();
+
+        uasort($modules, function ($a, $b)
         {
+            if ($a->priority == $b->priority)
+            {
+                return 0;
+            }
 
-            $priority = $b->json()->get('priority');
-            var_dump($priority);
-            // echo "A:";
-            // var_dump($a);
-            // echo "B:";
-            // var_dump($b);
-
-            // if ($a == $b) return 0;
-
-            // return ($a < $b) ? -1 : 1;
+            return $a->priority < $b->priority ? -1 : 1;
         });
+
+        return $modules;
     }
 
     /**
-     * Get entity from a specified module by given module name.
-     *
-     * @param  string $search
      * @return mixed
      */
-    public function get($search)
+    public function getPath()
+    {
+        return $this->path ?: $this->app['config']->get('modules::paths.modules');
+    }
+
+    /**
+     *
+     */
+    public function register()
+    {
+        foreach ($this->getOrdered() as $module)
+        {
+//            var_dump($module);
+
+//            $module->register();
+        }
+    }
+
+    /**
+     * @param $name
+     * @return null
+     */
+    public function find($name)
     {
         foreach ($this->all() as $module)
         {
-            if ($module->getLowerName() == strtolower($search))
+            if ($module->getLowerName() == strtolower($name))
             {
                 return $module;
             }
@@ -303,249 +169,87 @@ class Repository implements Countable {
     }
 
     /**
-     * Register modules providers.
-     *
-     * @param  Application $app
-     * @return void
+     * @param $name
+     * @return null
      */
-    public function registerModulesProviders(Application $app)
+    public function get($name)
     {
-        foreach ($this->all() as $module)
-        {
-            $providers = $module->present()->getProviders();
-
-            foreach ($providers as $provider)
-            {
-                $app->register($provider);
-            }
-        }
+        return $this->find($name);
     }
 
     /**
-     * Get all enabled (status = 1) or disabled (status = 0) modules
-     *
-     * @param int $status
-     * @return array
+     * @param $name
+     * @throws ModuleNotFoundException
      */
-    public function getByStatus($status = 1)
+    public function findOrFail($name)
     {
-        $data = array();
-
-        foreach ($this->all() as $module)
+        if ( ! is_null($module = $this->find($name)))
         {
-            if ($status == 1)
-            {
-                if ($this->active($module))
-                {
-                    $data[] = $module;
-                }
-            }
-            else
-            {
-                if ($this->notActive($module))
-                {
-                    $data[] = $module;
-                }
-            }
+            return $module;
         }
 
-        return $data;
+        throw new ModuleNotFoundException("Module [{$name}] does not exist!");
     }
 
     /**
-     * Return all enabled modules
-     *
-     * @return array
+     * @return Collection
      */
-    public function enabled()
+    public function collections()
     {
-        return $this->getByStatus(1);
+        return new Collection($this->enabled());
     }
 
     /**
-     * Return all disabled modules
-     *
-     * @return array
-     */
-    public function disabled()
-    {
-        return $this->getByStatus(0);
-    }
-
-    /**
-     * Determine if the module exists.
-     *
-     * @param    string $name
-     * @return    string
-     */
-    public function has($name)
-    {
-        return $this->exists($name);
-    }
-
-    /**
-     * Determine if the module exists.
-     *
-     * @param    string $name
-     * @return    string
-     */
-    public function exists($name)
-    {
-        return in_array($name, $this->all());
-    }
-
-    /**
-     * Update dependencies for the specified module.
-     *
-     * @param  string $module
-     * @return void
-     */
-    public function update($module)
-    {
-        with(new Updater($this))->update($module);
-    }
-
-    /**
-     * Install the specified module.
-     *
-     * @param  string $name
-     * @param  string $path
-     * @param bool $subtree
-     * @return void
-     */
-    public function install($name, $path = null, $subtree = false)
-    {
-        with(new Installer($this))->install($name, $path, $subtree);
-    }
-
-    /**
-     * Alias for "property" method.
-     *
-     * @param $key
-     * @param null $default
-     * @return mixed
-     */
-    public function prop($key, $default = null)
-    {
-        return $this->property($key, $default);
-    }
-
-    /**
-     * Check if a given module active.
-     *
      * @param $module
-     * @return bool
-     */
-    public function active($module)
-    {
-        return $this->prop("{$module}::active") == 1;
-    }
-
-    /**
-     * Check if a given module not active.
-     *
-     * @param $module
-     * @return bool
-     */
-    public function notActive($module)
-    {
-        return ! $this->active($module);
-    }
-
-    /**
-     * Get modules used now.
-     *
      * @return string
+     */
+    public function getModulePath($module)
+    {
+        $module = Str::studly($module);
+
+        return $this->getPath() . "/{$module}/";
+    }
+
+    public function assetPath($module)
+    {
+        return $this->config('assets') . '/' . $module;
+    }
+
+    public function config($key)
+    {
+        return $this->app['config']->get('modules::paths.' . $key);
+    }
+
+    /**
+     * @return string
+     */
+    public function getUsedStoragePath()
+    {
+        return storage_path('meta/modules.used');
+    }
+
+    /**
+     * @param $name
+     * @throws ModuleNotFoundException
+     */
+    public function setUsed($name)
+    {
+        $module = $this->findOrFail($name);
+
+        $this->app['files']->put($this->getUsedStoragePath(), $module);
+    }
+
+    /**
+     * @return mixed
      */
     public function getUsedNow()
     {
-        return $this->getUsed();
+        return $this->app['files']->get($this->getUsedStoragePath());
     }
 
-    /**
-     * Register all enabled modules.
-     *
-     * @return void
-     */
-    public function register()
+    public function getFiles()
     {
-        foreach ($this->enabled() as $module)
-        {
-            $module->register();
-        }
-    }
-
-    /**
-     * Get asset url from specified module path.
-     *
-     * @param  string $path
-     * @param  boolean $secure
-     * @return string
-     */
-    public function asset($path, $secure = false)
-    {
-        list($module, $url) = explode(':', $path);
-
-        return app('url')->asset("modules/{$module}/{$url}");
-    }
-
-    /**
-     * Get style tag from the given url.
-     *
-     * @param  string $url
-     * @param  boolean $secure
-     * @return string
-     */
-    public function style($url, $secure = false)
-    {
-        return app('html')->style($this->asset($url, $secure));
-    }
-
-    /**
-     * Get script tag from the given url.
-     *
-     * @param  string $url
-     * @param  boolean $secure
-     * @return string
-     */
-    public function script($url, $secure = false)
-    {
-        return app('html')->script($this->asset($url, $secure));
-    }
-
-    /**
-     * Get asset path from the specfied module.
-     *
-     * @param  string $path
-     * @param  boolean $secure
-     * @return string
-     */
-    public function assetPath($path = null, $secure = false)
-    {
-        $assetsPath = app('config')->get('modules::paths.assets');
-
-        if (is_null($path)) return $assetsPath;
-
-        if (str_contains($path, ':'))
-        {
-            list($module, $url) = explode(':', $path);
-
-            return $assetsPath . "/{$module}/{$url}";
-        }
-
-        return $assetsPath . '/' . $path;
-    }
-
-    /**
-     * Get a specific modules configuration.
-     *
-     * @param  string $key
-     * @param  null|mixed $default
-     * @return mixed
-     */
-    public function config($key, $default = null)
-    {
-        return app('config')->get("modules::paths.{$key}", $default);
+        return $this->app['files'];
     }
 
 }

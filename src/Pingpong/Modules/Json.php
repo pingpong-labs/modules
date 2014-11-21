@@ -1,7 +1,6 @@
 <?php namespace Pingpong\Modules;
 
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Collection;
 
 class Json {
 
@@ -20,11 +19,11 @@ class Json {
     protected $filesystem;
 
     /**
-     * The attributes array.
+     * The attributes collection.
      *
-     * @var array
+     * @var \Illuminate\Support\Collection
      */
-    protected $attributes = [];
+    protected $attributes;
 
     /**
      * The constructor.
@@ -42,7 +41,7 @@ class Json {
     /**
      * Get filesystem.
      *
-     * @return mixed
+     * @return Filesystem
      */
     public function getFilesystem()
     {
@@ -52,7 +51,7 @@ class Json {
     /**
      * Set filesystem.
      *
-     * @param  null $filesystem
+     * @param Filesystem $filesystem
      * @return $this
      */
     public function setFilesystem(Filesystem $filesystem)
@@ -76,6 +75,7 @@ class Json {
      * Set path.
      *
      * @param mixed $path
+     * @return $this
      */
     public function setPath($path)
     {
@@ -145,6 +145,7 @@ class Json {
      *
      * @param string $key
      * @param mixed $value
+     * @return $this
      */
     public function set($key, $value)
     {
@@ -175,7 +176,19 @@ class Json {
     }
 
     /**
-     * Handle call to method.
+     * Get the specified attribute from json file.
+     *
+     * @param $key
+     * @param null $default
+     * @return mixed
+     */
+    public function get($key, $default = null)
+    {
+        return $this->attributes->get($key, $default);
+    }
+
+    /**
+     * Handle call to __call method.
      *
      * @param  string $method
      * @param  array $arguments
@@ -186,6 +199,16 @@ class Json {
         if (method_exists($this, $method)) return call_user_func_array([$this, $method], $arguments);
 
         return call_user_func_array([$this->attributes, $method], $arguments);
+    }
+
+    /**
+     * Handle call to __toString method.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getContents();
     }
 
 }

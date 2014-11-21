@@ -27,7 +27,9 @@ class PublishCommand extends Command {
      */
     public function fire()
     {
-        with(new AssetPublisher($this->argument('module')))
+        $module = $this->laravel['modules']->findOrFail($this->argument('module'));
+
+        with(new AssetPublisher($module))
             ->setRepository($this->laravel['modules'])
             ->setConsole($this)
             ->publish();
