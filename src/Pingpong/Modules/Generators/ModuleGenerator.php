@@ -1,11 +1,11 @@
 <?php namespace Pingpong\Modules\Generators;
 
+use Illuminate\Config\Repository as Config;
+use Illuminate\Console\Command as Console;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Str;
 use Pingpong\Generators\Stub;
 use Pingpong\Modules\Repository;
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Console\Command as Console;
-use Illuminate\Config\Repository as Config;
 
 class ModuleGenerator extends Generator {
 
@@ -244,7 +244,7 @@ class ModuleGenerator extends Generator {
 
     /**
      * Generate git keep to the specified path.
-     * 
+     *
      * @param  string $path
      * @return void
      */

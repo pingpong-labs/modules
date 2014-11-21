@@ -27,6 +27,18 @@ class RepositoryTest extends \PHPUnit_Framework_TestCase {
 		$this->assertArrayHasKey(0, $m);
 	}
 
+	public function testGetAsCollection()
+	{
+		$this->assertInstanceOf('Illuminate\Support\Collection', $this->repository->getAsCollection());
+	}
+
+	public function testGetOrdered()
+	{
+		$ordered = $this->repository->getOrdered();
+
+		// var_dump($ordered);
+	}
+
 	public function testGetEnabled()
 	{
 		$this->repository->enable($m = 'blog');

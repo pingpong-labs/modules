@@ -1,10 +1,10 @@
 <?php namespace Pingpong\Modules\Commands;
 
-use Illuminate\Support\Str;
 use Illuminate\Console\Command;
+use Illuminate\Support\Str;
 use Pingpong\Modules\Traits\ModuleCommandTrait;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 
 class SeedCommand extends Command {
 

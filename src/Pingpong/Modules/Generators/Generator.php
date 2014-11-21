@@ -2,4 +2,6 @@
 
 use Pingpong\Generators\Contracts\GeneratorInterface;
 
-abstract class Generator implements GeneratorInterface {}
+abstract class Generator implements GeneratorInterface {
+
+}

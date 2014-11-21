@@ -2,8 +2,8 @@
 
 use Illuminate\Console\Command;
 use Pingpong\Modules\Process\Installer;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 
 class InstallCommand extends Command {
 

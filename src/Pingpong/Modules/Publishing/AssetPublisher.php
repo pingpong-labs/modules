@@ -2,24 +2,24 @@
 
 class AssetPublisher extends Publisher {
 
-	/**
-	 * Get destination path.
-	 * 
-	 * @return string
-	 */
-	public function getDestinationPath()
-	{
-		return $this->repository->assetPath($this->module);
-	}
+    /**
+     * Get destination path.
+     *
+     * @return string
+     */
+    public function getDestinationPath()
+    {
+        return $this->repository->assetPath($this->module);
+    }
 
-	/**
-	 * Get source path.
-	 * 
-	 * @return string
-	 */
-	public function getSourcePath()
-	{
-		return $this->getModule()->getExtraPath('Assets');
-	}
+    /**
+     * Get source path.
+     *
+     * @return string
+     */
+    public function getSourcePath()
+    {
+        return $this->getModule()->getExtraPath('Assets');
+    }
 
 }

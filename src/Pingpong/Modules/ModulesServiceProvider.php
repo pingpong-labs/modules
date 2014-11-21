@@ -1,10 +1,9 @@
 <?php namespace Pingpong\Modules;
 
-use Illuminate\Support\Str;
-use Pingpong\Generators\Stub;
-use Pingpong\Modules\Commands;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
+use Pingpong\Generators\Stub;
+use Pingpong\Modules\Commands;
 
 class ModulesServiceProvider extends ServiceProvider {
 
@@ -42,7 +41,7 @@ class ModulesServiceProvider extends ServiceProvider {
 
     /**
      * Register laravel html package.
-     * 
+     *
      * @return void
      */
     protected function registerHtml()

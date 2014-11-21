@@ -1,13 +1,13 @@
 <?php namespace Pingpong\Modules\Commands;
 
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputOption;
 use Pingpong\Modules\Traits\MigrationLoaderTrait;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 
 class MigrateRollbackCommand extends Command {
 
-    use MigrationLoaderTrait; 
+    use MigrationLoaderTrait;
 
     /**
      * The console command name.

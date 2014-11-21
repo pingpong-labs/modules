@@ -1,8 +1,8 @@
 <?php namespace Pingpong\Modules\Commands;
 
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Pingpong\Modules\Publishing\MigrationPublisher;
+use Symfony\Component\Console\Input\InputArgument;
 
 class PublishMigrationCommand extends Command {
 

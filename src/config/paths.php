@@ -12,7 +12,6 @@ return [
     */
 
     'modules' => base_path('Modules'),
-
     /*
     |--------------------------------------------------------------------------
     | Modules assets path
@@ -23,7 +22,6 @@ return [
     */
 
     'assets' => public_path('modules'),
-
     /*
     |--------------------------------------------------------------------------
     | The migrations path
@@ -35,7 +33,6 @@ return [
     */
 
     'migration' => app_path('database/migrations'),
-
     /*
     |--------------------------------------------------------------------------
     | Generator path

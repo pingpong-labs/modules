@@ -1,11 +1,12 @@
 <?php namespace Pingpong\Modules;
 
 use Countable;
-use Illuminate\Support\Str;
-use Pingpong\Modules\Process\Updater;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Pingpong\Modules\Process\Installer;
+use Pingpong\Modules\Process\Updater;
 
 class Repository implements Countable {
 
@@ -250,8 +251,41 @@ class Repository implements Countable {
     }
 
     /**
+     * Get modules as collection.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function getAsCollection()
+    {
+        return Collection::make($this->all());
+    }
+
+    /**
+     * Get ordered.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function getOrdered()
+    {
+        return $this->getAsCollection()->sort(function ($a, $b)
+        {
+
+            $priority = $b->json()->get('priority');
+            var_dump($priority);
+            // echo "A:";
+            // var_dump($a);
+            // echo "B:";
+            // var_dump($b);
+
+            // if ($a == $b) return 0;
+
+            // return ($a < $b) ? -1 : 1;
+        });
+    }
+
+    /**
      * Get entity from a specified module by given module name.
-     * 
+     *
      * @param  string $search
      * @return mixed
      */
@@ -259,7 +293,7 @@ class Repository implements Countable {
     {
         foreach ($this->all() as $module)
         {
-            if($module->getLowerName() == strtolower($search))
+            if ($module->getLowerName() == strtolower($search))
             {
                 return $module;
             }
@@ -270,7 +304,7 @@ class Repository implements Countable {
 
     /**
      * Register modules providers.
-     * 
+     *
      * @param  Application $app
      * @return void
      */
@@ -279,7 +313,7 @@ class Repository implements Countable {
         foreach ($this->all() as $module)
         {
             $providers = $module->present()->getProviders();
-            
+
             foreach ($providers as $provider)
             {
                 $app->register($provider);
@@ -430,7 +464,7 @@ class Repository implements Countable {
 
     /**
      * Register all enabled modules.
-     * 
+     *
      * @return void
      */
     public function register()
@@ -443,8 +477,8 @@ class Repository implements Countable {
 
     /**
      * Get asset url from specified module path.
-     * 
-     * @param  string  $path
+     *
+     * @param  string $path
      * @param  boolean $secure
      * @return string
      */
@@ -457,8 +491,8 @@ class Repository implements Countable {
 
     /**
      * Get style tag from the given url.
-     * 
-     * @param  string  $url
+     *
+     * @param  string $url
      * @param  boolean $secure
      * @return string
      */
@@ -469,8 +503,8 @@ class Repository implements Countable {
 
     /**
      * Get script tag from the given url.
-     * 
-     * @param  string  $url
+     *
+     * @param  string $url
      * @param  boolean $secure
      * @return string
      */
@@ -481,8 +515,8 @@ class Repository implements Countable {
 
     /**
      * Get asset path from the specfied module.
-     * 
-     * @param  string  $path
+     *
+     * @param  string $path
      * @param  boolean $secure
      * @return string
      */
@@ -490,9 +524,9 @@ class Repository implements Countable {
     {
         $assetsPath = app('config')->get('modules::paths.assets');
 
-        if(is_null($path)) return $assetsPath;
+        if (is_null($path)) return $assetsPath;
 
-        if( str_contains($path, ':'))
+        if (str_contains($path, ':'))
         {
             list($module, $url) = explode(':', $path);
 
@@ -504,7 +538,7 @@ class Repository implements Countable {
 
     /**
      * Get a specific modules configuration.
-     * 
+     *
      * @param  string $key
      * @param  null|mixed $default
      * @return mixed

@@ -13,7 +13,7 @@ class ConsoleServiceProvider extends ServiceProvider {
 
     /**
      * Parent command namespace.
-     * 
+     *
      * @var string
      */
     protected $namespace = 'Pingpong\\Modules\\Commands\\';

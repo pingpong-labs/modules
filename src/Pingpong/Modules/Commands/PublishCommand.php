@@ -1,9 +1,7 @@
 <?php namespace Pingpong\Modules\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Filesystem\Filesystem as File;
 use Pingpong\Modules\Publishing\AssetPublisher;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
 class PublishCommand extends Command {

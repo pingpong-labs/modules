@@ -1,8 +1,8 @@
 <?php namespace Pingpong\Modules\Commands;
 
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 
 class MigrateCommand extends Command {
 
@@ -58,7 +58,7 @@ class MigrateCommand extends Command {
         if ($this->module->has($name))
         {
             $this->call('migrate', $this->getParameter($name));
-            
+
             if ($this->option('seed'))
             {
                 $this->call('module:seed', ['module' => $name]);
@@ -66,7 +66,7 @@ class MigrateCommand extends Command {
 
             return;
         }
-        
+
         return $this->error("Module [$name] does not exists.");
     }
 
