@@ -210,11 +210,19 @@ class Repository implements RepositoryInterface, Countable {
         return $this->getPath() . "/{$module}/";
     }
 
+    /**
+     * @param $module
+     * @return string
+     */
     public function assetPath($module)
     {
         return $this->config('assets') . '/' . $module;
     }
 
+    /**
+     * @param $key
+     * @return mixed
+     */
     public function config($key)
     {
         return $this->app['config']->get('modules::paths.' . $key);
@@ -240,13 +248,16 @@ class Repository implements RepositoryInterface, Countable {
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getUsedNow()
     {
         return $this->app['files']->get($this->getUsedStoragePath());
     }
 
+    /**
+     * @return \Illuminate\Filesystem\Filesystem
+     */
     public function getFiles()
     {
         return $this->app['files'];
