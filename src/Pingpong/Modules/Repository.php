@@ -43,7 +43,9 @@ class Repository implements RepositoryInterface, Countable {
     {
         $modules = [];
 
-        $directories = $this->app['files']->directories($this->getPath());
+        if ( ! $this->app['files']->isDirectory($path = $this->getPath())) return $modules;
+
+        $directories = $this->app['files']->directories($path);
 
         foreach ($directories as $module)
         {
