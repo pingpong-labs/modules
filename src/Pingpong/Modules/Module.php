@@ -28,6 +28,8 @@ class Module extends ServiceProvider {
     protected $path;
 
     /**
+     * The constructor.
+     *
      * @param Application $app
      * @param $name
      * @param $path
@@ -40,6 +42,8 @@ class Module extends ServiceProvider {
     }
 
     /**
+     * Get name.
+     *
      * @return string
      */
     public function getName()
@@ -48,6 +52,8 @@ class Module extends ServiceProvider {
     }
 
     /**
+     * Get name in lower case.
+     *
      * @return string
      */
     public function getLowerName()
@@ -56,6 +62,8 @@ class Module extends ServiceProvider {
     }
 
     /**
+     * Get name in studly case.
+     *
      * @return string
      */
     public function getStudlyName()
@@ -64,7 +72,9 @@ class Module extends ServiceProvider {
     }
 
     /**
-     * @return mixed
+     * Get description.
+     *
+     * @return string
      */
     public function getDescription()
     {
@@ -72,7 +82,9 @@ class Module extends ServiceProvider {
     }
 
     /**
-     * @return mixed
+     * Get alias.
+     *
+     * @return string
      */
     public function getAlias()
     {
@@ -80,7 +92,9 @@ class Module extends ServiceProvider {
     }
 
     /**
-     * @return mixed
+     * Get priority.
+     *
+     * @return string
      */
     public function getPriority()
     {
@@ -88,6 +102,8 @@ class Module extends ServiceProvider {
     }
 
     /**
+     * Get path.
+     *
      * @return string
      */
     public function getPath()
@@ -96,6 +112,8 @@ class Module extends ServiceProvider {
     }
 
     /**
+     * Set path.
+     *
      * @param string $path
      * @return $this
      */
@@ -107,7 +125,7 @@ class Module extends ServiceProvider {
     }
 
     /**
-     * Register the package's component namespaces.
+     * Register the modules's component namespaces.
      *
      * @param  string $package
      * @param  string $namespace
@@ -256,6 +274,8 @@ class Module extends ServiceProvider {
     }
 
     /**
+     * Determine whether the given status same with the current module status.
+     *
      * @param $status
      * @return bool
      */
@@ -265,6 +285,8 @@ class Module extends ServiceProvider {
     }
 
     /**
+     * Determine whether the current module activated.
+     *
      * @return bool
      */
     public function enabled()
@@ -273,6 +295,8 @@ class Module extends ServiceProvider {
     }
 
     /**
+     * Alternate for "enabled" method.
+     *
      * @return bool
      */
     public function active()
@@ -281,6 +305,8 @@ class Module extends ServiceProvider {
     }
 
     /**
+     * Determine whether the current module not activated.
+     *
      * @return bool
      */
     public function notActive()
@@ -289,6 +315,8 @@ class Module extends ServiceProvider {
     }
 
     /**
+     * Alias for "notActive" method.
+     *
      * @return bool
      */
     public function disabled()
@@ -297,6 +325,8 @@ class Module extends ServiceProvider {
     }
 
     /**
+     * Set active state for current module.
+     *
      * @param $active
      * @return bool
      */
@@ -306,6 +336,8 @@ class Module extends ServiceProvider {
     }
 
     /**
+     * Disable the current module.
+     *
      * @return bool
      */
     public function disable()
@@ -314,6 +346,8 @@ class Module extends ServiceProvider {
     }
 
     /**
+     * Enable the current module.
+     *
      * @return bool
      */
     public function enable()
@@ -322,6 +356,8 @@ class Module extends ServiceProvider {
     }
 
     /**
+     * Delete the current module.
+     *
      * @return bool
      */
     public function delete()
@@ -330,6 +366,8 @@ class Module extends ServiceProvider {
     }
 
     /**
+     * Get extra path.
+     *
      * @param $path
      * @return string
      */
@@ -339,6 +377,8 @@ class Module extends ServiceProvider {
     }
 
     /**
+     * Handle call to __get method.
+     *
      * @param $key
      * @return mixed
      */
