@@ -213,6 +213,7 @@ class Repository implements RepositoryInterface, Countable {
      * Find a specific module, if there return that, otherwise throw exception.
      *
      * @param $name
+     * @return mixed|void
      * @throws ModuleNotFoundException
      */
     public function findOrFail($name)
