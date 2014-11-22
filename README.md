@@ -53,7 +53,7 @@ Next, Add new class alias in `app/config/php`.
   ```
 Next, publish package configuration. Open your terminal and run:
 
-Laravel 4+
+Laravel 4.*
   ```
   php artisan config:publish pingpong/modules
   ```
