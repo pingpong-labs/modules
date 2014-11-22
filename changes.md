@@ -1,6 +1,13 @@
 Changes Log
 ============
 
+**1.1.6 to 1.1.7**
+
+- You can order the modules by specify `priority` key in `module.json` file.
+- You can include some `files` from `module.json` file.
+- You can register some `providers` from `module.json` file.
+- If you inject the module class to other class, the old class `Pingpong\Modules\Module` was replaced by `Pingpong\Modules\Repository` class.
+
 **1.1.5 to 1.1.6**
 
 - See [#41](https://github.com/pingpong-labs/modules/pull/41)
