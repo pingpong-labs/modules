@@ -52,9 +52,17 @@ Next, Add new class alias in `app/config/php`.
   'Module'        => 'Pingpong\Modules\Facades\Module',
   ```
 Next, publish package configuration. Open your terminal and run:
+
+Laravel 4+
   ```
   php artisan config:publish pingpong/modules
   ```
+  
+Laravel 5
+  ```
+  php artisan publish:config pingpong/modules
+  ```
+  
 Done.
 
 ### Setup modules folder for first use
@@ -97,8 +105,6 @@ For first use, please run this command on your terminal.
       |-- start.php
   ```
 
-  **Note:** File `start.php` is required for registering `View`, `Lang` and `Config` namespaces. If that file does not exist, an exception `FileMissingException` is thrown.
-
 ### Autoloading
 
 Now, by default the controllers, models and others not autoloaded automatically. You can autoload all modules using psr-4 or psr-0. For example :
@@ -107,7 +113,7 @@ Now, by default the controllers, models and others not autoloaded automatically.
 {
     "autoload": {
         "psr-4": {
-            "Modules\\": "app/Modules"
+            "Modules\\": "modules"
         }
     }
 }
@@ -354,7 +360,7 @@ Get an entity from specific module.
 
   $module->getPath();
 
-  $module->getPath('Assets');
+  $module->getExtraPath('Assets');
 
   $module->enable();
 
