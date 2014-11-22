@@ -285,24 +285,6 @@ php artisan module:update
 
 ### Facades API
 
-Get asset url from specified module.
-
-  ```php
-  Module::asset('blog', 'image/news.png');
-  ```
-
-Generate new stylesheet tag.
-
-  ```php
-  Module::style('blog', 'image/all.css');
-  ```
-
-Generate new stylesheet tag.
-
-  ```php
-  Module::script('blog', 'js/all.js');
-  ```
-
 Get all modules.
 
   ```php
@@ -325,12 +307,6 @@ Get modules path.
   Module::getPath();
   ```
 
-Get assets modules path.
-
-  ```php
-  Module::getAssetsPath();
-  ```
-
 Get module path for the specified module.
 
   ```php
@@ -349,7 +325,7 @@ Disable a specified module.
 
 ### Module Entity
 
-Get an entity from specific module.
+Get an entity from a specific module.
 
 ```php
   $module = Module::get('blog');
