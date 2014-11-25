@@ -141,7 +141,9 @@ class Module extends ServiceProvider {
         // folder to make the developers lives much easier in maintaining them.
         $path = $path ?: $this->guessPackagePath();
 
-        $config = $path . '/Config';
+        $generatorPaths = $this->app['config']->get('modules::paths.generator');
+
+        $config = $path . $generatorPaths['config'];
 
         if ($this->app['files']->isDirectory($config))
         {
@@ -151,7 +153,7 @@ class Module extends ServiceProvider {
         // Next we will check for any "language" components. If language files exist
         // we will register them with this given package's namespace so that they
         // may be accessed using the translation facilities of the application.
-        $lang = $path . '/Resources/lang';
+        $lang = $path . $generatorPaths['lang'];
 
         if ($this->app['files']->isDirectory($lang))
         {
@@ -171,7 +173,7 @@ class Module extends ServiceProvider {
         // Finally we will register the view namespace so that we can access each of
         // the views available in this package. We use a standard convention when
         // registering the paths to every package's views and other components.
-        $view = $path . '/Resources/views';
+        $view = $path . $generatorPaths['views'];
 
         if ($this->app['files']->isDirectory($view))
         {
