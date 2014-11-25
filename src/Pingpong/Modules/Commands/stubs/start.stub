@@ -2,11 +2,9 @@
 
 /*
 |--------------------------------------------------------------------------
-| Require The Routes file.
+| Start The Module
 |--------------------------------------------------------------------------
 |
-| Next, this module will load filters and routes file.
+| This file will loaded automatically.
 |
 */
-
-require __DIR__ . '/Http/routes.php';
