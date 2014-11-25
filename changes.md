@@ -3,12 +3,7 @@ Changes Log
 
 **1.1.6 to 1.1.7**
 
-- You can order the modules by specify `priority` key in `module.json` file.
-- You can include some `files` from `module.json` file.
-- You can register some `providers` from `module.json` file.
-- There's some breaking changes :
-  - If you inject the module class to other class, the old class `Pingpong\Modules\Module` was replaced by `Pingpong\Modules\Repository` class.
-  - routes.php file does not loaded automatically. Please follow [this issue](https://github.com/pingpong-labs/modules/issues/61) to fix the issue.
+- See [this](https://github.com/pingpong-labs/modules/releases/tag/1.1.7)
 
 **1.1.5 to 1.1.6**
 
