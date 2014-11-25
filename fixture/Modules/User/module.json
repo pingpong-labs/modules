@@ -6,5 +6,7 @@
     "active": 1,
     "priority": 1,
     "providers": [],
-    "files": []
+    "files": [
+    	"start.php"
+    ]
 }
