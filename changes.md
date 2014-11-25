@@ -8,7 +8,7 @@ Changes Log
 - You can register some `providers` from `module.json` file.
 - There's some breaking changes :
   - If you inject the module class to other class, the old class `Pingpong\Modules\Module` was replaced by `Pingpong\Modules\Repository` class.
-  - routes.php file does not loaded automatically. Please follow [this issue](https://github.com/pingpong-labs/modules/issues/61) for fix your problem.
+  - routes.php file does not loaded automatically. Please follow [this issue](https://github.com/pingpong-labs/modules/issues/61) to fix the issue.
 
 **1.1.5 to 1.1.6**
 
