@@ -80,7 +80,7 @@ For first use, please run this command on your terminal.
   app/
   bootstrap/
   vendor/
-  modules/
+  Modules/
   |-- Blog
       |-- Assets/
       |-- Config/
@@ -113,7 +113,7 @@ Now, by default the controllers, models and others not autoloaded automatically.
 {
     "autoload": {
         "psr-4": {
-            "Modules\\": "modules"
+            "Modules\\": "Modules"
         }
     }
 }
