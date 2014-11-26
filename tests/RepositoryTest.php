@@ -44,4 +44,17 @@ class RepositoryTest extends TestCase {
         $this->assertEquals("http://localhost/modules/blog/articles/foo.png", $url2);
     }
 
+    public function testGetAndSetModuleStatus()
+    {
+        $status = $this->repository->active('user');
+        $this->assertTrue($status);
+
+        $this->repository->disable('user');
+        
+        $status = $this->repository->active('user');
+        $this->assertFalse($status);
+
+        $this->repository->enable('user');
+    }
+
 }

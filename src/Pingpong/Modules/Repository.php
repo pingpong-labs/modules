@@ -337,5 +337,49 @@ class Repository implements RepositoryInterface, Countable {
 
         return $this->app['url']->asset(basename($this->getAssetsPath()) . "/{$name}/" . $url, $secure);
     }
+    
+    /**
+     * Determine whether the given module is activated.
+     * 
+     * @param  string $name
+     * @return boolean
+     */
+    public function active($name)
+    {
+        return $this->findOrFail($name)->active();
+    }
+    
+    /**
+     * Determine whether the given module is not activated.
+     * 
+     * @param  string $name
+     * @return boolean
+     */
+    public function notActive($name)
+    {
+        return ! $this->active($name);
+    }
+
+    /**
+     * Enabling a specific module.
+     * 
+     * @param  string $name
+     * @return bool
+     */
+    public function enable($name)
+    {
+        return $this->findOrFail($name)->enable();
+    }
+
+    /**
+     * Disabling a specific module.
+     * 
+     * @param  string $name
+     * @return bool
+     */
+    public function disable($name)
+    {
+        return $this->findOrFail($name)->disable();
+    }
 
 }
