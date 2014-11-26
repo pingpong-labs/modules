@@ -41,5 +41,5 @@
             "dev-develop": "1.2-dev"
         }
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "dev"
 }
