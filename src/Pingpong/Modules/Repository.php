@@ -301,7 +301,7 @@ class Repository implements RepositoryInterface, Countable {
      */
     public function getUsedNow()
     {
-        return $this->app['files']->get($this->getUsedStoragePath());
+        return $this->findOrFail($this->app['files']->get($this->getUsedStoragePath()));
     }
 
     /**
