@@ -314,4 +314,28 @@ class Repository implements RepositoryInterface, Countable {
         return $this->app['files'];
     }
 
+    /**
+     * Get module assets path.
+     *
+     * @return string
+     */
+    public function getAssetsPath()
+    {
+        return $this->config('assets');
+    }
+
+    /**
+     * Get asset url from a specific module.
+     * 
+     * @param  string  $asset
+     * @param  boolean $secure
+     * @return string
+     */
+    public function asset($asset, $secure = false)
+    {
+        list($name, $url) = explode(':', $asset);
+
+        return $this->app['url']->asset(basename($this->getAssetsPath()) . "/{$name}/" . $url, $secure);
+    }
+
 }
