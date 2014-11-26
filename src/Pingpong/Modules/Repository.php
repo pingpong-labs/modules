@@ -127,7 +127,7 @@ class Repository implements RepositoryInterface, Countable {
      */
     public function getOrdered()
     {
-        $modules = $this->all();
+        $modules = $this->enabled();
 
         uasort($modules, function ($a, $b)
         {
@@ -278,7 +278,12 @@ class Repository implements RepositoryInterface, Countable {
      */
     public function getUsedStoragePath()
     {
-        return storage_path('meta/modules.used');
+        if( ! $this->app['files']->exists($path = storage_path('meta')))
+        {
+            $this->app['files']->makeDirectory($path, 0777, true);
+        }
+
+        return $path . '/modules.used';
     }
 
     /**
