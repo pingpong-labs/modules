@@ -1,4 +1,4 @@
-<?php
+<?php namespace Tests\Pingpong\Modules;
 
 class CliTest extends TestCase {
 

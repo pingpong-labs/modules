@@ -1,4 +1,4 @@
-<?php
+<?php namespace Tests\Pingpong\Modules;
 
 use Illuminate\Support\Facades\Log;
 
@@ -14,7 +14,7 @@ abstract class TestCase extends \Pingpong\Testing\TestCase {
      */
     protected function getApplicationPaths()
     {
-        $basePath = realpath(__DIR__.'/../fixture');
+        $basePath = realpath(__DIR__.'/../../../fixture');
         
         return [
             'app'     => "{$basePath}/app",

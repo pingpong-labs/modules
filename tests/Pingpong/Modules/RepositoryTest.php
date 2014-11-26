@@ -1,4 +1,4 @@
-<?php
+<?php namespace Tests\Pingpong\Modules;
 
 class RepositoryTest extends TestCase {
 
@@ -14,7 +14,7 @@ class RepositoryTest extends TestCase {
         $this->repository = new \Pingpong\Modules\Repository($this->app, $this->getPath());
     }
 
-    public function getPath() { return __DIR__ . '/../fixture/Modules'; }
+    public function getPath() { return __DIR__ . '/../../../fixture/Modules'; }
 
     public function GetAllModules()
     {
