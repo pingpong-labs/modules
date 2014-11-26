@@ -72,7 +72,7 @@ class Repository implements RepositoryInterface, Countable {
         {
             if ($module->isStatus($status))
             {
-                $modules[$name] = $modules;
+                $modules[$name] = $module;
             }
         }
 
