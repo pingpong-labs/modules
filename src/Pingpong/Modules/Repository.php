@@ -305,6 +305,16 @@ class Repository implements RepositoryInterface, Countable {
     }
 
     /**
+     * Get used now.
+     * 
+     * @return string
+     */
+    public function getUsed()
+    {
+        return $this->getUsedNow();
+    }
+
+    /**
      * Get laravel filesystem instance.
      *
      * @return \Illuminate\Filesystem\Filesystem
