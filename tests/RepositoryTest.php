@@ -57,4 +57,11 @@ class RepositoryTest extends TestCase {
         $this->repository->enable('user');
     }
 
+    public function testUsed()
+    {
+        $this->repository->setUsed('user');
+        $used = $this->repository->getUsed();
+        $this->assertEquals('user', $used->getLowerName());
+    }
+
 }
