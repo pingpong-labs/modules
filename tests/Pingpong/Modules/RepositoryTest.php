@@ -16,7 +16,7 @@ class RepositoryTest extends TestCase {
 
     public function getPath() { return __DIR__ . '/../../../fixture/Modules'; }
 
-    public function GetAllModules()
+    public function testGetAllModules()
     {
         $this->assertTrue(is_array($modules = $this->repository->all()));
         $this->assertEquals($this->repository->count(), 2);
