@@ -15,7 +15,7 @@ Laravel Modules
 - [Autoloading](https://github.com/pingpong-labs/modules#autoloading)
 - [Artisan CLI](https://github.com/pingpong-labs/modules#artisan-cli)
 - [Facades API](https://github.com/pingpong-labs/modules#facades-api)
-- [Custom Namespaces](https://github.com/pingpong-labs/modules##custom-namespaces)
+- [Custom Namespaces](https://github.com/pingpong-labs/modules#custom-namespaces)
 - [Extra](https://github.com/pingpong-labs/modules#extra)
 - [License](https://github.com/pingpong-labs/modules#license)
 
