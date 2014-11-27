@@ -202,9 +202,9 @@ class Module extends ServiceProvider {
      */
     public function registerRoutes()
     {
-        if($this->app['files']->exists($path = $this->getExtraPath('Http/routes.php')))
+        if(class_exists($provider = 'Modules\\' . $this->getStudlyName() . '\\Providers\\RouteServiceProvider'))
         {
-            include $path;
+            $this->app->register($provider);
         }
     }
 
