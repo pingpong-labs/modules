@@ -3,7 +3,10 @@
     "alias": "blog",
     "description": "",
     "keywords": [],
+    "active": 1,
     "priority": 0,
     "providers": [],
-    "active": 1
+    "files": [
+        "start.php"
+    ]
 }
