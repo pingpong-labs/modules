@@ -190,22 +190,7 @@ class Module extends ServiceProvider {
     {
         $this->package('modules/' . $this->getLowerName(), $this->getLowerName(), $this->path);
 
-        $this->registerRoutes();
-
         $this->fireEvent('boot');
-    }
-
-    /**
-     * Register routes file.
-     * 
-     * @return void
-     */
-    public function registerRoutes()
-    {
-        if(class_exists($provider = 'Modules\\' . $this->getStudlyName() . '\\Providers\\RouteServiceProvider'))
-        {
-            $this->app->register($provider);
-        }
     }
 
     /**
