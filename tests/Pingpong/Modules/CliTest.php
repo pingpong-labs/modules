@@ -2,7 +2,7 @@
 
 class CliTest extends TestCase {
 
-	public function testGenerators()
+	public function testCommands()
 	{
 		$this->cleanup();
 		
