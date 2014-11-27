@@ -1,7 +1,13 @@
 <?php namespace Modules\$MODULENAME$\Http\Controllers;
 
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\View;
 
 class $CONTROLLERNAME$ extends Controller {
 
+	public function index()
+	{
+		return View::make('$NAMESPACE$::index');
+	}
+	
 }

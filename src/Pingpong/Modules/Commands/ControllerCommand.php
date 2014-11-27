@@ -37,16 +37,17 @@ class ControllerCommand extends GeneratorCommand {
     }
 
     /**
-     * @return mixed
+     * @return Stub
      */
     protected function getTemplateContents()
     {
-        $replaces = [
-            'MODULENAME' => $this->getModuleName(),
-            'CONTROLLERNAME' => $this->getControllerName()
+        $module = $this->laravel['modules']->findOrFail($this->getModuleName());
 
-        ];
-        return new Stub('controller', $replaces);
+        return new Stub('controller', [
+            'MODULENAME' => $module->getStudlyName(),
+            'CONTROLLERNAME' => $this->getControllerName(),
+            'NAMESPACE' => $module->getLowername()
+        ]);
     }
 
     /**
