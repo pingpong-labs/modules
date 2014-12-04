@@ -5,6 +5,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Str;
 use Pingpong\Modules\Contracts\RepositoryInterface;
 use Pingpong\Modules\Exceptions\ModuleNotFoundException;
+use Pingpong\Modules\Process\Updater;
+use Pingpong\Modules\Process\Installer;
 
 class Repository implements RepositoryInterface, Countable {
 
@@ -395,6 +397,30 @@ class Repository implements RepositoryInterface, Countable {
     public function disable($name)
     {
         return $this->findOrFail($name)->disable();
+    }
+    
+    /**
+     * Update dependencies for the specified module.
+     *
+     * @param  string $module
+     * @return void
+     */
+    public function update($module)
+    {
+        with(new Updater($this))->update($module);
+    }
+
+    /**
+     * Install the specified module.
+     *
+     * @param  string $name
+     * @param  string $path
+     * @param bool $subtree
+     * @return void
+     */
+    public function install($name, $path = null, $subtree = false)
+    {
+        with(new Installer($this))->install($name, $path, $subtree);
     }
 
 }

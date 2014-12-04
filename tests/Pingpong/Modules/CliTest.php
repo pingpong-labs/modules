@@ -18,7 +18,8 @@ class CliTest extends TestCase {
  			'module:provider' => ['name' => 'ConsoleServiceProvider'],
  			'module:publish' => ['module' => 'Bar'],
  			'module:publish-migration' => ['module' => 'Bar'],
- 			// 'module:migration' => ['name' => 'create_users_table', '--fields' => ''],
+ 			// 'module:install' => ['name' => 'pingpong-modules/Admin'],
+ 			// 'module:update' => [],
 		];
 
 		foreach ($commandOptions as $command => $options)
@@ -31,13 +32,18 @@ class CliTest extends TestCase {
 
 	public function cleanup()
 	{
-		$module = $this->app['modules']->get('Bar');
+		$modules = ['Bar', 'Admin'];
 
-		if($module)
-		{
-			$module->delete();
+		foreach ($modules as $name)
+		{	
+			$module = $this->app['modules']->get($name);
 
-			rmdir($module->getPath());
+			if($module)
+			{
+				$module->delete();
+
+				rmdir($module->getPath());
+			}
 		}
 	}
 

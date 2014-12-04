@@ -1,0 +1,11 @@
+{
+	"name": "pingpong-modules-fixture",
+	"autoload": {
+		"psr-4": {
+			"Modules\\": "Modules"
+		}
+	},
+	"require": {
+		"gravitano/helpers": "*"
+	}
+}

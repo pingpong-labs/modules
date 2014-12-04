@@ -10,7 +10,11 @@ class Updater extends Runner {
      */
     public function update($module)
     {
-        $packages = $this->module->prop($module . '::require', []);
+        $module = $this->module->get($module);
+
+        $packages = $module->get('require', []);
+
+        chdir(base_path());
 
         foreach ($packages as $name => $version)
         {

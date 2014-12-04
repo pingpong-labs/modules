@@ -4,3 +4,4 @@ composer.lock
 .DS_Store
 /src/modules.used
 .idea/
+/fixture/vendor
