@@ -18,8 +18,8 @@ class CliTest extends TestCase {
  			'module:provider' => ['name' => 'ConsoleServiceProvider'],
  			'module:publish' => ['module' => 'Bar'],
  			'module:publish-migration' => ['module' => 'Bar'],
- 			// 'module:install' => ['name' => 'pingpong-modules/Admin'],
- 			// 'module:update' => [],
+ 			'module:install' => ['name' => 'pingpong-modules/Admin'],
+ 			'module:update' => ['module' => 'Admin'],
 		];
 
 		foreach ($commandOptions as $command => $options)
