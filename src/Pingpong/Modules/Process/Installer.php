@@ -90,7 +90,7 @@ class Installer extends Runner {
      */
     protected function getRepoPath($name)
     {
-        return "git@github.com:{$name}.git";
+        return "https://github.com/{$name}.git";
     }
 
     /**
