@@ -52,7 +52,9 @@ class ModuleGenerator extends Generator {
     protected $files = [
         'start' => 'start.php',
         'routes' => 'Http/routes.php',
-        'json' => 'module.json'
+        'json' => 'module.json',
+        'views/index' => 'Resources/views/index.blade.php',
+        'views/master' => 'Resources/views/layouts/master.blade.php',
     ];
 
     /**
@@ -63,7 +65,9 @@ class ModuleGenerator extends Generator {
     protected $replacements = [
         'start' => ['LOWER_NAME'],
         'routes' => ['LOWER_NAME', 'STUDLY_NAME'],
-        'json' => ['LOWER_NAME', 'STUDLY_NAME']
+        'json' => ['LOWER_NAME', 'STUDLY_NAME'],
+        'views/index' => ['LOWER_NAME'],
+        'views/master' => ['STUDLY_NAME'],
     ];
 
     /**
@@ -261,6 +265,11 @@ class ModuleGenerator extends Generator {
         foreach ($this->getFiles() as $stub => $file)
         {
             $path = $this->module->getModulePath($this->getName()) . $file;
+            
+            if( ! $this->filesystem->isDirectory($dir = dirname($path)))
+            {
+                $this->filesystem->makeDirectory($dir, 0775, true);
+            }
 
             $this->filesystem->put($path, $this->getStubContents($stub));
 
