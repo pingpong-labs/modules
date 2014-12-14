@@ -46,18 +46,21 @@ class Repository implements RepositoryInterface, Countable {
         $paths = [];
 
         $paths[] = $this->getPath() . '/*';
-        
-        $paths = array_merge($paths, $this->app['config']->get('modules::paths.scan'));
+
+        if($this->config('scan.enabled'))
+        {
+            $paths = array_merge($paths, $this->config('scan.paths'));
+        }
 
         return $paths;
     }
 
     /**
-     * Get all modules.
+     * Get & scan all modules.
      *
      * @return array
      */
-    public function all()
+    public function scan()
     {
         $paths = $this->getScanPaths();
 
@@ -80,6 +83,33 @@ class Repository implements RepositoryInterface, Countable {
         }
 
         return $modules;
+    }
+
+    /**
+     * Get alll modules.
+     * 
+     * @return array
+     */
+    public function all()
+    {
+        return $this->config('cache.enabled') ? $this->getCached() : $this->scan();
+    }
+
+    /**
+     * Get cached modules.
+     * 
+     * @return array
+     */
+    public function getCached()
+    {
+        $key = $this->config('cache.key');
+        
+        $lifetime = $this->config('cache.lifetime');
+
+        return $this->app['cache.store']->remember($key, $lifetime, function ()
+        {
+            return $this->scan();
+        });
     }
 
     /**

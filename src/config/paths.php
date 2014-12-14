@@ -16,20 +16,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Scan Path
-    |--------------------------------------------------------------------------
-    |
-    | Here you define which folder will be scanned. By default will scan vendor
-    | directory. This is useful if you host the package in packagist website.
-    |
-    */
-   
-    'scan' => [
-        base_path('vendor/*/*'),
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
     | Modules assets path
     |--------------------------------------------------------------------------
     |
@@ -79,6 +65,23 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Scan Path
+    |--------------------------------------------------------------------------
+    |
+    | Here you define which folder will be scanned. By default will scan vendor
+    | directory. This is useful if you host the package in packagist website.
+    |
+    */
+   
+    'scan' => [
+        'enabled' => false,
+        'paths' => [
+            base_path('vendor/*/*')
+        ],
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Composer File Template
     |--------------------------------------------------------------------------
     | 
@@ -92,6 +95,20 @@ return [
             "name" => 'Pingpong Labs',
             'email' => 'pingpong.labs@gmail.com'
         ]
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Caching
+    |--------------------------------------------------------------------------
+    | 
+    | Here is the config for setting up caching feature.
+    |
+    */
+    'cache' => [
+        'enabled' => false,
+        'key' => 'pingpong-modules',
+        'lifetime' => 60
     ]
     
 ];
