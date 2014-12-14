@@ -6,6 +6,6 @@
 		}
 	},
 	"require": {
-		"gravitano/helpers": "*"
+		"pingpong-modules/hello": "dev-master"
 	}
 }
