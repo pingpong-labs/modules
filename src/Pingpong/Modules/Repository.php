@@ -83,6 +83,16 @@ class Repository implements RepositoryInterface, Countable {
     }
 
     /**
+     * Get all modules as collection instance.
+     * 
+     * @return Collection
+     */
+    public function toCollection()
+    {
+        return new Collection($this->all());
+    }
+
+    /**
      * Get modules by status.
      *
      * @param $status
