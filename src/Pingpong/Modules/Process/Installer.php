@@ -18,7 +18,7 @@ class Installer extends Runner {
         }
         else
         {
-            $command = $this->getCommand($name, $path);
+            $command = $this->getCommand($name);
         }
 
         $this->run($command);
@@ -31,14 +31,10 @@ class Installer extends Runner {
      * @param  string|null $path
      * @return string
      */
-    protected function getCommand($name, $path = null)
+    protected function getCommand($name)
     {
-        $repoUrl = $this->getRepoPath($name);
-
-        $path = $this->getModulePath($path);
-
-        $gitPath = $this->getGitPath($name);
-
+        chdir(base_path());
+        
         return "composer require \"$name\"";
     }
 

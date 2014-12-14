@@ -40,13 +40,32 @@ class InstallCommand extends Command {
     {
         $name = $this->argument('name');
 
-        $this->info("Installing {$name} module");
+        $this->info("Installing [{$name}] module");
         
-        $this->laravel['modules']->install($name, $this->option('path'), $this->option('tree'));
-
-        $this->laravel['modules']->update(Installer::getModuleName($name));
+        $this->laravel['modules']->install(
+            $this->getPackageName(),
+            $this->option('path'),
+            $this->option('tree')
+        );
 
         $this->info("Module [{$name}] installed successfully.");
+    }
+
+    /**
+     * Get package name.
+     * 
+     * @return string
+     */
+    protected function getPackageName()
+    {
+        $name = $this->argument('name');
+
+        if($version = $this->argument('version'))
+        {
+            $name = $name . ':' . $version;
+        }
+
+        return $name;
     }
 
     /**
@@ -58,6 +77,7 @@ class InstallCommand extends Command {
     {
         return array(
             array('name', InputArgument::REQUIRED, 'The name of module will be installed.'),
+            array('version', InputArgument::OPTIONAL, 'The version of module will be installed.'),
         );
     }
 

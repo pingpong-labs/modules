@@ -18,8 +18,7 @@ class CliTest extends TestCase {
  			'module:provider' => ['name' => 'ConsoleServiceProvider'],
  			'module:publish' => ['module' => 'Bar'],
  			'module:publish-migration' => ['module' => 'Bar'],
- 			'module:install' => ['name' => 'pingpong-modules/Admin'],
- 			'module:update' => ['module' => 'Admin'],
+ 			'module:install' => ['name' => 'pingpong-modules/hello', 'version' => 'dev-master'],
 		];
 
 		foreach ($commandOptions as $command => $options)
@@ -32,7 +31,7 @@ class CliTest extends TestCase {
 
 	public function cleanup()
 	{
-		$modules = ['Bar', 'Admin'];
+		$modules = ['Bar', 'Hello'];
 
 		foreach ($modules as $name)
 		{	
