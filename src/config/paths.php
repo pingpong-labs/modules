@@ -7,11 +7,27 @@ return [
     | Modules path
     |--------------------------------------------------------------------------
     |
-    | Here you may update the modules path.
+    | This path used for save the generated module. This path also will added
+    | automatically to list of scanned folders.
     |
     */
 
     'modules' => base_path('Modules'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Scan Path
+    |--------------------------------------------------------------------------
+    |
+    | Here you define which folder will be scanned. By default will scan vendor
+    | directory. This is useful if you host the package in packagist website.
+    |
+    */
+   
+    'scan' => [
+        base_path('vendor/*/*'),
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Modules assets path
@@ -22,6 +38,7 @@ return [
     */
 
     'assets' => public_path('modules'),
+
     /*
     |--------------------------------------------------------------------------
     | The migrations path
@@ -33,6 +50,7 @@ return [
     */
 
     'migration' => app_path('database/migrations'),
+
     /*
     |--------------------------------------------------------------------------
     | Generator path
@@ -58,4 +76,5 @@ return [
         'views' => 'Resources/views',
         'test' => 'Tests',
     ]
+    
 ];

@@ -37,23 +37,45 @@ class Repository implements RepositoryInterface, Countable {
     }
 
     /**
+     * Get scanned modules paths.
+     *
+     * @return array
+     */
+    public function getScanPaths()
+    {
+        $paths = [];
+
+        $paths[] = $this->getPath() . '/*';
+        
+        $paths = array_merge($paths, $this->app['config']->get('modules::paths.scan'));
+
+        return $paths;
+    }
+
+    /**
      * Get all modules.
      *
      * @return array
      */
     public function all()
     {
+        $paths = $this->getScanPaths();
+
         $modules = [];
 
-        if ( ! $this->app['files']->isDirectory($path = $this->getPath())) return $modules;
-
-        $directories = $this->app['files']->directories($path);
-
-        foreach ($directories as $module)
+        foreach ($paths as $key => $path)
         {
-            if ( ! Str::startsWith($name = basename($module), '.'))
+            $manifests = $this->app['files']->glob("{$path}/module.json");
+
+            is_array($manifests) || $manifests = [];
+
+            foreach ($manifests as $manifest)
             {
-                $modules[$name] = new Module($this->app, $name, $module);
+                $name = Json::make($manifest)->get('name');
+                
+                $lowerName = strtolower($name);
+
+                $modules[$name] = new Module($this->app, $lowerName, dirname($manifest));
             }
         }
 
