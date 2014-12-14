@@ -40,6 +40,8 @@ class InstallCommand extends Command {
     {
         $name = $this->argument('name');
 
+        $this->info("Installing {$name} module");
+        
         $this->laravel['modules']->install($name, $this->option('path'), $this->option('tree'));
 
         $this->laravel['modules']->update(Installer::getModuleName($name));

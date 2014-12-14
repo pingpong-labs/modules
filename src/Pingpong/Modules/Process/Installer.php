@@ -39,7 +39,7 @@ class Installer extends Runner {
 
         $gitPath = $this->getGitPath($name);
 
-        return "cd {$path} && git clone {$repoUrl} && rm -rf {$gitPath}";
+        return "composer require \"$name\"";
     }
 
     /**
