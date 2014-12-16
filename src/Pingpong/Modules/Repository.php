@@ -86,7 +86,7 @@ class Repository implements RepositoryInterface, Countable {
     }
 
     /**
-     * Get alll modules.
+     * Get all modules.
      *
      * @return array
      */
@@ -253,17 +253,14 @@ class Repository implements RepositoryInterface, Countable {
     {
         foreach ($this->all() as $module)
         {
-            if ($module->getLowerName() == strtolower($name))
-            {
-                return $module;
-            }
+            if ($module->getLowerName() == strtolower($name)) return $module;
         }
 
         return null;
     }
 
     /**
-     * Alternate for "find" method.
+     * Alternative for "find" method.
      *
      * @param $name
      * @return null
@@ -282,10 +279,7 @@ class Repository implements RepositoryInterface, Countable {
      */
     public function findOrFail($name)
     {
-        if ( ! is_null($module = $this->find($name)))
-        {
-            return $module;
-        }
+        if ( ! is_null($module = $this->find($name))) return $module;
 
         throw new ModuleNotFoundException("Module [{$name}] does not exist!");
     }
