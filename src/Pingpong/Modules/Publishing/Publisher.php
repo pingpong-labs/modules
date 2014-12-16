@@ -143,7 +143,7 @@ abstract class Publisher implements PublisherInterface {
     {
         if ( ! $this->console instanceof Command)
         {
-            $message = "The 'console' property must instance of \Illuminate\Console\Command.";
+            $message = "The 'console' property must instance of \\Illuminate\\Console\\Command.";
 
             throw new \RuntimeException($message);
         }
