@@ -203,7 +203,6 @@ class Repository implements RepositoryInterface, Countable {
             return $a->priority < $b->priority ? 1 : -1;
         });
 
-
         return $modules;
     }
 
