@@ -22,6 +22,12 @@ class RepositoryTest extends TestCase {
         $this->assertEquals($this->repository->count(), 2);
     }
 
+    public function testGetCachedModules()
+    {
+        $this->assertTrue(is_array($modules = $this->repository->getCached()));
+        $this->assertEquals($this->repository->count(), 2);
+    }
+
     public function testGetOrdered()
     {
         $this->assertTrue(is_array($modules = $this->repository->getOrdered()));
