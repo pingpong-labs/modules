@@ -1,7 +1,6 @@
 <?php namespace Pingpong\Modules\Commands;
 
 use Illuminate\Console\Command;
-use Pingpong\Modules\Process\Installer;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
@@ -41,7 +40,7 @@ class InstallCommand extends Command {
         $name = $this->argument('name');
 
         $this->info("Installing [{$name}] module");
-        
+
         $this->laravel['modules']->install(
             $this->getPackageName(),
             $this->option('path'),
@@ -53,14 +52,14 @@ class InstallCommand extends Command {
 
     /**
      * Get package name.
-     * 
+     *
      * @return string
      */
     protected function getPackageName()
     {
         $name = $this->argument('name');
 
-        if($version = $this->argument('version'))
+        if ($version = $this->argument('version'))
         {
             $name = $name . ':' . $version;
         }

@@ -5,8 +5,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Str;
 use Pingpong\Modules\Contracts\RepositoryInterface;
 use Pingpong\Modules\Exceptions\ModuleNotFoundException;
-use Pingpong\Modules\Process\Updater;
 use Pingpong\Modules\Process\Installer;
+use Pingpong\Modules\Process\Updater;
 
 class Repository implements RepositoryInterface, Countable {
 
@@ -47,7 +47,7 @@ class Repository implements RepositoryInterface, Countable {
 
         $paths[] = $this->getPath() . '/*';
 
-        if($this->config('scan.enabled'))
+        if ($this->config('scan.enabled'))
         {
             $paths = array_merge($paths, $this->config('scan.paths'));
         }
@@ -75,7 +75,7 @@ class Repository implements RepositoryInterface, Countable {
             foreach ($manifests as $manifest)
             {
                 $name = Json::make($manifest)->get('name');
-                
+
                 $lowerName = strtolower($name);
 
                 $modules[$name] = new Module($this->app, $lowerName, dirname($manifest));
@@ -87,7 +87,7 @@ class Repository implements RepositoryInterface, Countable {
 
     /**
      * Get alll modules.
-     * 
+     *
      * @return array
      */
     public function all()
@@ -97,13 +97,13 @@ class Repository implements RepositoryInterface, Countable {
 
     /**
      * Get cached modules.
-     * 
+     *
      * @return array
      */
     public function getCached()
     {
         $key = $this->config('cache.key');
-        
+
         $lifetime = $this->config('cache.lifetime');
 
         return $this->app['cache.store']->remember($key, $lifetime, function ()
@@ -114,7 +114,7 @@ class Repository implements RepositoryInterface, Countable {
 
     /**
      * Get all modules as collection instance.
-     * 
+     *
      * @return Collection
      */
     public function toCollection()
@@ -342,7 +342,7 @@ class Repository implements RepositoryInterface, Countable {
      */
     public function getUsedStoragePath()
     {
-        if( ! $this->app['files']->exists($path = storage_path('meta')))
+        if ( ! $this->app['files']->exists($path = storage_path('meta')))
         {
             $this->app['files']->makeDirectory($path, 0777, true);
         }
@@ -375,7 +375,7 @@ class Repository implements RepositoryInterface, Countable {
 
     /**
      * Get used now.
-     * 
+     *
      * @return string
      */
     public function getUsed()
@@ -405,8 +405,8 @@ class Repository implements RepositoryInterface, Countable {
 
     /**
      * Get asset url from a specific module.
-     * 
-     * @param  string  $asset
+     *
+     * @param  string $asset
      * @param  boolean $secure
      * @return string
      */
@@ -416,10 +416,10 @@ class Repository implements RepositoryInterface, Countable {
 
         return $this->app['url']->asset(basename($this->getAssetsPath()) . "/{$name}/" . $url, $secure);
     }
-    
+
     /**
      * Determine whether the given module is activated.
-     * 
+     *
      * @param  string $name
      * @return boolean
      */
@@ -427,10 +427,10 @@ class Repository implements RepositoryInterface, Countable {
     {
         return $this->findOrFail($name)->active();
     }
-    
+
     /**
      * Determine whether the given module is not activated.
-     * 
+     *
      * @param  string $name
      * @return boolean
      */
@@ -441,7 +441,7 @@ class Repository implements RepositoryInterface, Countable {
 
     /**
      * Enabling a specific module.
-     * 
+     *
      * @param  string $name
      * @return bool
      */
@@ -452,7 +452,7 @@ class Repository implements RepositoryInterface, Countable {
 
     /**
      * Disabling a specific module.
-     * 
+     *
      * @param  string $name
      * @return bool
      */
@@ -460,7 +460,7 @@ class Repository implements RepositoryInterface, Countable {
     {
         return $this->findOrFail($name)->disable();
     }
-    
+
     /**
      * Update dependencies for the specified module.
      *

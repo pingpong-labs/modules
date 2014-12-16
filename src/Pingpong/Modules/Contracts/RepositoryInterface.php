@@ -11,28 +11,28 @@ interface RepositoryInterface {
 
     /**
      * Get cached modules.
-     * 
+     *
      * @return array
      */
     public function getCached();
 
     /**
      * Scan & get all available modules.
-     * 
+     *
      * @return array
      */
     public function scan();
 
     /**
      * Get modules as modules collection instance.
-     * 
+     *
      * @return \Pingpong\Modules\Collectio
      */
     public function toCollection();
 
     /**
      * Get scanned paths.
-     * 
+     *
      * @return array
      */
     public function getScanPaths();
