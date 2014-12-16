@@ -43,8 +43,6 @@ class Repository implements RepositoryInterface, Countable {
      */
     public function getScanPaths()
     {
-        $paths = [];
-
         $paths[] = $this->getPath() . '/*';
 
         if ($this->config('scan.enabled'))
@@ -102,14 +100,16 @@ class Repository implements RepositoryInterface, Countable {
      */
     public function getCached()
     {
-        $key = $this->config('cache.key');
+        return $this->app['cache']->remember(
+            $this->config('cache.key'),
+            $this->config('cache.lifetime'),
+            function ()
+            {
+                $modules = $this->scan();
 
-        $lifetime = $this->config('cache.lifetime');
-
-        return $this->app['cache.store']->remember($key, $lifetime, function ()
-        {
-            return $this->scan();
-        });
+                return $modules;
+            }
+        );
     }
 
     /**
@@ -213,7 +213,7 @@ class Repository implements RepositoryInterface, Countable {
      */
     public function getPath()
     {
-        return $this->path ?: $this->app['config']->get('modules::paths.modules');
+        return $this->path ?: $this->config('paths.modules');
     }
 
     /**
@@ -273,7 +273,7 @@ class Repository implements RepositoryInterface, Countable {
      * Find a specific module, if there return that, otherwise throw exception.
      *
      * @param $name
-     * @return mixed|void
+     * @return Module
      * @throws ModuleNotFoundException
      */
     public function findOrFail($name)
@@ -301,9 +301,7 @@ class Repository implements RepositoryInterface, Countable {
      */
     public function getModulePath($module)
     {
-        $module = Str::studly($module);
-
-        return $this->getPath() . "/{$module}/";
+        return $this->findOrFail($module)->getPath();
     }
 
     /**
@@ -314,7 +312,7 @@ class Repository implements RepositoryInterface, Countable {
      */
     public function assetPath($module)
     {
-        return $this->config('assets') . '/' . $module;
+        return $this->config('paths.assets') . '/' . $module;
     }
 
     /**
@@ -325,7 +323,7 @@ class Repository implements RepositoryInterface, Countable {
      */
     public function config($key)
     {
-        return $this->app['config']->get('modules::paths.' . $key);
+        return $this->app['config']->get('modules::' . $key);
     }
 
     /**
@@ -393,7 +391,7 @@ class Repository implements RepositoryInterface, Countable {
      */
     public function getAssetsPath()
     {
-        return $this->config('assets');
+        return $this->config('paths.assets');
     }
 
     /**
