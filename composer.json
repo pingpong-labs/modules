@@ -18,7 +18,8 @@
     "require": {
         "php": ">=5.4.0",
         "laravel/framework": "~4|~5",
-        "pingpong/generators": "1.*"
+        "pingpong/generators": "1.*",
+        "kzykhys/git": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "~4",
