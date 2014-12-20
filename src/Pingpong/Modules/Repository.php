@@ -102,9 +102,7 @@ class Repository implements RepositoryInterface, Countable {
     {
         return $this->app['cache']->remember($this->config('cache.key'), $this->config('cache.lifetime'), function ()
         {
-            $modules = $this->scan();
-
-            return $modules;
+            return $this->toCollection()->toArray();
         });
     }
 
