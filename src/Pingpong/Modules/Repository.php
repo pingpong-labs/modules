@@ -100,16 +100,12 @@ class Repository implements RepositoryInterface, Countable {
      */
     public function getCached()
     {
-        return $this->app['cache']->remember(
-            $this->config('cache.key'),
-            $this->config('cache.lifetime'),
-            function ()
-            {
-                $modules = $this->scan();
+        return $this->app['cache']->remember($this->config('cache.key'), $this->config('cache.lifetime'), function ()
+        {
+            $modules = $this->scan();
 
-                return $modules;
-            }
-        );
+            return $modules;
+        });
     }
 
     /**
