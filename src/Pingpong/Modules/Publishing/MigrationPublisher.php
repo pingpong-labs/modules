@@ -9,7 +9,7 @@ class MigrationPublisher extends AssetPublisher {
      */
     public function getDestinationPath()
     {
-        return $this->repository->config('migration');
+        return $this->repository->config('paths.migration');
     }
 
     /**
@@ -19,7 +19,7 @@ class MigrationPublisher extends AssetPublisher {
      */
     public function getSourcePath()
     {
-        return $this->getModule()->getExtraPath($this->repository->config('generator.migration'));
+        return $this->getModule()->getExtraPath($this->repository->config('paths.generator.migration'));
     }
 
 } 
