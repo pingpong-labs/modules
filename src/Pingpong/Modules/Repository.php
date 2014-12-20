@@ -5,8 +5,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Str;
 use Pingpong\Modules\Contracts\RepositoryInterface;
 use Pingpong\Modules\Exceptions\ModuleNotFoundException;
-use Pingpong\Modules\Process\Updater;
 use Pingpong\Modules\Process\Installer;
+use Pingpong\Modules\Process\Updater;
 
 class Repository implements RepositoryInterface, Countable {
 
@@ -43,11 +43,9 @@ class Repository implements RepositoryInterface, Countable {
      */
     public function getScanPaths()
     {
-        $paths = [];
-
         $paths[] = $this->getPath() . '/*';
 
-        if($this->config('scan.enabled'))
+        if ($this->config('scan.enabled'))
         {
             $paths = array_merge($paths, $this->config('scan.paths'));
         }
@@ -75,7 +73,7 @@ class Repository implements RepositoryInterface, Countable {
             foreach ($manifests as $manifest)
             {
                 $name = Json::make($manifest)->get('name');
-                
+
                 $lowerName = strtolower($name);
 
                 $modules[$name] = new Module($this->app, $lowerName, dirname($manifest));
@@ -86,8 +84,8 @@ class Repository implements RepositoryInterface, Countable {
     }
 
     /**
-     * Get alll modules.
-     * 
+     * Get all modules.
+     *
      * @return array
      */
     public function all()
@@ -97,24 +95,26 @@ class Repository implements RepositoryInterface, Countable {
 
     /**
      * Get cached modules.
-     * 
+     *
      * @return array
      */
     public function getCached()
     {
-        $key = $this->config('cache.key');
-        
-        $lifetime = $this->config('cache.lifetime');
+        return $this->app['cache']->remember(
+            $this->config('cache.key'),
+            $this->config('cache.lifetime'),
+            function ()
+            {
+                $modules = $this->scan();
 
-        return $this->app['cache.store']->remember($key, $lifetime, function ()
-        {
-            return $this->scan();
-        });
+                return $modules;
+            }
+        );
     }
 
     /**
      * Get all modules as collection instance.
-     * 
+     *
      * @return Collection
      */
     public function toCollection()
@@ -203,7 +203,6 @@ class Repository implements RepositoryInterface, Countable {
             return $a->priority < $b->priority ? 1 : -1;
         });
 
-
         return $modules;
     }
 
@@ -214,7 +213,7 @@ class Repository implements RepositoryInterface, Countable {
      */
     public function getPath()
     {
-        return $this->path ?: $this->app['config']->get('modules::paths.modules');
+        return $this->path ?: $this->config('paths.modules');
     }
 
     /**
@@ -253,17 +252,14 @@ class Repository implements RepositoryInterface, Countable {
     {
         foreach ($this->all() as $module)
         {
-            if ($module->getLowerName() == strtolower($name))
-            {
-                return $module;
-            }
+            if ($module->getLowerName() == strtolower($name)) return $module;
         }
 
         return null;
     }
 
     /**
-     * Alternate for "find" method.
+     * Alternative for "find" method.
      *
      * @param $name
      * @return null
@@ -277,15 +273,12 @@ class Repository implements RepositoryInterface, Countable {
      * Find a specific module, if there return that, otherwise throw exception.
      *
      * @param $name
-     * @return mixed|void
+     * @return Module
      * @throws ModuleNotFoundException
      */
     public function findOrFail($name)
     {
-        if ( ! is_null($module = $this->find($name)))
-        {
-            return $module;
-        }
+        if ( ! is_null($module = $this->find($name))) return $module;
 
         throw new ModuleNotFoundException("Module [{$name}] does not exist!");
     }
@@ -308,9 +301,14 @@ class Repository implements RepositoryInterface, Countable {
      */
     public function getModulePath($module)
     {
-        $module = Str::studly($module);
-
-        return $this->getPath() . "/{$module}/";
+        try
+        {
+            return $this->findOrFail($module)->getPath() . '/';
+        }
+        catch (ModuleNotFoundException $e)
+        {
+            return $this->getPath() . '/' . Str::studly($module) . '/';
+        }
     }
 
     /**
@@ -321,7 +319,7 @@ class Repository implements RepositoryInterface, Countable {
      */
     public function assetPath($module)
     {
-        return $this->config('assets') . '/' . $module;
+        return $this->config('paths.assets') . '/' . $module;
     }
 
     /**
@@ -332,7 +330,7 @@ class Repository implements RepositoryInterface, Countable {
      */
     public function config($key)
     {
-        return $this->app['config']->get('modules::paths.' . $key);
+        return $this->app['config']->get('modules::' . $key);
     }
 
     /**
@@ -342,7 +340,7 @@ class Repository implements RepositoryInterface, Countable {
      */
     public function getUsedStoragePath()
     {
-        if( ! $this->app['files']->exists($path = storage_path('meta')))
+        if ( ! $this->app['files']->exists($path = storage_path('meta')))
         {
             $this->app['files']->makeDirectory($path, 0777, true);
         }
@@ -375,7 +373,7 @@ class Repository implements RepositoryInterface, Countable {
 
     /**
      * Get used now.
-     * 
+     *
      * @return string
      */
     public function getUsed()
@@ -400,13 +398,13 @@ class Repository implements RepositoryInterface, Countable {
      */
     public function getAssetsPath()
     {
-        return $this->config('assets');
+        return $this->config('paths.assets');
     }
 
     /**
      * Get asset url from a specific module.
-     * 
-     * @param  string  $asset
+     *
+     * @param  string $asset
      * @param  boolean $secure
      * @return string
      */
@@ -416,10 +414,10 @@ class Repository implements RepositoryInterface, Countable {
 
         return $this->app['url']->asset(basename($this->getAssetsPath()) . "/{$name}/" . $url, $secure);
     }
-    
+
     /**
      * Determine whether the given module is activated.
-     * 
+     *
      * @param  string $name
      * @return boolean
      */
@@ -427,10 +425,10 @@ class Repository implements RepositoryInterface, Countable {
     {
         return $this->findOrFail($name)->active();
     }
-    
+
     /**
      * Determine whether the given module is not activated.
-     * 
+     *
      * @param  string $name
      * @return boolean
      */
@@ -441,7 +439,7 @@ class Repository implements RepositoryInterface, Countable {
 
     /**
      * Enabling a specific module.
-     * 
+     *
      * @param  string $name
      * @return bool
      */
@@ -452,7 +450,7 @@ class Repository implements RepositoryInterface, Countable {
 
     /**
      * Disabling a specific module.
-     * 
+     *
      * @param  string $name
      * @return bool
      */
@@ -460,7 +458,7 @@ class Repository implements RepositoryInterface, Countable {
     {
         return $this->findOrFail($name)->disable();
     }
-    
+
     /**
      * Update dependencies for the specified module.
      *

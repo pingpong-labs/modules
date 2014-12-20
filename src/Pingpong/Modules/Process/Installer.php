@@ -28,13 +28,12 @@ class Installer extends Runner {
      * Get command.
      *
      * @param  string $name
-     * @param  string|null $path
      * @return string
      */
     protected function getCommand($name)
     {
         chdir(base_path());
-        
+
         return "composer require \"$name\"";
     }
 

@@ -14,20 +14,20 @@ class Collection extends BaseCollection {
         return $this->items;
     }
 
-	/**
-	 * Get the collection of items as a plain array.
-	 *
-	 * @return array
-	 */
-	public function toArray()
-	{
-		return array_map(function($value)
-		{
-			if($value instanceof Module) return $value->json()->getAttributes();
+    /**
+     * Get the collection of items as a plain array.
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        return array_map(function ($value)
+        {
+            if ($value instanceof Module) return $value->json()->getAttributes();
 
-			return $value instanceof ArrayableInterface ? $value->toArray() : $value;
+            return $value instanceof ArrayableInterface ? $value->toArray() : $value;
 
-		}, $this->items);
-	}
+        }, $this->items);
+    }
 
 } 

@@ -9,7 +9,7 @@ class CliTest extends TestCase {
 		$commandOptions = [
 			'module:setup' => [],
 			'module:make' => ['name' => 'Bar'],
-			'module:model' => ['model' => 'Bazz', 'module' => 'Bar'],
+			'module:model' => ['model' => 'Baz', 'module' => 'Bar'],
 			'module:use' => ['module' => 'Bar'],
  			'module:controller' => ['controller' => 'FooController'],
  			'module:command' => ['name' => 'FooCommand'],
