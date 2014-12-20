@@ -34,7 +34,7 @@ class Installer extends Runner {
     protected function getCommand($name)
     {
         chdir(base_path());
-        
+
         return "composer require \"$name\"";
     }
 

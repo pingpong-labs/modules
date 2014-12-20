@@ -50,7 +50,7 @@ abstract class Publisher implements PublisherInterface {
     public function __construct(Module $module)
     {
         $this->module = $module;
-        
+
         $this->success = "Publishing was successful";
     }
 

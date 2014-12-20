@@ -267,8 +267,8 @@ class ModuleGenerator extends Generator {
         foreach ($this->getFiles() as $stub => $file)
         {
             $path = $this->module->getModulePath($this->getName()) . $file;
-            
-            if( ! $this->filesystem->isDirectory($dir = dirname($path)))
+
+            if ( ! $this->filesystem->isDirectory($dir = dirname($path)))
             {
                 $this->filesystem->makeDirectory($dir, 0775, true);
             }
@@ -363,7 +363,7 @@ class ModuleGenerator extends Generator {
 
     /**
      * Get replacement for $VENDOR$
-     * 
+     *
      * @return string
      */
     protected function getVendorReplacement()
@@ -373,7 +373,7 @@ class ModuleGenerator extends Generator {
 
     /**
      * Get replacement for $AUTHOR_NAME$
-     * 
+     *
      * @return string
      */
     protected function getAuthorNameReplacement()
@@ -383,7 +383,7 @@ class ModuleGenerator extends Generator {
 
     /**
      * Get replacement for $AUTHOR_EMAIL$
-     * 
+     *
      * @return string
      */
     protected function getAuthorEmailReplacement()
