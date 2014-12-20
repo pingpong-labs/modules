@@ -27,7 +27,7 @@ Laravel Modules
 
 If you find this source useful, you can share some milk to me if you want ^_^
 
-[![Donate](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=gravitano16%40gmail%2ecom&lc=ID&item_name=pingpong%2dlabs%2fmodules&item_number=PP_MODULES&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted)
+[![Donate](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=gravitano16%40gmail%2ecom&lc=ID&item_name=pingpong%2dlabs%2fmodules&item_number=PP_MODULES&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted)]
 
 ### Changes Log
 
