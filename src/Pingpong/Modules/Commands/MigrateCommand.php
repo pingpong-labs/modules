@@ -55,6 +55,8 @@ class MigrateCommand extends Command {
      */
     protected function migrate($name)
     {
+        $this->line("Migrating module : {$name}");
+
         $module = $this->module->findOrFail($name);
 
         $this->call('migrate', $this->getParameter($module->getPath()));
