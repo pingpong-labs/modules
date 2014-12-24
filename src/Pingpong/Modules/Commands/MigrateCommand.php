@@ -55,11 +55,15 @@ class MigrateCommand extends Command {
      */
     protected function migrate($name)
     {
-        $this->line("Migrating module : {$name}");
+        $this->line("<comment>Migrating module</comment> : {$name}");
 
         $module = $this->module->findOrFail($name);
 
-        $this->call('migrate', $this->getParameter($module->getPath()));
+        $path = $module->getExtraPath($this->module->config('paths.generator.migration'));
+
+        $path = str_replace(base_path(), '', $path);
+
+        $this->call('migrate', $this->getParameter($path));
 
         if ($this->option('seed'))
         {
@@ -77,7 +81,7 @@ class MigrateCommand extends Command {
     {
         $params = array();
 
-        $params['--path'] = $this->getMigrationPath($path);
+        $params['--path'] = $path;
 
         if ($option = $this->option('database'))
         {
@@ -95,19 +99,6 @@ class MigrateCommand extends Command {
         }
 
         return $params;
-    }
-
-    /**
-     * Get migrations path.
-     *
-     * @param $name
-     * @return string
-     */
-    protected function getMigrationPath($name)
-    {
-        $path = str_replace(base_path(), '', $this->module->getModulePath($name));
-
-        return $path . $this->laravel['config']->get('modules::paths.generator.migration');
     }
 
     /**
