@@ -18,7 +18,7 @@ class InstallCommand extends Command {
      *
      * @var string
      */
-    protected $description = 'Install the specified module by given github repo name (username/reponame).';
+    protected $description = 'Install the specified module by given package name (vendor/name).';
 
     /**
      * Create a new command instance.
