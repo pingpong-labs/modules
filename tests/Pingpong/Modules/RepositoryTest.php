@@ -70,4 +70,11 @@ class RepositoryTest extends TestCase {
         $this->assertEquals('user', $used->getLowerName());
     }
 
+    public function testAddPath()
+    {
+        $this->repository->addLocation(__DIR__ . '/../../../fixture/app/modules');
+        $this->repository->addPath(__DIR__ . '/../../../fixture/vendor');
+        $this->assertEquals(2, count($this->repository->getPaths()));
+    }
+
 }
