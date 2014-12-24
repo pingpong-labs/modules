@@ -25,6 +25,13 @@ class Repository implements RepositoryInterface, Countable {
     protected $path;
 
     /**
+     * The scanned paths.
+     * 
+     * @var array
+     */
+    protected $paths = [];
+
+    /**
      * The constructor.
      *
      * @param Application $app
@@ -37,12 +44,48 @@ class Repository implements RepositoryInterface, Countable {
     }
 
     /**
+     * Add other module location.
+     * 
+     * @param string $path
+     * @return $this
+     */
+    public function addLocation($path)
+    {
+        $this->paths[] = $path;
+
+        return $this;
+    }
+
+    /**
+     * Alternative method for "addPath".
+     * 
+     * @param string $path
+     * @return $this
+     */
+    public function addPath($path)
+    {
+        return $this->addLocation($path);
+    }
+
+    /**
+     * Get all additional paths.
+     * 
+     * @return array
+     */
+    public function getPaths()
+    {
+        return $this->paths;
+    }
+
+    /**
      * Get scanned modules paths.
      *
      * @return array
      */
     public function getScanPaths()
     {
+        $paths = $this->paths;
+        
         $paths[] = $this->getPath() . '/*';
 
         if ($this->config('scan.enabled'))
