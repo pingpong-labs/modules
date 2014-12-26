@@ -8,6 +8,13 @@ Laravel Modules
 [![License](https://poser.pugx.org/pingpong/modules/license.svg)](https://packagist.org/packages/pingpong/modules)
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/pingpong-labs/modules/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
+### Version Compability
+
+ Laravel  | Pingpong Modules | PHP 
+:---------|:-----------------|:----
+ 4.x      | 1.x              |>= 5.4
+ 5.0.x    | 2.0.*@dev        |>= 5.4
+
 ### Documentation
 
 For more documentation please see [wiki](https://github.com/pingpong-labs/modules/wiki) part of this repo.
