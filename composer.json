@@ -19,7 +19,7 @@
         "php": ">=5.4.0",
         "laravel/framework": "~4|~5",
         "pingpong/generators": "1.*",
-        "kzykhys/git": "*"
+        "kzykhys/git": "~0"
     },
     "require-dev": {
         "phpunit/phpunit": "~4",
