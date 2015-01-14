@@ -251,10 +251,8 @@ class Module extends ServiceProvider {
     protected function registerAliases()
     {
         $loader = AliasLoader::getInstance();
-        \Debugbar::info($this->get('aliases'));
         foreach ($this->get('aliases', []) as $aliasName => $aliasClass)
         {
-
             $loader->alias($aliasName, $aliasClass);
         }
     }
