@@ -1,6 +1,7 @@
 <?php namespace Pingpong\Modules;
 
 use Illuminate\Foundation\Application;
+use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 
@@ -222,6 +223,8 @@ class Module extends ServiceProvider {
      */
     public function register()
     {
+        $this->registerAliases();
+
         $this->registerProviders();
 
         $this->registerFiles();
@@ -237,6 +240,23 @@ class Module extends ServiceProvider {
     protected function fireEvent($event)
     {
         $this->app['events']->fire(sprintf('modules.%s.' . $event, $this->getLowerName()), [$this]);
+    }
+
+
+    /**
+     * Register the aliases from this module.
+     *
+     * @return void
+     */
+    protected function registerAliases()
+    {
+        $loader = AliasLoader::getInstance();
+        \Debugbar::info($this->get('aliases'));
+        foreach ($this->get('aliases', []) as $aliasName => $aliasClass)
+        {
+
+            $loader->alias($aliasName, $aliasClass);
+        }
     }
 
     /**
