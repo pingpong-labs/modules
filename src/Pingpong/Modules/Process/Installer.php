@@ -18,7 +18,7 @@ class Installer extends Runner {
         }
         else
         {
-            $command = $this->getCommand($name, $path);
+            $command = $this->getCommand($name);
         }
 
         $this->run($command);
@@ -28,18 +28,13 @@ class Installer extends Runner {
      * Get command.
      *
      * @param  string $name
-     * @param  string|null $path
      * @return string
      */
-    protected function getCommand($name, $path = null)
+    protected function getCommand($name)
     {
-        $repoUrl = $this->getRepoPath($name);
+        chdir(base_path());
 
-        $path = $this->getModulePath($path);
-
-        $gitPath = $this->getGitPath($name);
-
-        return "cd {$path} && git clone {$repoUrl} && rm -rf {$gitPath}";
+        return "composer require \"$name\"";
     }
 
     /**
@@ -90,7 +85,7 @@ class Installer extends Runner {
      */
     protected function getRepoPath($name)
     {
-        return "git@github.com:{$name}.git";
+        return "https://github.com/{$name}.git";
     }
 
     /**

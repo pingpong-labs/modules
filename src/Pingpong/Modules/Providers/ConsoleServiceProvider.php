@@ -46,7 +46,8 @@ class ConsoleServiceProvider extends ServiceProvider {
         'SeedMake',
         'Setup',
         'Update',
-        'Use'
+        'Use',
+        'Dump'
     ];
 
     /**

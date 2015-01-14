@@ -22,6 +22,12 @@ class RepositoryTest extends TestCase {
         $this->assertEquals($this->repository->count(), 2);
     }
 
+    public function testGetCachedModules()
+    {
+        $this->assertTrue(is_array($modules = $this->repository->getCached()));
+        $this->assertEquals($this->repository->count(), 2);
+    }
+
     public function testGetOrdered()
     {
         $this->assertTrue(is_array($modules = $this->repository->getOrdered()));
@@ -62,6 +68,13 @@ class RepositoryTest extends TestCase {
         $this->repository->setUsed('user');
         $used = $this->repository->getUsed();
         $this->assertEquals('user', $used->getLowerName());
+    }
+
+    public function addPath()
+    {
+        $this->repository->addLocation(__DIR__ . '/../../../fixture/app/modules');
+        $this->repository->addPath(__DIR__ . '/../../../fixture/vendor');
+        $this->assertEquals(2, count($this->repository->getPaths()));
     }
 
 }

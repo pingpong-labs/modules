@@ -52,7 +52,10 @@ class ModuleGenerator extends Generator {
     protected $files = [
         'start' => 'start.php',
         'routes' => 'Http/routes.php',
-        'json' => 'module.json'
+        'json' => 'module.json',
+        'composer' => 'composer.json',
+        'views/index' => 'Resources/views/index.blade.php',
+        'views/master' => 'Resources/views/layouts/master.blade.php',
     ];
 
     /**
@@ -63,7 +66,10 @@ class ModuleGenerator extends Generator {
     protected $replacements = [
         'start' => ['LOWER_NAME'],
         'routes' => ['LOWER_NAME', 'STUDLY_NAME'],
-        'json' => ['LOWER_NAME', 'STUDLY_NAME']
+        'json' => ['LOWER_NAME', 'STUDLY_NAME'],
+        'composer' => ['LOWER_NAME', 'STUDLY_NAME', 'VENDOR', 'AUTHOR_NAME', 'AUTHOR_EMAIL'],
+        'views/index' => ['LOWER_NAME'],
+        'views/master' => ['STUDLY_NAME'],
     ];
 
     /**
@@ -262,6 +268,11 @@ class ModuleGenerator extends Generator {
         {
             $path = $this->module->getModulePath($this->getName()) . $file;
 
+            if ( ! $this->filesystem->isDirectory($dir = dirname($path)))
+            {
+                $this->filesystem->makeDirectory($dir, 0775, true);
+            }
+
             $this->filesystem->put($path, $this->getStubContents($stub));
 
             $this->console->info("Created : {$path}");
@@ -309,10 +320,7 @@ class ModuleGenerator extends Generator {
      */
     protected function getReplacement($stub)
     {
-        if ( ! isset($this->replacements[$stub]))
-        {
-            return [];
-        }
+        if ( ! isset($this->replacements[$stub])) return [];
 
         $keys = $this->replacements[$stub];
 
@@ -352,4 +360,35 @@ class ModuleGenerator extends Generator {
     {
         return $this->getName();
     }
+
+    /**
+     * Get replacement for $VENDOR$
+     *
+     * @return string
+     */
+    protected function getVendorReplacement()
+    {
+        return $this->module->config('composer.vendor');
+    }
+
+    /**
+     * Get replacement for $AUTHOR_NAME$
+     *
+     * @return string
+     */
+    protected function getAuthorNameReplacement()
+    {
+        return $this->module->config('composer.author.name');
+    }
+
+    /**
+     * Get replacement for $AUTHOR_EMAIL$
+     *
+     * @return string
+     */
+    protected function getAuthorEmailReplacement()
+    {
+        return $this->module->config('composer.author.email');
+    }
+
 }

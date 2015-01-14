@@ -21,7 +21,7 @@ class MigrateCommand extends Command {
     protected $description = 'Migrate the migrations from the specified module or from all modules.';
 
     /**
-     * @var \Pingpong\Modules\Module
+     * @var \Pingpong\Modules\Repository
      */
     protected $module;
 
@@ -55,58 +55,50 @@ class MigrateCommand extends Command {
      */
     protected function migrate($name)
     {
-        if ($this->module->has($name))
+        $this->line("<comment>Migrating module</comment> : {$name}");
+
+        $module = $this->module->findOrFail($name);
+
+        $path = $module->getExtraPath($this->module->config('paths.generator.migration'));
+
+        $path = str_replace(base_path(), '', $path);
+
+        $this->call('migrate', $this->getParameter($path));
+
+        if ($this->option('seed'))
         {
-            $this->call('migrate', $this->getParameter($name));
-
-            if ($this->option('seed'))
-            {
-                $this->call('module:seed', ['module' => $name]);
-            }
-
-            return;
+            $this->call('module:seed', ['module' => $name]);
         }
-
-        return $this->error("Module [$name] does not exists.");
     }
 
     /**
      * Get console paramenter.
      *
-     * @param  string $name
+     * @param  string $path
      * @return array
      */
-    protected function getParameter($name)
+    protected function getParameter($path)
     {
         $params = array();
 
-        $params['--path'] = $this->getMigrationPath($name);
+        $params['--path'] = $path;
 
         if ($option = $this->option('database'))
         {
             $params['--database'] = $option;
         }
+
         if ($option = $this->option('pretend'))
         {
             $params['--pretend'] = $option;
         }
+
         if ($option = $this->option('force'))
         {
             $params['--force'] = $option;
         }
+
         return $params;
-    }
-
-    /**
-     * Get migrations path.
-     *
-     * @return string
-     */
-    protected function getMigrationPath($name)
-    {
-        $path = str_replace(base_path(), '', $this->module->getModulePath($name));
-
-        return $path . $this->laravel['config']->get('modules::paths.generator.migration');
     }
 
     /**

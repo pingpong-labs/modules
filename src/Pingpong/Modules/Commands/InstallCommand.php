@@ -1,7 +1,6 @@
 <?php namespace Pingpong\Modules\Commands;
 
 use Illuminate\Console\Command;
-use Pingpong\Modules\Process\Installer;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
@@ -19,7 +18,7 @@ class InstallCommand extends Command {
      *
      * @var string
      */
-    protected $description = 'Install the specified module by given github repo name (username/reponame).';
+    protected $description = 'Install the specified module by given package name (vendor/name).';
 
     /**
      * Create a new command instance.
@@ -40,11 +39,32 @@ class InstallCommand extends Command {
     {
         $name = $this->argument('name');
 
-        $this->laravel['modules']->install($name, $this->option('path'), $this->option('tree'));
+        $this->info("Installing [{$name}] module");
 
-        $this->laravel['modules']->update(Installer::getModuleName($name));
+        $this->laravel['modules']->install(
+            $this->getPackageName(),
+            $this->option('path'),
+            $this->option('tree')
+        );
 
         $this->info("Module [{$name}] installed successfully.");
+    }
+
+    /**
+     * Get package name.
+     *
+     * @return string
+     */
+    protected function getPackageName()
+    {
+        $name = $this->argument('name');
+
+        if ($version = $this->argument('version'))
+        {
+            $name = $name . ':' . $version;
+        }
+
+        return $name;
     }
 
     /**
@@ -56,6 +76,7 @@ class InstallCommand extends Command {
     {
         return array(
             array('name', InputArgument::REQUIRED, 'The name of module will be installed.'),
+            array('version', InputArgument::OPTIONAL, 'The version of module will be installed.'),
         );
     }
 

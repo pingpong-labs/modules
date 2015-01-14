@@ -18,7 +18,8 @@
     "require": {
         "php": ">=5.4.0",
         "laravel/framework": "~4|~5",
-        "pingpong/generators": "1.*"
+        "pingpong/generators": "1.*",
+        "kzykhys/git": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "~4",
@@ -37,8 +38,8 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.1-dev",
-            "dev-develop": "1.2-dev"
+            "dev-master": "1.2-dev",
+            "dev-develop": "1.3-dev"
         }
     },
     "minimum-stability": "stable"

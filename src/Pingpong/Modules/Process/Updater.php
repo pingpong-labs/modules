@@ -10,7 +10,7 @@ class Updater extends Runner {
      */
     public function update($module)
     {
-        $module = $this->module->get($module);
+        $module = $this->module->findOrFail($module);
 
         $packages = $module->get('require', []);
 

@@ -1,6 +1,7 @@
 <?php namespace Pingpong\Modules\Generators;
 
 use Illuminate\Filesystem\Filesystem;
+use Pingpong\Generators\Exceptions\FileAlreadyExistException;
 
 class FileGenerator extends Generator {
 
@@ -118,7 +119,7 @@ class FileGenerator extends Generator {
             return $this->filesystem->put($path, $this->getContents());
         }
 
-        throw new FileAlreadyExistsException;
+        throw new FileAlreadyExistException;
     }
 
 } 

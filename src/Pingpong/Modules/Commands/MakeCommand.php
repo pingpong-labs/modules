@@ -27,12 +27,17 @@ class MakeCommand extends Command {
      */
     public function fire()
     {
-        with(new ModuleGenerator($this->argument('name')))
-            ->setFilesystem($this->laravel['files'])
-            ->setModule($this->laravel['modules'])
-            ->setConfig($this->laravel['config'])
-            ->setConsole($this)
-            ->generate();
+        $names = $this->argument('name');
+
+        foreach ($names as $name)
+        {
+            with(new ModuleGenerator($name))
+                ->setFilesystem($this->laravel['files'])
+                ->setModule($this->laravel['modules'])
+                ->setConfig($this->laravel['config'])
+                ->setConsole($this)
+                ->generate();
+        }
     }
 
 
@@ -44,7 +49,7 @@ class MakeCommand extends Command {
     protected function getArguments()
     {
         return array(
-            array('name', InputArgument::REQUIRED, 'The name of module will be created.'),
+            array('name', InputArgument::IS_ARRAY, 'The names of modules will be created.'),
         );
     }
 
