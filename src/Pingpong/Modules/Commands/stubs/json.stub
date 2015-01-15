@@ -6,6 +6,7 @@
     "active": 1,
     "priority": 0,
     "providers": [],
+    "aliases":{},
     "files": [
         "start.php"
     ]
