@@ -21,8 +21,6 @@ class ModulesServiceProvider extends ServiceProvider {
      */
     public function boot()
     {
-        $this->package('pingpong/modules');
-
         $this->app['modules']->boot();
 
         $this->app['modules']->register();
