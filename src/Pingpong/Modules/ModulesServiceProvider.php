@@ -27,7 +27,7 @@ class ModulesServiceProvider extends ServiceProvider {
 
         $this->app['modules']->register();
 
-        Stub::setPath(__DIR__ . '/Commands/stubs');
+        Stub::setPath($this->app['config']->get('modules::stubs.path'));
     }
 
     /**
