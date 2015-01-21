@@ -201,11 +201,16 @@ class ModuleGenerator extends Generator {
 
         $this->generateFolders();
 
-        $this->generateFiles();
+        if( $this->config->get('modules::stubs.enabled', false) )
+        {
+            $this->generateFiles();
+            $this->generateResources();
+        } 
+        
+        $this->console->info("Module [{$name}] created,  successfully.");
+    
 
-        $this->generateResources();
-
-        $this->console->info("Module [{$name}] created successfully.");
+        
     }
 
     /**
@@ -239,7 +244,6 @@ class ModuleGenerator extends Generator {
      */
     public function generateFiles()
     {
-        //var_dump($this->getFiles());
         foreach ($this->getFiles() as $stub => $file)
         {
             $path = $this->module->getModulePath($this->getName()) . $file;

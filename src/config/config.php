@@ -3,8 +3,9 @@
 return [
 
     'stubs' => [
-        'path'    => base_path().'/vendor/pingpong/modules/src/Pingpong/Modules/Commands/stubs',
-        'files' => [
+        'enabled'   => false,
+        'path'      => base_path().'/vendor/pingpong/modules/src/Pingpong/Modules/Commands/stubs',
+        'files'     => [
             'start'         => 'start.php',
             'routes'        => 'Http/routes.php',
             'json'          => 'module.json',
