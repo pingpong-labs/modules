@@ -45,34 +45,6 @@ class ModuleGenerator extends Generator {
     protected $module;
 
     /**
-     * The list of files will be created.
-     *
-     * @var array
-     */
-    protected $files = [
-        'start' => 'start.php',
-        'routes' => 'Http/routes.php',
-        'json' => 'module.json',
-        'composer' => 'composer.json',
-        'views/index' => 'Resources/views/index.blade.php',
-        'views/master' => 'Resources/views/layouts/master.blade.php',
-    ];
-
-    /**
-     * The list of replacement for file generator.
-     *
-     * @var array
-     */
-    protected $replacements = [
-        'start' => ['LOWER_NAME'],
-        'routes' => ['LOWER_NAME', 'STUDLY_NAME'],
-        'json' => ['LOWER_NAME', 'STUDLY_NAME'],
-        'composer' => ['LOWER_NAME', 'STUDLY_NAME', 'VENDOR', 'AUTHOR_NAME', 'AUTHOR_EMAIL'],
-        'views/index' => ['LOWER_NAME'],
-        'views/master' => ['STUDLY_NAME'],
-    ];
-
-    /**
      * The constructor.
      *
      * @param $name
@@ -89,6 +61,7 @@ class ModuleGenerator extends Generator {
         $this->console = $console;
         $this->module = $module;
     }
+
 
     /**
      * Get the name of module will created. By default in studly case.
@@ -109,6 +82,8 @@ class ModuleGenerator extends Generator {
     {
         return $this->config;
     }
+
+
 
     /**
      * Set the laravel config instance.
@@ -209,7 +184,7 @@ class ModuleGenerator extends Generator {
      */
     public function getFiles()
     {
-        return $this->files;
+        return $this->config->get('modules::stubs.files');
     }
 
     /**
@@ -226,11 +201,16 @@ class ModuleGenerator extends Generator {
 
         $this->generateFolders();
 
-        $this->generateFiles();
+        if( $this->config->get('modules::stubs.enabled', false) )
+        {
+            $this->generateFiles();
+            $this->generateResources();
+        } 
+        
+        $this->console->info("Module [{$name}] created,  successfully.");
+    
 
-        $this->generateResources();
-
-        $this->console->info("Module [{$name}] created successfully.");
+        
     }
 
     /**
@@ -313,6 +293,13 @@ class ModuleGenerator extends Generator {
     }
 
     /**
+     * get the list for the replacements
+     */
+    public function getReplacements()
+    {
+        return $this->config->get('modules::stubs.replacements');
+    }
+    /**
      * Get array replacement for the specified stub.
      *
      * @param $stub
@@ -320,9 +307,11 @@ class ModuleGenerator extends Generator {
      */
     protected function getReplacement($stub)
     {
-        if ( ! isset($this->replacements[$stub])) return [];
+        $replacements = $this->config->get('modules::stubs.replacements');
 
-        $keys = $this->replacements[$stub];
+        if ( ! isset($replacements[$stub])) return [];
+
+        $keys = $replacements[$stub];
 
         $replaces = [];
 
