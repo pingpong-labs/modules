@@ -27,12 +27,11 @@ class PublishConfigCommand extends Command {
      */
     public function fire()
     {
-
         if( ! file_exists($destinationPath = base_path() . '/config/modules.php'))
         {
-            $path = realpath(__DIR__ . '/../../../sec/config/config.php'); 
+            $path = realpath(__DIR__ . '/../../../../src/config/config.php'); 
 
-            $this->app['files']->copy($path, $destinationPath);
+            $this->laravel['files']->copy($path, $destinationPath);
 
             $this->info("Config file published successfully.");
         }
