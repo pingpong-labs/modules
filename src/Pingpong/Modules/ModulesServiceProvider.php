@@ -35,8 +35,17 @@ class ModulesServiceProvider extends ServiceProvider {
      */
     public function register()
     {
+        $this->registerNamespaces();
         $this->registerServices();
         $this->registerProviders();
+    }
+
+    protected function registerNamespaces()
+    {
+        $configPath = __DIR__.'/../../../src/config/config.php';
+        // var_dump(realpath($configPath));
+        $this->mergeConfigFrom($configPath, 'modules');
+        $this->publishes([$configPath => config_path('modules.php')]);
     }
 
     /**
