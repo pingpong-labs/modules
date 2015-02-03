@@ -62,8 +62,8 @@ class ModulesServiceProvider extends ServiceProvider {
         $this->app->register('Illuminate\Html\HtmlServiceProvider');
 
         $aliases = [
-            'HTML' => 'Illuminate\Support\Facades\HTML',
-            'Form' => 'Illuminate\Support\Facades\Form',
+            'HTML' => 'Illuminate\Html\HtmlFacade',
+            'Form' => 'Illuminate\Html\FormFacade',
         ];
 
         AliasLoader::getInstance($aliases)->register();
