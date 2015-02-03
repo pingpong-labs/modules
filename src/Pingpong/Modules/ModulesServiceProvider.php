@@ -78,7 +78,7 @@ class ModulesServiceProvider extends ServiceProvider {
     {
         $this->app->bindShared('modules', function ($app)
         {
-            $path = $app['config']->get('modules::paths.modules');
+            $path = $app['config']->get('modules.paths.modules');
 
             return new Repository($app, $path);
         });
