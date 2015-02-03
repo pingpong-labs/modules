@@ -174,7 +174,9 @@ class ModuleGenerator extends Generator {
      */
     public function getFolders()
     {
-        return array_values($this->config->get('modules::paths.generator'));
+        $config = $this->config->get('modules.paths.generator');
+        
+        return array_values($config);
     }
 
     /**

@@ -367,7 +367,7 @@ class Repository implements RepositoryInterface, Countable {
      */
     public function config($key)
     {
-        return $this->app['config']->get('modules::' . $key);
+        return $this->app['config']->get('modules.' . $key);
     }
 
     /**

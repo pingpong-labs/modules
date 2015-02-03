@@ -126,71 +126,12 @@ class Module extends ServiceProvider {
     }
 
     /**
-     * Register the modules's component namespaces.
-     *
-     * @param  string $package
-     * @param  string $namespace
-     * @param  string $path
-     * @return void
-     */
-    public function package($package, $namespace = null, $path = null)
-    {
-        $namespace = $this->getPackageNamespace($package, $namespace);
-
-        // In this method we will register the configuration package for the package
-        // so that the configuration options cleanly cascade into the application
-        // folder to make the developers lives much easier in maintaining them.
-        $path = $path ?: $this->guessPackagePath();
-
-        $generatorPaths = $this->app['config']->get('modules::paths.generator');
-
-        $config = $path . '/' . $generatorPaths['config'];
-
-        if ($this->app['files']->isDirectory($config))
-        {
-            $this->app['config']->package($package, $config, $namespace);
-        }
-
-        // Next we will check for any "language" components. If language files exist
-        // we will register them with this given package's namespace so that they
-        // may be accessed using the translation facilities of the application.
-        $lang = $path . '/' . $generatorPaths['lang'];
-
-        if ($this->app['files']->isDirectory($lang))
-        {
-            $this->app['translator']->addNamespace($namespace, $lang);
-        }
-
-        // Next, we will see if the application view folder contains a folder for the
-        // package and namespace. If it does, we'll give that folder precedence on
-        // the loader list for the views so the package views can be overridden.
-        $appView = $this->getAppViewPath($package);
-
-        if ($this->app['files']->isDirectory($appView))
-        {
-            $this->app['view']->addNamespace($namespace, $appView);
-        }
-
-        // Finally we will register the view namespace so that we can access each of
-        // the views available in this package. We use a standard convention when
-        // registering the paths to every package's views and other components.
-        $view = $path . '/' . $generatorPaths['views'];
-
-        if ($this->app['files']->isDirectory($view))
-        {
-            $this->app['view']->addNamespace($namespace, $view);
-        }
-    }
-
-    /**
      * Bootstrap the application events.
      *
      * @return void
      */
     public function boot()
     {
-        $this->package('modules/' . $this->getLowerName(), $this->getLowerName(), $this->path);
-
         $this->fireEvent('boot');
     }
 
