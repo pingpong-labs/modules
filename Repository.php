@@ -26,10 +26,15 @@ class Repository implements RepositoryInterface, Countable {
 
     /**
      * The scanned paths.
-     * 
+     *
      * @var array
      */
     protected $paths = [];
+
+    /**
+     * @var string
+     */
+    protected $stubPath;
 
     /**
      * The constructor.
@@ -45,7 +50,7 @@ class Repository implements RepositoryInterface, Countable {
 
     /**
      * Add other module location.
-     * 
+     *
      * @param string $path
      * @return $this
      */
@@ -58,7 +63,7 @@ class Repository implements RepositoryInterface, Countable {
 
     /**
      * Alternative method for "addPath".
-     * 
+     *
      * @param string $path
      * @return $this
      */
@@ -69,7 +74,7 @@ class Repository implements RepositoryInterface, Countable {
 
     /**
      * Get all additional paths.
-     * 
+     *
      * @return array
      */
     public function getPaths()
@@ -85,7 +90,7 @@ class Repository implements RepositoryInterface, Countable {
     public function getScanPaths()
     {
         $paths = $this->paths;
-        
+
         $paths[] = $this->getPath() . '/*';
 
         if ($this->config('scan.enabled'))
@@ -518,6 +523,29 @@ class Repository implements RepositoryInterface, Countable {
     public function install($name, $path = null, $subtree = false)
     {
         with(new Installer($this))->install($name, $path, $subtree);
+    }
+
+    /**
+     * @return string
+     */
+    public function getStubPath()
+    {
+        if ( ! is_null($this->stubPath)) return $this->stubPath;
+
+        if ($this->config('stubs.enabled')) return $this->config('stubs.path');
+
+        return $this->stubPath;
+    }
+
+    /**
+     * @param string $stubPath
+     * @return $this
+     */
+    public function setStubPath($stubPath)
+    {
+        $this->stubPath = $stubPath;
+
+        return $this;
     }
 
 }
