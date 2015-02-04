@@ -64,6 +64,7 @@ class ModulesServiceProvider extends ServiceProvider {
         $aliases = [
             'HTML' => 'Illuminate\Html\HtmlFacade',
             'Form' => 'Illuminate\Html\FormFacade',
+            'Module' => 'Pingpong\Modules\Facades\Module',
         ];
 
         AliasLoader::getInstance($aliases)->register();

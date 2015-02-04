@@ -19,7 +19,7 @@
         "php": ">=5.4.0",
         "laravel/framework": "5.0.x@dev",
         "pingpong/generators": "1.*",
-        "illuminate/html": "master"
+        "illuminate/html": "5.0.*@dev"
     },
     "require-dev": {
         "phpunit/phpunit": "~4",
