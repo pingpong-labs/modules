@@ -21,13 +21,11 @@ class ModulesServiceProvider extends ServiceProvider {
      */
     public function boot()
     {
-        $this->package('pingpong/modules');
+        $this->package('pingpong/modules', 'modules', __DIR__ . '/src');
 
         $this->app['modules']->boot();
 
         $this->app['modules']->register();
-
-        Stub::setPath($this->app['config']->get('modules::stubs.path'));
     }
 
     /**
