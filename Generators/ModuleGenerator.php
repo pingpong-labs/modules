@@ -84,7 +84,6 @@ class ModuleGenerator extends Generator {
     }
 
 
-
     /**
      * Set the laravel config instance.
      *
@@ -157,7 +156,7 @@ class ModuleGenerator extends Generator {
     /**
      * Set the pingpong module instance.
      *
-     * @param Module $module
+     * @param mixed $module
      * @return $this
      */
     public function setModule($module)
@@ -201,16 +200,13 @@ class ModuleGenerator extends Generator {
 
         $this->generateFolders();
 
-        if( $this->config->get('modules::stubs.enabled', false) )
+        if ($this->config->get('modules::stubs.enabled', false))
         {
             $this->generateFiles();
             $this->generateResources();
-        } 
-        
-        $this->console->info("Module [{$name}] created,  successfully.");
-    
+        }
 
-        
+        $this->console->info("Module [{$name}] created successfully.");
     }
 
     /**
@@ -299,6 +295,7 @@ class ModuleGenerator extends Generator {
     {
         return $this->config->get('modules::stubs.replacements');
     }
+
     /**
      * Get array replacement for the specified stub.
      *
