@@ -54,7 +54,7 @@ class GenerateFilterCommand extends GeneratorCommand {
     {
         $path = $this->laravel['modules']->getModulePath($this->getModuleName());
 
-        $seederPath = $this->laravel['config']->get('modules::paths.generator.filter');
+        $seederPath = $this->laravel['modules']->config('paths.generator.filter');
 
         return $path . $seederPath . '/' . $this->getFileName() . '.php';
     }

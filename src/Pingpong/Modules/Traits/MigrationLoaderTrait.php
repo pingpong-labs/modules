@@ -27,7 +27,7 @@ trait MigrationLoaderTrait {
      */
     protected function getMigrationGeneratorPath()
     {
-        return $this->laravel['config']->get('modules::paths.generator.migration');
+        return $this->laravel['modules']->config('paths.generator.migration');
     }
 
 }

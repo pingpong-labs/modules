@@ -68,7 +68,7 @@ class ModelCommand extends GeneratorCommand {
     {
         $path = $this->laravel['modules']->getModulePath($this->getModuleName());
 
-        $seederPath = $this->laravel['config']->get('modules::paths.generator.model');
+        $seederPath = $this->laravel['modules']->config('paths.generator.model');
 
         return $path . $seederPath . '/' . $this->getModelName() . '.php';
     }

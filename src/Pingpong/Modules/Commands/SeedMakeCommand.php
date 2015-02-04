@@ -72,7 +72,7 @@ class SeedMakeCommand extends GeneratorCommand {
     {
         $path = $this->laravel['modules']->getModulePath($this->getModuleName());
 
-        $seederPath = $this->laravel['config']->get('modules::paths.generator.seeder');
+        $seederPath = $this->laravel['modules']->config('paths.generator.seeder');
 
         return $path . $seederPath . '/' . $this->getSeederName() . '.php';
     }
