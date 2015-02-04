@@ -37,6 +37,11 @@ class ModulesServiceProvider extends ServiceProvider {
     {
         $this->registerServices();
         $this->registerProviders();
+
+        $this->app->booted(function ($app)
+        {
+            Stub::setPath(__DIR__ . '/Commands/stubs');
+        });
     }
 
     /**

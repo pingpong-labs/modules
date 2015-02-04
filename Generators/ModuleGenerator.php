@@ -173,7 +173,7 @@ class ModuleGenerator extends Generator {
      */
     public function getFolders()
     {
-        return array_values($this->config->get('modules::paths.generator'));
+        return array_values($this->module->config('paths.generator'));
     }
 
     /**
@@ -183,7 +183,9 @@ class ModuleGenerator extends Generator {
      */
     public function getFiles()
     {
-        return $this->config->get('modules::stubs.files');
+        $files = $this->module->config('stubs.files');
+        var_dump($files);
+        return $files;
     }
 
     /**
@@ -200,11 +202,9 @@ class ModuleGenerator extends Generator {
 
         $this->generateFolders();
 
-        if ($this->config->get('modules::stubs.enabled', false))
-        {
-            $this->generateFiles();
-            $this->generateResources();
-        }
+        $this->generateFiles();
+
+        $this->generateResources();
 
         $this->console->info("Module [{$name}] created successfully.");
     }
