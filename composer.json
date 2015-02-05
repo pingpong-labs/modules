@@ -28,7 +28,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Pingpong\\Modules\\": "src/Pingpong/Modules"
+            "Pingpong\\Modules\\": ""
         }
     },
     "autoload-dev": {
