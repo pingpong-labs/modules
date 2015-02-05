@@ -114,7 +114,7 @@ class MigrationCommand extends GeneratorCommand {
     {
         $path = $this->laravel['modules']->getModulePath($this->getModuleName());
 
-        $generatorPath = $this->laravel['config']->get('modules::paths.generator.migration');
+        $generatorPath = $this->laravel['modules']->config('paths.generator.migration');
 
         return $path . $generatorPath . '/' . $this->getFileName() . '.php';
     }

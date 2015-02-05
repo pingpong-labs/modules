@@ -183,9 +183,7 @@ class ModuleGenerator extends Generator {
      */
     public function getFiles()
     {
-        $files = $this->module->config('stubs.files');
-        var_dump($files);
-        return $files;
+        return $this->module->config('stubs.files');
     }
 
     /**

@@ -21,8 +21,6 @@ class ModulesServiceProvider extends ServiceProvider {
      */
     public function boot()
     {
-        $this->package('pingpong/modules', 'modules', __DIR__ . '/src');
-
         $this->app['modules']->boot();
 
         $this->app['modules']->register();
@@ -35,6 +33,7 @@ class ModulesServiceProvider extends ServiceProvider {
      */
     public function register()
     {
+        $this->registerNamespaces();
         $this->registerServices();
         $this->registerProviders();
 
@@ -42,6 +41,18 @@ class ModulesServiceProvider extends ServiceProvider {
         {
             Stub::setPath(__DIR__ . '/Commands/stubs');
         });
+    }
+    
+    /**
+     * Register package's namespaces.
+     * 
+     * @return void
+     */
+    protected function registerNamespaces()
+    {
+        $configPath = __DIR__.'/../../../src/config/config.php';
+        $this->mergeConfigFrom($configPath, 'modules');
+        $this->publishes([$configPath => config_path('modules.php')]);
     }
 
     /**
@@ -54,8 +65,9 @@ class ModulesServiceProvider extends ServiceProvider {
         $this->app->register('Illuminate\Html\HtmlServiceProvider');
 
         $aliases = [
-            'HTML' => 'Illuminate\Support\Facades\HTML',
-            'Form' => 'Illuminate\Support\Facades\Form',
+            'HTML' => 'Illuminate\Html\HtmlFacade',
+            'Form' => 'Illuminate\Html\FormFacade',
+            'Module' => 'Pingpong\Modules\Facades\Module',
         ];
 
         AliasLoader::getInstance($aliases)->register();
@@ -70,7 +82,7 @@ class ModulesServiceProvider extends ServiceProvider {
     {
         $this->app->bindShared('modules', function ($app)
         {
-            $path = $app['config']->get('modules::paths.modules');
+            $path = $app['config']->get('modules.paths.modules');
 
             return new Repository($app, $path);
         });
