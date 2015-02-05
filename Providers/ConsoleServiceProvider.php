@@ -48,7 +48,6 @@ class ConsoleServiceProvider extends ServiceProvider {
         'Update',
         'Use',
         'Dump',
-        'PublishConfig',
     ];
 
     /**
