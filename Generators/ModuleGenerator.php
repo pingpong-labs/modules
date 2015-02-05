@@ -291,7 +291,7 @@ class ModuleGenerator extends Generator {
      */
     public function getReplacements()
     {
-        return $this->config->get('modules::stubs.replacements');
+        return $this->module->config('stubs.replacements');
     }
 
     /**
@@ -302,7 +302,7 @@ class ModuleGenerator extends Generator {
      */
     protected function getReplacement($stub)
     {
-        $replacements = $this->config->get('modules::stubs.replacements');
+        $replacements = $this->module->config('stubs.replacements');
 
         if ( ! isset($replacements[$stub])) return [];
 
