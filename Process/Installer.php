@@ -1,18 +1,6 @@
 <?php namespace Pingpong\Modules\Process;
 
-use PHPGit\Git;
-
 class Installer extends Runner {
-
-    /**
-     * Get git client instance.
-     * 
-     * @return Git
-     */
-    public function getGitClient()
-    {
-        return new Git;    
-    }
 
     /**
      * Install the specified module by given name.
