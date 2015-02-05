@@ -1,8 +1,0 @@
-{
-    "name": "Test",
-    "dependencies": {
-        "pingpong\/modules": "1.*",
-        "pingpong\/admin": "1.*"
-    },
-    "alias": "test"
-}

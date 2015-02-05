@@ -1,0 +1,13 @@
+{
+    "name": "$STUDLY_NAME$",
+    "alias": "$LOWER_NAME$",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "priority": 0,
+    "providers": [],
+    "aliases":{},
+    "files": [
+        "start.php"
+    ]
+}

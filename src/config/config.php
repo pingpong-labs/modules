@@ -2,6 +2,27 @@
 
 return [
 
+    'stubs' => [
+        'enabled'   => false,
+        'path'      => base_path().'/vendor/pingpong/modules/src/Pingpong/Modules/Commands/stubs',
+        'files'     => [
+            'start'         => 'start.php',
+            'routes'        => 'Http/routes.php',
+            'json'          => 'module.json',
+            'composer'      => 'composer.json',
+            'views/index'   => 'Resources/views/index.blade.php',
+            'views/master'  => 'Resources/views/layouts/master.blade.php',
+        ],
+        'replacements' => [
+            'start'         => ['LOWER_NAME'],
+            'routes'        => ['LOWER_NAME', 'STUDLY_NAME'],
+            'json'          => ['LOWER_NAME', 'STUDLY_NAME'],
+            'composer'      => ['LOWER_NAME', 'STUDLY_NAME', 'VENDOR', 'AUTHOR_NAME', 'AUTHOR_EMAIL'],
+            'views/index'   => ['LOWER_NAME'],
+            'views/master'  => ['STUDLY_NAME'],
+        ],
+    ],
+
     'paths' => [
         /*
         |--------------------------------------------------------------------------
