@@ -9,4 +9,8 @@
 |
 */
 
+Lang::addNamespace('$LOWER_NAME$', __DIR__.'/Resources/views');
+
+View::addNamespace('$LOWER_NAME$', __DIR__.'/Resources/views');
+
 require __DIR__ . '/Http/routes.php';
