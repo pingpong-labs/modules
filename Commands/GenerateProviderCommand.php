@@ -54,7 +54,7 @@ class GenerateProviderCommand extends GeneratorCommand {
     {
         $path = $this->laravel['modules']->getModulePath($this->getModuleName());
 
-        $generatorPath = $this->laravel['modules']->get('paths.generator.provider');
+        $generatorPath = $this->laravel['modules']->config('paths.generator.provider');
 
         return $path . $generatorPath . '/' . $this->getFileName() . '.php';
     }
