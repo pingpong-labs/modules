@@ -58,6 +58,7 @@ class GenerateProviderCommand extends GeneratorCommand {
 
         return new Stub($stub, [
             'MODULE' => $this->getModuleName(),
+            'LOWER_NAME' => strtolower($this->getModuleName()),
             'NAME' => $this->getFileName()
         ]);
     }
