@@ -29,10 +29,10 @@ class $NAME$ extends ServiceProvider {
 	protected function registerConfig()
 	{
 		$this->publishes([
-		    __DIR__.'/../Config/$LOWER_NAME$.php' => config_path('$LOWER_NAME$.php'),
+		    __DIR__.'/../Config/config.php' => config_path('$LOWER_NAME$.php'),
 		]);
 		$this->mergeConfigFrom(
-		    __DIR__.'/../Config/$LOWER_NAME$.php', '$LOWER_NAME$'
+		    __DIR__.'/../Config/config.php', '$LOWER_NAME$'
 		);
 	}
 

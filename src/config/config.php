@@ -12,6 +12,7 @@ return [
             'composer'      => 'composer.json',
             'views/index'   => 'Resources/views/index.blade.php',
             'views/master'  => 'Resources/views/layouts/master.blade.php',
+            'config'        => 'Config/config.php',
         ],
         'replacements' => [
             'start'         => ['LOWER_NAME'],
@@ -20,6 +21,7 @@ return [
             'composer'      => ['LOWER_NAME', 'STUDLY_NAME', 'VENDOR', 'AUTHOR_NAME', 'AUTHOR_EMAIL'],
             'views/index'   => ['LOWER_NAME'],
             'views/master'  => ['STUDLY_NAME'],
+            'config'  => ['STUDLY_NAME'],
         ],
     ],
 
