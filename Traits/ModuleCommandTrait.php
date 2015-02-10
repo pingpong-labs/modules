@@ -15,7 +15,7 @@ trait ModuleCommandTrait {
 
         $module = $this->laravel['modules']->findOrFail($module);
 
-        return $module->getName();
+        return $module->getStudlyName();
     }
 
 }
