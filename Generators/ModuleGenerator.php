@@ -266,7 +266,8 @@ class ModuleGenerator extends Generator {
 
         $this->console->call('module:provider', [
             'name' => $this->getName() . 'ServiceProvider',
-            'module' => $this->getName()
+            'module' => $this->getName(),
+            '--master' => true
         ]);
 
         $this->console->call('module:controller', [
