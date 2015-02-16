@@ -1,13 +1,13 @@
 <?php namespace Pingpong\Modules\Commands;
 
 use Illuminate\Support\Str;
-use Pingpong\Generators\Exceptions\InvalidMigrationName;
 use Pingpong\Generators\Schema\Field;
 use Pingpong\Generators\Schema\Parser;
 use Pingpong\Generators\Stub;
 use Pingpong\Modules\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
+use Pingpong\Generators\Exceptions\InvalidMigrationNameException;
 
 class MigrationCommand extends GeneratorCommand {
 
@@ -54,7 +54,7 @@ class MigrationCommand extends GeneratorCommand {
     }
 
     /**
-     * @throws InvalidMigrationName
+     * @throws InvalidMigrationNameException
      * @return mixed
      */
     protected function getTemplateContents()
@@ -104,7 +104,7 @@ class MigrationCommand extends GeneratorCommand {
             ]);
         }
 
-        throw new InvalidMigrationName;
+        throw new InvalidMigrationNameException;
     }
 
     /**
