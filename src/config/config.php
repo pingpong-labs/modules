@@ -76,7 +76,7 @@ return [
             'repository' => 'Repositories',
             'seeder' => 'Database/Seeders',
             'controller' => 'Http/Controllers',
-            'filter' => 'Http/Filters',
+            'filter' => 'Http/Middleware',
             'request' => 'Http/Requests',
             'provider' => 'Providers',
             'lang' => 'Resources/lang',
