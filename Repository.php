@@ -140,9 +140,7 @@ class Repository implements RepositoryInterface, Countable {
     {
         if( ! $this->config('cache.enabled')) return $this->scan();
 
-        $cached = $this->getCached();
-
-        return $this->formatCached($cached);
+        return $this->formatCached($this->getCached());
     }
 
     /**
