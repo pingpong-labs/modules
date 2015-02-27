@@ -150,7 +150,7 @@ class MigrationCommand extends GeneratorCommand {
     {
         parent::fire();
 
-        $this->call('dump-autoload');
+        $this->call('optimize');
     }
 
 }
