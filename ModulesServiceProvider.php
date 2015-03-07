@@ -106,5 +106,6 @@ class ModulesServiceProvider extends ServiceProvider {
     protected function registerProviders()
     {
         $this->app->register(__NAMESPACE__ . '\\Providers\\ConsoleServiceProvider');
+        $this->app->register('Pingpong\Modules\Providers\ContractsServiceProvider');
     }
 }
