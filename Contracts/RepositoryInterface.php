@@ -26,7 +26,7 @@ interface RepositoryInterface {
     /**
      * Get modules as modules collection instance.
      *
-     * @return \Pingpong\Modules\Collectio
+     * @return \Pingpong\Modules\Collection
      */
     public function toCollection();
 
