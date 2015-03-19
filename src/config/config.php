@@ -1,6 +1,8 @@
 <?php
 
 return [
+    
+    'namespace' => 'App\Modules',
 
     'stubs' => [
         'enabled'   => false,
@@ -36,7 +38,7 @@ return [
         |
         */
 
-        'modules' => base_path('Modules'),
+        'modules' => app_path('Modules'),
         /*
         |--------------------------------------------------------------------------
         | Modules assets path
