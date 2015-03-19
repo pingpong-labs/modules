@@ -45,6 +45,13 @@ class ModuleGenerator extends Generator {
     protected $module;
 
     /**
+     * Force status.
+     * 
+     * @var boolean
+     */
+    protected $force = false;
+
+    /**
      * The constructor.
      *
      * @param $name
@@ -187,12 +194,32 @@ class ModuleGenerator extends Generator {
     }
 
     /**
+     * Set force status.
+     * 
+     * @param boolean|int $force
+     * @return $this
+     */
+    public function setForce($force)
+    {
+        $this->force = $force;
+
+        return $this;
+    }
+
+    /**
      * Generate the module.
      */
     public function generate()
     {
-        if ($this->module->has($name = $this->getName()))
+        $name = $this->getName();
+
+        if ($this->module->has($name))
         {
+            if ($this->force)
+            {
+                $this->module->delete($name);
+            }
+
             $this->console->error("Module [{$name}] already exist!");
 
             return;
