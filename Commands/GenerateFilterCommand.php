@@ -43,7 +43,8 @@ class GenerateFilterCommand extends GeneratorCommand {
     {
         return new Stub('filter', [
             'MODULE' => $this->getModuleName(),
-            'NAME' => $this->getFileName()
+            'NAME' => $this->getFileName(),
+            'MODULE_NAMESPACE' => $this->laravel['modules']->config('namespace')
         ]);
     }
 

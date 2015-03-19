@@ -61,7 +61,8 @@ class SeedMakeCommand extends GeneratorCommand {
     {
         return new Stub('seeder', [
             'NAME' => $this->getSeederName(),
-            'MODULE' => $this->getModuleName()
+            'MODULE' => $this->getModuleName(),
+            'MODULE_NAMESPACE' => $this->laravel['modules']->config('namespace')
         ]);
     }
 

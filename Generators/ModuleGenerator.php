@@ -305,11 +305,13 @@ class ModuleGenerator extends Generator {
     {
         $replacements = $this->module->config('stubs.replacements');
 
+        $namespace = $this->module->config('namespace');
+
         if ( ! isset($replacements[$stub])) return [];
 
         $keys = $replacements[$stub];
 
-        $replaces = [];
+        $replaces = ['MODULE_NAMESPACE'];
 
         foreach ($keys as $key)
         {
@@ -354,6 +356,16 @@ class ModuleGenerator extends Generator {
     protected function getVendorReplacement()
     {
         return $this->module->config('composer.vendor');
+    }
+
+    /**
+     * Get replacement for $VENDOR$
+     *
+     * @return string
+     */
+    protected function getModuleNamespaceReplacement()
+    {
+        return $this->module->config('namespace');
     }
 
     /**

@@ -1,4 +1,4 @@
-<?php namespace Modules\$MODULE$\Providers;
+<?php namespace $MODULE_NAMESPACE$\$MODULE$\Providers;
 
 use Illuminate\Support\ServiceProvider;
 

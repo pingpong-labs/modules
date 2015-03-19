@@ -6,7 +6,7 @@
     "active": 1,
     "priority": 0,
     "providers": [
-        "Modules\\$STUDLY_NAME$\\Providers\\$STUDLY_NAME$ServiceProvider"
+        "$MODULE_NAMESPACE$\\$STUDLY_NAME$\\Providers\\$STUDLY_NAME$ServiceProvider"
     ],
     "aliases":{},
     "files": [

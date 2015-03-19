@@ -57,7 +57,8 @@ class CommandCommand extends GeneratorCommand {
         return new Stub('command', [
             'MODULE' => $this->getModuleName(),
             'NAME' => $this->getFileName(),
-            'COMMAND_NAME' => $this->getCommandName()
+            'COMMAND_NAME' => $this->getCommandName(),
+            'MODULE_NAMESPACE' => $this->laravel['modules']->config('namespace')
         ]);
     }
 

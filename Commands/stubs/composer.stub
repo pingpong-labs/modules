@@ -9,7 +9,7 @@
 	],
 	"autoload": {
 		"psr-4": {
-			"Modules\\$STUDLY_NAME$\\": ""
+			"$MODULE_NAMESPACE$\\$STUDLY_NAME$\\": ""
 		}
 	}
 }

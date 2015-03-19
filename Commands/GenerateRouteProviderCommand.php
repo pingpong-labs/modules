@@ -28,7 +28,8 @@ class GenerateRouteProviderCommand extends GeneratorCommand {
     {
         return new Stub('route-provider', [
             'MODULE' => $this->getModuleName(),
-            'NAME' => $this->getFileName()
+            'NAME' => $this->getFileName(),
+            'MODULE_NAMESPACE' => $this->laravel['modules']->config('namespace')
         ]);
     }
 
