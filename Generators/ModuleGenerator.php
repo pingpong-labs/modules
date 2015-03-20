@@ -215,14 +215,14 @@ class ModuleGenerator extends Generator {
 
         if ($this->module->has($name))
         {
-            if ($this->force)
+            if ($this->force) $this->module->delete($name);
+            
+            else 
             {
-                $this->module->delete($name);
+                $this->console->error("Module [{$name}] already exist!");
+
+                return;
             }
-
-            $this->console->error("Module [{$name}] already exist!");
-
-            return;
         }
 
         $this->generateFolders();
@@ -338,7 +338,7 @@ class ModuleGenerator extends Generator {
 
         $keys = $replacements[$stub];
 
-        $replaces = ['MODULE_NAMESPACE'];
+        $replaces = [];
 
         foreach ($keys as $key)
         {
@@ -386,13 +386,13 @@ class ModuleGenerator extends Generator {
     }
 
     /**
-     * Get replacement for $VENDOR$
+     * Get replacement for $MODULE_NAMESPACE$
      *
      * @return string
      */
     protected function getModuleNamespaceReplacement()
     {
-        return $this->module->config('namespace');
+        return str_replace('\\', '\\\\', $this->module->config('namespace'));
     }
 
     /**
