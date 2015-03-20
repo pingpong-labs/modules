@@ -25,7 +25,7 @@ class ListCommand extends Command {
      */
     public function fire()
     {
-        $this->table(['Name', 'Status'], $this->getRows());
+        $this->table(['Name', 'Status', 'Priority', 'Path'], $this->getRows());
     }
 
     /**
@@ -40,8 +40,10 @@ class ListCommand extends Command {
         foreach ($this->laravel['modules']->all() as $module)
         {
             $rows[] = [
-                $module->getName(),
-                $module->enabled() ? 'Enabled' : 'Disabled'
+                $module->getStudlyName(),
+                $module->enabled() ? 'Enabled' : 'Disabled',
+                $module->get('priority'),
+                $module->getPath(),
             ];
         }
 
