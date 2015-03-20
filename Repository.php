@@ -524,6 +524,17 @@ class Repository implements RepositoryInterface, Countable {
     }
 
     /**
+     * Delete a specific module.
+     *
+     * @param  string $name
+     * @return bool
+     */
+    public function delete($name)
+    {
+        return $this->findOrFail($name)->delete();
+    }
+
+    /**
      * Update dependencies for the specified module.
      *
      * @param  string $module
