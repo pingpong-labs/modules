@@ -57,7 +57,8 @@ class ModelCommand extends GeneratorCommand {
         return new Stub('model', [
             'MODULE' => $this->getModuleName(),
             'NAME' => $this->getModelName(),
-            'FILLABLE' => $this->getFillable()
+            'FILLABLE' => $this->getFillable(),
+            'MODULE_NAMESPACE' => $this->laravel['modules']->config('namespace')
         ]);
     }
 

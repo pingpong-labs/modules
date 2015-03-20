@@ -25,10 +25,29 @@ class ListCommand extends Command {
      */
     public function fire()
     {
+        $this->table(['Name', 'Status', 'Priority', 'Path'], $this->getRows());
+    }
+
+    /**
+     * Get table rows.
+     * 
+     * @return array
+     */
+    public function getRows()
+    {
+        $rows = [];
+
         foreach ($this->laravel['modules']->all() as $module)
         {
-            $this->line('- ' . $module);
+            $rows[] = [
+                $module->getStudlyName(),
+                $module->enabled() ? 'Enabled' : 'Disabled',
+                $module->get('priority'),
+                $module->getPath(),
+            ];
         }
+
+        return $rows;   
     }
 
 }

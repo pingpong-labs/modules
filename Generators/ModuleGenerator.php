@@ -45,6 +45,13 @@ class ModuleGenerator extends Generator {
     protected $module;
 
     /**
+     * Force status.
+     * 
+     * @var boolean
+     */
+    protected $force = false;
+
+    /**
      * The constructor.
      *
      * @param $name
@@ -187,15 +194,35 @@ class ModuleGenerator extends Generator {
     }
 
     /**
+     * Set force status.
+     * 
+     * @param boolean|int $force
+     * @return $this
+     */
+    public function setForce($force)
+    {
+        $this->force = $force;
+
+        return $this;
+    }
+
+    /**
      * Generate the module.
      */
     public function generate()
     {
-        if ($this->module->has($name = $this->getName()))
-        {
-            $this->console->error("Module [{$name}] already exist!");
+        $name = $this->getName();
 
-            return;
+        if ($this->module->has($name))
+        {
+            if ($this->force) $this->module->delete($name);
+            
+            else 
+            {
+                $this->console->error("Module [{$name}] already exist!");
+
+                return;
+            }
         }
 
         $this->generateFolders();
@@ -266,7 +293,8 @@ class ModuleGenerator extends Generator {
 
         $this->console->call('module:provider', [
             'name' => $this->getName() . 'ServiceProvider',
-            'module' => $this->getName()
+            'module' => $this->getName(),
+            '--master' => true
         ]);
 
         $this->console->call('module:controller', [
@@ -303,6 +331,8 @@ class ModuleGenerator extends Generator {
     protected function getReplacement($stub)
     {
         $replacements = $this->module->config('stubs.replacements');
+
+        $namespace = $this->module->config('namespace');
 
         if ( ! isset($replacements[$stub])) return [];
 
@@ -353,6 +383,16 @@ class ModuleGenerator extends Generator {
     protected function getVendorReplacement()
     {
         return $this->module->config('composer.vendor');
+    }
+
+    /**
+     * Get replacement for $MODULE_NAMESPACE$
+     *
+     * @return string
+     */
+    protected function getModuleNamespaceReplacement()
+    {
+        return str_replace('\\', '\\\\', $this->module->config('namespace'));
     }
 
     /**

@@ -138,7 +138,29 @@ class Repository implements RepositoryInterface, Countable {
      */
     public function all()
     {
-        return $this->config('cache.enabled') ? $this->getCached() : $this->scan();
+        if( ! $this->config('cache.enabled')) return $this->scan();
+
+        return $this->formatCached($this->getCached());
+    }
+
+    /**
+     * Format the cached data as array of modules.
+     * 
+     * @param  array $cached
+     * @return array
+     */
+    protected function formatCached($cached)
+    {
+        $modules = [];
+
+        foreach ($cached as $name => $module)
+        {
+            $path  = $this->config('paths.modules') . '/' . $name;
+
+            $modules[] = new Module($this->app, $name, $path);
+        }
+
+        return $modules;
     }
 
     /**
@@ -161,7 +183,7 @@ class Repository implements RepositoryInterface, Countable {
      */
     public function toCollection()
     {
-        return new Collection($this->all());
+        return new Collection($this->scan());
     }
 
     /**
@@ -499,6 +521,17 @@ class Repository implements RepositoryInterface, Countable {
     public function disable($name)
     {
         return $this->findOrFail($name)->disable();
+    }
+
+    /**
+     * Delete a specific module.
+     *
+     * @param  string $name
+     * @return bool
+     */
+    public function delete($name)
+    {
+        return $this->findOrFail($name)->delete();
     }
 
     /**
