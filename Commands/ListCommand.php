@@ -1,6 +1,7 @@
 <?php namespace Pingpong\Modules\Commands;
 
 use Illuminate\Console\Command;
+use Symfony\Component\Console\Input\InputOption;
 
 class ListCommand extends Command {
 
@@ -25,7 +26,7 @@ class ListCommand extends Command {
      */
     public function fire()
     {
-        $this->table(['Name', 'Status', 'Priority', 'Path'], $this->getRows());
+        $this->table(['Name', 'Status', 'Order', 'Path'], $this->getRows());
     }
 
     /**
@@ -37,17 +38,51 @@ class ListCommand extends Command {
     {
         $rows = [];
 
-        foreach ($this->laravel['modules']->getOrdered() as $module)
+        foreach ($this->getModules() as $module)
         {
             $rows[] = [
                 $module->getStudlyName(),
                 $module->enabled() ? 'Enabled' : 'Disabled',
-                $module->get('priority'),
+                $module->get('order'),
                 $module->getPath(),
             ];
         }
 
         return $rows;   
+    }
+
+    public function getModules()
+    {
+        switch ($this->option('only')) {
+            case 'enabled':
+                return $this->laravel['modules']->getByStatus(1);
+                break;
+
+            case 'disabled':
+                return $this->laravel['modules']->getByStatus(0);
+                break;
+
+            case 'ordered':
+                return $this->laravel['modules']->getOrdered($this->option('direction'));
+                break;
+            
+            default:
+                return $this->laravel['modules']->all();
+                break;
+        }
+    }
+
+    /**
+     * Get the console command options.
+     *
+     * @return array
+     */
+    protected function getOptions()
+    {
+        return array(
+            array('only', null, InputOption::VALUE_OPTIONAL, 'Types of modules will be displayed.', null),
+            array('direction', 'd', InputOption::VALUE_OPTIONAL, 'The direction of ordering.', 'asc'),
+        );
     }
 
 }
