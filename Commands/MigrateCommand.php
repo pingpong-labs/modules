@@ -41,7 +41,7 @@ class MigrateCommand extends Command {
             return $this->migrate($name);
         }
 
-        foreach ($this->module->all() as $name)
+        foreach ($this->module->getOrdered($this->option('direction')) as $name)
         {
             $this->migrate($name);
         }
@@ -121,6 +121,7 @@ class MigrateCommand extends Command {
     protected function getOptions()
     {
         return array(
+            array('direction', 'd', InputOption::VALUE_OPTIONAL, 'The direction of ordering.', 'asc'),
             array('database', null, InputOption::VALUE_OPTIONAL, 'The database connection to use.'),
             array('pretend', null, InputOption::VALUE_NONE, 'Dump the SQL queries that would be run.'),
             array('force', null, InputOption::VALUE_NONE, 'Force the operation to run when in production.'),
