@@ -251,20 +251,26 @@ class Repository implements RepositoryInterface, Countable {
     /**
      * Get all ordered modules.
      *
+     * @param  string $direction
      * @return array
      */
-    public function getOrdered()
+    public function getOrdered($direction = 'asc')
     {
         $modules = $this->enabled();
 
-        uasort($modules, function ($a, $b)
+        uasort($modules, function ($a, $b) use ($direction)
         {
-            if ($a->priority == $b->priority)
+            if ($a->order == $b->order)
             {
                 return 0;
             }
 
-            return $a->priority < $b->priority ? 1 : -1;
+            if($direction == 'desc')
+            {
+                return $a->order < $b->order ? 1 : -1;
+            }
+
+            return $a->order > $b->order ? 1 : -1;
         });
 
         return $modules;
