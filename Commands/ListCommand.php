@@ -37,7 +37,7 @@ class ListCommand extends Command {
     {
         $rows = [];
 
-        foreach ($this->laravel['modules']->all() as $module)
+        foreach ($this->laravel['modules']->getOrdered() as $module)
         {
             $rows[] = [
                 $module->getStudlyName(),
