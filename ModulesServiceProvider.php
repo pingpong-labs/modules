@@ -21,6 +21,8 @@ class ModulesServiceProvider extends ServiceProvider {
      */
     public function boot()
     {
+        $this->registerNamespaces();
+        
         $this->app['modules']->boot();
 
         $this->app['modules']->register();
@@ -33,7 +35,6 @@ class ModulesServiceProvider extends ServiceProvider {
      */
     public function register()
     {
-        $this->registerNamespaces();
         $this->registerServices();
         $this->registerProviders();
 
