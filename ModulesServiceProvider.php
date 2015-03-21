@@ -63,11 +63,11 @@ class ModulesServiceProvider extends ServiceProvider {
      */
     protected function registerHtml()
     {
-        $this->app->register('Illuminate\Html\HtmlServiceProvider');
+        $this->app->register('Collective\Html\HtmlServiceProvider');
 
         $aliases = [
-            'HTML' => 'Illuminate\Html\HtmlFacade',
-            'Form' => 'Illuminate\Html\FormFacade',
+            'HTML' => 'Collective\Html\HtmlFacade',
+            'Form' => 'Collective\Html\FormFacade',
             'Module' => 'Pingpong\Modules\Facades\Module',
         ];
 
