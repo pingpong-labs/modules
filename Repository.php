@@ -138,14 +138,17 @@ class Repository implements RepositoryInterface, Countable {
      */
     public function all()
     {
-        if( ! $this->config('cache.enabled')) return $this->scan();
+        if ( ! $this->config('cache.enabled'))
+        {
+            return $this->scan();
+        }
 
         return $this->formatCached($this->getCached());
     }
 
     /**
      * Format the cached data as array of modules.
-     * 
+     *
      * @param  array $cached
      * @return array
      */
@@ -155,7 +158,7 @@ class Repository implements RepositoryInterface, Countable {
 
         foreach ($cached as $name => $module)
         {
-            $path  = $this->config('paths.modules') . '/' . $name;
+            $path = $this->config('paths.modules') . '/' . $name;
 
             $modules[] = new Module($this->app, $name, $path);
         }
@@ -265,7 +268,7 @@ class Repository implements RepositoryInterface, Countable {
                 return 0;
             }
 
-            if($direction == 'desc')
+            if ($direction == 'desc')
             {
                 return $a->order < $b->order ? 1 : -1;
             }
@@ -322,7 +325,10 @@ class Repository implements RepositoryInterface, Countable {
     {
         foreach ($this->all() as $module)
         {
-            if ($module->getLowerName() == strtolower($name)) return $module;
+            if ($module->getLowerName() == strtolower($name))
+            {
+                return $module;
+            }
         }
 
         return null;
@@ -348,7 +354,10 @@ class Repository implements RepositoryInterface, Countable {
      */
     public function findOrFail($name)
     {
-        if ( ! is_null($module = $this->find($name))) return $module;
+        if ( ! is_null($module = $this->find($name)))
+        {
+            return $module;
+        }
 
         throw new ModuleNotFoundException("Module [{$name}] does not exist!");
     }
@@ -569,9 +578,15 @@ class Repository implements RepositoryInterface, Countable {
      */
     public function getStubPath()
     {
-        if ( ! is_null($this->stubPath)) return $this->stubPath;
+        if ( ! is_null($this->stubPath))
+        {
+            return $this->stubPath;
+        }
 
-        if ($this->config('stubs.enabled')) return $this->config('stubs.path');
+        if ($this->config('stubs.enabled'))
+        {
+            return $this->config('stubs.path');
+        }
 
         return $this->stubPath;
     }

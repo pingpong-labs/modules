@@ -1,35 +1,37 @@
 <?php
 
 return [
-    
-    'namespace' => 'App\Modules',
 
+    'namespace' => 'App\Modules',
     'stubs' => [
-        'enabled'   => false,
-        'path'      => base_path().'/vendor/pingpong/modules/src/Pingpong/Modules/Commands/stubs',
-        'files'     => [
-            'start'         => 'start.php',
-            'routes'        => 'Http/routes.php',
-            'json'          => 'module.json',
-            'views/index'   => 'Resources/views/index.blade.php',
-            'views/master'  => 'Resources/views/layouts/master.blade.php',
+        'enabled' => false,
+        'path' => base_path() . '/vendor/pingpong/modules/src/Pingpong/Modules/Commands/stubs',
+        'files' => [
+            'start' => 'start.php',
+            'routes' => 'Http/routes.php',
+            'json' => 'module.json',
+            'views/index' => 'Resources/views/index.blade.php',
+            'views/master' => 'Resources/views/layouts/master.blade.php',
             'scaffold/config' => 'Config/config.php',
-            'composer'      => 'composer.json',
+            'composer' => 'composer.json',
         ],
         'replacements' => [
-            'start'         => ['LOWER_NAME'],
-            'routes'        => ['LOWER_NAME', 'STUDLY_NAME', 'MODULE_NAMESPACE'],
-            'json'          => ['LOWER_NAME', 'STUDLY_NAME', 'MODULE_NAMESPACE'],
-            'views/index'   => ['LOWER_NAME'],
-            'views/master'  => ['STUDLY_NAME'],
+            'start' => ['LOWER_NAME'],
+            'routes' => ['LOWER_NAME', 'STUDLY_NAME', 'MODULE_NAMESPACE'],
+            'json' => ['LOWER_NAME', 'STUDLY_NAME', 'MODULE_NAMESPACE'],
+            'views/index' => ['LOWER_NAME'],
+            'views/master' => ['STUDLY_NAME'],
             'scaffold/config' => ['STUDLY_NAME'],
-            'composer'      => [
-                'LOWER_NAME', 'STUDLY_NAME', 'VENDOR', 'AUTHOR_NAME', 'AUTHOR_EMAIL',
+            'composer' => [
+                'LOWER_NAME',
+                'STUDLY_NAME',
+                'VENDOR',
+                'AUTHOR_NAME',
+                'AUTHOR_EMAIL',
                 'MODULE_NAMESPACE'
             ],
         ],
     ],
-
     'paths' => [
         /*
         |--------------------------------------------------------------------------

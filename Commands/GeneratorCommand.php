@@ -1,4 +1,4 @@
-<?php  namespace Pingpong\Modules\Commands;
+<?php namespace Pingpong\Modules\Commands;
 
 use Illuminate\Console\Command;
 use Pingpong\Generators\Exceptions\FileAlreadyExistException;

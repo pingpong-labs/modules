@@ -31,7 +31,7 @@ class ListCommand extends Command {
 
     /**
      * Get table rows.
-     * 
+     *
      * @return array
      */
     public function getRows()
@@ -48,12 +48,13 @@ class ListCommand extends Command {
             ];
         }
 
-        return $rows;   
+        return $rows;
     }
 
     public function getModules()
     {
-        switch ($this->option('only')) {
+        switch ($this->option('only'))
+        {
             case 'enabled':
                 return $this->laravel['modules']->getByStatus(1);
                 break;
@@ -65,7 +66,7 @@ class ListCommand extends Command {
             case 'ordered':
                 return $this->laravel['modules']->getOrdered($this->option('direction'));
                 break;
-            
+
             default:
                 return $this->laravel['modules']->all();
                 break;

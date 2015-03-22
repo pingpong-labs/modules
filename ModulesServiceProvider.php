@@ -22,7 +22,7 @@ class ModulesServiceProvider extends ServiceProvider {
     public function boot()
     {
         $this->registerNamespaces();
-        
+
         $this->app['modules']->boot();
 
         $this->app['modules']->register();
@@ -42,7 +42,7 @@ class ModulesServiceProvider extends ServiceProvider {
 
     /**
      * Setup stub path.
-     * 
+     *
      * @return void
      */
     public function setupStubPath()
@@ -50,22 +50,22 @@ class ModulesServiceProvider extends ServiceProvider {
         $this->app->booted(function ($app)
         {
             Stub::setPath(__DIR__ . '/Commands/stubs');
-        
+
             if ($app['modules']->config('stubs.enabled') === true)
             {
                 Stub::setPath($app['modules']->config('stubs.path'));
             }
         });
     }
-    
+
     /**
      * Register package's namespaces.
-     * 
+     *
      * @return void
      */
     protected function registerNamespaces()
     {
-        $configPath = __DIR__.'/src/config/config.php';
+        $configPath = __DIR__ . '/src/config/config.php';
         $this->mergeConfigFrom($configPath, 'modules');
         $this->publishes([$configPath => config_path('modules.php')]);
     }

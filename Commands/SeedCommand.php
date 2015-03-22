@@ -86,7 +86,7 @@ class SeedCommand extends Command {
         $name = Str::studly($name);
 
         $namespace = $this->laravel['modules']->config('namespace');
-        
+
         return $namespace . '\\' . $name . '\Database\Seeders\\' . $name . 'DatabaseSeeder';
     }
 

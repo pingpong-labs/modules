@@ -1,7 +1,5 @@
 <?php namespace Pingpong\Modules\Traits;
 
-use Illuminate\Support\Str;
-
 trait ModuleCommandTrait {
 
     /**

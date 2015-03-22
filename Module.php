@@ -1,7 +1,7 @@
 <?php namespace Pingpong\Modules;
 
-use Illuminate\Foundation\Application;
 use Illuminate\Foundation\AliasLoader;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 

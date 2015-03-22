@@ -46,7 +46,7 @@ class ModuleGenerator extends Generator {
 
     /**
      * Force status.
-     * 
+     *
      * @var boolean
      */
     protected $force = false;
@@ -60,7 +60,13 @@ class ModuleGenerator extends Generator {
      * @param Filesystem $filesystem
      * @param Console $console
      */
-    public function __construct($name, Repository $module = null, Config $config = null, Filesystem $filesystem = null, Console $console = null)
+    public function __construct(
+        $name,
+        Repository $module = null,
+        Config $config = null,
+        Filesystem $filesystem = null,
+        Console $console = null
+    )
     {
         $this->name = $name;
         $this->config = $config;
@@ -195,7 +201,7 @@ class ModuleGenerator extends Generator {
 
     /**
      * Set force status.
-     * 
+     *
      * @param boolean|int $force
      * @return $this
      */
@@ -215,9 +221,11 @@ class ModuleGenerator extends Generator {
 
         if ($this->module->has($name))
         {
-            if ($this->force) $this->module->delete($name);
-            
-            else 
+            if ($this->force)
+            {
+                $this->module->delete($name);
+            }
+            else
             {
                 $this->console->error("Module [{$name}] already exist!");
 
@@ -334,7 +342,10 @@ class ModuleGenerator extends Generator {
 
         $namespace = $this->module->config('namespace');
 
-        if ( ! isset($replacements[$stub])) return [];
+        if ( ! isset($replacements[$stub]))
+        {
+            return [];
+        }
 
         $keys = $replacements[$stub];
 
