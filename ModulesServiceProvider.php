@@ -36,11 +36,25 @@ class ModulesServiceProvider extends ServiceProvider {
     public function register()
     {
         $this->registerServices();
+        $this->setupStubPath();
         $this->registerProviders();
+    }
 
+    /**
+     * Setup stub path.
+     * 
+     * @return void
+     */
+    public function setupStubPath()
+    {
         $this->app->booted(function ($app)
         {
             Stub::setPath(__DIR__ . '/Commands/stubs');
+        
+            if ($app['modules']->config('stubs.enabled') === true)
+            {
+                Stub::setPath($app['modules']->config('stubs.path'));
+            }
         });
     }
     
