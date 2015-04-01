@@ -150,9 +150,7 @@ abstract class Publisher implements PublisherInterface {
 
         if ( ! $this->getFilesystem()->isDirectory($sourcePath = $this->getSourcePath()))
         {
-            $message = "Source path does not exist : {$sourcePath}";
-
-            throw new \InvalidArgumentException($message);
+            return;
         }
 
         if ( ! $this->getFilesystem()->isDirectory($destinationPath = $this->getDestinationPath()))
