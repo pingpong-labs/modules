@@ -9,7 +9,7 @@ class AssetPublisher extends Publisher {
      */
     public function getDestinationPath()
     {
-        return $this->repository->assetPath($this->module);
+        return $this->repository->assetPath($this->module->getLowerName());
     }
 
     /**
