@@ -25,7 +25,7 @@ class $CLASS$ extends Migration {
 		Schema::create('$TABLE$', function(Blueprint $table)
 		{
             $table->increments('id');
-		    $FIELDS$
+$FIELDS$
             $table->timestamps();
 		});
 	}
