@@ -319,7 +319,10 @@ class ModuleGenerator extends Generator {
      */
     protected function getStubContents($stub)
     {
-        return new Stub($stub, $this->getReplacement($stub));
+        return (new Stub(
+            '/' .$stub.'.stub',
+            $this->getReplacement($stub))
+        )->render();
     }
 
     /**

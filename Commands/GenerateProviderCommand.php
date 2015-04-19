@@ -56,12 +56,12 @@ class GenerateProviderCommand extends GeneratorCommand {
     {
         $stub = $this->option('master') ? 'scaffold/provider' : 'provider';
 
-        return new Stub($stub, [
+        return (new Stub('/'.$stub.'.stub', [
             'MODULE' => $this->getModuleName(),
             'LOWER_NAME' => strtolower($this->getModuleName()),
             'NAME' => $this->getFileName(),
             'MODULE_NAMESPACE' => $this->laravel['modules']->config('namespace')
-        ]);
+        ]))->render();
     }
 
     /**
