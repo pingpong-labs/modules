@@ -2,8 +2,9 @@
 
 use Illuminate\Support\Str;
 use Pingpong\Generators\Exceptions\InvalidMigrationNameException;
-use Pingpong\Generators\Schema\Field;
-use Pingpong\Generators\Schema\Parser;
+use Pingpong\Generators\FormDumpers\FieldsDumper;
+use Pingpong\Generators\Migrations\NameParser;
+use Pingpong\Generators\Migrations\SchemaParser;
 use Pingpong\Generators\Stub;
 use Pingpong\Modules\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputArgument;
@@ -54,53 +55,55 @@ class MigrationCommand extends GeneratorCommand {
     }
 
     /**
+     * Get schema parser.
+     *
+     * @return SchemaParser
+     */
+    public function getSchemaParser()
+    {
+        return new SchemaParser($this->option('fields'));
+    }
+
+    /**
      * @throws InvalidMigrationNameException
      * @return mixed
      */
     protected function getTemplateContents()
     {
-        $schema = new Parser($this->argument('name'));
+        $parser = new NameParser($this->argument('name'));
 
-        $fields = new Field($this->option('fields'));
-
-        if ($this->option('plain'))
+        if ($parser->isCreate())
         {
-            return new Stub('migration/plain', [
-                'CLASS' => $this->getClassName()
+            return Stub::create('/migration/create.stub', [
+                'class' => $this->getClass(),
+                'table' => $parser->getTable(),
+                'fields' => $this->getSchemaParser()->render()
             ]);
         }
-        elseif ($schema->isCreate())
+        elseif ($parser->isAdd())
         {
-            return new Stub('migration/create', [
-                'CLASS' => $this->getClassName(),
-                'FIELDS' => $fields->getSchemaCreate(),
-                'TABLE' => $schema->getTableName()
+            return Stub::create('/migration/add.stub', [
+                'class' => $this->getClass(),
+                'table' => $parser->getTable(),
+                'fields_up' => $this->getSchemaParser()->up(),
+                'fields_down' => $this->getSchemaParser()->down()
             ]);
         }
-        elseif ($schema->isAdd())
+        elseif ($parser->isDelete())
         {
-            return new Stub('migration/add', [
-                'CLASS' => $this->getClassName(),
-                'FIELDS_UP' => $fields->getSchemaCreate(),
-                'FIELDS_DOWN' => $fields->getSchemaDropColumn(),
-                'TABLE' => $schema->getTableName()
+            return Stub::create('/migration/delete.stub', [
+                'class' => $this->getClass(),
+                'table' => $parser->getTable(),
+                'fields_down' => $this->getSchemaParser()->up(),
+                'fields_up' => $this->getSchemaParser()->down()
             ]);
         }
-        elseif ($schema->isDelete())
+        elseif ($parser->isDrop())
         {
-            return new Stub('migration/delete', [
-                'CLASS' => $this->getClassName(),
-                'FIELDS_DOWN' => $fields->getSchemaCreate(),
-                'FIELDS_UP' => $fields->getSchemaDropColumn(),
-                'TABLE' => $schema->getTableName()
-            ]);
-        }
-        elseif ($schema->isDrop())
-        {
-            return new Stub('migration/drop', [
-                'CLASS' => $this->getClassName(),
-                'FIELDS' => $fields->getSchemaCreate(),
-                'TABLE' => $schema->getTableName()
+            return Stub::create('/migration/drop.stub', [
+                'class' => $this->getClass(),
+                'table' => $parser->getTable(),
+                'fields' => $this->getSchemaParser()->render()
             ]);
         }
 
@@ -141,6 +144,11 @@ class MigrationCommand extends GeneratorCommand {
     private function getClassName()
     {
         return Str::studly($this->argument('name'));
+    }
+
+    public function getClass()
+    {
+        return $this->getClassName();
     }
 
     /**
