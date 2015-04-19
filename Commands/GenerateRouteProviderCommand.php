@@ -26,11 +26,11 @@ class GenerateRouteProviderCommand extends GeneratorCommand {
      */
     protected function getTemplateContents()
     {
-        return new Stub('route-provider', [
+        return (new Stub('/route-provider.stub', [
             'MODULE' => $this->getModuleName(),
             'NAME' => $this->getFileName(),
             'MODULE_NAMESPACE' => $this->laravel['modules']->config('namespace')
-        ]);
+        ]))->render();
     }
 
     /**

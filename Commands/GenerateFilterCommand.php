@@ -41,11 +41,11 @@ class GenerateFilterCommand extends GeneratorCommand {
      */
     protected function getTemplateContents()
     {
-        return new Stub('filter', [
+        return (new Stub('/filter.stub', [
             'MODULE' => $this->getModuleName(),
             'NAME' => $this->getFileName(),
             'MODULE_NAMESPACE' => $this->laravel['modules']->config('namespace')
-        ]);
+        ]))->render();
     }
 
     /**
