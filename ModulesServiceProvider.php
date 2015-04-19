@@ -49,11 +49,11 @@ class ModulesServiceProvider extends ServiceProvider {
     {
         $this->app->booted(function ($app)
         {
-            Stub::setPath(__DIR__ . '/Commands/stubs');
+            Stub::setBasePath(__DIR__ . '/Commands/stubs');
 
             if ($app['modules']->config('stubs.enabled') === true)
             {
-                Stub::setPath($app['modules']->config('stubs.path'));
+                Stub::setBasePath($app['modules']->config('stubs.path'));
             }
         });
     }
