@@ -2,7 +2,26 @@
 
 return [
 
+    /*
+    |--------------------------------------------------------------------------
+    | Module Namespace
+    |--------------------------------------------------------------------------
+    |
+    | Default module namespace.
+    |
+    */
+   
     'namespace' => 'Modules',
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Module Stubs
+    |--------------------------------------------------------------------------
+    |
+    | Default module stubs.
+    |
+    */
+    
     'stubs' => [
         'enabled' => false,
         'path' => base_path() . '/vendor/pingpong/modules/src/Pingpong/Modules/Commands/stubs',
