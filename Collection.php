@@ -1,5 +1,6 @@
 <?php namespace Pingpong\Modules;
 
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection as BaseCollection;
 
 class Collection extends BaseCollection {
@@ -28,7 +29,7 @@ class Collection extends BaseCollection {
                 return $value->json()->getAttributes();
             }
 
-            return $value instanceof ArrayableInterface ? $value->toArray() : $value;
+            return $value instanceof Arrayable ? $value->toArray() : $value;
 
         }, $this->items);
     }
