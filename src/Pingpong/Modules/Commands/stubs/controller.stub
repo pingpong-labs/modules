@@ -1,6 +1,6 @@
 <?php namespace Modules\$MODULENAME$\Http\Controllers;
 
-use Illuminate\Routing\Controller;
+use Illuminate\Routing\Controllers\Controller;
 use Illuminate\Support\Facades\View;
 
 class $CONTROLLERNAME$ extends Controller {

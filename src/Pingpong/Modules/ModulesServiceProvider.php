@@ -65,7 +65,7 @@ class ModulesServiceProvider extends ServiceProvider {
      */
     protected function registerServices()
     {
-        $this->app->bindShared('modules', function ($app)
+        $this->app->singleton('modules', function ($app)
         {
             $path = $app['config']->get('modules::paths.modules');
 
