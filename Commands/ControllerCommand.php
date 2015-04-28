@@ -13,7 +13,7 @@ class ControllerCommand extends GeneratorCommand {
      *
      * @var string
      */
-    protected $name = 'module:controller';
+    protected $name = 'module:make-controller';
 
     /**
      * The console command description.

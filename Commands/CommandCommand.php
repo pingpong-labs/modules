@@ -15,7 +15,7 @@ class CommandCommand extends GeneratorCommand {
      *
      * @var string
      */
-    protected $name = 'module:command';
+    protected $name = 'module:make-command';
 
     /**
      * The console command description.

@@ -15,7 +15,7 @@ class GenerateProviderCommand extends GeneratorCommand {
      *
      * @var string
      */
-    protected $name = 'module:provider';
+    protected $name = 'module:make-provider';
 
     /**
      * The console command description.

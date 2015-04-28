@@ -14,7 +14,7 @@ class GenerateFilterCommand extends GeneratorCommand {
      *
      * @var string
      */
-    protected $name = 'module:filter-make';
+    protected $name = 'module:make-middleware';
 
     /**
      * The console command description.

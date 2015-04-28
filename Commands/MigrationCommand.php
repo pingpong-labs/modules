@@ -19,7 +19,7 @@ class MigrationCommand extends GeneratorCommand {
      *
      * @var string
      */
-    protected $name = 'module:migration';
+    protected $name = 'module:make-migration';
 
     /**
      * The console command description.
