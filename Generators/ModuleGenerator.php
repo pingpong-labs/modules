@@ -52,11 +52,11 @@ class ModuleGenerator extends Generator {
     protected $force = false;
 
     /**
-     * Indicates when generating module will also generate some module's resources.
+     * Generate a plain module.
      *
      * @var boolean
      */
-    protected $resources = false;
+    protected $plain = false;
 
     /**
      * The constructor.
@@ -83,14 +83,14 @@ class ModuleGenerator extends Generator {
     }
 
     /**
-     * Set resources flag.
+     * Set plain flag.
      * 
-     * @param boolean $resources
+     * @param boolean $plain
      * @return $this
      */
-    public function setResources($resources)
+    public function setPlain($plain)
     {
-        $this->resources = $resources;
+        $this->plain = $plain;
 
         return $this;
     }
@@ -256,7 +256,7 @@ class ModuleGenerator extends Generator {
 
         $this->generateFiles();
 
-        if ($this->resources === true)
+        if ( ! $this->plain)
         {
             $this->generateResources();
         }
