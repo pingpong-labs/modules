@@ -22,10 +22,6 @@ class ModulesServiceProvider extends ServiceProvider {
     public function boot()
     {
         $this->registerNamespaces();
-
-        $this->app['modules']->boot();
-
-        $this->app['modules']->register();
     }
 
     /**
