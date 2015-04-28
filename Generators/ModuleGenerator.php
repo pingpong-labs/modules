@@ -52,6 +52,13 @@ class ModuleGenerator extends Generator {
     protected $force = false;
 
     /**
+     * Indicates when generating module will also generate some module's resources.
+     *
+     * @var boolean
+     */
+    protected $resources = false;
+
+    /**
      * The constructor.
      *
      * @param $name
@@ -75,6 +82,18 @@ class ModuleGenerator extends Generator {
         $this->module = $module;
     }
 
+    /**
+     * Set resources flag.
+     * 
+     * @param boolean $resources
+     * @return $this
+     */
+    public function setResources($resources)
+    {
+        $this->resources = $resources;
+
+        return $this;
+    }
 
     /**
      * Get the name of module will created. By default in studly case.
@@ -237,7 +256,10 @@ class ModuleGenerator extends Generator {
 
         $this->generateFiles();
 
-        $this->generateResources();
+        if ($this->resources === true)
+        {
+            $this->generateResources();
+        }
 
         $this->console->info("Module [{$name}] created successfully.");
     }
@@ -293,19 +315,19 @@ class ModuleGenerator extends Generator {
      */
     public function generateResources()
     {
-        $this->console->call('module:seed-make', [
+        $this->console->call('module:make-seed', [
             'name' => $this->getName(),
             'module' => $this->getName(),
             '--master' => true
         ]);
 
-        $this->console->call('module:provider', [
+        $this->console->call('module:make-provider', [
             'name' => $this->getName() . 'ServiceProvider',
             'module' => $this->getName(),
             '--master' => true
         ]);
 
-        $this->console->call('module:controller', [
+        $this->console->call('module:make-controller', [
             'controller' => $this->getName() . 'Controller',
             'module' => $this->getName()
         ]);

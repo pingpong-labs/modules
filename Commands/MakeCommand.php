@@ -38,6 +38,7 @@ class MakeCommand extends Command {
                 ->setConfig($this->laravel['config'])
                 ->setConsole($this)
                 ->setForce($this->option('force'))
+                ->setResources($this->option('resources'))
                 ->generate();
         }
     }
@@ -58,6 +59,7 @@ class MakeCommand extends Command {
     protected function getOptions()
     {
         return [
+            array('resources', 'r', InputOption::VALUE_NONE, 'Generare some module\'s resources.'),
             array('force', null, InputOption::VALUE_NONE, 'Force the operation to run when module already exist.'),
         ];
     }
