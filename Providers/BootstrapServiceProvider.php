@@ -16,4 +16,14 @@ class BootstrapServiceProvider extends ServiceProvider {
         $this->app['modules']->boot();
     }
 
+    /**
+     * Register the provider.
+     * 
+     * @return void
+     */
+    public function register()
+    {
+        //
+    }
+
 }
