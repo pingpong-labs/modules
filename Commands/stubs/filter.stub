@@ -1,4 +1,4 @@
-<?php namespace $MODULE_NAMESPACE$\$MODULE$\Http\Filters; 
+<?php namespace $MODULE_NAMESPACE$\$MODULE$\Http\Middleware; 
 
 use Closure;
 
