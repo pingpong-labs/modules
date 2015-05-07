@@ -46,8 +46,6 @@ class PublishCommand extends Command {
         {
             $name = $module->getStudlyName();
 
-            $this->line("<info>Published</info>: {$name}"); 
-
             $this->publish($name);
         }
     }
