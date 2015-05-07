@@ -83,7 +83,7 @@ return [
         |
         */
 
-        'migration' => app_path('database/migrations'),
+        'migration' => base_path('database/migrations'),
         /*
         |--------------------------------------------------------------------------
         | Generator path
