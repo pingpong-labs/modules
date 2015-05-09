@@ -18,13 +18,12 @@
   "require": {
     "php": ">=5.4.0",
     "laravel/framework": "5.0.*",
-    "pingpong/generators": "2.0.*@dev",
+    "pingpong/generators": "~2.0",
     "laravelcollective/html": "~5.0"
   },
   "require-dev": {
     "phpunit/phpunit": "~4",
-    "mockery/mockery": "~0.9",
-    "pingpong/testing": "1.*"
+    "mockery/mockery": "~0.9"
   },
   "autoload": {
     "psr-4": {
