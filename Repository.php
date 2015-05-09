@@ -138,7 +138,32 @@ class Repository implements RepositoryInterface, Countable {
      */
     public function all()
     {
-        return $this->config('cache.enabled') ? $this->getCached() : $this->scan();
+        if ( ! $this->config('cache.enabled'))
+        {
+            return $this->scan();
+        }
+
+        return $this->formatCached($this->getCached());
+    }
+
+    /**
+     * Format the cached data as array of modules.
+     *
+     * @param  array $cached
+     * @return array
+     */
+    protected function formatCached($cached)
+    {
+        $modules = [];
+
+        foreach ($cached as $name => $module)
+        {
+            $path = $this->config('paths.modules') . '/' . $name;
+
+            $modules[] = new Module($this->app, $name, $path);
+        }
+
+        return $modules;
     }
 
     /**
@@ -161,7 +186,7 @@ class Repository implements RepositoryInterface, Countable {
      */
     public function toCollection()
     {
-        return new Collection($this->all());
+        return new Collection($this->scan());
     }
 
     /**
@@ -229,20 +254,26 @@ class Repository implements RepositoryInterface, Countable {
     /**
      * Get all ordered modules.
      *
+     * @param  string $direction
      * @return array
      */
-    public function getOrdered()
+    public function getOrdered($direction = 'asc')
     {
         $modules = $this->enabled();
 
-        uasort($modules, function ($a, $b)
+        uasort($modules, function ($a, $b) use ($direction)
         {
-            if ($a->priority == $b->priority)
+            if ($a->order == $b->order)
             {
                 return 0;
             }
 
-            return $a->priority < $b->priority ? 1 : -1;
+            if ($direction == 'desc')
+            {
+                return $a->order < $b->order ? 1 : -1;
+            }
+
+            return $a->order > $b->order ? 1 : -1;
         });
 
         return $modules;
@@ -294,7 +325,10 @@ class Repository implements RepositoryInterface, Countable {
     {
         foreach ($this->all() as $module)
         {
-            if ($module->getLowerName() == strtolower($name)) return $module;
+            if ($module->getLowerName() == strtolower($name))
+            {
+                return $module;
+            }
         }
 
         return null;
@@ -320,7 +354,10 @@ class Repository implements RepositoryInterface, Countable {
      */
     public function findOrFail($name)
     {
-        if ( ! is_null($module = $this->find($name))) return $module;
+        if ( ! is_null($module = $this->find($name)))
+        {
+            return $module;
+        }
 
         throw new ModuleNotFoundException("Module [{$name}] does not exist!");
     }
@@ -382,7 +419,7 @@ class Repository implements RepositoryInterface, Countable {
      */
     public function getUsedStoragePath()
     {
-        if ( ! $this->app['files']->exists($path = storage_path('meta')))
+        if ( ! $this->app['files']->exists($path = storage_path('app/modules')))
         {
             $this->app['files']->makeDirectory($path, 0777, true);
         }
@@ -502,6 +539,17 @@ class Repository implements RepositoryInterface, Countable {
     }
 
     /**
+     * Delete a specific module.
+     *
+     * @param  string $name
+     * @return bool
+     */
+    public function delete($name)
+    {
+        return $this->findOrFail($name)->delete();
+    }
+
+    /**
      * Update dependencies for the specified module.
      *
      * @param  string $module
@@ -530,9 +578,15 @@ class Repository implements RepositoryInterface, Countable {
      */
     public function getStubPath()
     {
-        if ( ! is_null($this->stubPath)) return $this->stubPath;
+        if ( ! is_null($this->stubPath))
+        {
+            return $this->stubPath;
+        }
 
-        if ($this->config('stubs.enabled')) return $this->config('stubs.path');
+        if ($this->config('stubs.enabled'))
+        {
+            return $this->config('stubs.path');
+        }
 
         return $this->stubPath;
     }

@@ -21,9 +21,7 @@ class ModulesServiceProvider extends ServiceProvider {
      */
     public function boot()
     {
-        $this->app['modules']->boot();
-
-        $this->app['modules']->register();
+        $this->registerNamespaces();
     }
 
     /**
@@ -33,8 +31,8 @@ class ModulesServiceProvider extends ServiceProvider {
      */
     public function register()
     {
-        $this->registerNamespaces();
         $this->registerServices();
+        $this->setupStubPath();
         $this->registerProviders();
 
         $this->app->booted(function ($app)
@@ -42,15 +40,33 @@ class ModulesServiceProvider extends ServiceProvider {
             Stub::setPath(__DIR__ . '/Commands/stubs');
         });
     }
-    
+
+    /**
+     * Setup stub path.
+     *
+     * @return void
+     */
+    public function setupStubPath()
+    {
+        $this->app->booted(function ($app)
+        {
+            Stub::setBasePath(__DIR__ . '/Commands/stubs');
+
+            if ($app['modules']->config('stubs.enabled') === true)
+            {
+                Stub::setBasePath($app['modules']->config('stubs.path'));
+            }
+        });
+    }
+
     /**
      * Register package's namespaces.
-     * 
+     *
      * @return void
      */
     protected function registerNamespaces()
     {
-        $configPath = __DIR__.'/src/config/config.php';
+        $configPath = __DIR__ . '/src/config/config.php';
         $this->mergeConfigFrom($configPath, 'modules');
         $this->publishes([$configPath => config_path('modules.php')]);
     }
@@ -62,11 +78,11 @@ class ModulesServiceProvider extends ServiceProvider {
      */
     protected function registerHtml()
     {
-        $this->app->register('Illuminate\Html\HtmlServiceProvider');
+        $this->app->register('Collective\Html\HtmlServiceProvider');
 
         $aliases = [
-            'HTML' => 'Illuminate\Html\HtmlFacade',
-            'Form' => 'Illuminate\Html\FormFacade',
+            'HTML' => 'Collective\Html\HtmlFacade',
+            'Form' => 'Collective\Html\FormFacade',
             'Module' => 'Pingpong\Modules\Facades\Module',
         ];
 
@@ -106,5 +122,6 @@ class ModulesServiceProvider extends ServiceProvider {
     protected function registerProviders()
     {
         $this->app->register(__NAMESPACE__ . '\\Providers\\ConsoleServiceProvider');
+        $this->app->register('Pingpong\Modules\Providers\ContractsServiceProvider');
     }
 }

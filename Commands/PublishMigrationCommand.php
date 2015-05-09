@@ -27,12 +27,31 @@ class PublishMigrationCommand extends Command {
      */
     public function fire()
     {
-        $module = $this->laravel['modules']->findOrFail($this->argument('module'));
+        if ($name = $this->argument('module'))
+        {
+            $module = $this->laravel['modules']->findOrFail($name);
+            
+            $this->publish($module);
+        }
 
+        foreach ($this->laravel['modules']->enabled() as $module)
+        {
+            $this->publish($module);
+        }
+    }
+
+    /**
+     * Publish migration for the specified module.
+     * 
+     * @param  \Pingpong\Modules\Module $module
+     * @return void
+     */
+    public function publish($module)
+    {
         with(new MigrationPublisher($module))
             ->setRepository($this->laravel['modules'])
             ->setConsole($this)
-            ->publish();
+            ->publish();        
     }
 
     /**
@@ -43,7 +62,7 @@ class PublishMigrationCommand extends Command {
     protected function getArguments()
     {
         return array(
-            array('module', InputArgument::OPTIONAL, 'Module name.'),
+            array('module', InputArgument::OPTIONAL, 'The name of module being used.'),
         );
     }
 

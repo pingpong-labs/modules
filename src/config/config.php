@@ -2,27 +2,55 @@
 
 return [
 
+    /*
+    |--------------------------------------------------------------------------
+    | Module Namespace
+    |--------------------------------------------------------------------------
+    |
+    | Default module namespace.
+    |
+    */
+   
+    'namespace' => 'Modules',
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Module Stubs
+    |--------------------------------------------------------------------------
+    |
+    | Default module stubs.
+    |
+    */
+    
     'stubs' => [
-        'enabled'   => false,
-        'path'      => base_path().'/vendor/pingpong/modules/src/Pingpong/Modules/Commands/stubs',
-        'files'     => [
-            'start'         => 'start.php',
-            'routes'        => 'Http/routes.php',
-            'json'          => 'module.json',
-            'composer'      => 'composer.json',
-            'views/index'   => 'Resources/views/index.blade.php',
-            'views/master'  => 'Resources/views/layouts/master.blade.php',
+        'enabled' => false,
+        'path' => base_path() . '/vendor/pingpong/modules/src/Pingpong/Modules/Commands/stubs',
+        'files' => [
+            'start' => 'start.php',
+            'routes' => 'Http/routes.php',
+            'json' => 'module.json',
+            'views/index' => 'Resources/views/index.blade.php',
+            'views/master' => 'Resources/views/layouts/master.blade.php',
+            'scaffold/config' => 'Config/config.php',
+            'composer' => 'composer.json',
         ],
         'replacements' => [
-            'start'         => ['LOWER_NAME'],
-            'routes'        => ['LOWER_NAME', 'STUDLY_NAME'],
-            'json'          => ['LOWER_NAME', 'STUDLY_NAME'],
-            'composer'      => ['LOWER_NAME', 'STUDLY_NAME', 'VENDOR', 'AUTHOR_NAME', 'AUTHOR_EMAIL'],
-            'views/index'   => ['LOWER_NAME'],
-            'views/master'  => ['STUDLY_NAME'],
+            'start' => ['LOWER_NAME'],
+            'routes' => ['LOWER_NAME', 'STUDLY_NAME', 'MODULE_NAMESPACE'],
+            'json' => ['LOWER_NAME', 'STUDLY_NAME', 'MODULE_NAMESPACE'],
+            'views/index' => ['LOWER_NAME'],
+            'views/master' => ['STUDLY_NAME'],
+            'scaffold/config' => ['STUDLY_NAME'],
+            'composer' => [
+                'LOWER_NAME',
+                'STUDLY_NAME',
+                'VENDOR',
+                'AUTHOR_NAME',
+                'AUTHOR_EMAIL',
+                'MODULE_NAMESPACE'
+            ],
         ],
     ],
-
     'paths' => [
         /*
         |--------------------------------------------------------------------------
@@ -34,7 +62,7 @@ return [
         |
         */
 
-        'modules' => base_path('Modules'),
+        'modules' => base_path('modules'),
         /*
         |--------------------------------------------------------------------------
         | Modules assets path
@@ -55,7 +83,7 @@ return [
         |
         */
 
-        'migration' => app_path('database/migrations'),
+        'migration' => base_path('database/migrations'),
         /*
         |--------------------------------------------------------------------------
         | Generator path
@@ -74,7 +102,7 @@ return [
             'repository' => 'Repositories',
             'seeder' => 'Database/Seeders',
             'controller' => 'Http/Controllers',
-            'filter' => 'Http/Filters',
+            'filter' => 'Http/Middleware',
             'request' => 'Http/Requests',
             'provider' => 'Providers',
             'lang' => 'Resources/lang',

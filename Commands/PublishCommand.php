@@ -27,7 +27,38 @@ class PublishCommand extends Command {
      */
     public function fire()
     {
-        $module = $this->laravel['modules']->findOrFail($this->argument('module'));
+        if ($name = $this->argument('module'))
+        {
+            return $this->publish($name);
+        }
+
+        $this->publishAll(); 
+    }
+
+    /**
+     * Publish assets from all modules.
+     * 
+     * @return void
+     */
+    public function publishAll()
+    {
+        foreach ($this->laravel['modules']->enabled() as $module)
+        {
+            $name = $module->getStudlyName();
+
+            $this->publish($name);
+        }
+    }
+
+    /**
+     * Publish assets from the specified module.
+     * 
+     * @param  string $name
+     * @return void
+     */
+    public function publish($name)
+    {
+        $module = $this->laravel['modules']->findOrFail($name);
 
         with(new AssetPublisher($module))
             ->setRepository($this->laravel['modules'])

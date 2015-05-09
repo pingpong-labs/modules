@@ -4,8 +4,10 @@
     "description": "",
     "keywords": [],
     "active": 1,
-    "priority": 0,
-    "providers": [],
+    "order": 0,
+    "providers": [
+        "$MODULE_NAMESPACE$\\$STUDLY_NAME$\\Providers\\$STUDLY_NAME$ServiceProvider"
+    ],
     "aliases":{},
     "files": [
         "start.php"

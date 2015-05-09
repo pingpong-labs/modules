@@ -1,7 +1,7 @@
 <?php namespace Pingpong\Modules;
 
-use Illuminate\Foundation\Application;
 use Illuminate\Foundation\AliasLoader;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 
@@ -303,17 +303,25 @@ class Module extends ServiceProvider {
      */
     public function disable()
     {
-        return $this->setActive(0);
+        $this->app['events']->fire('module.disabling', [$this]);
+        
+        $this->setActive(0);
+        
+        $this->app['events']->fire('module.disabled', [$this]);
     }
 
     /**
      * Enable the current module.
      *
-     * @return bool
+     * @return void
      */
     public function enable()
     {
-        return $this->setActive(1);
+        $this->app['events']->fire('module.enabling', [$this]);
+
+        $this->setActive(1);
+        
+        $this->app['events']->fire('module.enabled', [$this]);
     }
 
     /**

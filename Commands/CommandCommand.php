@@ -15,7 +15,7 @@ class CommandCommand extends GeneratorCommand {
      *
      * @var string
      */
-    protected $name = 'module:command';
+    protected $name = 'module:make-command';
 
     /**
      * The console command description.
@@ -54,11 +54,12 @@ class CommandCommand extends GeneratorCommand {
      */
     protected function getTemplateContents()
     {
-        return new Stub('command', [
+        return (new Stub('/command.stub', [
             'MODULE' => $this->getModuleName(),
             'NAME' => $this->getFileName(),
-            'COMMAND_NAME' => $this->getCommandName()
-        ]);
+            'COMMAND_NAME' => $this->getCommandName(),
+            'MODULE_NAMESPACE' => $this->laravel['modules']->config('namespace')
+        ]))->render();
     }
 
     /**

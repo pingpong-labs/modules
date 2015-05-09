@@ -1,13 +1,12 @@
-<?php namespace Modules\$MODULENAME$\Http\Controllers;
+<?php namespace $MODULE_NAMESPACE$\$MODULENAME$\Http\Controllers;
 
-use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\View;
+use Pingpong\Modules\Routing\Controller;
 
 class $CONTROLLERNAME$ extends Controller {
-
+	
 	public function index()
 	{
-		return View::make('$NAMESPACE$::index');
+		return view('$NAMESPACE$::index');
 	}
 	
 }

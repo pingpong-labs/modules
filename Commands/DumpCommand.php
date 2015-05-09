@@ -27,7 +27,7 @@ class DumpCommand extends Command {
     public function fire()
     {
         $this->info("Generating optimized autoload modules.");
-        
+
         if ($module = $this->argument('module'))
         {
             $this->dump($module);
@@ -36,7 +36,7 @@ class DumpCommand extends Command {
         {
             foreach ($this->laravel['modules']->all() as $module)
             {
-                $this->dump($module->getStudlyName());    
+                $this->dump($module->getStudlyName());
             }
         }
     }
@@ -49,7 +49,7 @@ class DumpCommand extends Command {
 
         chdir($module->getPath());
 
-        passthru('composer dump -o -n -q');        
+        passthru('composer dump -o -n -q');
     }
 
     /**

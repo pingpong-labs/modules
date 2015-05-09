@@ -3,6 +3,7 @@
 use Illuminate\Console\Command;
 use Pingpong\Modules\Generators\ModuleGenerator;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 
 class MakeCommand extends Command {
 
@@ -36,6 +37,8 @@ class MakeCommand extends Command {
                 ->setModule($this->laravel['modules'])
                 ->setConfig($this->laravel['config'])
                 ->setConsole($this)
+                ->setForce($this->option('force'))
+                ->setPlain($this->option('plain'))
                 ->generate();
         }
     }
@@ -51,6 +54,14 @@ class MakeCommand extends Command {
         return array(
             array('name', InputArgument::IS_ARRAY, 'The names of modules will be created.'),
         );
+    }
+
+    protected function getOptions()
+    {
+        return [
+            array('plain', 'p', InputOption::VALUE_NONE, 'Generate a plain module (without some resources).'),
+            array('force', null, InputOption::VALUE_NONE, 'Force the operation to run when module already exist.'),
+        ];
     }
 
 }

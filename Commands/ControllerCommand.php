@@ -13,7 +13,7 @@ class ControllerCommand extends GeneratorCommand {
      *
      * @var string
      */
-    protected $name = 'module:controller';
+    protected $name = 'module:make-controller';
 
     /**
      * The console command description.
@@ -43,11 +43,12 @@ class ControllerCommand extends GeneratorCommand {
     {
         $module = $this->laravel['modules']->findOrFail($this->getModuleName());
 
-        return new Stub('controller', [
+        return (new Stub('/controller.stub', [
             'MODULENAME' => $module->getStudlyName(),
             'CONTROLLERNAME' => $this->getControllerName(),
-            'NAMESPACE' => $module->getLowername()
-        ]);
+            'NAMESPACE' => $module->getLowername(),
+            'MODULE_NAMESPACE' => $this->laravel['modules']->config('namespace')
+        ]))->render();
     }
 
     /**

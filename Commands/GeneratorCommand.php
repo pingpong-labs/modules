@@ -1,7 +1,7 @@
-<?php  namespace Pingpong\Modules\Commands;
+<?php namespace Pingpong\Modules\Commands;
 
 use Illuminate\Console\Command;
-use Pingpong\Generators\Exceptions\FileAlreadyExistException;
+use Pingpong\Modules\Generators\FileAlreadyExistException;
 use Pingpong\Modules\Generators\FileGenerator;
 
 abstract class GeneratorCommand extends Command {

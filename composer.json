@@ -1,46 +1,46 @@
 {
-    "name": "pingpong/modules",
-    "description": "Laravel Modules",
-    "keywords": [
-        "modules",
-        "laravel",
-        "pingpong",
-        "hmvc",
-        "module"
-    ],
-    "license": "BSD-3-Clause",
-    "authors": [
-        {
-            "name": "Pingpong Labs",
-            "email": "pingpong.labs@gmail.com"
-        }
-    ],
-    "require": {
-        "php": ">=5.4.0",
-        "laravel/framework": "5.0.x@dev",
-        "pingpong/generators": "1.*",
-        "illuminate/html": "5.0.*@dev"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "~4",
-        "mockery/mockery": "~0.9",
-        "pingpong/testing": "1.*"
-    },
-    "autoload": {
-        "psr-4": {
-            "Pingpong\\Modules\\": ""
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests"
-        }
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.2-dev",
-            "dev-develop": "1.3-dev"
-        }
-    },
-    "minimum-stability": "stable"
+  "name": "pingpong/modules",
+  "description": "Laravel Modules",
+  "keywords": [
+    "modules",
+    "laravel",
+    "pingpong",
+    "hmvc",
+    "module"
+  ],
+  "license": "BSD-3-Clause",
+  "authors": [
+    {
+      "name": "Pingpong Labs",
+      "email": "pingpong.labs@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0",
+    "laravel/framework": "5.0.*",
+    "pingpong/generators": "2.0.*@dev",
+    "laravelcollective/html": "~5.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4",
+    "mockery/mockery": "~0.9",
+    "pingpong/testing": "1.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Pingpong\\Modules\\": ""
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests"
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.2-dev",
+      "dev-develop": "1.3-dev"
+    }
+  },
+  "minimum-stability": "dev"
 }

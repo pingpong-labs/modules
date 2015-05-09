@@ -45,6 +45,20 @@ class ModuleGenerator extends Generator {
     protected $module;
 
     /**
+     * Force status.
+     *
+     * @var boolean
+     */
+    protected $force = false;
+
+    /**
+     * Generate a plain module.
+     *
+     * @var boolean
+     */
+    protected $plain = false;
+
+    /**
      * The constructor.
      *
      * @param $name
@@ -53,7 +67,13 @@ class ModuleGenerator extends Generator {
      * @param Filesystem $filesystem
      * @param Console $console
      */
-    public function __construct($name, Repository $module = null, Config $config = null, Filesystem $filesystem = null, Console $console = null)
+    public function __construct(
+        $name,
+        Repository $module = null,
+        Config $config = null,
+        Filesystem $filesystem = null,
+        Console $console = null
+    )
     {
         $this->name = $name;
         $this->config = $config;
@@ -62,6 +82,18 @@ class ModuleGenerator extends Generator {
         $this->module = $module;
     }
 
+    /**
+     * Set plain flag.
+     * 
+     * @param boolean $plain
+     * @return $this
+     */
+    public function setPlain($plain)
+    {
+        $this->plain = $plain;
+
+        return $this;
+    }
 
     /**
      * Get the name of module will created. By default in studly case.
@@ -187,22 +219,47 @@ class ModuleGenerator extends Generator {
     }
 
     /**
+     * Set force status.
+     *
+     * @param boolean|int $force
+     * @return $this
+     */
+    public function setForce($force)
+    {
+        $this->force = $force;
+
+        return $this;
+    }
+
+    /**
      * Generate the module.
      */
     public function generate()
     {
-        if ($this->module->has($name = $this->getName()))
-        {
-            $this->console->error("Module [{$name}] already exist!");
+        $name = $this->getName();
 
-            return;
+        if ($this->module->has($name))
+        {
+            if ($this->force)
+            {
+                $this->module->delete($name);
+            }
+            else
+            {
+                $this->console->error("Module [{$name}] already exist!");
+
+                return;
+            }
         }
 
         $this->generateFolders();
 
         $this->generateFiles();
 
-        $this->generateResources();
+        if ( ! $this->plain)
+        {
+            $this->generateResources();
+        }
 
         $this->console->info("Module [{$name}] created successfully.");
     }
@@ -258,18 +315,19 @@ class ModuleGenerator extends Generator {
      */
     public function generateResources()
     {
-        $this->console->call('module:seed-make', [
+        $this->console->call('module:make-seed', [
             'name' => $this->getName(),
             'module' => $this->getName(),
             '--master' => true
         ]);
 
-        $this->console->call('module:provider', [
+        $this->console->call('module:make-provider', [
             'name' => $this->getName() . 'ServiceProvider',
-            'module' => $this->getName()
+            'module' => $this->getName(),
+            '--master' => true
         ]);
 
-        $this->console->call('module:controller', [
+        $this->console->call('module:make-controller', [
             'controller' => $this->getName() . 'Controller',
             'module' => $this->getName()
         ]);
@@ -283,7 +341,10 @@ class ModuleGenerator extends Generator {
      */
     protected function getStubContents($stub)
     {
-        return new Stub($stub, $this->getReplacement($stub));
+        return (new Stub(
+            '/' .$stub.'.stub',
+            $this->getReplacement($stub))
+        )->render();
     }
 
     /**
@@ -304,7 +365,12 @@ class ModuleGenerator extends Generator {
     {
         $replacements = $this->module->config('stubs.replacements');
 
-        if ( ! isset($replacements[$stub])) return [];
+        $namespace = $this->module->config('namespace');
+
+        if ( ! isset($replacements[$stub]))
+        {
+            return [];
+        }
 
         $keys = $replacements[$stub];
 
@@ -353,6 +419,16 @@ class ModuleGenerator extends Generator {
     protected function getVendorReplacement()
     {
         return $this->module->config('composer.vendor');
+    }
+
+    /**
+     * Get replacement for $MODULE_NAMESPACE$
+     *
+     * @return string
+     */
+    protected function getModuleNamespaceReplacement()
+    {
+        return str_replace('\\', '\\\\', $this->module->config('namespace'));
     }
 
     /**

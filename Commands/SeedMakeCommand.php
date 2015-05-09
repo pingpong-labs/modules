@@ -15,7 +15,7 @@ class SeedMakeCommand extends GeneratorCommand {
      *
      * @var string
      */
-    protected $name = 'module:seed-make';
+    protected $name = 'module:make-seed';
 
     /**
      * The console command description.
@@ -59,10 +59,11 @@ class SeedMakeCommand extends GeneratorCommand {
      */
     protected function getTemplateContents()
     {
-        return new Stub('seeder', [
+        return (new Stub('/seeder.stub', [
             'NAME' => $this->getSeederName(),
-            'MODULE' => $this->getModuleName()
-        ]);
+            'MODULE' => $this->getModuleName(),
+            'MODULE_NAMESPACE' => $this->laravel['modules']->config('namespace')
+        ]))->render();
     }
 
     /**

@@ -8,14 +8,29 @@ class GenerateRouteProviderCommand extends GeneratorCommand {
 
     use ModuleCommandTrait;
 
+    /**
+     * The command name.
+     * 
+     * @var string
+     */
     protected $name = 'module:route-provider';
 
+    /**
+     * The command description.
+     * 
+     * @var string
+     */
     protected $description = 'Generate a new route service provider for the specified module.';
 
+    /**
+     * The command arguments.
+     * 
+     * @return array
+     */
     protected function getArguments()
     {
         return array(
-            array('module', InputArgument::REQUIRED, 'The name of module will be used.'),
+            array('module', InputArgument::OPTIONAL, 'The name of module will be used.'),
         );
     }
 
@@ -26,10 +41,11 @@ class GenerateRouteProviderCommand extends GeneratorCommand {
      */
     protected function getTemplateContents()
     {
-        return new Stub('route-provider', [
+        return (new Stub('/route-provider.stub', [
             'MODULE' => $this->getModuleName(),
-            'NAME' => $this->getFileName()
-        ]);
+            'NAME' => $this->getFileName(),
+            'MODULE_NAMESPACE' => $this->laravel['modules']->config('namespace')
+        ]))->render();
     }
 
     /**
@@ -41,7 +57,7 @@ class GenerateRouteProviderCommand extends GeneratorCommand {
     {
         $path = $this->laravel['modules']->getModulePath($this->getModuleName());
 
-        $generatorPath = $this->laravel['modules']->get('paths.generator.provider');
+        $generatorPath = $this->laravel['modules']->config('paths.generator.provider');
 
         return $path . $generatorPath . '/' . $this->getFileName() . '.php';
     }

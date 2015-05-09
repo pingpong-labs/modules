@@ -4,6 +4,7 @@ use Illuminate\Support\Str;
 use Pingpong\Generators\Stub;
 use Pingpong\Modules\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 
 class GenerateProviderCommand extends GeneratorCommand {
 
@@ -14,7 +15,7 @@ class GenerateProviderCommand extends GeneratorCommand {
      *
      * @var string
      */
-    protected $name = 'module:provider';
+    protected $name = 'module:make-provider';
 
     /**
      * The console command description.
@@ -37,14 +38,30 @@ class GenerateProviderCommand extends GeneratorCommand {
     }
 
     /**
+     * Get the console command options.
+     *
+     * @return array
+     */
+    protected function getOptions()
+    {
+        return array(
+            array('master', null, InputOption::VALUE_NONE, 'Indicates the master service provider', null),
+        );
+    }
+
+    /**
      * @return mixed
      */
     protected function getTemplateContents()
     {
-        return new Stub('provider', [
+        $stub = $this->option('master') ? 'scaffold/provider' : 'provider';
+
+        return (new Stub('/'.$stub.'.stub', [
             'MODULE' => $this->getModuleName(),
-            'NAME' => $this->getFileName()
-        ]);
+            'LOWER_NAME' => strtolower($this->getModuleName()),
+            'NAME' => $this->getFileName(),
+            'MODULE_NAMESPACE' => $this->laravel['modules']->config('namespace')
+        ]))->render();
     }
 
     /**

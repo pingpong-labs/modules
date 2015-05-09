@@ -50,8 +50,6 @@ abstract class Publisher implements PublisherInterface {
     public function __construct(Module $module)
     {
         $this->module = $module;
-
-        $this->success = "Publishing was successful";
     }
 
     /**
@@ -150,9 +148,7 @@ abstract class Publisher implements PublisherInterface {
 
         if ( ! $this->getFilesystem()->isDirectory($sourcePath = $this->getSourcePath()))
         {
-            $message = "Source path does not exist : {$sourcePath}";
-
-            throw new \InvalidArgumentException($message);
+            return;
         }
 
         if ( ! $this->getFilesystem()->isDirectory($destinationPath = $this->getDestinationPath()))
@@ -162,7 +158,7 @@ abstract class Publisher implements PublisherInterface {
 
         if ($this->getFilesystem()->copyDirectory($sourcePath, $destinationPath))
         {
-            $this->console->info($this->success);
+            $this->console->line("<info>Published</info>: {$this->module->getStudlyName()}"); 
         }
         else
         {
