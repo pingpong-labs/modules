@@ -1,6 +1,7 @@
 <?php namespace Pingpong\Modules\Commands;
 
 use Illuminate\Console\Command;
+use Pingpong\Modules\Process\Installer;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
@@ -37,34 +38,22 @@ class InstallCommand extends Command {
      */
     public function fire()
     {
-        $name = $this->argument('name');
-
-        $this->info("Installing [{$name}] module");
-
-        $this->laravel['modules']->install(
-            $this->getPackageName(),
-            $this->option('path'),
+        $installer = new Installer(
+            $this->argument('name'),
+            $this->argument('version'),
+            $this->option('type'),
             $this->option('tree')
         );
 
-        $this->info("Module [{$name}] installed successfully.");
-    }
+        $installer->setRepository($this->laravel['modules']);
+        
+        $installer->setConsole($this);
 
-    /**
-     * Get package name.
-     *
-     * @return string
-     */
-    protected function getPackageName()
-    {
-        $name = $this->argument('name');
-
-        if ($version = $this->argument('version'))
-        {
-            $name = $name . ':' . $version;
+        if ($path = $this->option('path')) {
+            $installer->setPath($path);
         }
 
-        return $name;
+        $installer->run();
     }
 
     /**
@@ -89,6 +78,7 @@ class InstallCommand extends Command {
     {
         return array(
             array('path', null, InputOption::VALUE_OPTIONAL, 'The installation path.', null),
+            array('type', null, InputOption::VALUE_OPTIONAL, 'The type of installation.', null),
             array('tree', null, InputOption::VALUE_NONE, 'Install the module as a git subtree', null),
         );
     }
