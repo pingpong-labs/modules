@@ -48,6 +48,7 @@ class ConsoleServiceProvider extends ServiceProvider {
         'Update',
         'Use',
         'Dump',
+        'MakeRequest',
     ];
 
     /**
