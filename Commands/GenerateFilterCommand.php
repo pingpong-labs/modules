@@ -11,7 +11,7 @@ class GenerateFilterCommand extends GeneratorCommand
 
     /**
      * The name of argument name.
-     * 
+     *
      * @var string
      */
     protected $argumentName = 'name';
@@ -78,7 +78,7 @@ class GenerateFilterCommand extends GeneratorCommand
 
     /**
      * Get default namespace.
-     * 
+     *
      * @return string
      */
     public function getDefaultNamespace()

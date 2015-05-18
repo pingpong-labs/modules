@@ -10,7 +10,7 @@ class ControllerCommand extends GeneratorCommand
 
     /**
      * The name of argument being used.
-     * 
+     *
      * @var string
      */
     protected $argumentName = 'controller';
@@ -89,12 +89,11 @@ class ControllerCommand extends GeneratorCommand
 
     /**
      * Get default namespace.
-     * 
+     *
      * @return string
      */
     public function getDefaultNamespace()
     {
         return 'Http\Controllers';
     }
-
 }

@@ -12,7 +12,7 @@ class ModelCommand extends GeneratorCommand
 
     /**
      * The name of argument name.
-     * 
+     *
      * @var string
      */
     protected $argumentName = 'model';
@@ -111,7 +111,7 @@ class ModelCommand extends GeneratorCommand
 
     /**
      * Get default namespace.
-     * 
+     *
      * @return string
      */
     public function getDefaultNamespace()

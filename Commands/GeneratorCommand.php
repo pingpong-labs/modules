@@ -8,7 +8,7 @@ abstract class GeneratorCommand extends Command
 {
     /**
      * The name of 'name' argument.
-     * 
+     *
      * @var string
      */
     protected $argumentName = '';
@@ -61,7 +61,7 @@ abstract class GeneratorCommand extends Command
 
     /**
      * Get default namespace.
-     * 
+     *
      * @return string
      */
     public function getDefaultNamespace()

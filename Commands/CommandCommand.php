@@ -12,7 +12,7 @@ class CommandCommand extends GeneratorCommand
 
     /**
      * The name of argument name.
-     * 
+     *
      * @var string
      */
     protected $argumentName = 'name';
@@ -100,7 +100,7 @@ class CommandCommand extends GeneratorCommand
 
     /**
      * Get default namespace.
-     * 
+     *
      * @return string
      */
     public function getDefaultNamespace()
