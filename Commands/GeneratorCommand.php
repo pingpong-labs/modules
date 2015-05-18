@@ -26,7 +26,11 @@ abstract class GeneratorCommand extends Command
      */
     public function fire()
     {
-        $path = $this->getDestinationFilePath();
+        $path = str_replace('\\', '/', $this->getDestinationFilePath());
+
+        if (! $this->laravel['files']->isDirectory($dir = dirname($path))) {
+            $this->laravel['files']->makeDirectory($path, 0777, true);
+        }
 
         $contents = $this->getTemplateContents();
 
