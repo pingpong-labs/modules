@@ -2,7 +2,7 @@
 
 use Pingpong\Modules\Routing\Controller;
 
-class $CONTROLLERNAME$ extends Controller {
+class $CLASS$ extends Controller {
 	
 	public function index()
 	{

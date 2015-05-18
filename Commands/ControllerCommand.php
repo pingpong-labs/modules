@@ -47,6 +47,7 @@ class ControllerCommand extends GeneratorCommand
         return (new Stub('/controller.stub', [
             'MODULENAME' => $module->getStudlyName(),
             'CONTROLLERNAME' => $this->getControllerName(),
+            'CLASS' => $this->getClass(),
             'NAMESPACE' => $module->getLowername(),
             'MODULE_NAMESPACE' => $this->laravel['modules']->config('namespace')
         ]))->render();
@@ -78,4 +79,15 @@ class ControllerCommand extends GeneratorCommand
 
         return $controller;
     }
+
+    /**
+     * Get class name.
+     * 
+     * @return string
+     */
+    public function getClass()
+    {
+        return class_basename($this->argument('controller'));
+    }
+
 }
