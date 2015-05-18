@@ -29,7 +29,7 @@ abstract class GeneratorCommand extends Command
         $path = str_replace('\\', '/', $this->getDestinationFilePath());
 
         if (! $this->laravel['files']->isDirectory($dir = dirname($path))) {
-            $this->laravel['files']->makeDirectory($path, 0777, true);
+            $this->laravel['files']->makeDirectory($dir, 0777, true);
         }
 
         $contents = $this->getTemplateContents();
