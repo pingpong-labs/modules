@@ -1,8 +1,8 @@
-<?php namespace $MODULE_NAMESPACE$\$MODULE$\Http\Requests;
+<?php namespace $NAMESPACE$;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class $NAME$ extends FormRequest {
+class $CLASS$ extends FormRequest {
 
 	/**
 	 * Determine if the user is authorized to make this request.

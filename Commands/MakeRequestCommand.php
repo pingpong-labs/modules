@@ -7,8 +7,14 @@ use Symfony\Component\Console\Input\InputArgument;
 
 class MakeRequestCommand extends GeneratorCommand
 {
-
     use ModuleCommandTrait;
+
+    /**
+     * The name of argument name.
+     * 
+     * @var string
+     */
+    protected $argumentName = 'name';
 
     /**
      * The console command name.
@@ -42,10 +48,14 @@ class MakeRequestCommand extends GeneratorCommand
      */
     protected function getTemplateContents()
     {
+        $module = $this->laravel['modules']->findOrFail($this->getModuleName());
+
         return (new Stub('/request.stub', [
             'MODULE' => $this->getModuleName(),
             'NAME' => $this->getFileName(),
-            'MODULE_NAMESPACE' => $this->laravel['modules']->config('namespace')
+            'MODULE_NAMESPACE' => $this->laravel['modules']->config('namespace'),
+            'NAMESPACE' => $this->getClassNamespace($module),
+            'CLASS' => $this->getClass()
         ]))->render();
     }
 
@@ -67,5 +77,15 @@ class MakeRequestCommand extends GeneratorCommand
     private function getFileName()
     {
         return Str::studly($this->argument('name'));
+    }
+
+    /**
+     * Get default namespace.
+     * 
+     * @return string
+     */
+    public function getDefaultNamespace()
+    {
+        return 'Http\Requests';
     }
 }
