@@ -5,7 +5,8 @@ use Pingpong\Generators\Stub;
 use Pingpong\Modules\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputArgument;
 
-class MakeRequestCommand extends GeneratorCommand {
+class MakeRequestCommand extends GeneratorCommand
+{
 
     use ModuleCommandTrait;
 
@@ -67,5 +68,4 @@ class MakeRequestCommand extends GeneratorCommand {
     {
         return Str::studly($this->argument('name'));
     }
-
 }

@@ -6,7 +6,8 @@ use Pingpong\Modules\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
-class ModelCommand extends GeneratorCommand {
+class ModelCommand extends GeneratorCommand
+{
 
     use ModuleCommandTrait;
 
@@ -89,8 +90,7 @@ class ModelCommand extends GeneratorCommand {
     {
         $fillable = $this->option('fillable');
 
-        if ( ! is_null($fillable))
-        {
+        if (! is_null($fillable)) {
             $arrays = explode(',', $fillable);
 
             return json_encode($arrays);

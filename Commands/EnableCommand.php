@@ -3,7 +3,8 @@
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
 
-class EnableCommand extends Command {
+class EnableCommand extends Command
+{
 
     /**
      * The console command name.
@@ -28,14 +29,11 @@ class EnableCommand extends Command {
     {
         $module = $this->laravel['modules']->findOrFail($this->argument('module'));
 
-        if ($module->disabled())
-        {
+        if ($module->disabled()) {
             $module->enable();
 
             $this->info("Module [{$module}] enabled successful.");
-        }
-        else
-        {
+        } else {
             $this->comment("Module [{$module}] has already enabled.");
         }
     }
@@ -51,6 +49,4 @@ class EnableCommand extends Command {
             array('module', InputArgument::REQUIRED, 'Module name.'),
         );
     }
-
-
 }

@@ -5,7 +5,8 @@ use Pingpong\Modules\Traits\MigrationLoaderTrait;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
-class MigrateResetCommand extends Command {
+class MigrateResetCommand extends Command
+{
 
     use MigrationLoaderTrait;
 
@@ -32,15 +33,13 @@ class MigrateResetCommand extends Command {
     {
         $module = $this->argument('module');
 
-        if ( ! empty($module))
-        {
+        if (! empty($module)) {
             $this->reset($module);
 
             return;
         }
 
-        foreach ($this->laravel['modules']->all() as $module)
-        {
+        foreach ($this->laravel['modules']->all() as $module) {
             $this->reset($module);
         }
     }
@@ -86,5 +85,4 @@ class MigrateResetCommand extends Command {
             array('pretend', null, InputOption::VALUE_NONE, 'Dump the SQL queries that would be run.'),
         );
     }
-
 }

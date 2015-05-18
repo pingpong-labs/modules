@@ -1,6 +1,7 @@
 <?php namespace Pingpong\Modules\Process;
 
-class Updater extends Runner {
+class Updater extends Runner
+{
 
     /**
      * Update the dependencies for the specified module by given the module name.
@@ -16,12 +17,10 @@ class Updater extends Runner {
 
         chdir(base_path());
 
-        foreach ($packages as $name => $version)
-        {
+        foreach ($packages as $name => $version) {
             $package = "\"{$name}:{$version}\"";
 
             $this->run("composer require {$package}");
         }
     }
-
 }

@@ -5,7 +5,8 @@ use Pingpong\Modules\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
-class MigrateRefreshCommand extends Command {
+class MigrateRefreshCommand extends Command
+{
 
     use ModuleCommandTrait;
 
@@ -42,8 +43,7 @@ class MigrateRefreshCommand extends Command {
             '--force' => $this->option('force'),
         ]);
 
-        if ($this->option('seed'))
-        {
+        if ($this->option('seed')) {
             $this->call('module:seed', [
                 'module' => $this->getModuleName()
             ]);
@@ -75,5 +75,4 @@ class MigrateRefreshCommand extends Command {
             array('seed', null, InputOption::VALUE_NONE, 'Indicates if the seed task should be re-run.'),
         );
     }
-
 }

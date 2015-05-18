@@ -2,7 +2,8 @@
 
 use Illuminate\Support\ServiceProvider;
 
-class ContractsServiceProvider extends ServiceProvider {
+class ContractsServiceProvider extends ServiceProvider
+{
 
     /**
      * Register some binding.
@@ -16,5 +17,4 @@ class ContractsServiceProvider extends ServiceProvider {
             'Pingpong\Modules\Repository'
         );
     }
-
 }

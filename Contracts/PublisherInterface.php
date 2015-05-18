@@ -1,6 +1,7 @@
 <?php namespace Pingpong\Modules\Contracts;
 
-interface PublisherInterface {
+interface PublisherInterface
+{
 
     /**
      * Publish something.
@@ -8,5 +9,4 @@ interface PublisherInterface {
      * @return mixed
      */
     public function publish();
-
-} 
+}

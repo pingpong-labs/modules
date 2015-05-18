@@ -1,6 +1,7 @@
 <?php namespace Pingpong\Modules\Traits;
 
-trait ModuleCommandTrait {
+trait ModuleCommandTrait
+{
 
     /**
      * Get the module name.
@@ -15,5 +16,4 @@ trait ModuleCommandTrait {
 
         return $module->getStudlyName();
     }
-
 }

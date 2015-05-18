@@ -1,6 +1,7 @@
 <?php namespace Pingpong\Modules\Publishing;
 
-class MigrationPublisher extends AssetPublisher {
+class MigrationPublisher extends AssetPublisher
+{
 
     /**
      * Get destination path.
@@ -21,5 +22,4 @@ class MigrationPublisher extends AssetPublisher {
     {
         return $this->getModule()->getExtraPath($this->repository->config('paths.generator.migration'));
     }
-
-} 
+}

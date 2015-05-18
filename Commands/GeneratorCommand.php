@@ -4,7 +4,8 @@ use Illuminate\Console\Command;
 use Pingpong\Modules\Generators\FileAlreadyExistException;
 use Pingpong\Modules\Generators\FileGenerator;
 
-abstract class GeneratorCommand extends Command {
+abstract class GeneratorCommand extends Command
+{
 
     /**
      * Get template contents.
@@ -29,16 +30,12 @@ abstract class GeneratorCommand extends Command {
 
         $contents = $this->getTemplateContents();
 
-        try
-        {
+        try {
             with(new FileGenerator($path, $contents))->generate();
 
             $this->info("Created : {$path}");
-        }
-        catch (FileAlreadyExistException $e)
-        {
+        } catch (FileAlreadyExistException $e) {
             $this->error("File : {$path} already exists.");
         }
     }
-
-} 
+}

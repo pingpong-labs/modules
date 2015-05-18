@@ -4,7 +4,8 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
-class MigrateCommand extends Command {
+class MigrateCommand extends Command
+{
 
     /**
      * The console command name.
@@ -36,13 +37,11 @@ class MigrateCommand extends Command {
 
         $name = $this->argument('module');
 
-        if ($name)
-        {
+        if ($name) {
             return $this->migrate($name);
         }
 
-        foreach ($this->module->getOrdered($this->option('direction')) as $name)
-        {
+        foreach ($this->module->getOrdered($this->option('direction')) as $name) {
             $this->migrate($name);
         }
     }
@@ -65,8 +64,7 @@ class MigrateCommand extends Command {
 
         $this->call('migrate', $this->getParameter($path));
 
-        if ($this->option('seed'))
-        {
+        if ($this->option('seed')) {
             $this->call('module:seed', ['module' => $name]);
         }
     }
@@ -83,18 +81,15 @@ class MigrateCommand extends Command {
 
         $params['--path'] = $path;
 
-        if ($option = $this->option('database'))
-        {
+        if ($option = $this->option('database')) {
             $params['--database'] = $option;
         }
 
-        if ($option = $this->option('pretend'))
-        {
+        if ($option = $this->option('pretend')) {
             $params['--pretend'] = $option;
         }
 
-        if ($option = $this->option('force'))
-        {
+        if ($option = $this->option('force')) {
             $params['--force'] = $option;
         }
 
@@ -128,5 +123,4 @@ class MigrateCommand extends Command {
             array('seed', null, InputOption::VALUE_NONE, 'Indicates if the seed task should be re-run.'),
         );
     }
-
 }

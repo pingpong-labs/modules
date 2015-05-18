@@ -8,7 +8,8 @@ use Pingpong\Modules\Exceptions\ModuleNotFoundException;
 use Pingpong\Modules\Process\Installer;
 use Pingpong\Modules\Process\Updater;
 
-class Repository implements RepositoryInterface, Countable {
+class Repository implements RepositoryInterface, Countable
+{
 
     /**
      * Application instance.
@@ -93,8 +94,7 @@ class Repository implements RepositoryInterface, Countable {
 
         $paths[] = $this->getPath() . '/*';
 
-        if ($this->config('scan.enabled'))
-        {
+        if ($this->config('scan.enabled')) {
             $paths = array_merge($paths, $this->config('scan.paths'));
         }
 
@@ -112,14 +112,12 @@ class Repository implements RepositoryInterface, Countable {
 
         $modules = [];
 
-        foreach ($paths as $key => $path)
-        {
+        foreach ($paths as $key => $path) {
             $manifests = $this->app['files']->glob("{$path}/module.json");
 
             is_array($manifests) || $manifests = [];
 
-            foreach ($manifests as $manifest)
-            {
+            foreach ($manifests as $manifest) {
                 $name = Json::make($manifest)->get('name');
 
                 $lowerName = strtolower($name);
@@ -138,8 +136,7 @@ class Repository implements RepositoryInterface, Countable {
      */
     public function all()
     {
-        if ( ! $this->config('cache.enabled'))
-        {
+        if (! $this->config('cache.enabled')) {
             return $this->scan();
         }
 
@@ -156,8 +153,7 @@ class Repository implements RepositoryInterface, Countable {
     {
         $modules = [];
 
-        foreach ($cached as $name => $module)
-        {
+        foreach ($cached as $name => $module) {
             $path = $this->config('paths.modules') . '/' . $name;
 
             $modules[] = new Module($this->app, $name, $path);
@@ -173,8 +169,7 @@ class Repository implements RepositoryInterface, Countable {
      */
     public function getCached()
     {
-        return $this->app['cache']->remember($this->config('cache.key'), $this->config('cache.lifetime'), function ()
-        {
+        return $this->app['cache']->remember($this->config('cache.key'), $this->config('cache.lifetime'), function () {
             return $this->toCollection()->toArray();
         });
     }
@@ -199,10 +194,8 @@ class Repository implements RepositoryInterface, Countable {
     {
         $modules = [];
 
-        foreach ($this->all() as $name => $module)
-        {
-            if ($module->isStatus($status))
-            {
+        foreach ($this->all() as $name => $module) {
+            if ($module->isStatus($status)) {
                 $modules[$name] = $module;
             }
         }
@@ -261,15 +254,12 @@ class Repository implements RepositoryInterface, Countable {
     {
         $modules = $this->enabled();
 
-        uasort($modules, function ($a, $b) use ($direction)
-        {
-            if ($a->order == $b->order)
-            {
+        uasort($modules, function ($a, $b) use ($direction) {
+            if ($a->order == $b->order) {
                 return 0;
             }
 
-            if ($direction == 'desc')
-            {
+            if ($direction == 'desc') {
                 return $a->order < $b->order ? 1 : -1;
             }
 
@@ -296,8 +286,7 @@ class Repository implements RepositoryInterface, Countable {
      */
     public function register()
     {
-        foreach ($this->getOrdered() as $module)
-        {
+        foreach ($this->getOrdered() as $module) {
             $module->register();
         }
     }
@@ -309,8 +298,7 @@ class Repository implements RepositoryInterface, Countable {
      */
     public function boot()
     {
-        foreach ($this->getOrdered() as $module)
-        {
+        foreach ($this->getOrdered() as $module) {
             $module->boot();
         }
     }
@@ -323,10 +311,8 @@ class Repository implements RepositoryInterface, Countable {
      */
     public function find($name)
     {
-        foreach ($this->all() as $module)
-        {
-            if ($module->getLowerName() == strtolower($name))
-            {
+        foreach ($this->all() as $module) {
+            if ($module->getLowerName() == strtolower($name)) {
                 return $module;
             }
         }
@@ -354,8 +340,7 @@ class Repository implements RepositoryInterface, Countable {
      */
     public function findOrFail($name)
     {
-        if ( ! is_null($module = $this->find($name)))
-        {
+        if (! is_null($module = $this->find($name))) {
             return $module;
         }
 
@@ -380,12 +365,9 @@ class Repository implements RepositoryInterface, Countable {
      */
     public function getModulePath($module)
     {
-        try
-        {
+        try {
             return $this->findOrFail($module)->getPath() . '/';
-        }
-        catch (ModuleNotFoundException $e)
-        {
+        } catch (ModuleNotFoundException $e) {
             return $this->getPath() . '/' . Str::studly($module) . '/';
         }
     }
@@ -419,8 +401,7 @@ class Repository implements RepositoryInterface, Countable {
      */
     public function getUsedStoragePath()
     {
-        if ( ! $this->app['files']->exists($path = storage_path('app/modules')))
-        {
+        if (! $this->app['files']->exists($path = storage_path('app/modules'))) {
             $this->app['files']->makeDirectory($path, 0777, true);
         }
 
@@ -578,13 +559,11 @@ class Repository implements RepositoryInterface, Countable {
      */
     public function getStubPath()
     {
-        if ( ! is_null($this->stubPath))
-        {
+        if (! is_null($this->stubPath)) {
             return $this->stubPath;
         }
 
-        if ($this->config('stubs.enabled'))
-        {
+        if ($this->config('stubs.enabled')) {
             return $this->config('stubs.path');
         }
 
@@ -601,5 +580,4 @@ class Repository implements RepositoryInterface, Countable {
 
         return $this;
     }
-
 }

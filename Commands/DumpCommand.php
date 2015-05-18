@@ -3,7 +3,8 @@
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
 
-class DumpCommand extends Command {
+class DumpCommand extends Command
+{
 
     /**
      * The console command name.
@@ -28,14 +29,10 @@ class DumpCommand extends Command {
     {
         $this->info("Generating optimized autoload modules.");
 
-        if ($module = $this->argument('module'))
-        {
+        if ($module = $this->argument('module')) {
             $this->dump($module);
-        }
-        else
-        {
-            foreach ($this->laravel['modules']->all() as $module)
-            {
+        } else {
+            foreach ($this->laravel['modules']->all() as $module) {
                 $this->dump($module->getStudlyName());
             }
         }
@@ -63,6 +60,4 @@ class DumpCommand extends Command {
             array('module', InputArgument::OPTIONAL, 'Module name.'),
         );
     }
-
-
 }

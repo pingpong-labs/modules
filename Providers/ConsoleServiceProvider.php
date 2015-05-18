@@ -2,7 +2,8 @@
 
 use Illuminate\Support\ServiceProvider;
 
-class ConsoleServiceProvider extends ServiceProvider {
+class ConsoleServiceProvider extends ServiceProvider
+{
 
     /**
      * Indicates if loading of the provider is deferred.
@@ -58,8 +59,7 @@ class ConsoleServiceProvider extends ServiceProvider {
      */
     public function register()
     {
-        foreach ($this->commands as $command)
-        {
+        foreach ($this->commands as $command) {
             $this->commands($this->namespace . $command . 'Command');
         }
     }
@@ -71,12 +71,10 @@ class ConsoleServiceProvider extends ServiceProvider {
     {
         $provides = [];
 
-        foreach ($this->commands as $command)
-        {
+        foreach ($this->commands as $command) {
             $provides[] = $this->namespace . $command . 'Command';
         }
 
         return $provides;
     }
-
 }

@@ -6,7 +6,8 @@ use Pingpong\Modules\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
-class SeedCommand extends Command {
+class SeedCommand extends Command
+{
 
     use ModuleCommandTrait;
 
@@ -35,10 +36,8 @@ class SeedCommand extends Command {
 
         $module = Str::studly($this->argument('module')) ?: $this->getModuleName();
 
-        if ($module)
-        {
-            if ($this->module->has($module))
-            {
+        if ($module) {
+            if ($this->module->has($module)) {
                 $this->dbseed($module);
 
                 return $this->info("Module [$module] seeded.");
@@ -47,8 +46,7 @@ class SeedCommand extends Command {
             return $this->error("Module [$module] does not exists.");
         }
 
-        foreach ($this->module->all() as $name)
-        {
+        foreach ($this->module->all() as $name) {
             $this->dbseed($name);
         }
 
@@ -67,8 +65,7 @@ class SeedCommand extends Command {
             '--class' => $this->option('class') ?: $this->getSeederName($name)
         ];
 
-        if ($option = $this->option('database'))
-        {
+        if ($option = $this->option('database')) {
             $params['--database'] = $option;
         }
 
@@ -114,5 +111,4 @@ class SeedCommand extends Command {
             array('database', null, InputOption::VALUE_OPTIONAL, 'The database connection to seed.'),
         );
     }
-
 }

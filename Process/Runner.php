@@ -3,7 +3,8 @@
 use Pingpong\Modules\Contracts\RunableInterface;
 use Pingpong\Modules\Repository;
 
-class Runner implements RunableInterface {
+class Runner implements RunableInterface
+{
 
     /**
      * The module instance.
@@ -32,5 +33,4 @@ class Runner implements RunableInterface {
     {
         passthru($command);
     }
-
 }

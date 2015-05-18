@@ -1,6 +1,7 @@
 <?php namespace Pingpong\Modules\Publishing;
 
-class AssetPublisher extends Publisher {
+class AssetPublisher extends Publisher
+{
 
     /**
      * Get destination path.
@@ -23,5 +24,4 @@ class AssetPublisher extends Publisher {
             $this->repository->config('paths.generator.assets')
         );
     }
-
 }

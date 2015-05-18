@@ -5,7 +5,8 @@ use Pingpong\Generators\Stub;
 use Pingpong\Modules\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputArgument;
 
-class GenerateFilterCommand extends GeneratorCommand {
+class GenerateFilterCommand extends GeneratorCommand
+{
 
     use ModuleCommandTrait;
 
@@ -67,5 +68,4 @@ class GenerateFilterCommand extends GeneratorCommand {
     {
         return Str::studly($this->argument('name'));
     }
-
 }

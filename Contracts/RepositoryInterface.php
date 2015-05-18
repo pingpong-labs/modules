@@ -1,6 +1,7 @@
 <?php namespace Pingpong\Modules\Contracts;
 
-interface RepositoryInterface {
+interface RepositoryInterface
+{
 
     /**
      * Get all modules.
@@ -88,5 +89,4 @@ interface RepositoryInterface {
      * @return mixed
      */
     public function findOrFail($name);
-
 }

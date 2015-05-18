@@ -4,7 +4,8 @@ use Pingpong\Generators\Stub;
 use Pingpong\Modules\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputArgument;
 
-class ControllerCommand extends GeneratorCommand {
+class ControllerCommand extends GeneratorCommand
+{
 
     use ModuleCommandTrait;
 
@@ -71,8 +72,7 @@ class ControllerCommand extends GeneratorCommand {
     {
         $controller = studly_case($this->argument('controller'));
 
-        if ( ! str_contains(strtolower($controller), 'controller'))
-        {
+        if (! str_contains(strtolower($controller), 'controller')) {
             $controller = $controller . 'Controller';
         }
 

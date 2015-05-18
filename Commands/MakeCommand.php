@@ -5,7 +5,8 @@ use Pingpong\Modules\Generators\ModuleGenerator;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
-class MakeCommand extends Command {
+class MakeCommand extends Command
+{
 
     /**
      * The console command name.
@@ -30,8 +31,7 @@ class MakeCommand extends Command {
     {
         $names = $this->argument('name');
 
-        foreach ($names as $name)
-        {
+        foreach ($names as $name) {
             with(new ModuleGenerator($name))
                 ->setFilesystem($this->laravel['files'])
                 ->setModule($this->laravel['modules'])
@@ -63,5 +63,4 @@ class MakeCommand extends Command {
             array('force', null, InputOption::VALUE_NONE, 'Force the operation to run when module already exist.'),
         ];
     }
-
 }

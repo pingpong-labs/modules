@@ -1,6 +1,7 @@
 <?php namespace Pingpong\Modules\Contracts;
 
-interface RunableInterface {
+interface RunableInterface
+{
 
     /**
      * Run the specified command.
@@ -9,5 +10,4 @@ interface RunableInterface {
      * @return mixed
      */
     public function run($command);
-
 }

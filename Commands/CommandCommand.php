@@ -6,7 +6,8 @@ use Pingpong\Modules\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
-class CommandCommand extends GeneratorCommand {
+class CommandCommand extends GeneratorCommand
+{
 
     use ModuleCommandTrait;
 

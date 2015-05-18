@@ -10,7 +10,8 @@ use Pingpong\Modules\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
-class MigrationCommand extends GeneratorCommand {
+class MigrationCommand extends GeneratorCommand
+{
 
     use ModuleCommandTrait;
 
@@ -72,34 +73,27 @@ class MigrationCommand extends GeneratorCommand {
     {
         $parser = new NameParser($this->argument('name'));
 
-        if ($parser->isCreate())
-        {
+        if ($parser->isCreate()) {
             return Stub::create('/migration/create.stub', [
                 'class' => $this->getClass(),
                 'table' => $parser->getTable(),
                 'fields' => $this->getSchemaParser()->render()
             ]);
-        }
-        elseif ($parser->isAdd())
-        {
+        } elseif ($parser->isAdd()) {
             return Stub::create('/migration/add.stub', [
                 'class' => $this->getClass(),
                 'table' => $parser->getTable(),
                 'fields_up' => $this->getSchemaParser()->up(),
                 'fields_down' => $this->getSchemaParser()->down()
             ]);
-        }
-        elseif ($parser->isDelete())
-        {
+        } elseif ($parser->isDelete()) {
             return Stub::create('/migration/delete.stub', [
                 'class' => $this->getClass(),
                 'table' => $parser->getTable(),
                 'fields_down' => $this->getSchemaParser()->up(),
                 'fields_up' => $this->getSchemaParser()->down()
             ]);
-        }
-        elseif ($parser->isDrop())
-        {
+        } elseif ($parser->isDrop()) {
             return Stub::create('/migration/drop.stub', [
                 'class' => $this->getClass(),
                 'table' => $parser->getTable(),
@@ -160,5 +154,4 @@ class MigrationCommand extends GeneratorCommand {
 
         $this->call('optimize');
     }
-
 }

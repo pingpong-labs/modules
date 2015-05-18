@@ -2,9 +2,12 @@
 
 use Illuminate\Filesystem\Filesystem;
 
-class FileAlreadyExistException extends \Exception {}
+class FileAlreadyExistException extends \Exception
+{
+}
 
-class FileGenerator extends Generator {
+class FileGenerator extends Generator
+{
 
     /**
      * The path wil be used.
@@ -115,12 +118,10 @@ class FileGenerator extends Generator {
      */
     public function generate()
     {
-        if ( ! $this->filesystem->exists($path = $this->getPath()))
-        {
+        if (! $this->filesystem->exists($path = $this->getPath())) {
             return $this->filesystem->put($path, $this->getContents());
         }
 
         throw new FileAlreadyExistException('File already exists!');
     }
-
-} 
+}

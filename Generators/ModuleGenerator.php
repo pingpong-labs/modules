@@ -7,7 +7,8 @@ use Illuminate\Support\Str;
 use Pingpong\Generators\Stub;
 use Pingpong\Modules\Repository;
 
-class ModuleGenerator extends Generator {
+class ModuleGenerator extends Generator
+{
 
     /**
      * The module name will created.
@@ -73,8 +74,7 @@ class ModuleGenerator extends Generator {
         Config $config = null,
         Filesystem $filesystem = null,
         Console $console = null
-    )
-    {
+    ) {
         $this->name = $name;
         $this->config = $config;
         $this->filesystem = $filesystem;
@@ -84,7 +84,7 @@ class ModuleGenerator extends Generator {
 
     /**
      * Set plain flag.
-     * 
+     *
      * @param boolean $plain
      * @return $this
      */
@@ -238,14 +238,10 @@ class ModuleGenerator extends Generator {
     {
         $name = $this->getName();
 
-        if ($this->module->has($name))
-        {
-            if ($this->force)
-            {
+        if ($this->module->has($name)) {
+            if ($this->force) {
                 $this->module->delete($name);
-            }
-            else
-            {
+            } else {
                 $this->console->error("Module [{$name}] already exist!");
 
                 return;
@@ -256,8 +252,7 @@ class ModuleGenerator extends Generator {
 
         $this->generateFiles();
 
-        if ( ! $this->plain)
-        {
+        if (! $this->plain) {
             $this->generateResources();
         }
 
@@ -269,8 +264,7 @@ class ModuleGenerator extends Generator {
      */
     public function generateFolders()
     {
-        foreach ($this->getFolders() as $folder)
-        {
+        foreach ($this->getFolders() as $folder) {
             $path = $this->module->getModulePath($this->getName()) . '/' . $folder;
 
             $this->filesystem->makeDirectory($path, 0755, true);
@@ -295,12 +289,10 @@ class ModuleGenerator extends Generator {
      */
     public function generateFiles()
     {
-        foreach ($this->getFiles() as $stub => $file)
-        {
+        foreach ($this->getFiles() as $stub => $file) {
             $path = $this->module->getModulePath($this->getName()) . $file;
 
-            if ( ! $this->filesystem->isDirectory($dir = dirname($path)))
-            {
+            if (! $this->filesystem->isDirectory($dir = dirname($path))) {
                 $this->filesystem->makeDirectory($dir, 0775, true);
             }
 
@@ -367,8 +359,7 @@ class ModuleGenerator extends Generator {
 
         $namespace = $this->module->config('namespace');
 
-        if ( ! isset($replacements[$stub]))
-        {
+        if (! isset($replacements[$stub])) {
             return [];
         }
 
@@ -376,14 +367,10 @@ class ModuleGenerator extends Generator {
 
         $replaces = [];
 
-        foreach ($keys as $key)
-        {
-            if (method_exists($this, $method = 'get' . ucfirst(studly_case(strtolower($key))) . 'Replacement'))
-            {
+        foreach ($keys as $key) {
+            if (method_exists($this, $method = 'get' . ucfirst(studly_case(strtolower($key))) . 'Replacement')) {
                 $replaces[$key] = call_user_func([$this, $method]);
-            }
-            else
-            {
+            } else {
                 $replaces[$key] = null;
             }
         }
@@ -450,5 +437,4 @@ class ModuleGenerator extends Generator {
     {
         return $this->module->config('composer.author.email');
     }
-
 }

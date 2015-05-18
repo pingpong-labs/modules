@@ -4,7 +4,8 @@ use Illuminate\Console\Command;
 use Pingpong\Modules\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputArgument;
 
-class UpdateCommand extends Command {
+class UpdateCommand extends Command
+{
 
     use ModuleCommandTrait;
 
@@ -45,5 +46,4 @@ class UpdateCommand extends Command {
             array('module', InputArgument::OPTIONAL, 'The name of module will be updated.'),
         );
     }
-
 }

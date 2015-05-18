@@ -3,7 +3,8 @@
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 
-class ListCommand extends Command {
+class ListCommand extends Command
+{
 
     /**
      * The console command name.
@@ -38,8 +39,7 @@ class ListCommand extends Command {
     {
         $rows = [];
 
-        foreach ($this->getModules() as $module)
-        {
+        foreach ($this->getModules() as $module) {
             $rows[] = [
                 $module->getStudlyName(),
                 $module->enabled() ? 'Enabled' : 'Disabled',
@@ -53,8 +53,7 @@ class ListCommand extends Command {
 
     public function getModules()
     {
-        switch ($this->option('only'))
-        {
+        switch ($this->option('only')) {
             case 'enabled':
                 return $this->laravel['modules']->getByStatus(1);
                 break;
@@ -85,5 +84,4 @@ class ListCommand extends Command {
             array('direction', 'd', InputOption::VALUE_OPTIONAL, 'The direction of ordering.', 'asc'),
         );
     }
-
 }

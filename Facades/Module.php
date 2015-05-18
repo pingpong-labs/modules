@@ -2,7 +2,8 @@
 
 use Illuminate\Support\Facades\Facade;
 
-class Module extends Facade {
+class Module extends Facade
+{
 
     /**
      * Get the registered name of the component.
@@ -13,5 +14,4 @@ class Module extends Facade {
     {
         return 'modules';
     }
-
 }

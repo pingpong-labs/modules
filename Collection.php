@@ -3,7 +3,8 @@
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection as BaseCollection;
 
-class Collection extends BaseCollection {
+class Collection extends BaseCollection
+{
 
     /**
      * Get items collections.
@@ -22,10 +23,8 @@ class Collection extends BaseCollection {
      */
     public function toArray()
     {
-        return array_map(function ($value)
-        {
-            if ($value instanceof Module)
-            {
+        return array_map(function ($value) {
+            if ($value instanceof Module) {
                 return $value->json()->getAttributes();
             }
 
@@ -33,5 +32,4 @@ class Collection extends BaseCollection {
 
         }, $this->items);
     }
-
-} 
+}

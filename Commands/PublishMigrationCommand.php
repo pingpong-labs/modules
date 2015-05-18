@@ -4,7 +4,8 @@ use Illuminate\Console\Command;
 use Pingpong\Modules\Publishing\MigrationPublisher;
 use Symfony\Component\Console\Input\InputArgument;
 
-class PublishMigrationCommand extends Command {
+class PublishMigrationCommand extends Command
+{
 
     /**
      * The console command name.
@@ -27,8 +28,7 @@ class PublishMigrationCommand extends Command {
      */
     public function fire()
     {
-        if ($name = $this->argument('module'))
-        {
+        if ($name = $this->argument('module')) {
             $module = $this->laravel['modules']->findOrFail($name);
             
             $this->publish($module);
@@ -36,15 +36,14 @@ class PublishMigrationCommand extends Command {
             return;
         }
 
-        foreach ($this->laravel['modules']->enabled() as $module)
-        {
+        foreach ($this->laravel['modules']->enabled() as $module) {
             $this->publish($module);
         }
     }
 
     /**
      * Publish migration for the specified module.
-     * 
+     *
      * @param  \Pingpong\Modules\Module $module
      * @return void
      */
@@ -53,7 +52,7 @@ class PublishMigrationCommand extends Command {
         with(new MigrationPublisher($module))
             ->setRepository($this->laravel['modules'])
             ->setConsole($this)
-            ->publish();        
+            ->publish();
     }
 
     /**
@@ -67,5 +66,4 @@ class PublishMigrationCommand extends Command {
             array('module', InputArgument::OPTIONAL, 'The name of module being used.'),
         );
     }
-
 }

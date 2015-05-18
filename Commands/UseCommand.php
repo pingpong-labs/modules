@@ -4,7 +4,8 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputArgument;
 
-class UseCommand extends Command {
+class UseCommand extends Command
+{
 
     /**
      * The console command name.
@@ -29,8 +30,7 @@ class UseCommand extends Command {
     {
         $module = Str::studly($this->argument('module'));
 
-        if ( ! $this->laravel['modules']->has($module))
-        {
+        if (! $this->laravel['modules']->has($module)) {
             $this->error("Module [{$module}] does not exists.");
 
             return;
@@ -52,5 +52,4 @@ class UseCommand extends Command {
             array('module', InputArgument::REQUIRED, 'The name of module will be used.'),
         );
     }
-
 }

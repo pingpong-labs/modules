@@ -5,7 +5,8 @@ use Pingpong\Modules\Process\Installer;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
-class InstallCommand extends Command {
+class InstallCommand extends Command
+{
 
     /**
      * The console command name.
@@ -82,5 +83,4 @@ class InstallCommand extends Command {
             array('tree', null, InputOption::VALUE_NONE, 'Install the module as a git subtree', null),
         );
     }
-
 }

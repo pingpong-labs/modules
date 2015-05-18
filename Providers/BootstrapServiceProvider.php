@@ -2,7 +2,8 @@
 
 use Illuminate\Support\ServiceProvider;
 
-class BootstrapServiceProvider extends ServiceProvider {
+class BootstrapServiceProvider extends ServiceProvider
+{
 
     /**
      * Booting the package.
@@ -18,12 +19,11 @@ class BootstrapServiceProvider extends ServiceProvider {
 
     /**
      * Register the provider.
-     * 
+     *
      * @return void
      */
     public function register()
     {
         //
     }
-
 }

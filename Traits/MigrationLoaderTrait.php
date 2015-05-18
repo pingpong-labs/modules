@@ -1,6 +1,7 @@
 <?php namespace Pingpong\Modules\Traits;
 
-trait MigrationLoaderTrait {
+trait MigrationLoaderTrait
+{
 
     /**
      * Include all migrations files from the specified module.
@@ -14,8 +15,7 @@ trait MigrationLoaderTrait {
 
         $files = $this->laravel['files']->glob($path . '/*_*.php');
 
-        foreach ($files as $file)
-        {
+        foreach ($files as $file) {
             $this->laravel['files']->requireOnce($file);
         }
     }
@@ -29,5 +29,4 @@ trait MigrationLoaderTrait {
     {
         return $this->laravel['modules']->config('paths.generator.migration');
     }
-
 }
