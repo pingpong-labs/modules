@@ -49,7 +49,8 @@ class ControllerCommand extends GeneratorCommand
             'CONTROLLERNAME' => $this->getControllerName(),
             'CLASS' => $this->getClass(),
             'NAMESPACE' => $module->getLowername(),
-            'MODULE_NAMESPACE' => $this->laravel['modules']->config('namespace')
+            'MODULE_NAMESPACE' => $this->laravel['modules']->config('namespace'),
+            'CLASS_NAMESPACE' => $this->getClassNamespace($module)
         ]))->render();
     }
 
@@ -82,7 +83,7 @@ class ControllerCommand extends GeneratorCommand
 
     /**
      * Get class name.
-     * 
+     *
      * @return string
      */
     public function getClass()
@@ -90,4 +91,26 @@ class ControllerCommand extends GeneratorCommand
         return class_basename($this->argument('controller'));
     }
 
+    /**
+     * Get class namespace.
+     *
+     * @param  \Pingpong\Module\Module $module
+     * @return string
+     */
+    public function getClassNamespace($module)
+    {
+        $extra = str_replace($this->getClass(), '', $this->argument('controller'));
+
+        $extra = rtrim(str_replace('/', '\\', $extra), '\\');
+
+        $namespace = $this->laravel['modules']->config('namespace');
+
+        $namespace.= '\\' . $module->getStudlyName();
+
+        $namespace.='\Http\Controllers';
+
+        $namespace.= '\\' . $extra;
+
+        return $namespace;
+    }
 }

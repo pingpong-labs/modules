@@ -1,4 +1,4 @@
-<?php namespace $MODULE_NAMESPACE$\$MODULENAME$\Http\Controllers;
+<?php namespace $CLASS_NAMESPACE$;
 
 use Pingpong\Modules\Routing\Controller;
 
