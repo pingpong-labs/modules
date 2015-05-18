@@ -6,8 +6,14 @@ use Symfony\Component\Console\Input\InputArgument;
 
 class ControllerCommand extends GeneratorCommand
 {
-
     use ModuleCommandTrait;
+
+    /**
+     * The name of argument being used.
+     * 
+     * @var string
+     */
+    protected $argumentName = 'controller';
 
     /**
      * The console command name.
@@ -82,35 +88,13 @@ class ControllerCommand extends GeneratorCommand
     }
 
     /**
-     * Get class name.
-     *
+     * Get default namespace.
+     * 
      * @return string
      */
-    public function getClass()
+    public function getDefaultNamespace()
     {
-        return class_basename($this->argument('controller'));
+        return 'Http\Controllers';
     }
 
-    /**
-     * Get class namespace.
-     *
-     * @param  \Pingpong\Module\Module $module
-     * @return string
-     */
-    public function getClassNamespace($module)
-    {
-        $extra = str_replace($this->getClass(), '', $this->argument('controller'));
-
-        $extra = rtrim(str_replace('/', '\\', $extra), '\\');
-
-        $namespace = $this->laravel['modules']->config('namespace');
-
-        $namespace.= '\\' . $module->getStudlyName();
-
-        $namespace.='\Http\Controllers';
-
-        $namespace.= '\\' . $extra;
-
-        return $namespace;
-    }
 }

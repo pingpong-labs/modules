@@ -6,6 +6,12 @@ use Pingpong\Modules\Generators\FileGenerator;
 
 abstract class GeneratorCommand extends Command
 {
+    /**
+     * The name of 'name' argument.
+     * 
+     * @var string
+     */
+    protected $argumentName = '';
 
     /**
      * Get template contents.
@@ -41,5 +47,48 @@ abstract class GeneratorCommand extends Command
         } catch (FileAlreadyExistException $e) {
             $this->error("File : {$path} already exists.");
         }
+    }
+
+    /**
+     * Get class name.
+     *
+     * @return string
+     */
+    public function getClass()
+    {
+        return class_basename($this->argument($this->argumentName));
+    }
+
+    /**
+     * Get default namespace.
+     * 
+     * @return string
+     */
+    public function getDefaultNamespace()
+    {
+        return '';
+    }
+
+    /**
+     * Get class namespace.
+     *
+     * @param  \Pingpong\Module\Module $module
+     * @return string
+     */
+    public function getClassNamespace($module)
+    {
+        $extra = str_replace($this->getClass(), '', $this->argument($this->argumentName));
+
+        $extra = rtrim(str_replace('/', '\\', $extra), '\\');
+
+        $namespace = $this->laravel['modules']->config('namespace');
+
+        $namespace.= '\\' . $module->getStudlyName();
+
+        $namespace.= '\\' . $this->getDefaultNamespace();
+
+        $namespace.= '\\' . $extra;
+
+        return $namespace;
     }
 }
