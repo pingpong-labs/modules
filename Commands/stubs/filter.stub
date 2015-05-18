@@ -1,8 +1,8 @@
-<?php namespace $MODULE_NAMESPACE$\$MODULE$\Http\Middleware; 
+<?php namespace $NAMESPACE$; 
 
 use Closure;
 
-class $NAME$ {
+class $CLASS$ {
 
     /**
      * Handle an incoming request.
