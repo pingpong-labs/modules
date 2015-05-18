@@ -1,10 +1,10 @@
-<?php namespace $MODULE_NAMESPACE$\$MODULE$\Console;
+<?php namespace $NAMESPACE$;
 
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-class $NAME$ extends Command {
+class $CLASS$ extends Command {
 
 	/**
 	 * The console command name.
