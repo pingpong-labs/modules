@@ -36,7 +36,19 @@ class Installer
      */
     protected $console;
 
+    /**
+     * The destionation path.
+     *
+     * @var string
+     */
     protected $path;
+
+    /**
+     * The proccess timeout.
+     *
+     * @var integer
+     */
+    protected $timeout = 3360;
 
     /**
      * The constructor.
@@ -89,6 +101,19 @@ class Installer
     public function setConsole(Command $console)
     {
         $this->console = $console;
+
+        return $this;
+    }
+
+    /**
+     * Set process timeout.
+     *
+     * @param  int $timeout
+     * @return $this
+     */
+    public function setTimeout($timeout)
+    {
+        $this->timeout = $timeout;
 
         return $this;
     }
@@ -203,6 +228,8 @@ class Installer
             $this->getBranch()
         ));
 
+        $process->setTimeout($this->timeout);
+
         $process->run(function ($type, $line) {
             $this->console->line($line);
         });
@@ -227,6 +254,8 @@ class Installer
             $this->getBranch()
         ));
 
+        $process->setTimeout($this->timeout);
+
         $process->run(function ($type, $line) {
             $this->console->line($line);
         });
@@ -246,6 +275,8 @@ class Installer
             base_path(),
             $this->getPackageName()
         ));
+
+        $process->setTimeout($this->timeout);
 
         $process->run(function ($type, $line) {
             $this->console->line($line);

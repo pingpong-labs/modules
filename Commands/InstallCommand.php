@@ -50,6 +50,10 @@ class InstallCommand extends Command
         
         $installer->setConsole($this);
 
+        if ($timeout = $this->option('timeout')) {
+            $installer->setTimeout($timeout);
+        }
+
         if ($path = $this->option('path')) {
             $installer->setPath($path);
         }
@@ -78,6 +82,7 @@ class InstallCommand extends Command
     protected function getOptions()
     {
         return array(
+            array('timeout', null, InputOption::VALUE_OPTIONAL, 'The process timeout.', null),
             array('path', null, InputOption::VALUE_OPTIONAL, 'The installation path.', null),
             array('type', null, InputOption::VALUE_OPTIONAL, 'The type of installation.', null),
             array('tree', null, InputOption::VALUE_NONE, 'Install the module as a git subtree', null),
