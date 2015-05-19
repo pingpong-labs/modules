@@ -59,6 +59,12 @@ class InstallCommand extends Command
         }
 
         $installer->run();
+
+        if (! $this->option('no-update')) {
+            $this->call('module:update', [
+                'module' => $installer->getModuleName()
+            ]);
+        }
     }
 
     /**
@@ -86,6 +92,7 @@ class InstallCommand extends Command
             array('path', null, InputOption::VALUE_OPTIONAL, 'The installation path.', null),
             array('type', null, InputOption::VALUE_OPTIONAL, 'The type of installation.', null),
             array('tree', null, InputOption::VALUE_NONE, 'Install the module as a git subtree', null),
+            array('no-update', null, InputOption::VALUE_NONE, 'Disables the automatic update of the dependencies.', null),
         );
     }
 }
