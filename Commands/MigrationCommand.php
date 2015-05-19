@@ -5,7 +5,7 @@ use Pingpong\Generators\Exceptions\InvalidMigrationNameException;
 use Pingpong\Generators\FormDumpers\FieldsDumper;
 use Pingpong\Generators\Migrations\NameParser;
 use Pingpong\Generators\Migrations\SchemaParser;
-use Pingpong\Generators\Stub;
+use Pingpong\Support\Stub;
 use Pingpong\Modules\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;

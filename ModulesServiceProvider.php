@@ -2,7 +2,7 @@
 
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
-use Pingpong\Generators\Stub;
+use Pingpong\Support\Stub;
 use Pingpong\Modules\Commands;
 
 class ModulesServiceProvider extends ServiceProvider
