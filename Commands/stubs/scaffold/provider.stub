@@ -1,8 +1,8 @@
-<?php namespace $MODULE_NAMESPACE$\$MODULE$\Providers;
+<?php namespace $NAMESPACE$;
 
 use Illuminate\Support\ServiceProvider;
 
-class $NAME$ extends ServiceProvider {
+class $CLASS$ extends ServiceProvider {
 
 	/**
 	 * Indicates if loading of the provider is deferred.

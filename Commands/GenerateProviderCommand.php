@@ -68,7 +68,8 @@ class GenerateProviderCommand extends GeneratorCommand
 
         return (new Stub('/'.$stub.'.stub', [
             'NAMESPACE' => $this->getClassNamespace($module),
-            'CLASS' => $this->getClass()
+            'CLASS' => $this->getClass(),
+            'LOWER_NAME' => $module->getLowerName()
         ]))->render();
     }
 
