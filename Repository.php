@@ -468,11 +468,15 @@ class Repository implements RepositoryInterface, Countable
      * @param  boolean $secure
      * @return string
      */
-    public function asset($asset, $secure = false)
+    public function asset($asset)
     {
         list($name, $url) = explode(':', $asset);
 
-        return $this->app['url']->asset(basename($this->getAssetsPath()) . "/{$name}/" . $url, $secure);
+        $baseUrl = str_replace(public_path(), '', $this->getAssetsPath());
+
+        $url = $this->app['url']->asset($baseUrl . "/{$name}/" . $url);
+        
+        return str_replace(['http://', 'https://'], '//', $url);
     }
 
     /**
