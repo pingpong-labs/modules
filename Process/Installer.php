@@ -44,7 +44,7 @@ class Installer
     protected $path;
 
     /**
-     * The proccess timeout.
+     * The process timeout.
      *
      * @var integer
      */
