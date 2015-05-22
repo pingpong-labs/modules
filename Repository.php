@@ -559,6 +559,8 @@ class Repository implements RepositoryInterface, Countable
     }
 
     /**
+     * Get stub path.
+     * 
      * @return string
      */
     public function getStubPath()
@@ -575,6 +577,8 @@ class Repository implements RepositoryInterface, Countable
     }
 
     /**
+     * Set stub path.
+     * 
      * @param string $stubPath
      * @return $this
      */
