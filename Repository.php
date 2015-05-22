@@ -548,19 +548,22 @@ class Repository implements RepositoryInterface, Countable
     /**
      * Install the specified module.
      *
-     * @param  string $name
-     * @param  string $path
-     * @param bool $subtree
-     * @return void
+     * @param  string  $name
+     * @param  string  $version
+     * @param  string  $type
+     * @param  boolean $subtree
+     * @return \Symfony\Component\Process\Process
      */
-    public function install($name, $path = null, $subtree = false)
+    public function install($name, $version = 'dev-master', $type = 'composer', $subtree = false)
     {
-        with(new Installer($this))->install($name, $path, $subtree);
+        $installer = new Installer($name, $version, $type, $subtree);
+
+        return $installer->run();
     }
 
     /**
      * Get stub path.
-     * 
+     *
      * @return string
      */
     public function getStubPath()
@@ -578,7 +581,7 @@ class Repository implements RepositoryInterface, Countable
 
     /**
      * Set stub path.
-     * 
+     *
      * @param string $stubPath
      * @return $this
      */

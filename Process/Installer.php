@@ -129,16 +129,26 @@ class Installer
             case 'github':
             case 'bitbucket':
                 if ($this->tree) {
-                    return $this->installViaSubtree();
+                    $process = $this->installViaSubtree();
                 }
 
-                return $this->installViaGit();
+                $process = $this->installViaGit();
                 break;
             
             default:
-                return $this->installViaComposer();
+                $process = $this->installViaComposer();
                 break;
         }
+
+        $process->setTimeout($this->timeout);
+
+        if ($this->console instanceof Command) {
+            $process->run(function ($type, $line) {
+                $this->console->line($line);
+            });
+        }
+
+        return $process;
     }
 
     /**
@@ -220,21 +230,13 @@ class Installer
      */
     public function installViaGit()
     {
-        $process = new Process(sprintf(
+        return new Process(sprintf(
             'cd %s && git clone %s %s && git checkout %s',
             base_path(),
             $this->getRepoUrl(),
             $this->getDestinationPath(),
             $this->getBranch()
         ));
-
-        $process->setTimeout($this->timeout);
-
-        $process->run(function ($type, $line) {
-            $this->console->line($line);
-        });
-
-        return $process;
     }
 
     /**
@@ -244,7 +246,7 @@ class Installer
      */
     public function installViaSubtree()
     {
-        $process = new Process(sprintf(
+        return new Process(sprintf(
             'cd %s && git remote add %s %s && git subtree add --prefix=%s --squash %s %s',
             base_path(),
             $this->getModuleName(),
@@ -253,14 +255,6 @@ class Installer
             $this->getModuleName(),
             $this->getBranch()
         ));
-
-        $process->setTimeout($this->timeout);
-
-        $process->run(function ($type, $line) {
-            $this->console->line($line);
-        });
-
-        return $process;
     }
 
     /**
@@ -270,18 +264,10 @@ class Installer
      */
     public function installViaComposer()
     {
-        $process = new Process(sprintf(
+        return new Process(sprintf(
             'cd %s && composer require %s',
             base_path(),
             $this->getPackageName()
         ));
-
-        $process->setTimeout($this->timeout);
-
-        $process->run(function ($type, $line) {
-            $this->console->line($line);
-        });
-
-        return $process;
     }
 }
