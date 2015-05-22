@@ -125,6 +125,26 @@ class Installer
      */
     public function run()
     {
+        $process = $this->getProcess();
+
+        $process->setTimeout($this->timeout);
+
+        if ($this->console instanceof Command) {
+            $process->run(function ($type, $line) {
+                $this->console->line($line);
+            });
+        }
+
+        return $process;
+    }
+
+    /**
+     * Get process instance.
+     *
+     * @return \Symfony\Component\Process\Process
+     */
+    public function getProcess()
+    {
         switch ($this->type) {
             case 'github':
             case 'bitbucket':
@@ -138,14 +158,6 @@ class Installer
             default:
                 $process = $this->installViaComposer();
                 break;
-        }
-
-        $process->setTimeout($this->timeout);
-
-        if ($this->console instanceof Command) {
-            $process->run(function ($type, $line) {
-                $this->console->line($line);
-            });
         }
 
         return $process;
