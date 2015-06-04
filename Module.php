@@ -44,6 +44,16 @@ class Module extends ServiceProvider
     }
 
     /**
+     * Get laravel instance.
+     * 
+     * @return \Illuminate\Foundation\Application
+     */
+    public function getLaravel()
+    {
+        return $this->app;
+    }
+
+    /**
      * Get name.
      *
      * @return string
