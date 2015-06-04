@@ -44,6 +44,13 @@ abstract class Publisher implements PublisherInterface
     protected $error = '';
 
     /**
+     * Determine whether the result message will shown in the console.
+     * 
+     * @var boolean
+     */
+    protected $showMessage = true;
+
+    /**
      * The constructor.
      *
      * @param Module $module
@@ -51,6 +58,30 @@ abstract class Publisher implements PublisherInterface
     public function __construct(Module $module)
     {
         $this->module = $module;
+    }
+
+    /**
+     * Show the result message.
+     * 
+     * @return self
+     */
+    public function showMessage()
+    {
+        $this->showMessage = true;
+
+        return $this;
+    }
+
+    /**
+     * Hide the result message.
+     * 
+     * @return self
+     */
+    public function hideMessage()
+    {
+        $this->showMessage = false;
+
+        return $this;
     }
 
     /**
@@ -155,7 +186,9 @@ abstract class Publisher implements PublisherInterface
         }
 
         if ($this->getFilesystem()->copyDirectory($sourcePath, $destinationPath)) {
-            $this->console->line("<info>Published</info>: {$this->module->getStudlyName()}");
+            if ($this->showMessage == true) {
+                $this->console->line("<info>Published</info>: {$this->module->getStudlyName()}");
+            }
         } else {
             $this->console->error($this->error);
         }
