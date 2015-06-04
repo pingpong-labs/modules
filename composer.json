@@ -31,16 +31,5 @@
       "Pingpong\\Modules\\": ""
     }
   },
-  "autoload-dev": {
-    "psr-4": {
-      "Tests\\": "tests"
-    }
-  },
-  "extra": {
-    "branch-alias": {
-      "dev-master": "1.2-dev",
-      "dev-develop": "1.3-dev"
-    }
-  },
   "minimum-stability": "stable"
 }
