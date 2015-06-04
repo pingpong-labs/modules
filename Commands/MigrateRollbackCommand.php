@@ -41,6 +41,8 @@ class MigrateRollbackCommand extends Command
         }
 
         foreach ($this->laravel['modules']->all() as $module) {
+            $this->line('Running for module: <info>'.$module->getName().'</info>');
+            
             $this->rollback($module);
         }
     }

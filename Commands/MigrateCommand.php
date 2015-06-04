@@ -42,8 +42,10 @@ class MigrateCommand extends Command
             return $this->migrate($name);
         }
 
-        foreach ($this->module->getOrdered($this->option('direction')) as $name) {
-            $this->migrate($name);
+        foreach ($this->module->getOrdered($this->option('direction')) as $module) {
+            $this->line('Running for module: <info>'.$module->getName().'</info>');
+            
+            $this->migrate($module);
         }
     }
 
