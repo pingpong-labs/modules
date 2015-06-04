@@ -23,6 +23,13 @@ class ModulesServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerNamespaces();
+
+        $this->registerModules();
+    }
+
+    protected function registerModules()
+    {
+        $this->app->register('Pingpong\Modules\Providers\BootstrapServiceProvider');
     }
 
     /**
