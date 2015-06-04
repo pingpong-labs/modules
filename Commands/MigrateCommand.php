@@ -1,6 +1,7 @@
 <?php namespace Pingpong\Modules\Commands;
 
 use Illuminate\Console\Command;
+use Pingpong\Modules\Migrations\Migrator;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
@@ -54,15 +55,21 @@ class MigrateCommand extends Command
      */
     protected function migrate($name)
     {
-        $this->line("<comment>Migrating module</comment> : {$name}");
-
         $module = $this->module->findOrFail($name);
 
-        $path = $module->getExtraPath($this->module->config('paths.generator.migration'));
+        $migrator = new Migrator($module);
 
-        $path = str_replace(base_path(), '', $path);
+        $migrated = $migrator->migrate();
 
-        $this->call('migrate', $this->getParameter($path));
+        if (count($migrated)) {
+            foreach ($migrated as $migration) {
+                $this->line("Migrated: <info>{$migration}</info>");
+            }
+
+            return;
+        }
+
+        $this->comment('Nothing to migrate.');
 
         if ($this->option('seed')) {
             $this->call('module:seed', ['module' => $name]);
