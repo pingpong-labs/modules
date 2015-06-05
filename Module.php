@@ -150,7 +150,7 @@ class Module extends ServiceProvider
 
     /**
      * Register module's translation.
-     * 
+     *
      * @return void
      */
     protected function registerTranslation()
@@ -159,7 +159,7 @@ class Module extends ServiceProvider
 
         $langPath = base_path("resources/lang/{$lowerName}");
         
-        if (is_dir($langPath)) {        
+        if (is_dir($langPath)) {
             $this->loadTranslationsFrom($langPath, $lowerName);
         }
     }
