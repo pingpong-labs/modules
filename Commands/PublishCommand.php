@@ -2,11 +2,11 @@
 
 use Illuminate\Console\Command;
 use Pingpong\Modules\Publishing\AssetPublisher;
+use Pingpong\Modules\Publishing\LangPublisher;
 use Symfony\Component\Console\Input\InputArgument;
 
 class PublishCommand extends Command
 {
-
     /**
      * The console command name.
      *
@@ -63,6 +63,13 @@ class PublishCommand extends Command
             ->setRepository($this->laravel['modules'])
             ->setConsole($this)
             ->publish();
+
+        with(new LangPublisher($module))
+            ->setRepository($this->laravel['modules'])
+            ->setConsole($this)
+            ->publish();
+
+        $this->line("<info>Published</info>: {$module->getStudlyName()}");
     }
 
     /**

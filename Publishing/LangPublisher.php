@@ -1,6 +1,6 @@
 <?php namespace Pingpong\Modules\Publishing;
 
-class AssetPublisher extends Publisher
+class LangPublisher extends Publisher
 {
     /**
      * Determine whether the result message will shown in the console.
@@ -16,7 +16,9 @@ class AssetPublisher extends Publisher
      */
     public function getDestinationPath()
     {
-        return $this->repository->assetPath($this->module->getLowerName());
+        $name = $this->module->getLowerName();
+
+        return base_path("resources/lang/{$name}");
     }
 
     /**
@@ -27,7 +29,7 @@ class AssetPublisher extends Publisher
     public function getSourcePath()
     {
         return $this->getModule()->getExtraPath(
-            $this->repository->config('paths.generator.assets')
+            $this->repository->config('paths.generator.lang')
         );
     }
 }

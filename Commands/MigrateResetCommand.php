@@ -1,6 +1,7 @@
 <?php namespace Pingpong\Modules\Commands;
 
 use Illuminate\Console\Command;
+use Pingpong\Modules\Migrations\Migrator;
 use Pingpong\Modules\Traits\MigrationLoaderTrait;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
@@ -40,6 +41,8 @@ class MigrateResetCommand extends Command
         }
 
         foreach ($this->laravel['modules']->all() as $module) {
+            $this->line('Running for module: <info>'.$module->getName().'</info>');
+
             $this->reset($module);
         }
     }
@@ -51,13 +54,23 @@ class MigrateResetCommand extends Command
      */
     public function reset($module)
     {
-        $this->loadMigrationFiles($module);
+        if (is_string($module)) {
+            $module = $this->laravel['modules']->find($module);
+        }
 
-        $this->call('migrate:reset', [
-            '--pretend' => $this->option('pretend'),
-            '--database' => $this->option('database'),
-            '--force' => $this->option('force'),
-        ]);
+        $migrator = new Migrator($module);
+
+        $migrated = $migrator->reset();
+        
+        if (count($migrated)) {
+            foreach ($migrated as $migration) {
+                $this->line("Rollback: <info>{$migration}</info>");
+            }
+
+            return;
+        }
+
+        $this->comment('Nothing to rollback.');
     }
 
     /**

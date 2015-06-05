@@ -27,6 +27,11 @@ class ModulesServiceProvider extends ServiceProvider
         $this->registerModules();
     }
 
+    /**
+     * Register all modules.
+     * 
+     * @return void
+     */
     protected function registerModules()
     {
         $this->app->register('Pingpong\Modules\Providers\BootstrapServiceProvider');
