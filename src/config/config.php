@@ -10,9 +10,9 @@ return [
     | Default module namespace.
     |
     */
-   
+
     'namespace' => 'Modules',
-    
+
     /*
     |--------------------------------------------------------------------------
     | Module Stubs
@@ -21,10 +21,10 @@ return [
     | Default module stubs.
     |
     */
-    
+
     'stubs' => [
         'enabled' => false,
-        'path' => base_path() . '/vendor/pingpong/modules/src/Pingpong/Modules/Commands/stubs',
+        'path' => base_path().'/vendor/pingpong/modules/src/Pingpong/Modules/Commands/stubs',
         'files' => [
             'start' => 'start.php',
             'routes' => 'Http/routes.php',
@@ -47,7 +47,7 @@ return [
                 'VENDOR',
                 'AUTHOR_NAME',
                 'AUTHOR_EMAIL',
-                'MODULE_NAMESPACE'
+                'MODULE_NAMESPACE',
             ],
         ],
     ],
@@ -108,7 +108,7 @@ return [
             'lang' => 'Resources/lang',
             'views' => 'Resources/views',
             'test' => 'Tests',
-        ]
+        ],
     ],
     /*
     |--------------------------------------------------------------------------
@@ -123,7 +123,7 @@ return [
     'scan' => [
         'enabled' => false,
         'paths' => [
-            base_path('vendor/*/*')
+            base_path('vendor/*/*'),
         ],
     ],
     /*
@@ -139,9 +139,9 @@ return [
     'composer' => [
         'vendor' => 'pingpong-modules',
         'author' => [
-            "name" => 'Pingpong Labs',
-            'email' => 'pingpong.labs@gmail.com'
-        ]
+            'name' => 'Pingpong Labs',
+            'email' => 'pingpong.labs@gmail.com',
+        ],
     ],
     /*
     |--------------------------------------------------------------------------
@@ -154,7 +154,7 @@ return [
     'cache' => [
         'enabled' => false,
         'key' => 'pingpong-modules',
-        'lifetime' => 60
-    ]
+        'lifetime' => 60,
+    ],
 
 ];

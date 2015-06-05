@@ -1,4 +1,6 @@
-<?php namespace Pingpong\Modules\Commands;
+<?php
+
+namespace Pingpong\Modules\Commands;
 
 use Illuminate\Console\Command;
 use Pingpong\Modules\Migrations\Migrator;
@@ -7,7 +9,6 @@ use Symfony\Component\Console\Input\InputOption;
 
 class MigrateCommand extends Command
 {
-
     /**
      * The console command name.
      *
@@ -44,7 +45,7 @@ class MigrateCommand extends Command
 
         foreach ($this->module->getOrdered($this->option('direction')) as $module) {
             $this->line('Running for module: <info>'.$module->getName().'</info>');
-            
+
             $this->migrate($module);
         }
     }
@@ -52,7 +53,8 @@ class MigrateCommand extends Command
     /**
      * Run the migration from the specified module.
      *
-     * @param  string $name
+     * @param string $name
+     *
      * @return mixed
      */
     protected function migrate($name)
@@ -81,7 +83,8 @@ class MigrateCommand extends Command
     /**
      * Get console paramenter.
      *
-     * @param  string $path
+     * @param string $path
+     *
      * @return array
      */
     protected function getParameter($path)

@@ -1,8 +1,9 @@
-<?php namespace Pingpong\Modules\Traits;
+<?php
+
+namespace Pingpong\Modules\Traits;
 
 trait ModuleCommandTrait
 {
-
     /**
      * Get the module name.
      *

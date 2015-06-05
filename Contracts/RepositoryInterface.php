@@ -1,8 +1,9 @@
-<?php namespace Pingpong\Modules\Contracts;
+<?php
+
+namespace Pingpong\Modules\Contracts;
 
 interface RepositoryInterface
 {
-
     /**
      * Get all modules.
      *
@@ -70,6 +71,7 @@ interface RepositoryInterface
      * Get modules by the given status.
      *
      * @param int $status
+     *
      * @return mixed
      */
     public function getByStatus($status);
@@ -78,6 +80,7 @@ interface RepositoryInterface
      * Find a specific module.
      *
      * @param $name
+     *
      * @return mixed
      */
     public function find($name);
@@ -86,6 +89,7 @@ interface RepositoryInterface
      * Find a specific module. If there return that, otherwise throw exception.
      *
      * @param $name
+     *
      * @return mixed
      */
     public function findOrFail($name);

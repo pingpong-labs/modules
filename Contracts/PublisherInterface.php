@@ -1,8 +1,9 @@
-<?php namespace Pingpong\Modules\Contracts;
+<?php
+
+namespace Pingpong\Modules\Contracts;
 
 interface PublisherInterface
 {
-
     /**
      * Publish something.
      *

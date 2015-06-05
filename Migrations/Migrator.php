@@ -147,8 +147,7 @@ class Migrator
     /**
      * Run down schema from the given migration name.
      *
-     * @param  string $migration
-     * @return void
+     * @param string $migration
      */
     public function down($migration)
     {
@@ -158,8 +157,7 @@ class Migrator
     /**
      * Run up schema from the given migration name.
      *
-     * @param  string $migration
-     * @return void
+     * @param string $migration
      */
     public function up($migration)
     {
@@ -169,7 +167,8 @@ class Migrator
     /**
      * Resolve a migration instance from a file.
      *
-     * @param  string  $file
+     * @param string $file
+     *
      * @return object
      */
     public function resolve($file)
@@ -178,15 +177,14 @@ class Migrator
 
         $class = studly_case($file);
 
-        return new $class;
+        return new $class();
     }
 
     /**
      * Require in all the migration files in a given path.
      *
-     * @param  string  $path
-     * @param  array   $files
-     * @return void
+     * @param string $path
+     * @param array  $files
      */
     public function requireFiles($path, array $files)
     {
@@ -208,7 +206,8 @@ class Migrator
     /**
      * Find migration data from database by given migration name.
      *
-     * @param  string $migration
+     * @param string $migration
+     *
      * @return object
      */
     public function find($migration)
@@ -219,14 +218,15 @@ class Migrator
     /**
      * Save new migration to database.
      *
-     * @param  string $migration
+     * @param string $migration
+     *
      * @return mixed
      */
     public function log($migration)
     {
         return $this->table()->insert([
             'migration' => $migration,
-            'batch' => $this->getNextBatchNumber()
+            'batch' => $this->getNextBatchNumber(),
         ]);
     }
 
@@ -254,6 +254,7 @@ class Migrator
      * Get the last migration batch.
      *
      * @param array $migrations
+     *
      * @return array
      */
     public function getLast($migrations)
@@ -264,7 +265,7 @@ class Migrator
             ;
 
         $result = $query->orderBy('migration', 'desc')->get();
-        
+
         return collect($result)->map(function ($item) {
             return (array) $item;
         })->lists('migration');

@@ -1,11 +1,12 @@
-<?php namespace Pingpong\Modules;
+<?php
+
+namespace Pingpong\Modules;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection as BaseCollection;
 
 class Collection extends BaseCollection
 {
-
     /**
      * Get items collections.
      *

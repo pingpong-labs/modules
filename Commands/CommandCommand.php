@@ -1,4 +1,6 @@
-<?php namespace Pingpong\Modules\Commands;
+<?php
+
+namespace Pingpong\Modules\Commands;
 
 use Illuminate\Support\Str;
 use Pingpong\Support\Stub;
@@ -66,7 +68,7 @@ class CommandCommand extends GeneratorCommand
         return (new Stub('/command.stub', [
             'COMMAND_NAME' => $this->getCommandName(),
             'NAMESPACE' => $this->getClassNamespace($module),
-            'CLASS' => $this->getClass()
+            'CLASS' => $this->getClass(),
         ]))->render();
     }
 
@@ -79,7 +81,7 @@ class CommandCommand extends GeneratorCommand
 
         $seederPath = $this->laravel['modules']->config('paths.generator.command');
 
-        return $path . $seederPath . '/' . $this->getFileName() . '.php';
+        return $path.$seederPath.'/'.$this->getFileName().'.php';
     }
 
     /**

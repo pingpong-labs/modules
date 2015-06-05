@@ -1,11 +1,13 @@
-<?php namespace Pingpong\Modules\Publishing;
+<?php
+
+namespace Pingpong\Modules\Publishing;
 
 class LangPublisher extends Publisher
 {
     /**
      * Determine whether the result message will shown in the console.
-     * 
-     * @var boolean
+     *
+     * @var bool
      */
     protected $showMessage = false;
 

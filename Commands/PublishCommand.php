@@ -1,4 +1,6 @@
-<?php namespace Pingpong\Modules\Commands;
+<?php
+
+namespace Pingpong\Modules\Commands;
 
 use Illuminate\Console\Command;
 use Pingpong\Modules\Publishing\AssetPublisher;
@@ -38,8 +40,6 @@ class PublishCommand extends Command
 
     /**
      * Publish assets from all modules.
-     *
-     * @return void
      */
     public function publishAll()
     {
@@ -53,8 +53,7 @@ class PublishCommand extends Command
     /**
      * Publish assets from the specified module.
      *
-     * @param  string $name
-     * @return void
+     * @param string $name
      */
     public function publish($name)
     {
@@ -74,6 +73,7 @@ class PublishCommand extends Command
 
         if (count($published) > 0) {
             $this->line("<info>Published</info>: {$module->getStudlyName()}");
+
             return;
         }
 
@@ -82,9 +82,8 @@ class PublishCommand extends Command
 
     /**
      * Publish asset files from specific module.
-     * 
-     * @param  \Pingpong\Modules\Module $module
-     * @return void
+     *
+     * @param \Pingpong\Modules\Module $module
      */
     protected function publishAsset($module)
     {
@@ -96,9 +95,8 @@ class PublishCommand extends Command
 
     /**
      * Publish translation files from specific module.
-     * 
-     * @param  \Pingpong\Modules\Module $module
-     * @return void
+     *
+     * @param \Pingpong\Modules\Module $module
      */
     protected function publishTranslation($module)
     {
@@ -110,9 +108,10 @@ class PublishCommand extends Command
 
     /**
      * Ask confirmation alert.
-     * 
-     * @param  string $message
-     * @return boolean
+     *
+     * @param string $message
+     *
+     * @return bool
      */
     protected function askConfirmation($message)
     {
@@ -137,7 +136,7 @@ class PublishCommand extends Command
 
     /**
      * Get the console command options.
-     * 
+     *
      * @return array
      */
     protected function getOptions()

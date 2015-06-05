@@ -1,11 +1,12 @@
-<?php namespace Pingpong\Modules\Process;
+<?php
+
+namespace Pingpong\Modules\Process;
 
 use Pingpong\Modules\Contracts\RunableInterface;
 use Pingpong\Modules\Repository;
 
 class Runner implements RunableInterface
 {
-
     /**
      * The module instance.
      *
@@ -26,8 +27,7 @@ class Runner implements RunableInterface
     /**
      * Run the given command.
      *
-     * @param  string $command
-     * @return void
+     * @param string $command
      */
     public function run($command)
     {

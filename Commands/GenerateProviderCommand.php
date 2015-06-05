@@ -1,4 +1,6 @@
-<?php namespace Pingpong\Modules\Commands;
+<?php
+
+namespace Pingpong\Modules\Commands;
 
 use Illuminate\Support\Str;
 use Pingpong\Support\Stub;
@@ -8,7 +10,6 @@ use Symfony\Component\Console\Input\InputOption;
 
 class GenerateProviderCommand extends GeneratorCommand
 {
-
     use ModuleCommandTrait;
 
     /**
@@ -69,7 +70,7 @@ class GenerateProviderCommand extends GeneratorCommand
         return (new Stub('/'.$stub.'.stub', [
             'NAMESPACE' => $this->getClassNamespace($module),
             'CLASS' => $this->getClass(),
-            'LOWER_NAME' => $module->getLowerName()
+            'LOWER_NAME' => $module->getLowerName(),
         ]))->render();
     }
 
@@ -82,7 +83,7 @@ class GenerateProviderCommand extends GeneratorCommand
 
         $generatorPath = $this->laravel['modules']->config('paths.generator.provider');
 
-        return $path . $generatorPath . '/' . $this->getFileName() . '.php';
+        return $path.$generatorPath.'/'.$this->getFileName().'.php';
     }
 
     /**

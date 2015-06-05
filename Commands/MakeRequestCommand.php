@@ -1,4 +1,6 @@
-<?php namespace Pingpong\Modules\Commands;
+<?php
+
+namespace Pingpong\Modules\Commands;
 
 use Illuminate\Support\Str;
 use Pingpong\Support\Stub;
@@ -55,7 +57,7 @@ class MakeRequestCommand extends GeneratorCommand
             'NAME' => $this->getFileName(),
             'MODULE_NAMESPACE' => $this->laravel['modules']->config('namespace'),
             'NAMESPACE' => $this->getClassNamespace($module),
-            'CLASS' => $this->getClass()
+            'CLASS' => $this->getClass(),
         ]))->render();
     }
 
@@ -68,7 +70,7 @@ class MakeRequestCommand extends GeneratorCommand
 
         $seederPath = $this->laravel['modules']->config('paths.generator.request');
 
-        return $path . $seederPath . '/' . $this->getFileName() . '.php';
+        return $path.$seederPath.'/'.$this->getFileName().'.php';
     }
 
     /**

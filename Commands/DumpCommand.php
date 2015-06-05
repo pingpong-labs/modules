@@ -1,11 +1,12 @@
-<?php namespace Pingpong\Modules\Commands;
+<?php
+
+namespace Pingpong\Modules\Commands;
 
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
 
 class DumpCommand extends Command
 {
-
     /**
      * The console command name.
      *
@@ -27,7 +28,7 @@ class DumpCommand extends Command
      */
     public function fire()
     {
-        $this->info("Generating optimized autoload modules.");
+        $this->info('Generating optimized autoload modules.');
 
         if ($module = $this->argument('module')) {
             $this->dump($module);

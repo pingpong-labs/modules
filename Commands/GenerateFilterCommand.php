@@ -1,4 +1,6 @@
-<?php namespace Pingpong\Modules\Commands;
+<?php
+
+namespace Pingpong\Modules\Commands;
 
 use Illuminate\Support\Str;
 use Pingpong\Support\Stub;
@@ -49,10 +51,10 @@ class GenerateFilterCommand extends GeneratorCommand
     protected function getTemplateContents()
     {
         $module = $this->laravel['modules']->findOrFail($this->getModuleName());
-        
+
         return (new Stub('/filter.stub', [
             'NAMESPACE' => $this->getClassNamespace($module),
-            'CLASS' => $this->getClass()
+            'CLASS' => $this->getClass(),
         ]))->render();
     }
 
@@ -65,7 +67,7 @@ class GenerateFilterCommand extends GeneratorCommand
 
         $seederPath = $this->laravel['modules']->config('paths.generator.filter');
 
-        return $path . $seederPath . '/' . $this->getFileName() . '.php';
+        return $path.$seederPath.'/'.$this->getFileName().'.php';
     }
 
     /**

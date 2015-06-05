@@ -1,4 +1,6 @@
-<?php namespace Pingpong\Modules\Commands;
+<?php
+
+namespace Pingpong\Modules\Commands;
 
 use Illuminate\Support\Str;
 use Pingpong\Support\Stub;
@@ -8,7 +10,6 @@ use Symfony\Component\Console\Input\InputOption;
 
 class SeedMakeCommand extends GeneratorCommand
 {
-
     use ModuleCommandTrait;
 
     /**
@@ -50,7 +51,7 @@ class SeedMakeCommand extends GeneratorCommand
                 'master',
                 null,
                 InputOption::VALUE_NONE,
-                'Indicates the seeder will created is a master database seeder.'
+                'Indicates the seeder will created is a master database seeder.',
             ),
         );
     }
@@ -63,7 +64,7 @@ class SeedMakeCommand extends GeneratorCommand
         return (new Stub('/seeder.stub', [
             'NAME' => $this->getSeederName(),
             'MODULE' => $this->getModuleName(),
-            'MODULE_NAMESPACE' => $this->laravel['modules']->config('namespace')
+            'MODULE_NAMESPACE' => $this->laravel['modules']->config('namespace'),
         ]))->render();
     }
 
@@ -76,7 +77,7 @@ class SeedMakeCommand extends GeneratorCommand
 
         $seederPath = $this->laravel['modules']->config('paths.generator.seeder');
 
-        return $path . $seederPath . '/' . $this->getSeederName() . '.php';
+        return $path.$seederPath.'/'.$this->getSeederName().'.php';
     }
 
     /**
@@ -88,6 +89,6 @@ class SeedMakeCommand extends GeneratorCommand
     {
         $end = $this->option('master') ? 'DatabaseSeeder' : 'TableSeeder';
 
-        return Str::studly($this->argument('name')) . $end;
+        return Str::studly($this->argument('name')).$end;
     }
 }

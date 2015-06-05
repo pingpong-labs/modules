@@ -1,4 +1,6 @@
-<?php namespace Pingpong\Modules\Commands;
+<?php
+
+namespace Pingpong\Modules\Commands;
 
 use Pingpong\Support\Stub;
 use Pingpong\Modules\Traits\ModuleCommandTrait;
@@ -40,7 +42,7 @@ class ControllerCommand extends GeneratorCommand
 
         $controllerPath = $this->laravel['modules']->config('paths.generator.controller');
 
-        return $path . $controllerPath . '/' . $this->getControllerName() . '.php';
+        return $path.$controllerPath.'/'.$this->getControllerName().'.php';
     }
 
     /**
@@ -56,7 +58,7 @@ class ControllerCommand extends GeneratorCommand
             'CLASS' => $this->getClass(),
             'NAMESPACE' => $module->getLowername(),
             'MODULE_NAMESPACE' => $this->laravel['modules']->config('namespace'),
-            'CLASS_NAMESPACE' => $this->getClassNamespace($module)
+            'CLASS_NAMESPACE' => $this->getClassNamespace($module),
         ]))->render();
     }
 
@@ -80,8 +82,8 @@ class ControllerCommand extends GeneratorCommand
     {
         $controller = studly_case($this->argument('controller'));
 
-        if (! str_contains(strtolower($controller), 'controller')) {
-            $controller = $controller . 'Controller';
+        if (!str_contains(strtolower($controller), 'controller')) {
+            $controller = $controller.'Controller';
         }
 
         return $controller;

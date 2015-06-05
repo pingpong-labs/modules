@@ -1,4 +1,6 @@
-<?php namespace Pingpong\Modules\Generators;
+<?php
+
+namespace Pingpong\Modules\Generators;
 
 abstract class Generator
 {
