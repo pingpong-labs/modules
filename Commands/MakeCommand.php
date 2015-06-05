@@ -1,4 +1,6 @@
-<?php namespace Pingpong\Modules\Commands;
+<?php
+
+namespace Pingpong\Modules\Commands;
 
 use Illuminate\Console\Command;
 use Pingpong\Modules\Generators\ModuleGenerator;
@@ -7,7 +9,6 @@ use Symfony\Component\Console\Input\InputOption;
 
 class MakeCommand extends Command
 {
-
     /**
      * The console command name.
      *
@@ -42,7 +43,6 @@ class MakeCommand extends Command
                 ->generate();
         }
     }
-
 
     /**
      * Get the console command arguments.

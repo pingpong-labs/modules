@@ -1,13 +1,13 @@
-<?php namespace Pingpong\Modules\Process;
+<?php
+
+namespace Pingpong\Modules\Process;
 
 class Updater extends Runner
 {
-
     /**
      * Update the dependencies for the specified module by given the module name.
      *
-     * @param  string $module
-     * @return void
+     * @param string $module
      */
     public function update($module)
     {

@@ -1,4 +1,6 @@
-<?php namespace Pingpong\Modules\Publishing;
+<?php
+
+namespace Pingpong\Modules\Publishing;
 
 use Illuminate\Console\Command;
 use Pingpong\Modules\Contracts\PublisherInterface;
@@ -7,7 +9,6 @@ use Pingpong\Modules\Repository;
 
 abstract class Publisher implements PublisherInterface
 {
-
     /**
      * The name of module will used.
      *
@@ -45,8 +46,8 @@ abstract class Publisher implements PublisherInterface
 
     /**
      * Determine whether the result message will shown in the console.
-     * 
-     * @var boolean
+     *
+     * @var bool
      */
     protected $showMessage = true;
 
@@ -62,7 +63,7 @@ abstract class Publisher implements PublisherInterface
 
     /**
      * Show the result message.
-     * 
+     *
      * @return self
      */
     public function showMessage()
@@ -74,7 +75,7 @@ abstract class Publisher implements PublisherInterface
 
     /**
      * Hide the result message.
-     * 
+     *
      * @return self
      */
     public function hideMessage()
@@ -98,6 +99,7 @@ abstract class Publisher implements PublisherInterface
      * Set modules repository instance.
      *
      * @param \Pingpong\Modules\Repository $repository
+     *
      * @return $this
      */
     public function setRepository(Repository $repository)
@@ -121,6 +123,7 @@ abstract class Publisher implements PublisherInterface
      * Set console instance.
      *
      * @param \Illuminate\Console\Command $console
+     *
      * @return $this
      */
     public function setConsole(Command $console)
@@ -166,22 +169,20 @@ abstract class Publisher implements PublisherInterface
 
     /**
      * Publish something.
-     *
-     * @return void
      */
     public function publish()
     {
-        if (! $this->console instanceof Command) {
+        if (!$this->console instanceof Command) {
             $message = "The 'console' property must instance of \\Illuminate\\Console\\Command.";
 
             throw new \RuntimeException($message);
         }
 
-        if (! $this->getFilesystem()->isDirectory($sourcePath = $this->getSourcePath())) {
+        if (!$this->getFilesystem()->isDirectory($sourcePath = $this->getSourcePath())) {
             return;
         }
 
-        if (! $this->getFilesystem()->isDirectory($destinationPath = $this->getDestinationPath())) {
+        if (!$this->getFilesystem()->isDirectory($destinationPath = $this->getDestinationPath())) {
             $this->getFilesystem()->makeDirectory($destinationPath, 0775, true);
         }
 

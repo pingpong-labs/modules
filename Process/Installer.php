@@ -1,4 +1,6 @@
-<?php namespace Pingpong\Modules\Process;
+<?php
+
+namespace Pingpong\Modules\Process;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
@@ -7,14 +9,13 @@ use Symfony\Component\Process\Process;
 
 class Installer
 {
-
     /**
      * The module name.
      *
      * @var string
      */
     protected $name;
-    
+
     /**
      * The version of module being installed.
      *
@@ -46,17 +47,17 @@ class Installer
     /**
      * The process timeout.
      *
-     * @var integer
+     * @var int
      */
     protected $timeout = 3360;
 
     /**
      * The constructor.
      *
-     * @param string  $name
-     * @param string  $version
-     * @param string  $type
-     * @param boolean $tree
+     * @param string $name
+     * @param string $version
+     * @param string $type
+     * @param bool   $tree
      */
     public function __construct($name, $version = null, $type = null, $tree = false)
     {
@@ -70,6 +71,7 @@ class Installer
      * Set destination path.
      *
      * @param string $path
+     *
      * @return $this
      */
     public function setPath($path)
@@ -83,6 +85,7 @@ class Installer
      * Set the module repository instance.
      *
      * @param \Pingpong\Modules\Repository $repository
+     *
      * @return $this
      */
     public function setRepository(Repository $repository)
@@ -96,6 +99,7 @@ class Installer
      * Set console command instance.
      *
      * @param \Illuminate\Console\Command $console
+     *
      * @return $this
      */
     public function setConsole(Command $console)
@@ -108,7 +112,8 @@ class Installer
     /**
      * Set process timeout.
      *
-     * @param  int $timeout
+     * @param int $timeout
+     *
      * @return $this
      */
     public function setTimeout($timeout)
@@ -154,7 +159,7 @@ class Installer
 
                 $process = $this->installViaGit();
                 break;
-            
+
             default:
                 $process = $this->installViaComposer();
                 break;
@@ -192,9 +197,9 @@ class Installer
             case 'bitbucket':
                 return "git@bitbucket.org:{$this->name}.git";
                 break;
-            
+
             default:
-                return null;
+                return;
                 break;
         }
     }
@@ -229,10 +234,10 @@ class Installer
     public function getPackageName()
     {
         if (is_null($this->version)) {
-            return $this->name . ':dev-master';
+            return $this->name.':dev-master';
         }
 
-        return $this->name . ':' . $this->version;
+        return $this->name.':'.$this->version;
     }
 
     /**

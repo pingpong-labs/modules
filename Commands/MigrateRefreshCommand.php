@@ -1,4 +1,6 @@
-<?php namespace Pingpong\Modules\Commands;
+<?php
+
+namespace Pingpong\Modules\Commands;
 
 use Illuminate\Console\Command;
 use Pingpong\Modules\Traits\ModuleCommandTrait;
@@ -7,7 +9,6 @@ use Symfony\Component\Console\Input\InputOption;
 
 class MigrateRefreshCommand extends Command
 {
-
     use ModuleCommandTrait;
 
     /**
@@ -45,7 +46,7 @@ class MigrateRefreshCommand extends Command
 
         if ($this->option('seed')) {
             $this->call('module:seed', [
-                'module' => $this->getModuleName()
+                'module' => $this->getModuleName(),
             ]);
         }
     }

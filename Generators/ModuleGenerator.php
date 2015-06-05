@@ -1,4 +1,6 @@
-<?php namespace Pingpong\Modules\Generators;
+<?php
+
+namespace Pingpong\Modules\Generators;
 
 use Illuminate\Config\Repository as Config;
 use Illuminate\Console\Command as Console;
@@ -9,7 +11,6 @@ use Pingpong\Modules\Repository;
 
 class ModuleGenerator extends Generator
 {
-
     /**
      * The module name will created.
      *
@@ -48,14 +49,14 @@ class ModuleGenerator extends Generator
     /**
      * Force status.
      *
-     * @var boolean
+     * @var bool
      */
     protected $force = false;
 
     /**
      * Generate a plain module.
      *
-     * @var boolean
+     * @var bool
      */
     protected $plain = false;
 
@@ -64,9 +65,9 @@ class ModuleGenerator extends Generator
      *
      * @param $name
      * @param Repository $module
-     * @param Config $config
+     * @param Config     $config
      * @param Filesystem $filesystem
-     * @param Console $console
+     * @param Console    $console
      */
     public function __construct(
         $name,
@@ -85,7 +86,8 @@ class ModuleGenerator extends Generator
     /**
      * Set plain flag.
      *
-     * @param boolean $plain
+     * @param bool $plain
+     *
      * @return $this
      */
     public function setPlain($plain)
@@ -115,11 +117,11 @@ class ModuleGenerator extends Generator
         return $this->config;
     }
 
-
     /**
      * Set the laravel config instance.
      *
      * @param Config $config
+     *
      * @return $this
      */
     public function setConfig($config)
@@ -143,6 +145,7 @@ class ModuleGenerator extends Generator
      * Set the laravel filesystem instance.
      *
      * @param Filesystem $filesystem
+     *
      * @return $this
      */
     public function setFilesystem($filesystem)
@@ -166,6 +169,7 @@ class ModuleGenerator extends Generator
      * Set the laravel console instance.
      *
      * @param Console $console
+     *
      * @return $this
      */
     public function setConsole($console)
@@ -189,6 +193,7 @@ class ModuleGenerator extends Generator
      * Set the pingpong module instance.
      *
      * @param mixed $module
+     *
      * @return $this
      */
     public function setModule($module)
@@ -221,7 +226,8 @@ class ModuleGenerator extends Generator
     /**
      * Set force status.
      *
-     * @param boolean|int $force
+     * @param bool|int $force
+     *
      * @return $this
      */
     public function setForce($force)
@@ -252,7 +258,7 @@ class ModuleGenerator extends Generator
 
         $this->generateFiles();
 
-        if (! $this->plain) {
+        if (!$this->plain) {
             $this->generateResources();
         }
 
@@ -265,7 +271,7 @@ class ModuleGenerator extends Generator
     public function generateFolders()
     {
         foreach ($this->getFolders() as $folder) {
-            $path = $this->module->getModulePath($this->getName()) . '/' . $folder;
+            $path = $this->module->getModulePath($this->getName()).'/'.$folder;
 
             $this->filesystem->makeDirectory($path, 0755, true);
 
@@ -276,12 +282,11 @@ class ModuleGenerator extends Generator
     /**
      * Generate git keep to the specified path.
      *
-     * @param  string $path
-     * @return void
+     * @param string $path
      */
     public function generateGitKeep($path)
     {
-        $this->filesystem->put($path . '/.gitkeep', '');
+        $this->filesystem->put($path.'/.gitkeep', '');
     }
 
     /**
@@ -290,9 +295,9 @@ class ModuleGenerator extends Generator
     public function generateFiles()
     {
         foreach ($this->getFiles() as $stub => $file) {
-            $path = $this->module->getModulePath($this->getName()) . $file;
+            $path = $this->module->getModulePath($this->getName()).$file;
 
-            if (! $this->filesystem->isDirectory($dir = dirname($path))) {
+            if (!$this->filesystem->isDirectory($dir = dirname($path))) {
                 $this->filesystem->makeDirectory($dir, 0775, true);
             }
 
@@ -310,18 +315,18 @@ class ModuleGenerator extends Generator
         $this->console->call('module:make-seed', [
             'name' => $this->getName(),
             'module' => $this->getName(),
-            '--master' => true
+            '--master' => true,
         ]);
 
         $this->console->call('module:make-provider', [
-            'name' => $this->getName() . 'ServiceProvider',
+            'name' => $this->getName().'ServiceProvider',
             'module' => $this->getName(),
-            '--master' => true
+            '--master' => true,
         ]);
 
         $this->console->call('module:make-controller', [
-            'controller' => $this->getName() . 'Controller',
-            'module' => $this->getName()
+            'controller' => $this->getName().'Controller',
+            'module' => $this->getName(),
         ]);
     }
 
@@ -329,18 +334,19 @@ class ModuleGenerator extends Generator
      * Get the contents of the specified stub file by given stub name.
      *
      * @param $stub
+     *
      * @return Stub
      */
     protected function getStubContents($stub)
     {
         return (new Stub(
-            '/' .$stub.'.stub',
+            '/'.$stub.'.stub',
             $this->getReplacement($stub))
         )->render();
     }
 
     /**
-     * get the list for the replacements
+     * get the list for the replacements.
      */
     public function getReplacements()
     {
@@ -351,6 +357,7 @@ class ModuleGenerator extends Generator
      * Get array replacement for the specified stub.
      *
      * @param $stub
+     *
      * @return array
      */
     protected function getReplacement($stub)
@@ -359,7 +366,7 @@ class ModuleGenerator extends Generator
 
         $namespace = $this->module->config('namespace');
 
-        if (! isset($replacements[$stub])) {
+        if (!isset($replacements[$stub])) {
             return [];
         }
 
@@ -368,7 +375,7 @@ class ModuleGenerator extends Generator
         $replaces = [];
 
         foreach ($keys as $key) {
-            if (method_exists($this, $method = 'get' . ucfirst(studly_case(strtolower($key))) . 'Replacement')) {
+            if (method_exists($this, $method = 'get'.ucfirst(studly_case(strtolower($key))).'Replacement')) {
                 $replaces[$key] = call_user_func([$this, $method]);
             } else {
                 $replaces[$key] = null;
@@ -399,7 +406,7 @@ class ModuleGenerator extends Generator
     }
 
     /**
-     * Get replacement for $VENDOR$
+     * Get replacement for $VENDOR$.
      *
      * @return string
      */
@@ -409,7 +416,7 @@ class ModuleGenerator extends Generator
     }
 
     /**
-     * Get replacement for $MODULE_NAMESPACE$
+     * Get replacement for $MODULE_NAMESPACE$.
      *
      * @return string
      */
@@ -419,7 +426,7 @@ class ModuleGenerator extends Generator
     }
 
     /**
-     * Get replacement for $AUTHOR_NAME$
+     * Get replacement for $AUTHOR_NAME$.
      *
      * @return string
      */
@@ -429,7 +436,7 @@ class ModuleGenerator extends Generator
     }
 
     /**
-     * Get replacement for $AUTHOR_EMAIL$
+     * Get replacement for $AUTHOR_EMAIL$.
      *
      * @return string
      */

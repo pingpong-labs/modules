@@ -1,4 +1,6 @@
-<?php namespace Pingpong\Modules\Generators;
+<?php
+
+namespace Pingpong\Modules\Generators;
 
 use Illuminate\Filesystem\Filesystem;
 
@@ -8,7 +10,6 @@ class FileAlreadyExistException extends \Exception
 
 class FileGenerator extends Generator
 {
-
     /**
      * The path wil be used.
      *
@@ -41,7 +42,7 @@ class FileGenerator extends Generator
     {
         $this->path = $path;
         $this->contents = $contents;
-        $this->filesystem = $filesystem ?: new Filesystem;
+        $this->filesystem = $filesystem ?: new Filesystem();
     }
 
     /**
@@ -58,6 +59,7 @@ class FileGenerator extends Generator
      * Set contents.
      *
      * @param mixed $contents
+     *
      * @return $this
      */
     public function setContents($contents)
@@ -80,7 +82,8 @@ class FileGenerator extends Generator
     /**
      * Set filesystem.
      *
-     * @param  null $filesystem
+     * @param null $filesystem
+     *
      * @return $this
      */
     public function setFilesystem(Filesystem $filesystem)
@@ -103,7 +106,8 @@ class FileGenerator extends Generator
     /**
      * Set path.
      *
-     * @param  mixed $path
+     * @param mixed $path
+     *
      * @return $this
      */
     public function setPath($path)
@@ -118,7 +122,7 @@ class FileGenerator extends Generator
      */
     public function generate()
     {
-        if (! $this->filesystem->exists($path = $this->getPath())) {
+        if (!$this->filesystem->exists($path = $this->getPath())) {
             return $this->filesystem->put($path, $this->getContents());
         }
 

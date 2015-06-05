@@ -1,4 +1,6 @@
-<?php namespace Pingpong\Modules\Commands;
+<?php
+
+namespace Pingpong\Modules\Commands;
 
 use Illuminate\Support\Str;
 use Pingpong\Support\Stub;
@@ -69,7 +71,7 @@ class ModelCommand extends GeneratorCommand
             'FILLABLE' => $this->getFillable(),
             'MODULE_NAMESPACE' => $this->laravel['modules']->config('namespace'),
             'NAMESPACE' => $this->getClassNamespace($module),
-            'CLASS' => $this->getClass()
+            'CLASS' => $this->getClass(),
         ]))->render();
     }
 
@@ -82,7 +84,7 @@ class ModelCommand extends GeneratorCommand
 
         $seederPath = $this->laravel['modules']->config('paths.generator.model');
 
-        return $path . $seederPath . '/' . $this->getModelName() . '.php';
+        return $path.$seederPath.'/'.$this->getModelName().'.php';
     }
 
     /**
@@ -100,7 +102,7 @@ class ModelCommand extends GeneratorCommand
     {
         $fillable = $this->option('fillable');
 
-        if (! is_null($fillable)) {
+        if (!is_null($fillable)) {
             $arrays = explode(',', $fillable);
 
             return json_encode($arrays);

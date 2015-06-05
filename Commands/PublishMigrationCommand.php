@@ -1,4 +1,6 @@
-<?php namespace Pingpong\Modules\Commands;
+<?php
+
+namespace Pingpong\Modules\Commands;
 
 use Illuminate\Console\Command;
 use Pingpong\Modules\Publishing\MigrationPublisher;
@@ -6,7 +8,6 @@ use Symfony\Component\Console\Input\InputArgument;
 
 class PublishMigrationCommand extends Command
 {
-
     /**
      * The console command name.
      *
@@ -30,7 +31,7 @@ class PublishMigrationCommand extends Command
     {
         if ($name = $this->argument('module')) {
             $module = $this->laravel['modules']->findOrFail($name);
-            
+
             $this->publish($module);
 
             return;
@@ -44,8 +45,7 @@ class PublishMigrationCommand extends Command
     /**
      * Publish migration for the specified module.
      *
-     * @param  \Pingpong\Modules\Module $module
-     * @return void
+     * @param \Pingpong\Modules\Module $module
      */
     public function publish($module)
     {

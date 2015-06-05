@@ -1,8 +1,9 @@
-<?php namespace Pingpong\Modules\Commands;
+<?php
+
+namespace Pingpong\Modules\Commands;
 
 use Illuminate\Support\Str;
 use Pingpong\Generators\Exceptions\InvalidMigrationNameException;
-use Pingpong\Generators\FormDumpers\FieldsDumper;
 use Pingpong\Generators\Migrations\NameParser;
 use Pingpong\Generators\Migrations\SchemaParser;
 use Pingpong\Support\Stub;
@@ -12,7 +13,6 @@ use Symfony\Component\Console\Input\InputOption;
 
 class MigrationCommand extends GeneratorCommand
 {
-
     use ModuleCommandTrait;
 
     /**
@@ -67,6 +67,7 @@ class MigrationCommand extends GeneratorCommand
 
     /**
      * @throws InvalidMigrationNameException
+     *
      * @return mixed
      */
     protected function getTemplateContents()
@@ -77,31 +78,31 @@ class MigrationCommand extends GeneratorCommand
             return Stub::create('/migration/create.stub', [
                 'class' => $this->getClass(),
                 'table' => $parser->getTable(),
-                'fields' => $this->getSchemaParser()->render()
+                'fields' => $this->getSchemaParser()->render(),
             ]);
         } elseif ($parser->isAdd()) {
             return Stub::create('/migration/add.stub', [
                 'class' => $this->getClass(),
                 'table' => $parser->getTable(),
                 'fields_up' => $this->getSchemaParser()->up(),
-                'fields_down' => $this->getSchemaParser()->down()
+                'fields_down' => $this->getSchemaParser()->down(),
             ]);
         } elseif ($parser->isDelete()) {
             return Stub::create('/migration/delete.stub', [
                 'class' => $this->getClass(),
                 'table' => $parser->getTable(),
                 'fields_down' => $this->getSchemaParser()->up(),
-                'fields_up' => $this->getSchemaParser()->down()
+                'fields_up' => $this->getSchemaParser()->down(),
             ]);
         } elseif ($parser->isDrop()) {
             return Stub::create('/migration/drop.stub', [
                 'class' => $this->getClass(),
                 'table' => $parser->getTable(),
-                'fields' => $this->getSchemaParser()->render()
+                'fields' => $this->getSchemaParser()->render(),
             ]);
         }
 
-        throw new InvalidMigrationNameException;
+        throw new InvalidMigrationNameException();
     }
 
     /**
@@ -113,7 +114,7 @@ class MigrationCommand extends GeneratorCommand
 
         $generatorPath = $this->laravel['modules']->config('paths.generator.migration');
 
-        return $path . $generatorPath . '/' . $this->getFileName() . '.php';
+        return $path.$generatorPath.'/'.$this->getFileName().'.php';
     }
 
     /**
@@ -121,7 +122,7 @@ class MigrationCommand extends GeneratorCommand
      */
     private function getFileName()
     {
-        return date('Y_m_d_His_') . $this->getSchemaName();
+        return date('Y_m_d_His_').$this->getSchemaName();
     }
 
     /**

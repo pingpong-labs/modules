@@ -1,4 +1,6 @@
-<?php namespace Pingpong\Modules\Commands;
+<?php
+
+namespace Pingpong\Modules\Commands;
 
 use Illuminate\Console\Command;
 use Pingpong\Modules\Migrations\Migrator;
@@ -8,7 +10,6 @@ use Symfony\Component\Console\Input\InputOption;
 
 class MigrateResetCommand extends Command
 {
-
     use MigrationLoaderTrait;
 
     /**
@@ -34,7 +35,7 @@ class MigrateResetCommand extends Command
     {
         $module = $this->argument('module');
 
-        if (! empty($module)) {
+        if (!empty($module)) {
             $this->reset($module);
 
             return;
@@ -61,7 +62,7 @@ class MigrateResetCommand extends Command
         $migrator = new Migrator($module);
 
         $migrated = $migrator->reset();
-        
+
         if (count($migrated)) {
             foreach ($migrated as $migration) {
                 $this->line("Rollback: <info>{$migration}</info>");

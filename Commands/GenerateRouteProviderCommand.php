@@ -1,4 +1,6 @@
-<?php namespace Pingpong\Modules\Commands;
+<?php
+
+namespace Pingpong\Modules\Commands;
 
 use Pingpong\Support\Stub;
 use Pingpong\Modules\Traits\ModuleCommandTrait;
@@ -6,7 +8,6 @@ use Symfony\Component\Console\Input\InputArgument;
 
 class GenerateRouteProviderCommand extends GeneratorCommand
 {
-
     use ModuleCommandTrait;
 
     /**
@@ -45,7 +46,7 @@ class GenerateRouteProviderCommand extends GeneratorCommand
         return (new Stub('/route-provider.stub', [
             'MODULE' => $this->getModuleName(),
             'NAME' => $this->getFileName(),
-            'MODULE_NAMESPACE' => $this->laravel['modules']->config('namespace')
+            'MODULE_NAMESPACE' => $this->laravel['modules']->config('namespace'),
         ]))->render();
     }
 
@@ -60,7 +61,7 @@ class GenerateRouteProviderCommand extends GeneratorCommand
 
         $generatorPath = $this->laravel['modules']->config('paths.generator.provider');
 
-        return $path . $generatorPath . '/' . $this->getFileName() . '.php';
+        return $path.$generatorPath.'/'.$this->getFileName().'.php';
     }
 
     /**

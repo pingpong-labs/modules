@@ -1,4 +1,6 @@
-<?php namespace Pingpong\Modules\Commands;
+<?php
+
+namespace Pingpong\Modules\Commands;
 
 use Illuminate\Console\Command;
 use Pingpong\Modules\Generators\FileAlreadyExistException;
@@ -34,7 +36,7 @@ abstract class GeneratorCommand extends Command
     {
         $path = str_replace('\\', '/', $this->getDestinationFilePath());
 
-        if (! $this->laravel['files']->isDirectory($dir = dirname($path))) {
+        if (!$this->laravel['files']->isDirectory($dir = dirname($path))) {
             $this->laravel['files']->makeDirectory($dir, 0777, true);
         }
 
@@ -72,7 +74,8 @@ abstract class GeneratorCommand extends Command
     /**
      * Get class namespace.
      *
-     * @param  \Pingpong\Module\Module $module
+     * @param \Pingpong\Module\Module $module
+     *
      * @return string
      */
     public function getClassNamespace($module)
@@ -83,11 +86,11 @@ abstract class GeneratorCommand extends Command
 
         $namespace = $this->laravel['modules']->config('namespace');
 
-        $namespace.= '\\' . $module->getStudlyName();
+        $namespace .= '\\'.$module->getStudlyName();
 
-        $namespace.= '\\' . $this->getDefaultNamespace();
+        $namespace .= '\\'.$this->getDefaultNamespace();
 
-        $namespace.= '\\' . $extra;
+        $namespace .= '\\'.$extra;
 
         return rtrim($namespace, '\\');
     }

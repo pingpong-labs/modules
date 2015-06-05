@@ -1,10 +1,11 @@
-<?php namespace Pingpong\Modules\Commands;
+<?php
+
+namespace Pingpong\Modules\Commands;
 
 use Illuminate\Console\Command;
 
 class SetupCommand extends Command
 {
-
     /**
      * The console command name.
      *
@@ -62,7 +63,7 @@ class SetupCommand extends Command
      */
     protected function generateDirectory($dir, $success, $error)
     {
-        if (! $this->laravel['files']->isDirectory($dir)) {
+        if (!$this->laravel['files']->isDirectory($dir)) {
             $this->laravel['files']->makeDirectory($dir);
 
             $this->info($success);

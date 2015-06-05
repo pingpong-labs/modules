@@ -1,4 +1,6 @@
-<?php namespace Pingpong\Modules\Commands;
+<?php
+
+namespace Pingpong\Modules\Commands;
 
 use Illuminate\Console\Command;
 use Pingpong\Modules\Process\Installer;
@@ -8,7 +10,6 @@ use Symfony\Component\Console\Input\InputOption;
 
 class InstallCommand extends Command
 {
-
     /**
      * The console command name.
      *
@@ -25,8 +26,6 @@ class InstallCommand extends Command
 
     /**
      * Create a new command instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -56,19 +55,17 @@ class InstallCommand extends Command
 
     /**
      * Install modules from modules.json file.
-     *
-     * @return void
      */
     protected function installFromFile()
     {
-        if (! file_exists($path = base_path('modules.json'))) {
+        if (!file_exists($path = base_path('modules.json'))) {
             $this->error("File 'modules.json' does not exist in your project root.");
-            
+
             return;
         }
 
         $modules = Json::make($path);
-        
+
         $dependencies = $modules->get('require', []);
 
         foreach ($dependencies as $module) {
@@ -85,11 +82,10 @@ class InstallCommand extends Command
     /**
      * Install the specified module.
      *
-     * @param  string  $name
-     * @param  string  $version
-     * @param  string  $type
-     * @param  boolean $tree
-     * @return void
+     * @param string $name
+     * @param string $version
+     * @param string $type
+     * @param bool   $tree
      */
     protected function install($name, $version = 'dev-master', $type = 'composer', $tree = false)
     {
@@ -101,7 +97,7 @@ class InstallCommand extends Command
         );
 
         $installer->setRepository($this->laravel['modules']);
-        
+
         $installer->setConsole($this);
 
         if ($timeout = $this->option('timeout')) {
@@ -114,9 +110,9 @@ class InstallCommand extends Command
 
         $installer->run();
 
-        if (! $this->option('no-update')) {
+        if (!$this->option('no-update')) {
             $this->call('module:update', [
-                'module' => $installer->getModuleName()
+                'module' => $installer->getModuleName(),
             ]);
         }
     }

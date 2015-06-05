@@ -1,4 +1,6 @@
-<?php namespace Pingpong\Modules\Commands;
+<?php
+
+namespace Pingpong\Modules\Commands;
 
 use Illuminate\Console\Command;
 use Pingpong\Modules\Migrations\Migrator;
@@ -8,7 +10,6 @@ use Symfony\Component\Console\Input\InputOption;
 
 class MigrateRollbackCommand extends Command
 {
-
     use MigrationLoaderTrait;
 
     /**
@@ -34,7 +35,7 @@ class MigrateRollbackCommand extends Command
     {
         $module = $this->argument('module');
 
-        if (! empty($module)) {
+        if (!empty($module)) {
             $this->rollback($module);
 
             return;
@@ -42,7 +43,7 @@ class MigrateRollbackCommand extends Command
 
         foreach ($this->laravel['modules']->all() as $module) {
             $this->line('Running for module: <info>'.$module->getName().'</info>');
-            
+
             $this->rollback($module);
         }
     }
@@ -61,7 +62,7 @@ class MigrateRollbackCommand extends Command
         $migrator = new Migrator($module);
 
         $migrated = $migrator->rollback();
-        
+
         if (count($migrated)) {
             foreach ($migrated as $migration) {
                 $this->line("Rollback: <info>{$migration}</info>");

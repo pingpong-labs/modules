@@ -1,4 +1,6 @@
-<?php namespace Pingpong\Modules;
+<?php
+
+namespace Pingpong\Modules;
 
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Foundation\Application;
@@ -7,7 +9,6 @@ use Illuminate\Support\Str;
 
 class Module extends ServiceProvider
 {
-
     /**
      * The laravel application instance.
      *
@@ -127,6 +128,7 @@ class Module extends ServiceProvider
      * Set path.
      *
      * @param string $path
+     *
      * @return $this
      */
     public function setPath($path)
@@ -138,11 +140,16 @@ class Module extends ServiceProvider
 
     /**
      * Bootstrap the application events.
-     *
-     * @return void
      */
     public function boot()
     {
+        $lowerName = $this->getLowerName();
+
+        $this->loadTranslationsFrom(
+            base_path("resources/lang/{$lowerName}"),
+            $lowerName
+        );
+
         $this->fireEvent('boot');
     }
 
@@ -153,7 +160,7 @@ class Module extends ServiceProvider
      */
     public function json()
     {
-        return new Json($this->getPath() . '/module.json', $this->app['files']);
+        return new Json($this->getPath().'/module.json', $this->app['files']);
     }
 
     /**
@@ -161,6 +168,7 @@ class Module extends ServiceProvider
      *
      * @param $key
      * @param null $default
+     *
      * @return mixed
      */
     public function get($key, $default = null)
@@ -170,8 +178,6 @@ class Module extends ServiceProvider
 
     /**
      * Register the module.
-     *
-     * @return void
      */
     public function register()
     {
@@ -191,14 +197,11 @@ class Module extends ServiceProvider
      */
     protected function fireEvent($event)
     {
-        $this->app['events']->fire(sprintf('modules.%s.' . $event, $this->getLowerName()), [$this]);
+        $this->app['events']->fire(sprintf('modules.%s.'.$event, $this->getLowerName()), [$this]);
     }
-
 
     /**
      * Register the aliases from this module.
-     *
-     * @return void
      */
     protected function registerAliases()
     {
@@ -210,8 +213,6 @@ class Module extends ServiceProvider
 
     /**
      * Register the service providers from this module.
-     *
-     * @return void
      */
     protected function registerProviders()
     {
@@ -222,13 +223,11 @@ class Module extends ServiceProvider
 
     /**
      * Register the files from this module.
-     *
-     * @return void
      */
     protected function registerFiles()
     {
         foreach ($this->get('files', []) as $file) {
-            include $this->path . '/' . $file;
+            include $this->path.'/'.$file;
         }
     }
 
@@ -246,6 +245,7 @@ class Module extends ServiceProvider
      * Determine whether the given status same with the current module status.
      *
      * @param $status
+     *
      * @return bool
      */
     public function isStatus($status)
@@ -280,7 +280,7 @@ class Module extends ServiceProvider
      */
     public function notActive()
     {
-        return ! $this->active();
+        return !$this->active();
     }
 
     /**
@@ -290,13 +290,14 @@ class Module extends ServiceProvider
      */
     public function disabled()
     {
-        return ! $this->enabled();
+        return !$this->enabled();
     }
 
     /**
      * Set active state for current module.
      *
      * @param $active
+     *
      * @return bool
      */
     public function setActive($active)
@@ -312,23 +313,21 @@ class Module extends ServiceProvider
     public function disable()
     {
         $this->app['events']->fire('module.disabling', [$this]);
-        
+
         $this->setActive(0);
-        
+
         $this->app['events']->fire('module.disabled', [$this]);
     }
 
     /**
      * Enable the current module.
-     *
-     * @return void
      */
     public function enable()
     {
         $this->app['events']->fire('module.enabling', [$this]);
 
         $this->setActive(1);
-        
+
         $this->app['events']->fire('module.enabled', [$this]);
     }
 
@@ -346,17 +345,19 @@ class Module extends ServiceProvider
      * Get extra path.
      *
      * @param $path
+     *
      * @return string
      */
     public function getExtraPath($path)
     {
-        return $this->getPath() . '/' . $path;
+        return $this->getPath().'/'.$path;
     }
 
     /**
      * Handle call to __get method.
      *
      * @param $key
+     *
      * @return mixed
      */
     public function __get($key)

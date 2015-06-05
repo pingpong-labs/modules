@@ -1,10 +1,11 @@
-<?php namespace Pingpong\Modules;
+<?php
+
+namespace Pingpong\Modules;
 
 use Illuminate\Filesystem\Filesystem;
 
 class Json
 {
-
     /**
      * The file path.
      *
@@ -29,13 +30,13 @@ class Json
     /**
      * The constructor.
      *
-     * @param mixed $path
+     * @param mixed                             $path
      * @param \Illuminate\Filesystem\Filesystem $filesystem
      */
     public function __construct($path, Filesystem $filesystem = null)
     {
-        $this->path = (string)$path;
-        $this->filesystem = $filesystem ?: new Filesystem;
+        $this->path = (string) $path;
+        $this->filesystem = $filesystem ?: new Filesystem();
         $this->attributes = Collection::make($this->getAttributes());
     }
 
@@ -53,6 +54,7 @@ class Json
      * Set filesystem.
      *
      * @param Filesystem $filesystem
+     *
      * @return $this
      */
     public function setFilesystem(Filesystem $filesystem)
@@ -76,11 +78,12 @@ class Json
      * Set path.
      *
      * @param mixed $path
+     *
      * @return $this
      */
     public function setPath($path)
     {
-        $this->path = (string)$path;
+        $this->path = (string) $path;
 
         return $this;
     }
@@ -88,8 +91,9 @@ class Json
     /**
      * Make new instance.
      *
-     * @param  string $path
-     * @param  \Illuminate\Filesystem\Filesystem $filesystem
+     * @param string                            $path
+     * @param \Illuminate\Filesystem\Filesystem $filesystem
+     *
      * @return static
      */
     public static function make($path, Filesystem $filesystem = null)
@@ -120,7 +124,8 @@ class Json
     /**
      * Convert the given array data to pretty json.
      *
-     * @param  array $data
+     * @param array $data
+     *
      * @return string
      */
     public function toJsonPretty(array $data = null)
@@ -131,8 +136,9 @@ class Json
     /**
      * Update json contents from array data.
      *
-     * @param  array $data
-     * @return boolean
+     * @param array $data
+     *
+     * @return bool
      */
     public function update(array $data)
     {
@@ -145,7 +151,8 @@ class Json
      * Set a specific key & value.
      *
      * @param string $key
-     * @param mixed $value
+     * @param mixed  $value
+     *
      * @return $this
      */
     public function set($key, $value)
@@ -168,7 +175,8 @@ class Json
     /**
      * Handle magic method __get.
      *
-     * @param  string $key
+     * @param string $key
+     *
      * @return mixed
      */
     public function __get($key)
@@ -181,6 +189,7 @@ class Json
      *
      * @param $key
      * @param null $default
+     *
      * @return mixed
      */
     public function get($key, $default = null)
@@ -191,8 +200,9 @@ class Json
     /**
      * Handle call to __call method.
      *
-     * @param  string $method
-     * @param  array $arguments
+     * @param string $method
+     * @param array  $arguments
+     *
      * @return mixed
      */
     public function __call($method, $arguments = [])
