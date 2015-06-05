@@ -4,6 +4,7 @@ use Illuminate\Console\Command;
 use Pingpong\Modules\Publishing\AssetPublisher;
 use Pingpong\Modules\Publishing\LangPublisher;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 
 class PublishCommand extends Command
 {
@@ -59,17 +60,67 @@ class PublishCommand extends Command
     {
         $module = $this->laravel['modules']->findOrFail($name);
 
+        $published = [];
+
+        if ($this->askConfirmation('Do you want to publish module\'s assets?')) {
+            $this->publishAsset($module);
+            $published[] = 'asset';
+        }
+
+        if ($this->askConfirmation('Do you want to publish module\'s translation files?')) {
+            $this->publishTranslation($module);
+            $published[] = 'translation';
+        }
+
+        if (count($published) > 0) {
+            $this->line("<info>Published</info>: {$module->getStudlyName()}");
+            return;
+        }
+
+        $this->comment('Nothing to publish.');
+    }
+
+    /**
+     * Publish asset files from specific module.
+     * 
+     * @param  \Pingpong\Modules\Module $module
+     * @return void
+     */
+    protected function publishAsset($module)
+    {
         with(new AssetPublisher($module))
             ->setRepository($this->laravel['modules'])
             ->setConsole($this)
             ->publish();
+    }
 
+    /**
+     * Publish translation files from specific module.
+     * 
+     * @param  \Pingpong\Modules\Module $module
+     * @return void
+     */
+    protected function publishTranslation($module)
+    {
         with(new LangPublisher($module))
             ->setRepository($this->laravel['modules'])
             ->setConsole($this)
             ->publish();
+    }
 
-        $this->line("<info>Published</info>: {$module->getStudlyName()}");
+    /**
+     * Ask confirmation alert.
+     * 
+     * @param  string $message
+     * @return boolean
+     */
+    protected function askConfirmation($message)
+    {
+        if ($this->option('force')) {
+            return true;
+        }
+
+        return $this->confirm($message);
     }
 
     /**
@@ -79,8 +130,20 @@ class PublishCommand extends Command
      */
     protected function getArguments()
     {
-        return array(
-            array('module', InputArgument::OPTIONAL, 'The name of module will be used.'),
-        );
+        return [
+            ['module', InputArgument::OPTIONAL, 'The name of module will be used.'],
+        ];
+    }
+
+    /**
+     * Get the console command options.
+     * 
+     * @return array
+     */
+    protected function getOptions()
+    {
+        return [
+            ['force', 'f', InputOption::VALUE_NONE, 'Skip confirmation alert.', null],
+        ];
     }
 }
