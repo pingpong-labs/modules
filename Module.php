@@ -143,6 +143,13 @@ class Module extends ServiceProvider
      */
     public function boot()
     {
+        $lowerName = $this->getLowerName();
+        
+        $this->loadTranslationsFrom(
+            base_path("resources/lang/{$lowerName}"),
+            $lowerName
+        );
+
         $this->fireEvent('boot');
     }
 
