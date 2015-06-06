@@ -79,6 +79,13 @@ class Migrator
     {
         $migrations = array_reverse($this->getMigrations());
 
+        $this->requireFiles($migrations);
+
+        // Once we grab all of the migration files for the path, we will compare them
+        // against the migrations that have already been run for this package then
+        // run each of the outstanding migrations against a database connection.
+        $migrations = array_diff($migrations, $this->getRan());
+
         $migrated = [];
 
         foreach ($migrations as $migration) {
@@ -100,6 +107,8 @@ class Migrator
     public function rollback()
     {
         $migrations = $this->getLast($this->getMigrations());
+
+        $this->requireFiles($migrations);
 
         $migrated = [];
 
@@ -126,6 +135,8 @@ class Migrator
     public function reset()
     {
         $migrations = $this->getMigrations();
+
+        $this->requireFiles($migrations);
 
         $migrated = [];
 
@@ -183,11 +194,12 @@ class Migrator
     /**
      * Require in all the migration files in a given path.
      *
-     * @param string $path
      * @param array  $files
      */
-    public function requireFiles($path, array $files)
+    public function requireFiles(array $files)
     {
+        $path = $this->getPath();
+
         foreach ($files as $file) {
             $this->laravel['files']->requireOnce($path.'/'.$file.'.php');
         }
@@ -269,5 +281,15 @@ class Migrator
         return collect($result)->map(function ($item) {
             return (array) $item;
         })->lists('migration');
+    }
+
+    /**
+     * Get the ran migrations.
+     *
+     * @return array
+     */
+    public function getRan()
+    {
+        return $this->table()->lists('migration');
     }
 }
