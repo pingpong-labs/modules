@@ -56,7 +56,7 @@ class MigrateResetCommand extends Command
     public function reset($module)
     {
         if (is_string($module)) {
-            $module = $this->laravel['modules']->find($module);
+            $module = $this->laravel['modules']->findOrFail($module);
         }
 
         $migrator = new Migrator($module);
