@@ -77,7 +77,7 @@ class Migrator
      */
     public function migrate()
     {
-        $migrations = array_reverse($this->getMigrations());
+        $migrations = $this->getMigrations();
 
         $this->requireFiles($migrations);
 
