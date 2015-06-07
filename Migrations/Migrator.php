@@ -2,6 +2,8 @@
 
 namespace Pingpong\Modules\Migrations;
 
+use Pingpong\Modules\Module;
+
 class Migrator
 {
     /**
@@ -23,7 +25,7 @@ class Migrator
      *
      * @param \Pingpong\Modules\Module $module
      */
-    public function __construct($module)
+    public function __construct(Module $module)
     {
         $this->module = $module;
         $this->laravel = $module->getLaravel();
@@ -226,11 +228,14 @@ class Migrator
     /**
      * Get the last migration batch number.
      *
+     * @param array $migrations
      * @return int
      */
-    public function getLastBatchNumber()
+    public function getLastBatchNumber($migrations)
     {
-        return $this->table()->max('batch');
+        return $this->table()
+            ->whereIn('migration', $migrations)
+            ->max('batch');
     }
 
     /**
@@ -243,7 +248,7 @@ class Migrator
     public function getLast($migrations)
     {
         $query = $this->table()
-            ->where('batch', $this->getLastBatchNumber())
+            ->where('batch', $this->getLastBatchNumber($migrations))
             ->whereIn('migration', $migrations)
             ;
 
