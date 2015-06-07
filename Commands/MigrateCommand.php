@@ -75,7 +75,7 @@ class MigrateCommand extends Command
 
     /**
      * Get migration path for specific module.
-     * 
+     *
      * @param  \Pingpong\Modules\Module $module
      * @return string
      */
