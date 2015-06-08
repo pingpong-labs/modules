@@ -46,9 +46,10 @@ class Migrator
     /**
      * Get migration files.
      *
+     * @param boolean $reverse
      * @return array
      */
-    public function getMigrations()
+    public function getMigrations($reverse = false)
     {
         $files = $this->laravel['files']->glob($this->getPath().'/*_*.php');
 
@@ -69,6 +70,10 @@ class Migrator
         // the order they were actually created by the application developers.
         sort($files);
 
+        if ($reverse) {
+            return array_reverse($files);
+        }
+
         return $files;
     }
 
@@ -79,7 +84,7 @@ class Migrator
      */
     public function rollback()
     {
-        $migrations = $this->getLast($this->getMigrations());
+        $migrations = $this->getLast($this->getMigrations(true));
 
         $this->requireFiles($migrations);
 
@@ -107,7 +112,7 @@ class Migrator
      */
     public function reset()
     {
-        $migrations = $this->getMigrations();
+        $migrations = $this->getMigrations(true);
 
         $this->requireFiles($migrations);
 
