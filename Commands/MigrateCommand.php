@@ -60,20 +60,13 @@ class MigrateCommand extends Command
     protected function migrate($name)
     {
         $module = $this->module->findOrFail($name);
-
-        $migrator = new Migrator($module);
-
-        $migrated = $migrator->migrate();
-
-        if (count($migrated)) {
-            foreach ($migrated as $migration) {
-                $this->line("Migrated: <info>{$migration}</info>");
-            }
-
-            return;
-        }
-
-        $this->comment('Nothing to migrate.');
+        
+        $this->call('migrate', [
+            '--path' => $this->getPath($module),
+            '--database' => $this->option('database'),
+            '--pretend' => $this->option('pretend'),
+            '--force' => $this->option('force'),
+        ]);
 
         if ($this->option('seed')) {
             $this->call('module:seed', ['module' => $name]);
@@ -81,31 +74,16 @@ class MigrateCommand extends Command
     }
 
     /**
-     * Get console paramenter.
+     * Get migration path for specific module.
      *
-     * @param string $path
-     *
-     * @return array
+     * @param  \Pingpong\Modules\Module $module
+     * @return string
      */
-    protected function getParameter($path)
+    protected function getPath($module)
     {
-        $params = array();
-
-        $params['--path'] = $path;
-
-        if ($option = $this->option('database')) {
-            $params['--database'] = $option;
-        }
-
-        if ($option = $this->option('pretend')) {
-            $params['--pretend'] = $option;
-        }
-
-        if ($option = $this->option('force')) {
-            $params['--force'] = $option;
-        }
-
-        return $params;
+        $path = $module->getExtraPath(config('modules.paths.generator.migration'));
+        
+        return str_replace(base_path(), '', $path);
     }
 
     /**

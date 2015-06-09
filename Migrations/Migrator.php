@@ -2,6 +2,8 @@
 
 namespace Pingpong\Modules\Migrations;
 
+use Pingpong\Modules\Module;
+
 class Migrator
 {
     /**
@@ -23,7 +25,7 @@ class Migrator
      *
      * @param \Pingpong\Modules\Module $module
      */
-    public function __construct($module)
+    public function __construct(Module $module)
     {
         $this->module = $module;
         $this->laravel = $module->getLaravel();
@@ -44,9 +46,10 @@ class Migrator
     /**
      * Get migration files.
      *
+     * @param boolean $reverse
      * @return array
      */
-    public function getMigrations()
+    public function getMigrations($reverse = false)
     {
         $files = $this->laravel['files']->glob($this->getPath().'/*_*.php');
 
@@ -67,29 +70,11 @@ class Migrator
         // the order they were actually created by the application developers.
         sort($files);
 
-        return $files;
-    }
-
-    /**
-     * Migrate migrations.
-     *
-     * @return array
-     */
-    public function migrate()
-    {
-        $migrations = array_reverse($this->getMigrations());
-
-        $migrated = [];
-
-        foreach ($migrations as $migration) {
-            $migrated[] = $migration;
-
-            $this->up($migration);
-
-            $this->log($migration);
+        if ($reverse) {
+            return array_reverse($files);
         }
 
-        return $migrated;
+        return $files;
     }
 
     /**
@@ -99,7 +84,9 @@ class Migrator
      */
     public function rollback()
     {
-        $migrations = $this->getLast($this->getMigrations());
+        $migrations = $this->getLast($this->getMigrations(true));
+
+        $this->requireFiles($migrations);
 
         $migrated = [];
 
@@ -125,7 +112,9 @@ class Migrator
      */
     public function reset()
     {
-        $migrations = $this->getMigrations();
+        $migrations = $this->getMigrations(true);
+
+        $this->requireFiles($migrations);
 
         $migrated = [];
 
@@ -183,11 +172,12 @@ class Migrator
     /**
      * Require in all the migration files in a given path.
      *
-     * @param string $path
      * @param array  $files
      */
-    public function requireFiles($path, array $files)
+    public function requireFiles(array $files)
     {
+        $path = $this->getPath();
+
         foreach ($files as $file) {
             $this->laravel['files']->requireOnce($path.'/'.$file.'.php');
         }
@@ -243,11 +233,14 @@ class Migrator
     /**
      * Get the last migration batch number.
      *
+     * @param array $migrations
      * @return int
      */
-    public function getLastBatchNumber()
+    public function getLastBatchNumber($migrations)
     {
-        return $this->table()->max('batch');
+        return $this->table()
+            ->whereIn('migration', $migrations)
+            ->max('batch');
     }
 
     /**
@@ -260,7 +253,7 @@ class Migrator
     public function getLast($migrations)
     {
         $query = $this->table()
-            ->where('batch', $this->getLastBatchNumber())
+            ->where('batch', $this->getLastBatchNumber($migrations))
             ->whereIn('migration', $migrations)
             ;
 
@@ -269,5 +262,15 @@ class Migrator
         return collect($result)->map(function ($item) {
             return (array) $item;
         })->lists('migration');
+    }
+
+    /**
+     * Get the ran migrations.
+     *
+     * @return array
+     */
+    public function getRan()
+    {
+        return $this->table()->lists('migration');
     }
 }

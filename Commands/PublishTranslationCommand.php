@@ -4,26 +4,24 @@ namespace Pingpong\Modules\Commands;
 
 use Illuminate\Console\Command;
 use Pingpong\Modules\Module;
-use Pingpong\Modules\Publishing\AssetPublisher;
 use Pingpong\Modules\Publishing\LangPublisher;
 use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
 
-class PublishCommand extends Command
+class PublishTranslationCommand extends Command
 {
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'module:publish';
+    protected $name = 'module:publish-translation';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Publish a module\'s assets to the application';
+    protected $description = 'Publish a module\'s translations to the application';
 
     /**
      * Execute the console command.
@@ -62,7 +60,7 @@ class PublishCommand extends Command
             $module = $this->laravel['modules']->findOrFail($name);
         }
 
-        with(new AssetPublisher($module))
+        with(new LangPublisher($module))
             ->setRepository($this->laravel['modules'])
             ->setConsole($this)
             ->publish();

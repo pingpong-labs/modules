@@ -12,13 +12,25 @@ class $CLASS$ extends ServiceProvider {
 	protected $defer = false;
 
 	/**
+	 * Boot the application events.
+	 * 
+	 * @return void
+	 */
+	public function boot()
+	{
+		$this->registerConfig();
+		$this->registerTranslations();
+		$this->registerViews();
+	}
+
+	/**
 	 * Register the service provider.
 	 *
 	 * @return void
 	 */
 	public function register()
 	{		
-		$this->registerConfig();
+		//
 	}
 
 	/**
@@ -34,6 +46,40 @@ class $CLASS$ extends ServiceProvider {
 		$this->mergeConfigFrom(
 		    __DIR__.'/../Config/config.php', '$LOWER_NAME$'
 		);
+	}
+
+	/**
+	 * Register views.
+	 * 
+	 * @return void
+	 */
+	public function registerViews()
+	{
+		$viewPath = base_path('views/modules/$LOWER_NAME$');
+
+		$sourcePath = __DIR__.'/../Resources/views';
+
+		$this->publishes([
+			$sourcePath => $viewPath
+		]);
+
+		$this->loadViewsFrom([$viewPath, $sourcePath], '$LOWER_NAME$');
+	}
+
+	/**
+	 * Register translations.
+	 * 
+	 * @return void
+	 */
+	public function registerTranslations()
+	{
+		$langPath = base_path('resources/lang/modules/$LOWER_NAME$');
+
+		if (is_dir($langPath)) {
+			$this->loadTranslationsFrom($langPath, '$LOWER_NAME$');
+		} else {
+			$this->loadTranslationsFrom(__DIR__ .'/../Resources/lang', '$LOWER_NAME$');
+		}
 	}
 
 	/**
