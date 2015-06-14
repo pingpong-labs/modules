@@ -39,7 +39,7 @@ class UseCommand extends Command
 
         $this->laravel['modules']->setUsed($module);
 
-        $this->info("Module [{$module}] has been used for current session.");
+        $this->info("Module [{$module}] used successfully.");
     }
 
     /**
