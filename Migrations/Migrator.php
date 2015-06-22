@@ -86,7 +86,7 @@ class Migrator
     {
         $migrations = $this->getLast($this->getMigrations(true));
 
-        $this->requireFiles($migrations);
+        $this->requireFiles($migrations->toArray());
 
         $migrated = [];
 
