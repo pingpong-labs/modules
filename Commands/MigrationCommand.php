@@ -3,7 +3,6 @@
 namespace Pingpong\Modules\Commands;
 
 use Illuminate\Support\Str;
-use Pingpong\Generators\Exceptions\InvalidMigrationNameException;
 use Pingpong\Generators\Migrations\NameParser;
 use Pingpong\Generators\Migrations\SchemaParser;
 use Pingpong\Support\Stub;
@@ -102,7 +101,7 @@ class MigrationCommand extends GeneratorCommand
             ]);
         }
 
-        throw new InvalidMigrationNameException();
+        throw new \InvalidArgumentException('Invalid migration name');
     }
 
     /**
