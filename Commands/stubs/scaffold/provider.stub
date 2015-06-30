@@ -55,7 +55,7 @@ class $CLASS$ extends ServiceProvider {
 	 */
 	public function registerViews()
 	{
-		$viewPath = base_path('views/modules/$LOWER_NAME$');
+		$viewPath = base_path('resources/views/modules/$LOWER_NAME$');
 
 		$sourcePath = __DIR__.'/../Resources/views';
 
