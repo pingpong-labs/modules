@@ -32,7 +32,7 @@ class MigrateRefreshCommand extends Command
      */
     public function fire()
     {
-        $this->call('module:migrate-reset', [
+        $this->call('module:migrate-rollback', [
             'module' => $this->getModuleName(),
             '--database' => $this->option('database'),
             '--force' => $this->option('force'),
