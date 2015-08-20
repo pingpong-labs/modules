@@ -68,9 +68,13 @@ class GenerateProviderCommand extends GeneratorCommand
         $module = $this->laravel['modules']->findOrFail($this->getModuleName());
 
         return (new Stub('/'.$stub.'.stub', [
-            'NAMESPACE' => $this->getClassNamespace($module),
-            'CLASS' => $this->getClass(),
-            'LOWER_NAME' => $module->getLowerName(),
+            'NAMESPACE'         => $this->getClassNamespace($module),
+            'CLASS'             => $this->getClass(),
+            'LOWER_NAME'        => $module->getLowerName(),
+            'MODULE'            => $this->getModuleName(),
+            'NAME'              => $this->getFileName(),
+            'STUDLY_NAME'       => $module->getStudlyName(),
+            'MODULE_NAMESPACE'  => $this->laravel['modules']->config('namespace'),            
         ]))->render();
     }
 

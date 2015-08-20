@@ -66,12 +66,14 @@ class ModelCommand extends GeneratorCommand
         $module = $this->laravel['modules']->findOrFail($this->getModuleName());
 
         return (new Stub('/model.stub', [
-            'MODULE' => $this->getModuleName(),
-            'NAME' => $this->getModelName(),
-            'FILLABLE' => $this->getFillable(),
-            'MODULE_NAMESPACE' => $this->laravel['modules']->config('namespace'),
-            'NAMESPACE' => $this->getClassNamespace($module),
-            'CLASS' => $this->getClass(),
+            'NAME'              => $this->getModelName(),
+            'FILLABLE'          => $this->getFillable(),
+            'NAMESPACE'         => $this->getClassNamespace($module),
+            'CLASS'             => $this->getClass(),
+            'LOWER_NAME'        => $module->getLowerName(),
+            'MODULE'            => $this->getModuleName(),
+            'STUDLY_NAME'       => $module->getStudlyName(),
+            'MODULE_NAMESPACE'  => $this->laravel['modules']->config('namespace'),
         ]))->render();
     }
 
