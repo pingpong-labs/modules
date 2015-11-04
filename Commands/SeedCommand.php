@@ -35,32 +35,30 @@ class SeedCommand extends Command
     {
         $this->module = $this->laravel['modules'];
 
-        if ($this->argument('module')) {
-            $modules = $this->argument('module');
-        }
-        elseif ($this->option('all')) {
-            $modules = $this->module->all();
-        }
-        else {
-            try {
-                $modules = $this->getModuleName();
-            } catch (\Exception $e) {
-                return $this->info("Use module:use to select which module you want to migrate.");
+        $name = $this->argument('module');
+
+        if ($name) {
+            if (!$this->module->has($name)) {
+                return $this->error("Module [$name] does not exists.");
+            }
+
+            $class = $this->getSeederName($name);
+            if (class_exists($class)) {
+                $this->dbseed($name);
+
+                return $this->info("Module [$name] seeded.");
+            } else {
+                return $this->error("Class [$class] does not exists.");
             }
         }
 
-        foreach ((array) $modules as $module) {
-            $name = $module instanceof Module ? Str::studly($module->getName()) : Str::studly($module);
-
-            if (! $this->module->has($name)) {
-                $this->error("Module [$module] does not exists.");
-                continue;
-            }
+        foreach ($this->module->getOrdered() as $module) {
+            $name = $module->getName();
 
             if (class_exists($this->getSeederName($name))) {
                 $this->dbseed($name);
 
-                $this->info("Module [$module] seeded.");
+                $this->info("Module [$name] seeded.");
             }
         }
 
