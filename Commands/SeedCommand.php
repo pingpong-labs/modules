@@ -57,9 +57,11 @@ class SeedCommand extends Command
                 continue;
             }
 
-            $this->dbseed($name);
+            if (class_exists($this->getSeederName($name))) {
+                $this->dbseed($name);
 
-            $this->info("Module [$module] seeded.");
+                $this->info("Module [$module] seeded.");
+            }
         }
 
         return $this->info('All modules seeded.');
@@ -98,7 +100,7 @@ class SeedCommand extends Command
 
         $namespace = $this->laravel['modules']->config('namespace');
 
-        return $namespace.'\\'.$name.'\Database\Seeders\\'.$name.'DatabaseSeeder';
+        return $namespace.'\\'.$name.'\Database\Seeders\\'.$name.'TableSeeder';
     }
 
     /**
