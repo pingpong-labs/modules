@@ -35,20 +35,31 @@ class SeedCommand extends Command
     {
         $this->module = $this->laravel['modules'];
 
-        $module = Str::studly($this->argument('module')) ?: $this->getModuleName();
+        $name = $this->argument('module');
 
-        if ($module) {
-            if ($this->module->has($module)) {
-                $this->dbseed($module);
-
-                return $this->info("Module [$module] seeded.");
+        if ($name) {
+            if (!$this->module->has($name)) {
+                return $this->error("Module [$name] does not exists.");
             }
 
-            return $this->error("Module [$module] does not exists.");
+            $class = $this->getSeederName($name);
+            if (class_exists($class)) {
+                $this->dbseed($name);
+
+                return $this->info("Module [$name] seeded.");
+            } else {
+                return $this->error("Class [$class] does not exists.");
+            }
         }
 
-        foreach ($this->module->all() as $name) {
-            $this->dbseed($name);
+        foreach ($this->module->getOrdered() as $module) {
+            $name = $module->getName();
+
+            if (class_exists($this->getSeederName($name))) {
+                $this->dbseed($name);
+
+                $this->info("Module [$name] seeded.");
+            }
         }
 
         return $this->info('All modules seeded.');
@@ -87,7 +98,7 @@ class SeedCommand extends Command
 
         $namespace = $this->laravel['modules']->config('namespace');
 
-        return $namespace.'\\'.$name.'\Database\Seeders\\'.$name.'DatabaseSeeder';
+        return $namespace.'\\'.$name.'\Database\Seeders\\'.$name.'TableSeeder';
     }
 
     /**
@@ -111,6 +122,7 @@ class SeedCommand extends Command
     {
         return array(
             array('class', null, InputOption::VALUE_OPTIONAL, 'The class name of the root seeder', null),
+            array('all', null, InputOption::VALUE_NONE, 'Whether or not we should seed all modules.'),
             array('database', null, InputOption::VALUE_OPTIONAL, 'The database connection to seed.'),
         );
     }

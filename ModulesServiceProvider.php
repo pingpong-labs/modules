@@ -64,7 +64,9 @@ class ModulesServiceProvider extends ServiceProvider
     {
         $configPath = __DIR__.'/src/config/config.php';
         $this->mergeConfigFrom($configPath, 'modules');
-        $this->publishes([$configPath => config_path('modules.php')]);
+        $this->publishes([
+            $configPath => config_path('modules.php')
+        ], 'config');
     }
 
     /**

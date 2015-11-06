@@ -18,8 +18,8 @@ class $CLASS$ extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->registerConfig();
 		$this->registerTranslations();
+		$this->registerConfig();
 		$this->registerViews();
 	}
 
