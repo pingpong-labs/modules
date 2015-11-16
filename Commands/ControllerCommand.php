@@ -55,7 +55,7 @@ class ControllerCommand extends GeneratorCommand
         return (new Stub('/controller.stub', [
             'MODULENAME'        => $module->getStudlyName(),
             'CONTROLLERNAME'    => $this->getControllerName(),
-            'NAMESPACE'         => $module->getLowername(),
+            'NAMESPACE'         => $module->getStudlyName(),
             'CLASS_NAMESPACE'   => $this->getClassNamespace($module),
             'CLASS'             => $this->getClass(),
             'LOWER_NAME'        => $module->getLowerName(),
