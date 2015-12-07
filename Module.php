@@ -169,9 +169,13 @@ class Module extends ServiceProvider
      *
      * @return Json
      */
-    public function json()
+    public function json($file = null)
     {
-        return new Json($this->getPath().'/module.json', $this->app['files']);
+        if (is_null($file)) {
+            $file = 'module.json';
+        }
+
+        return new Json($this->getPath() . '/' . $file, $this->app['files']);
     }
 
     /**
@@ -185,6 +189,19 @@ class Module extends ServiceProvider
     public function get($key, $default = null)
     {
         return $this->json()->get($key, $default);
+    }
+
+    /**
+     * Get a specific data from composer.json file by given the key.
+     *
+     * @param $key
+     * @param null $default
+     *
+     * @return mixed
+     */
+    public function getComposerAttr($key, $default = null)
+    {
+        return $this->json('composer.json')->get($key, $default);
     }
 
     /**
