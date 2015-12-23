@@ -248,9 +248,10 @@ class Installer
     public function installViaGit()
     {
         return new Process(sprintf(
-            'cd %s && git clone %s %s && git checkout %s',
+            'cd %s && git clone %s %s && cd %s && git checkout %s',
             base_path(),
             $this->getRepoUrl(),
+            $this->getDestinationPath(),
             $this->getDestinationPath(),
             $this->getBranch()
         ));
