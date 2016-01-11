@@ -152,6 +152,7 @@ class Installer
     {
         switch ($this->type) {
             case 'github':
+            case 'github-https':
             case 'bitbucket':
                 if ($this->tree) {
                     $process = $this->installViaSubtree();
@@ -192,6 +193,10 @@ class Installer
         switch ($this->type) {
             case 'github':
                 return "git@github.com:{$this->name}.git";
+                break;
+
+            case 'github-https':
+                return "https://github.com/{$this->name}.git";
                 break;
 
             case 'bitbucket':
