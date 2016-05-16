@@ -8,4 +8,4 @@
 		This view is loaded from module: {!! config('$LOWER_NAME$.name') !!}
 	</p>
 
-@stop
+@endsection
