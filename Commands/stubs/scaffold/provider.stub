@@ -18,6 +18,7 @@ class $CLASS$ extends ServiceProvider {
 	 */
 	public function boot()
 	{
+		\View::addNamespace('$MODULE$', __DIR__ . '/../Views');
 		$this->registerTranslations();
 		$this->registerConfig();
 		$this->registerViews();
