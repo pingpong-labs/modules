@@ -7,11 +7,12 @@ use Symfony\Component\Console\Input\InputArgument;
 class $CLASS$ extends Command {
 
 	/**
-	 * The console command name.
+	 * The console command signature.
+	 *
 	 *
 	 * @var string
 	 */
-	protected $name = '$COMMAND_NAME$';
+	protected $signature = '$COMMAND_NAME$ {requiredArg} {optionalArg?} {optionalArgWithVal=default} {--option}';
 
 	/**
 	 * The console command description.
@@ -35,33 +36,9 @@ class $CLASS$ extends Command {
 	 *
 	 * @return mixed
 	 */
-	public function fire()
+	public function handle()
 	{
 		//
-	}
-
-	/**
-	 * Get the console command arguments.
-	 *
-	 * @return array
-	 */
-	protected function getArguments()
-	{
-		return [
-			['example', InputArgument::REQUIRED, 'An example argument.'],
-		];
-	}
-
-	/**
-	 * Get the console command options.
-	 *
-	 * @return array
-	 */
-	protected function getOptions()
-	{
-		return [
-			['example', null, InputOption::VALUE_OPTIONAL, 'An example option.', null],
-		];
 	}
 
 }
