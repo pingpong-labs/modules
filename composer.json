@@ -17,9 +17,9 @@
   ],
   "require": {
     "php": ">=5.4.0",
-    "laravel/framework": "5.1.*",
-    "pingpong/generators": "2.1.*",
-    "pingpong/support": "2.1.*",
+    "laravel/framework": "5.2.*",
+    "pingpong/generators": "2.2.*",
+    "pingpong/support": "2.2.*",
     "laravelcollective/html": "~5.0"
   },
   "require-dev": {

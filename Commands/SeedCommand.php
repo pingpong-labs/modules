@@ -38,7 +38,7 @@ class SeedCommand extends Command
         $name = $this->argument('module');
 
         if ($name) {
-            if (!$this->module->has($name)) {
+            if (!$this->module->has(Str::studly($name))) {
                 return $this->error("Module [$name] does not exists.");
             }
 
@@ -98,7 +98,7 @@ class SeedCommand extends Command
 
         $namespace = $this->laravel['modules']->config('namespace');
 
-        return $namespace.'\\'.$name.'\Database\Seeders\\'.$name.'TableSeeder';
+        return $namespace.'\\'.$name.'\Database\Seeders\\'.$name.'DatabaseSeeder';
     }
 
     /**
