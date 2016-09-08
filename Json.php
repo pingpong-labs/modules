@@ -118,7 +118,13 @@ class Json
      */
     public function getAttributes()
     {
-        return json_decode($this->getContents(), 1);
+        if (config('modules.cache.enabled') === false) {
+            return json_decode($this->getContents(), 1);
+        }
+
+        return app('cache')->remember($this->getPath(), config('modules.cache.lifetime'), function () {
+            return json_decode($this->getContents(), 1);
+        });
     }
 
     /**
