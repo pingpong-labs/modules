@@ -64,7 +64,9 @@ class ModulesServiceProvider extends ServiceProvider
     {
         $configPath = __DIR__.'/src/config/config.php';
         $this->mergeConfigFrom($configPath, 'modules');
-        $this->publishes([$configPath => config_path('modules.php')]);
+        $this->publishes([
+            $configPath => config_path('modules.php')
+        ], 'config');
     }
 
     /**
@@ -88,7 +90,7 @@ class ModulesServiceProvider extends ServiceProvider
      */
     protected function registerServices()
     {
-        $this->app->bindShared('modules', function ($app) {
+        $this->app->singleton('modules', function ($app) {
             $path = $app['config']->get('modules.paths.modules');
 
             return new Repository($app, $path);

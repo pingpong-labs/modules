@@ -160,7 +160,9 @@ class Repository implements RepositoryInterface, Countable
         foreach ($cached as $name => $module) {
             $path = $this->config('paths.modules').'/'.$name;
 
-            $modules[] = new Module($this->app, $name, $path);
+            $lowerName = strtolower($name);
+
+            $modules[$name] = new Module($this->app, $lowerName, $path);
         }
 
         return $modules;

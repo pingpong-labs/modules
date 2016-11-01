@@ -13,7 +13,7 @@ class Updater extends Runner
     {
         $module = $this->module->findOrFail($module);
 
-        $packages = $module->get('require', []);
+        $packages = $module->getComposerAttr('require', []);
 
         chdir(base_path());
 

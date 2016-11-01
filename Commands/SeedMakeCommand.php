@@ -65,6 +65,7 @@ class SeedMakeCommand extends GeneratorCommand
             'NAME' => $this->getSeederName(),
             'MODULE' => $this->getModuleName(),
             'MODULE_NAMESPACE' => $this->laravel['modules']->config('namespace'),
+            
         ]))->render();
     }
 
