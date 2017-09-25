@@ -123,7 +123,7 @@ class Repository implements RepositoryInterface, Countable
             foreach ($manifests as $manifest) {
                 $name = Json::make($manifest)->get('name');
 
-                $lowerName = strtolower($name);
+                $lowerName = snake_case($name);
 
                 $modules[$name] = new Module($this->app, $lowerName, dirname($manifest));
             }
@@ -160,7 +160,7 @@ class Repository implements RepositoryInterface, Countable
         foreach ($cached as $name => $module) {
             $path = $this->config('paths.modules').'/'.$name;
 
-            $lowerName = strtolower($name);
+            $lowerName = snake_case($name);
 
             $modules[$name] = new Module($this->app, $lowerName, $path);
         }
@@ -316,7 +316,7 @@ class Repository implements RepositoryInterface, Countable
     public function find($name)
     {
         foreach ($this->all() as $module) {
-            if ($module->getLowerName() == strtolower($name)) {
+            if ($module->getLowerName() == snake_case($name)) {
                 return $module;
             }
         }

@@ -71,7 +71,7 @@ class Module extends ServiceProvider
      */
     public function getLowerName()
     {
-        return strtolower($this->name);
+        return snake_case($this->name);
     }
 
     /**
@@ -158,7 +158,7 @@ class Module extends ServiceProvider
         $lowerName = $this->getLowerName();
 
         $langPath = base_path("resources/lang/{$lowerName}");
-        
+
         if (is_dir($langPath)) {
             $this->loadTranslationsFrom($langPath, $lowerName);
         }
