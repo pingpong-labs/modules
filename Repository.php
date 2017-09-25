@@ -123,7 +123,7 @@ class Repository implements RepositoryInterface, Countable
             foreach ($manifests as $manifest) {
                 $name = Json::make($manifest)->get('name');
 
-                $lowerName = strtolower($name);
+                $lowerName = snake_case($name);
 
                 $modules[$name] = new Module($this->app, $lowerName, dirname($manifest));
             }
