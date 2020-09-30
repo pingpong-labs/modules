@@ -114,7 +114,7 @@ By default controllers, entities or repositories not loaded automatically. You c
 - `composer`
   - `vendor` - Composer vendor name.
   - `author.name` - Composer author name.
-  - `author.email` - Composer author email.
+  - `author.email` - Composer author email address.
 - `cache`
   - `enabled` - If `true`, the scanned modules (all modules) will cached automatically. By default the value is `false`
   - `key` - The name of cache.
